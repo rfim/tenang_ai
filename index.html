@@ -9,11 +9,21 @@
 <meta property="og:description" content="Tempat aman untuk bercerita, kapan saja. Insight anonim untuk institusi.">
 <meta property="og:type" content="website">
 <meta name="theme-color" content="#1d4a45">
+<meta name="color-scheme" content="light dark">
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Fraunces:opsz,wght,SOFT@9..144,500..800,50..100&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
+<script>
+  // Set light/dark before the page paints: saved choice first, then the system setting.
+  (function () {
+    var m = null;
+    try { m = localStorage.getItem("mode"); } catch (e) {}
+    if (!m) m = window.matchMedia && matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+    document.documentElement.setAttribute("data-mode", m);
+  })();
+</script>
 </head>
 <body>
 
@@ -60,6 +70,10 @@
       <a href="#pilot" data-i18n="nav.pilot">Ketersediaan</a>
     </nav>
     <div class="nav-actions">
+      <button type="button" class="mode-btn" aria-label="Mode gelap / dark mode" aria-pressed="false">
+        <svg class="i-moon2" viewBox="0 0 24 24"><path d="M15 3a9 9 0 1 0 6 13A8 8 0 0 1 15 3z" fill="currentColor"/></svg>
+        <svg class="i-sun" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8"/></g></svg>
+      </button>
       <div class="lang" role="group" aria-label="Bahasa / Language">
         <button type="button" data-lang="id" aria-pressed="true">ID</button>
         <button type="button" data-lang="en" aria-pressed="false">EN</button>

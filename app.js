@@ -1,9 +1,16 @@
 (function () {
   "use strict";
 
-  // Background theme preview: ?theme=mist|dawn|sky|ice
-  var themeParam = new URLSearchParams(location.search).get("theme");
-  if (themeParam) document.documentElement.setAttribute("data-theme", themeParam);
+  // Light / dark toggle (the initial mode is set by a small script in <head>)
+  var modeBtn = document.querySelector(".mode-btn");
+  function syncModeBtn() { if (modeBtn) modeBtn.setAttribute("aria-pressed", String(document.documentElement.getAttribute("data-mode") === "dark")); }
+  if (modeBtn) modeBtn.addEventListener("click", function () {
+    var next = document.documentElement.getAttribute("data-mode") === "dark" ? "light" : "dark";
+    document.documentElement.setAttribute("data-mode", next);
+    try { localStorage.setItem("mode", next); } catch (e) {}
+    syncModeBtn();
+  });
+  syncModeBtn();
 
   var EN = window.I18N_EN || {};
   var ID_JS = window.I18N_ID_JS || {};
