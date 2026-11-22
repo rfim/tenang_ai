@@ -1,6 +1,10 @@
 (function () {
   "use strict";
 
+  // Background theme preview: ?theme=mist|dawn|sky|ice
+  var themeParam = new URLSearchParams(location.search).get("theme");
+  if (themeParam) document.documentElement.setAttribute("data-theme", themeParam);
+
   var EN = window.I18N_EN || {};
   var ID_JS = window.I18N_ID_JS || {};
   var original = {};
