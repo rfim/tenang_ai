@@ -3,313 +3,288 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>TenangAI · Dukungan kesehatan mental 24/7 untuk institusi</title>
-<meta name="description" content="Nesya, teman cerita berbasis AI dalam Bahasa Indonesia, plus dashboard anonim untuk perusahaan, rumah sakit, universitas, dan program kesehatan masyarakat.">
-<meta property="og:title" content="TenangAI · Dukungan kesehatan mental 24/7">
+<title>N2CIAS oleh TenangAI · Dukungan kesehatan mental 24/7 untuk institusi</title>
+<meta name="description" content="Dibuat di Indonesia. N2CIAS memberi karyawan, mahasiswa, dan tenaga kesehatan dukungan kesehatan mental 24/7 lewat Nesya, dan memberi institusi insight agregat tanpa membuka percakapan pribadi.">
+<meta property="og:title" content="N2CIAS oleh TenangAI · Dukungan kesehatan mental 24/7">
 <meta property="og:description" content="Tempat aman untuk bercerita, kapan saja. Insight anonim untuk institusi.">
-<meta name="theme-color" content="#1f4d4a">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#1d4a45">
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Fraunces:opsz,wght,SOFT@9..144,500..800,50..100&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
+<!-- Icon sprite -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="spark" viewBox="0 0 20 20"><path d="M10 0C11 7 13 9 20 10C13 11 11 13 10 20C9 13 7 11 0 10C7 9 9 7 10 0Z"/></symbol>
+  <symbol id="i-company" viewBox="0 0 64 64"><g fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 56V14l22-6v48M34 22h18v34M6 56h52"/><path d="M19 20h6M19 29h6M19 38h6M41 30h4M41 39h4M24 56v-8h4v8"/></g></symbol>
+  <symbol id="i-hospital" viewBox="0 0 64 64"><g fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M10 56V26L32 10l22 16v30M6 56h52"/><path d="M32 24v16M24 32h16"/><path d="M27 56v-8h10v8"/></g></symbol>
+  <symbol id="i-university" viewBox="0 0 64 64"><g fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 24l28-12 28 12-28 12z"/><path d="M16 30v12c0 5 8 9 16 9s16-4 16-9V30"/><path d="M60 24v14"/><circle cx="60" cy="41" r="2.5"/></g></symbol>
+  <symbol id="i-public" viewBox="0 0 64 64"><g fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="32" cy="20" r="7"/><circle cx="13" cy="27" r="5.5"/><circle cx="51" cy="27" r="5.5"/><path d="M20 52c0-9 5-16 12-16s12 7 12 16M4 50c0-7 4-12 9-12 3 0 5 1 7 3M60 50c0-7-4-12-9-12-3 0-5 1-7 3"/></g></symbol>
+  <symbol id="i-moon" viewBox="0 0 24 24"><path d="M15 3a9 9 0 1 0 6 13A8 8 0 0 1 15 3z" fill="currentColor"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></g></symbol>
+  <symbol id="i-people" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="9" cy="8" r="3.5"/><path d="M2 20c0-4 3-7 7-7s7 3 7 7"/><path d="M16 4.5a3.5 3.5 0 0 1 0 7M18 13c2.5 1 4 3.5 4 7"/></g></symbol>
+  <symbol id="arrow" viewBox="0 0 20 12"><path d="M1 6h17M13 1l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+</svg>
+
 <a class="skip" href="#main" data-i18n="skip">Langsung ke isi</a>
 
-<header class="nav" id="top">
+<header class="nav" id="nav">
   <div class="wrap nav-inner">
-    <a href="#top" class="brand" aria-label="TenangAI">
-      <img src="assets/favicon.svg" alt="" width="32" height="32">
-      <span>Tenang<b>AI</b></span>
+    <a href="#top" class="brand" aria-label="N2CIAS oleh TenangAI">
+      <img src="assets/favicon.svg" alt="" width="40" height="40">
+      <span><b>N2CIAS</b><small data-i18n="brand.by">oleh TenangAI</small></span>
     </a>
     <nav class="nav-links" aria-label="Utama">
-      <a href="#nesya" data-i18n="nav.nesya">Nesya</a>
-      <a href="#cara-kerja" data-i18n="nav.how">Cara kerja</a>
-      <a href="#institusi" data-i18n="nav.inst">Untuk institusi</a>
-      <a href="#biaya" data-i18n="nav.price">Biaya</a>
-      <a href="#keamanan" data-i18n="nav.safety">Keamanan</a>
+      <a href="#platform">Platform</a>
+      <a href="#use-cases" data-i18n="nav.cases">Studi kasus</a>
+      <a href="#dashboard">Dashboard</a>
+      <a href="#safety" data-i18n="nav.safety">Keamanan</a>
+      <a href="#pilot" data-i18n="nav.pilot">Ketersediaan</a>
     </nav>
     <div class="nav-actions">
-      <div class="lang" role="group" aria-label="Bahasa">
+      <div class="lang" role="group" aria-label="Bahasa / Language">
         <button type="button" data-lang="id" aria-pressed="true">ID</button>
         <button type="button" data-lang="en" aria-pressed="false">EN</button>
       </div>
-      <a href="#kontak" class="btn btn-primary btn-sm" data-i18n="cta.demo">Jadwalkan demo</a>
+      <a href="#demo" class="btn btn-mustard btn-sm" data-i18n="cta.demo">Jadwalkan demo</a>
       <button class="menu-btn" type="button" aria-label="Menu" aria-expanded="false"><span></span><span></span></button>
     </div>
   </div>
+  <a href="#pilot" class="ribbon"><span data-i18n="ribbon">Pilot 8–12 minggu</span><svg width="14" height="14"><use href="#spark"/></svg></a>
 </header>
 
 <main id="main">
 
 <!-- HERO -->
-<section class="hero">
+<section class="hero" id="top">
+  <img class="deco sprig-l" src="assets/sprig-olive.svg" alt="" aria-hidden="true">
   <div class="wrap hero-grid">
     <div class="hero-copy">
-      <p class="eyebrow"><span class="flag">🇮🇩</span> <span data-i18n="hero.eyebrow">Dibuat di Jakarta untuk institusi Indonesia</span></p>
-      <h1 data-i18n="hero.title">Tempat aman untuk bercerita, kapan saja.</h1>
+      <p class="label"><span>N2CIAS</span> · <span data-i18n="hero.label">dukungan kesehatan mental untuk institusi</span></p>
+      <h1>
+        <span class="h1-big" data-i18n="hero.t1">Tempat aman</span>
+        <span class="h1-script" data-i18n="hero.t2">untuk bercerita, kapan saja.</span>
+      </h1>
+      <img class="divider" src="assets/divider.svg" alt="" width="220" height="20">
       <p class="lead" data-i18n="hero.lead">Nesya adalah teman cerita berbasis AI yang bisa diajak bicara 24 jam dalam Bahasa Indonesia. Institusi Anda menyediakannya untuk karyawan, mahasiswa, atau tenaga kesehatan, dan hanya melihat pola anonim, bukan isi percakapan.</p>
       <div class="hero-cta">
-        <a href="#kontak" class="btn btn-primary" data-i18n="cta.demo">Jadwalkan demo</a>
-        <a href="#cara-kerja" class="btn btn-ghost" data-i18n="cta.how">Lihat cara kerjanya</a>
+        <a href="#demo" class="btn btn-mustard"><span data-i18n="cta.demo">Jadwalkan demo</span> <svg width="18" height="12"><use href="#arrow"/></svg></a>
+        <a href="#how-it-works" class="link-u" data-i18n="cta.how">Lihat cara kerjanya</a>
       </div>
-      <ul class="chips">
-        <li data-i18n="chip.1">Tersedia 24/7</li>
-        <li data-i18n="chip.2">Bahasa Indonesia</li>
-        <li data-i18n="chip.3">Percakapan tetap privat</li>
-        <li data-i18n="chip.4">Dirujuk ke psikolog bila perlu</li>
+      <ul class="stamps">
+        <li data-i18n="chip.1">Bahasa Indonesia lebih dulu</li>
+        <li data-i18n="chip.2">Dirancang untuk institusi</li>
+        <li data-i18n="chip.3">Selalu melibatkan manusia</li>
+        <li data-i18n="chip.4">Insight anonim</li>
+        <li data-i18n="chip.5">Dukungan 24/7</li>
       </ul>
     </div>
 
     <div class="hero-art" aria-hidden="true">
-      <div class="blob blob-a"></div>
-      <div class="blob blob-b"></div>
+      <svg class="scene" viewBox="0 0 600 600" preserveAspectRatio="xMidYMax slice">
+        <g class="sparks" fill="#c9902f">
+          <use href="#spark" x="40" y="60" width="14" height="14"/><use href="#spark" x="520" y="40" width="18" height="18"/>
+          <use href="#spark" x="300" y="20" width="10" height="10"/><use href="#spark" x="560" y="260" width="12" height="12"/>
+          <use href="#spark" x="90" y="300" width="10" height="10"/>
+        </g>
+        <circle cx="470" cy="120" r="54" fill="#e9c98a" opacity=".55"/>
+        <g class="kite k1"><image href="assets/kite-rust.svg" x="380" y="40" width="130" height="270"/></g>
+        <g class="kite k2"><image href="assets/kite-indigo.svg" x="40" y="110" width="80" height="166"/></g>
+        <g class="kite k3"><image href="assets/kite-olive.svg" x="500" y="200" width="70" height="146"/></g>
+        <path d="M445 135 Q420 330 330 500" stroke="#7a5a35" stroke-width="1" fill="none" opacity=".7"/>
+        <path d="M80 160 Q140 330 250 510" stroke="#7a5a35" stroke-width="1" fill="none" opacity=".6"/>
+        <path d="M535 245 Q520 380 420 505" stroke="#7a5a35" stroke-width="1" fill="none" opacity=".6"/>
+        <path d="M0 470 C90 430 170 440 260 470 S440 430 600 450 V600 H0Z" fill="#a3ab72"/>
+        <path d="M0 510 C120 480 220 500 320 520 S500 490 600 505 V600 H0Z" fill="#6f7a45"/>
+        <path d="M0 555 C140 530 260 545 380 560 S540 540 600 548 V600 H0Z" fill="#1d4a45"/>
+      </svg>
+      <img class="mush m1" src="assets/mushroom.svg" alt="">
       <div class="phone">
+        <span class="tape"></span>
         <div class="phone-top">
-          <div class="nesya-face sm"><i></i><i></i></div>
-          <div>
-            <strong>Nesya</strong>
-            <small data-i18n="chat.status">Online · privat</small>
-          </div>
+          <img src="assets/nesya.svg" alt="" width="40" height="44">
+          <div><strong>Nesya</strong><small data-i18n="chat.status">Online · privat</small></div>
         </div>
         <div class="chat" id="chat">
           <p class="msg user" data-i18n="chat.u1">Aku nggak tahu kenapa, tapi akhir-akhir ini rasanya berat.</p>
-          <p class="msg bot" data-i18n="chat.b1">Makasih udah cerita. Kita pelan-pelan aja ya. Bagian mana yang paling terasa berat minggu ini?</p>
+          <p class="msg bot" data-i18n="chat.b1">Aku dengerin. Kita pahami pelan-pelan ya. Bagian mana yang paling terasa berat akhir-akhir ini?</p>
           <p class="msg user" data-i18n="chat.u2">Kerjaan numpuk, tidur juga jadi berantakan.</p>
           <p class="msg bot" data-i18n="chat.b2">Kedengarannya capek banget. Mau coba latihan napas 2 menit dulu, atau cerita lebih banyak soal kerjaannya?</p>
-          <div class="quick">
-            <span data-i18n="chat.q1">Latihan napas</span>
-            <span data-i18n="chat.q2">Cerita lagi</span>
-          </div>
+          <div class="quick"><span data-i18n="chat.q1">Latihan napas</span><span data-i18n="chat.q2">Cerita lagi</span></div>
         </div>
-      </div>
-      <div class="float-card fc-1">
-        <span class="dot ok"></span><span data-i18n="float.1">Check-in selesai</span>
-      </div>
-      <div class="float-card fc-2">
-        <span class="mood">🙂</span><span data-i18n="float.2">Mood naik dari minggu lalu</span>
       </div>
     </div>
   </div>
 </section>
 
-<!-- WHO -->
-<section class="strip">
-  <div class="wrap strip-inner">
-    <span data-i18n="strip.label">Dirancang untuk</span>
-    <ul>
-      <li>🏢 <span data-i18n="type.company">Perusahaan</span></li>
-      <li>🏥 <span data-i18n="type.hospital">Rumah sakit</span></li>
-      <li>🎓 <span data-i18n="type.university">Universitas</span></li>
-      <li>🏛️ <span data-i18n="type.public">Kesehatan masyarakat</span></li>
+<!-- UNIVERSITIES -->
+<section class="logos" aria-labelledby="logos-label">
+  <div class="wrap logos-inner">
+    <p class="label" id="logos-label" data-i18n="logos.label">Bekerja bersama kampus di Indonesia</p>
+    <ul class="logo-row">
+      <li><img src="assets/logos/ui.svg" alt="Universitas Indonesia" onerror="this.remove()"><span>Universitas Indonesia</span></li>
+      <li><img src="assets/logos/itb.svg" alt="Institut Teknologi Bandung" onerror="this.remove()"><span>ITB</span></li>
+      <li><img src="assets/logos/ugm.svg" alt="Universitas Gadjah Mada" onerror="var b=document.createElement('b');b.textContent='UGM';this.parentNode.classList.add('wordmark');this.replaceWith(b)"><span>Gadjah Mada</span></li>
+      <li class="wordmark"><b>BINUS</b><span>University</span></li>
+      <li><img src="assets/logos/telkom.png" alt="Telkom University" onerror="this.remove()"><span>Telkom University</span></li>
     </ul>
   </div>
 </section>
 
-<!-- TWO SIDES -->
-<section class="section" id="nesya">
-  <div class="wrap">
-    <div class="section-head">
-      <p class="eyebrow" data-i18n="two.eyebrow">Satu layanan, dua sisi</p>
-      <h2 data-i18n="two.title">Dukungan untuk setiap orang. Gambaran besar untuk pimpinan.</h2>
+<!-- PLATFORM: what is N2CIAS -->
+<section class="band band-teal edge-both" id="platform">
+  <div class="wrap about">
+    <figure class="arch">
+      <img src="assets/nesya.svg" alt="Nesya" width="200" height="220">
+      <figcaption class="tag" data-i18n="about.tag">Halo, aku Nesya!</figcaption>
+    </figure>
+    <div class="about-copy">
+      <h2 class="script" data-i18n="about.title">Apa itu N2CIAS?</h2>
+      <img class="divider" src="assets/divider.svg" alt="" width="180" height="16">
+      <p class="lead" data-i18n="about.lead">Satu layanan untuk dua kebutuhan: orang-orang Anda mendapat Nesya, teman cerita berbasis AI yang tersedia 24/7, dan institusi mendapat dashboard agregat untuk memahami kebutuhan kesehatan mental tanpa mengintip percakapan siapa pun.</p>
     </div>
-    <div class="two">
-      <article class="card card-sage">
-        <div class="nesya-face"><i></i><i></i></div>
-        <h3 data-i18n="two.a.title">Untuk orang-orang Anda: Nesya</h3>
-        <p data-i18n="two.a.body">Teman cerita yang selalu ada, tanpa antre dan tanpa harus menunggu jadwal konseling. Nesya membantu menamai perasaan, menenangkan diri, dan tahu langkah selanjutnya.</p>
-        <ul class="ticks">
-          <li data-i18n="two.a.1">Ngobrol kapan saja, termasuk tengah malam</li>
-          <li data-i18n="two.a.2">Check-in singkat dan latihan refleksi</li>
-          <li data-i18n="two.a.3">Diarahkan ke psikolog saat butuh lebih dari sekadar cerita</li>
-        </ul>
-      </article>
-      <article class="card card-peach">
-        <div class="mini-dash" aria-hidden="true">
-          <span style="--h:40%"></span><span style="--h:62%"></span><span style="--h:48%"></span><span style="--h:80%"></span><span style="--h:56%"></span><span style="--h:68%"></span>
-        </div>
-        <h3 data-i18n="two.b.title">Untuk institusi: dashboard anonim</h3>
-        <p data-i18n="two.b.body">Lihat kapan kebutuhan dukungan naik, keluhan apa yang paling sering muncul, dan berapa orang yang perlu dirujuk. Semua dalam angka agregat.</p>
-        <ul class="ticks">
-          <li data-i18n="two.b.1">Tidak ada akses ke isi percakapan</li>
-          <li data-i18n="two.b.2">Data hanya tampil bila kelompoknya cukup besar</li>
-          <li data-i18n="two.b.3">Saran program yang bisa langsung dijalankan</li>
-        </ul>
-      </article>
-    </div>
+    <aside class="note stitched">
+      <h3 class="caps" data-i18n="about.card">Yang didapat</h3>
+      <ul class="icon-list">
+        <li><svg><use href="#i-moon"/></svg><div><b data-i18n="about.1.t">Dukungan 24/7 untuk semua</b><span data-i18n="about.1.b">Cerita kapan pun, tanpa menunggu jadwal konseling.</span></div></li>
+        <li><svg><use href="#i-lock"/></svg><div><b data-i18n="about.2.t">Privasi tetap terjaga</b><span data-i18n="about.2.b">Institusi hanya melihat pola agregat, bukan isi cerita.</span></div></li>
+        <li><svg><use href="#i-people"/></svg><div><b data-i18n="about.3.t">Menjangkau lebih banyak orang</b><span data-i18n="about.3.b">Lebih mudah diperluas dibanding sesi psikolog satu-per-satu.</span></div></li>
+      </ul>
+    </aside>
   </div>
 </section>
 
 <!-- PROBLEM -->
-<section class="section tint">
+<section class="section paper" id="challenge">
+  <img class="deco sprig-side l" src="assets/sprig-olive.svg" alt="" aria-hidden="true">
+  <img class="deco sprig-side r" src="assets/sprig-teal.svg" alt="" aria-hidden="true">
   <div class="wrap">
-    <div class="section-head">
-      <p class="eyebrow" data-i18n="prob.eyebrow">Masalahnya</p>
-      <h2 data-i18n="prob.title">Tunjangan kesehatan mental sering ada, tapi jarang dipakai.</h2>
-      <p class="lead" data-i18n="prob.lead">Banyak orang belum butuh psikolog. Mereka butuh tempat aman untuk bercerita dan tahu harus mulai dari mana. Sementara itu, sesi satu-per-satu mahal kalau harus menjangkau semua orang.</p>
+    <div class="head">
+      <h2 class="script" data-i18n="prob.title">Tunjangannya ada. Tapi belum tentu terjangkau.</h2>
+      <img class="divider" src="assets/divider.svg" alt="" width="200" height="18">
+      <p class="lead" data-i18n="prob.lead">Banyak orang belum butuh psikolog. Mereka butuh tempat aman untuk bercerita dan tahu harus mulai dari mana. Institusi perlu memahami kebutuhan orang-orangnya tanpa membaca percakapan pribadi. Dan sesi satu-per-satu mahal kalau harus menjangkau semua orang.</p>
     </div>
-    <div class="grid-4">
-      <article class="card plain">
-        <span class="icon">🏢</span>
-        <h3 data-i18n="prob.1.t">Perusahaan</h3>
-        <p data-i18n="prob.1.b">Masalah baru terlihat oleh HR setelah memengaruhi kinerja, absensi, atau semangat kerja.</p>
+    <div class="cols-4">
+      <article class="col"><svg class="spot"><use href="#i-company"/></svg><h3 class="caps" data-i18n="prob.1.t">Perusahaan</h3><p data-i18n="prob.1.b">Tidak semua karyawan siap langsung ke psikolog. Masalah sering baru terlihat setelah memengaruhi kinerja, absensi, atau semangat kerja.</p></article>
+      <article class="col"><svg class="spot"><use href="#i-hospital"/></svg><h3 class="caps" data-i18n="prob.2.t">Rumah sakit</h3><p data-i18n="prob.2.b">Yang merawat orang lain juga butuh dukungan. Shift panjang jarang cocok dengan jam layanan konseling.</p></article>
+      <article class="col"><svg class="spot"><use href="#i-university"/></svg><h3 class="caps" data-i18n="prob.3.t">Universitas</h3><p data-i18n="prob.3.b">Mahasiswa yang butuh dukungan jauh lebih banyak dari kapasitas konselor kampus.</p></article>
+      <article class="col"><svg class="spot"><use href="#i-public"/></svg><h3 class="caps" data-i18n="prob.4.t">Kesehatan masyarakat</h3><p data-i18n="prob.4.b">Program perlu cara untuk menjangkau banyak orang sekaligus dan memahami kebutuhan mereka secara agregat.</p></article>
+    </div>
+    <p class="pull" data-i18n="prob.pull">Dukungan kesehatan mental tidak harus menunggu sampai seseorang butuh psikolog.</p>
+  </div>
+</section>
+
+<!-- HOW IT HELPS: three pillars, paper-collage -->
+<section class="section torn-top" id="solution">
+  <div class="wrap">
+    <p class="kicker">01 / <span data-i18n="sol.kicker">Bagaimana N2CIAS membantu</span></p>
+    <h2 class="display" data-i18n="sol.title">Dari tempat bercerita sampai dukungan yang tepat.</h2>
+    <p class="sub" data-i18n="sol.sub">Tiga bagian yang bekerja bersama.</p>
+    <div class="collage-3">
+      <article>
+        <div class="tile torn"><img src="assets/collage-olive.svg" alt=""><img class="tile-ico" src="assets/nesya.svg" alt=""></div>
+        <h3 class="caps-lg" data-i18n="sol.1.t">Nesya, teman cerita AI</h3>
+        <p data-i18n="sol.1.b">Ruang percakapan privat 24/7 untuk bercerita, refleksi, check-in, dan menghadapi stres sehari-hari dalam Bahasa Indonesia yang natural.</p>
       </article>
-      <article class="card plain">
-        <span class="icon">🏥</span>
-        <h3 data-i18n="prob.2.t">Rumah sakit</h3>
-        <p data-i18n="prob.2.b">Tenaga kesehatan bekerja dalam shift panjang yang jarang cocok dengan jam layanan konseling.</p>
+      <article>
+        <div class="tile torn"><img src="assets/collage-rust.svg" alt=""><img class="tile-ico kite-ico" src="assets/kite-teal.svg" alt=""></div>
+        <h3 class="caps-lg" data-i18n="sol.2.t">Jalur dukungan</h3>
+        <p data-i18n="sol.2.b">Dari latihan mandiri, percakapan dengan Nesya, sampai rujukan ke psikolog dan eskalasi ke manusia saat dibutuhkan.</p>
       </article>
-      <article class="card plain">
-        <span class="icon">🎓</span>
-        <h3 data-i18n="prob.3.t">Universitas</h3>
-        <p data-i18n="prob.3.b">Jumlah mahasiswa yang butuh dukungan jauh lebih besar dari kapasitas konselor kampus.</p>
-      </article>
-      <article class="card plain">
-        <span class="icon">🏛️</span>
-        <h3 data-i18n="prob.4.t">Kesehatan masyarakat</h3>
-        <p data-i18n="prob.4.b">Program perlu menjangkau banyak orang sekaligus dan memahami kebutuhan mereka.</p>
+      <article>
+        <div class="tile torn"><img src="assets/collage-indigo.svg" alt=""><span class="tile-bars"><i style="--h:40%"></i><i style="--h:65%"></i><i style="--h:50%"></i><i style="--h:85%"></i><i style="--h:60%"></i></span></div>
+        <h3 class="caps-lg" data-i18n="sol.3.t">Insight anonim</h3>
+        <p data-i18n="sol.3.b">Keluhan terbanyak, kebutuhan dukungan, tren emosi, dan pemakaian layanan, semuanya agregat. Tidak ada akses ke percakapan pribadi.</p>
       </article>
     </div>
   </div>
 </section>
 
-<!-- PATHWAY -->
-<section class="section">
+<!-- PATHWAY: olive band -->
+<section class="band band-olive edge-both" id="pathway">
   <div class="wrap">
-    <div class="section-head">
-      <p class="eyebrow" data-i18n="path.eyebrow">Jalur dukungan</p>
-      <h2 data-i18n="path.title">Tidak semua orang butuh hal yang sama.</h2>
-      <p class="lead" data-i18n="path.lead">Nesya membantu setiap orang menemukan tingkat dukungan yang pas, dan menyerahkan ke manusia saat diperlukan.</p>
-    </div>
-    <ol class="pathway">
-      <li><span class="lvl l1">1</span><h3 data-i18n="path.1.t">Mandiri</h3><p data-i18n="path.1.b">Check-in, latihan napas, dan refleksi singkat yang bisa dilakukan sendiri.</p></li>
-      <li><span class="lvl l2">2</span><h3 data-i18n="path.2.t">Didampingi Nesya</h3><p data-i18n="path.2.b">Percakapan untuk memahami stres, kecemasan, atau rasa kewalahan sehari-hari.</p></li>
-      <li><span class="lvl l3">3</span><h3 data-i18n="path.3.t">Psikolog</h3><p data-i18n="path.3.b">Rujukan ke psikolog atau konselor, dengan ringkasan yang hanya dibagikan atas izin pengguna.</p></li>
-      <li><span class="lvl l4">4</span><h3 data-i18n="path.4.t">Bantuan segera</h3><p data-i18n="path.4.b">Bila ada tanda bahaya, pengguna langsung diarahkan ke layanan darurat dan manusia.</p></li>
+    <h2 class="script center" data-i18n="path.title">Tidak semua orang butuh hal yang sama</h2>
+    <ol class="journey">
+      <li><span class="bubble">1</span><h3 data-i18n="path.1.t">Mandiri</h3><p data-i18n="path.1.b">Check-in, latihan napas, dan refleksi singkat.</p></li>
+      <li><span class="bubble">2</span><h3 data-i18n="path.2.t">Didampingi Nesya</h3><p data-i18n="path.2.b">Percakapan untuk stres, cemas, dan rasa kewalahan.</p></li>
+      <li><span class="bubble">3</span><h3 data-i18n="path.3.t">Rujukan psikolog</h3><p data-i18n="path.3.b">Dengan ringkasan yang dibagikan atas izin pengguna.</p></li>
+      <li><span class="bubble">4</span><h3 data-i18n="path.4.t">Eskalasi ke manusia</h3><p data-i18n="path.4.b">Saat ada tanda risiko, langsung ke bantuan yang sesuai.</p></li>
     </ol>
+    <img class="deco mush-band" src="assets/mushroom.svg" alt="" aria-hidden="true">
   </div>
 </section>
 
 <!-- HOW IT WORKS -->
-<section class="section tint" id="cara-kerja">
-  <div class="wrap how">
-    <div class="section-head left">
-      <p class="eyebrow" data-i18n="how.eyebrow">Cara kerja</p>
-      <h2 data-i18n="how.title">Dari obrolan pertama sampai keputusan program.</h2>
-      <a href="#kontak" class="btn btn-primary" data-i18n="cta.demo">Jadwalkan demo</a>
+<section class="section paper" id="how-it-works">
+  <div class="wrap">
+    <div class="head">
+      <h2 class="script" data-i18n="how.title">Bagaimana N2CIAS bekerja</h2>
+      <img class="divider" src="assets/divider.svg" alt="" width="200" height="18">
     </div>
-    <ol class="steps">
-      <li><b>01</b><div><h3 data-i18n="how.1.t">Orang mulai bercerita</h3><p data-i18n="how.1.b">Lewat web, tanpa unduh aplikasi. Mulai dengan obrolan bebas atau check-in singkat.</p></div></li>
-      <li><b>02</b><div><h3 data-i18n="how.2.t">Nesya mengenali kebutuhannya</h3><p data-i18n="how.2.b">Tema dan tingkat kebutuhan dikenali dari percakapan. Nesya tidak memberi diagnosis.</p></div></li>
-      <li><b>03</b><div><h3 data-i18n="how.3.t">Langkah berikutnya jelas</h3><p data-i18n="how.3.b">Latihan mandiri, lanjut ngobrol dengan Nesya, atau rujukan ke psikolog.</p></div></li>
-      <li><b>04</b><div><h3 data-i18n="how.4.t">Psikolog datang lebih siap</h3><p data-i18n="how.4.b">Dengan izin pengguna, ringkasan singkat dikirim sebelum sesi agar tidak mulai dari nol.</p></div></li>
-      <li><b>05</b><div><h3 data-i18n="how.5.t">Pimpinan melihat polanya</h3><p data-i18n="how.5.b">Tren anonim per kelompok membantu menentukan kapan dan di mana dukungan perlu ditambah.</p></div></li>
+    <ol class="process">
+      <li><span class="num">1</span><h3 class="caps" data-i18n="how.1.t">Orang mulai bercerita</h3><p data-i18n="how.1.b">Lewat web, tanpa unduh aplikasi. Obrolan bebas atau check-in singkat.</p></li>
+      <li><span class="num">2</span><h3 class="caps" data-i18n="how.2.t">Kebutuhan dikenali</h3><p data-i18n="how.2.b">Tema dan tingkat kebutuhan dikenali dari percakapan. Tanpa diagnosis.</p></li>
+      <li><span class="num">3</span><h3 class="caps" data-i18n="how.3.t">Langkah berikutnya jelas</h3><p data-i18n="how.3.b">Latihan mandiri, lanjut dengan Nesya, atau rujukan ke psikolog.</p></li>
+      <li><span class="num">4</span><h3 class="caps" data-i18n="how.4.t">Psikolog lebih siap</h3><p data-i18n="how.4.b">Atas izin pengguna, ringkasan dikirim sebelum sesi dimulai.</p></li>
+      <li><span class="num">5</span><h3 class="caps" data-i18n="how.5.t">Pimpinan melihat pola</h3><p data-i18n="how.5.b">Tren anonim untuk perencanaan program, bukan isi percakapan.</p></li>
     </ol>
   </div>
 </section>
 
-<!-- DASHBOARD -->
-<section class="section" id="dashboard">
-  <div class="wrap">
-    <div class="section-head">
-      <p class="eyebrow" data-i18n="dash.eyebrow">Dashboard institusi</p>
-      <h2 data-i18n="dash.title">Yang Anda lihat: pola. Yang tidak: cerita pribadi.</h2>
-    </div>
-    <div class="dash">
-      <div class="dash-head">
-        <strong data-i18n="dash.name">Ringkasan bulan ini</strong>
-        <span class="badge" data-i18n="dash.badge">Contoh data · anonim</span>
-      </div>
-      <div class="kpis">
-        <div class="kpi"><small data-i18n="dash.k1">Check-in</small><b>1.248</b><em class="up">+12%</em></div>
-        <div class="kpi"><small data-i18n="dash.k2">Selesai</small><b>82%</b><em class="up">+4%</em></div>
-        <div class="kpi"><small data-i18n="dash.k3">Dirujuk ke psikolog</small><b>15%</b></div>
-        <div class="kpi"><small data-i18n="dash.k4">Butuh bantuan segera</small><b>3%</b></div>
-      </div>
-      <div class="dash-grid">
-        <div class="panel">
-          <h4 data-i18n="dash.trend">Beban emosional, 30 hari</h4>
-          <svg viewBox="0 0 300 110" class="spark" role="img" aria-label="Grafik tren">
-            <defs><linearGradient id="g" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="currentColor" stop-opacity=".25"/><stop offset="1" stop-color="currentColor" stop-opacity="0"/></linearGradient></defs>
-            <path d="M0 80 C30 74 50 70 75 66 S120 40 150 30 S200 52 225 60 S270 72 300 70 L300 110 L0 110Z" fill="url(#g)"/>
-            <path d="M0 80 C30 74 50 70 75 66 S120 40 150 30 S200 52 225 60 S270 72 300 70" fill="none" stroke="currentColor" stroke-width="2.5"/>
-            <circle cx="150" cy="30" r="4" fill="currentColor"/>
-          </svg>
-          <p class="note" data-i18n="dash.trendnote">Puncak di pertengahan bulan, bertepatan dengan masa ujian atau tenggat kerja.</p>
-        </div>
-        <div class="panel">
-          <h4 data-i18n="dash.top">Keluhan terbanyak</h4>
-          <ul class="bars">
-            <li><span data-i18n="c.stress">Stres kerja / kuliah</span><i style="--w:78%"></i><b>78%</b></li>
-            <li><span data-i18n="c.burnout">Burnout</span><i style="--w:64%"></i><b>64%</b></li>
-            <li><span data-i18n="c.anx">Cemas</span><i style="--w:52%"></i><b>52%</b></li>
-            <li><span data-i18n="c.sleep">Susah tidur</span><i style="--w:41%"></i><b>41%</b></li>
-            <li><span data-i18n="c.rel">Masalah hubungan</span><i style="--w:33%"></i><b>33%</b></li>
-          </ul>
-        </div>
-        <div class="panel">
-          <h4 data-i18n="dash.act">Saran tindakan</h4>
-          <ul class="ticks small">
-            <li data-i18n="dash.a1">Tambah slot konselor saat masa ujian atau tenggat</li>
-            <li data-i18n="dash.a2">Kampanye singkat soal stres dan tidur</li>
-            <li data-i18n="dash.a3">Workshop pencegahan burnout</li>
-            <li data-i18n="dash.a4">Perhatikan unit dengan beban tinggi yang berulang</li>
-          </ul>
-        </div>
-      </div>
-      <p class="dash-foot">🔒 <span data-i18n="dash.foot">Angka hanya muncul jika kelompoknya cukup besar sehingga tidak ada orang yang bisa dikenali.</span></p>
-    </div>
-  </div>
-</section>
-
 <!-- USE CASES -->
-<section class="section tint" id="institusi">
+<section class="section tint torn-top" id="use-cases">
   <div class="wrap">
-    <div class="section-head">
-      <p class="eyebrow" data-i18n="use.eyebrow">Untuk institusi</p>
-      <h2 data-i18n="use.title">Bentuknya menyesuaikan tempat Anda.</h2>
-    </div>
-    <div class="tabs" role="tablist">
+    <p class="kicker">02 / <span data-i18n="use.kicker">Studi kasus</span></p>
+    <h2 class="display" data-i18n="use.title">Untuk institusi yang ingin membantu lebih awal.</h2>
+    <p class="sub" data-i18n="use.sub">Tekanannya berbeda di setiap tempat. Kebutuhannya mirip: dukungan yang mudah dijangkau, tanda yang terlihat lebih awal, dan program yang tepat sasaran.</p>
+    <div class="filters" role="tablist">
       <button role="tab" aria-selected="true" data-tab="uni" data-i18n="type.university">Universitas</button>
       <button role="tab" aria-selected="false" data-tab="hos" data-i18n="type.hospital">Rumah sakit</button>
       <button role="tab" aria-selected="false" data-tab="com" data-i18n="type.company">Perusahaan</button>
       <button role="tab" aria-selected="false" data-tab="pub" data-i18n="type.public">Kesehatan masyarakat</button>
     </div>
-    <div class="tab-panels">
-      <div class="tab-panel card" data-panel="uni">
-        <div><h3 data-i18n="use.uni.t">Dukungan di luar jam konseling</h3><p data-i18n="use.uni.b">Mahasiswa bisa mulai bercerita kapan saja. Tim kemahasiswaan melihat kapan kebutuhan naik, misalnya menjelang ujian. Nesya melengkapi konselor kampus, tidak menggantikan.</p></div>
-        <ul class="ticks"><li data-i18n="use.uni.1">Mahasiswa mencari bantuan lebih awal</li><li data-i18n="use.uni.2">Antrean konseling lebih tertata</li><li data-i18n="use.uni.3">Periode rawan terlihat sebelum terjadi</li></ul>
+    <div class="case-wrap">
+      <div class="case note" data-panel="uni">
+        <span class="tape"></span>
+        <div><h3 class="script-sm" data-i18n="use.uni.t">Perluas dukungan sampai ke luar ruang konseling</h3><p data-i18n="use.uni.b">Mahasiswa punya langkah pertama yang mudah lewat Nesya. Tim kemahasiswaan melihat kapan dan di mana kebutuhan naik, misalnya menjelang ujian. N2CIAS melengkapi konselor kampus, tidak menggantikan.</p><p class="campus" data-i18n="use.uni.campus">Bekerja bersama UI, ITB, UGM, Binus, Telkom University, dan perguruan tinggi lain di Indonesia.</p><a href="#coverage" class="link-u" data-i18n="use.calc.uni">Hitung kebutuhan untuk mahasiswa Anda</a></div>
+        <div><h4 class="caps" data-i18n="use.result">Hasil yang diharapkan</h4><ul class="leafs"><li data-i18n="use.uni.1">Mahasiswa mencari bantuan lebih awal</li><li data-i18n="use.uni.2">Antrean konseling berkurang</li><li data-i18n="use.uni.3">Diarahkan ke langkah yang sesuai</li><li data-i18n="use.uni.4">Periode puncak kebutuhan terlihat</li><li data-i18n="use.uni.5">Bahan perencanaan program kemahasiswaan</li></ul></div>
       </div>
-      <div class="tab-panel card" data-panel="hos" hidden>
-        <div><h3 data-i18n="use.hos.t">Untuk yang merawat orang lain</h3><p data-i18n="use.hos.b">Perawat, dokter, dan staf bisa bercerita sesudah shift malam, tanpa harus menunggu jam layanan buka. Manajemen melihat unit mana yang paling tertekan.</p></div>
-        <ul class="ticks"><li data-i18n="use.hos.1">Tersedia di semua shift</li><li data-i18n="use.hos.2">Tanda burnout terlihat lebih awal</li><li data-i18n="use.hos.3">Rujukan ke psikolog saat dibutuhkan</li></ul>
+      <div class="case note" data-panel="hos" hidden>
+        <span class="tape"></span>
+        <div><h3 class="script-sm" data-i18n="use.hos.t">Dukung orang-orang yang merawat orang lain</h3><p data-i18n="use.hos.b">Perawat, dokter, dan staf bisa bercerita sesudah shift malam tanpa menunggu jam layanan buka. Manajemen melihat unit mana yang paling tertekan.</p><a href="#coverage" class="link-u" data-i18n="use.calc.emp">Hitung kebutuhan untuk staf Anda</a></div>
+        <div><h4 class="caps" data-i18n="use.result">Hasil yang diharapkan</h4><ul class="leafs"><li data-i18n="use.hos.1">Tersedia di semua shift</li><li data-i18n="use.hos.2">Tanda burnout terlihat lebih awal</li><li data-i18n="use.hos.3">Rujukan ke psikolog saat dibutuhkan</li><li data-i18n="use.hos.4">Gambaran beban per unit</li></ul></div>
       </div>
-      <div class="tab-panel card" data-panel="com" hidden>
-        <div><h3 data-i18n="use.com.t">Tunjangan yang benar-benar dipakai</h3><p data-i18n="use.com.b">Karyawan yang belum siap ke psikolog tetap punya tempat untuk mulai. HR mendapat gambaran tren tanpa melihat siapa bercerita apa.</p></div>
-        <ul class="ticks"><li data-i18n="use.com.1">Pemakaian tunjangan naik</li><li data-i18n="use.com.2">Biaya lebih terukur dari sesi satu-per-satu</li><li data-i18n="use.com.3">Data untuk program kesejahteraan karyawan</li></ul>
+      <div class="case note" data-panel="com" hidden>
+        <span class="tape"></span>
+        <div><h3 class="script-sm" data-i18n="use.com.t">Bantu karyawan sebelum masalah jadi masalah kerja</h3><p data-i18n="use.com.b">Karyawan yang belum siap ke psikolog tetap punya tempat untuk mulai. HR melihat tren tanpa tahu siapa bercerita apa.</p><a href="#coverage" class="link-u" data-i18n="use.calc.emp">Hitung kebutuhan untuk staf Anda</a></div>
+        <div><h4 class="caps" data-i18n="use.result">Hasil yang diharapkan</h4><ul class="leafs"><li data-i18n="use.com.1">Tunjangan benar-benar dipakai</li><li data-i18n="use.com.2">Biaya lebih terukur dari sesi satu-per-satu</li><li data-i18n="use.com.3">Data untuk program kesejahteraan</li><li data-i18n="use.com.4">Masalah terlihat sebelum memengaruhi kinerja</li></ul></div>
       </div>
-      <div class="tab-panel card" data-panel="pub" hidden>
-        <div><h3 data-i18n="use.pub.t">Menjangkau lebih banyak orang</h3><p data-i18n="use.pub.b">Dari Puskesmas sampai Dinas Kesehatan, Nesya memberi langkah pertama yang mudah diakses dan data agregat untuk perencanaan program.</p></div>
-        <ul class="ticks"><li data-i18n="use.pub.1">Akses tanpa antre</li><li data-i18n="use.pub.2">Gambaran kebutuhan per wilayah</li><li data-i18n="use.pub.3">Rujukan ke layanan setempat</li></ul>
+      <div class="case note" data-panel="pub" hidden>
+        <span class="tape"></span>
+        <div><h3 class="script-sm" data-i18n="use.pub.t">N2CIAS untuk tim kesehatan masyarakat</h3><p data-i18n="use.pub.b">Dari Puskesmas sampai Dinas Kesehatan, Nesya memberi langkah pertama yang mudah dijangkau dan data agregat untuk perencanaan program.</p><a href="#demo" class="link-u" data-i18n="cta.talk">Bicara dengan tim kami</a></div>
+        <div><h4 class="caps" data-i18n="use.result">Hasil yang diharapkan</h4><ul class="leafs"><li data-i18n="use.pub.1">Akses tanpa antre</li><li data-i18n="use.pub.2">Gambaran kebutuhan per wilayah</li><li data-i18n="use.pub.3">Rujukan ke layanan setempat</li></ul></div>
       </div>
+      <img class="deco mush-case" src="assets/mushroom.svg" alt="" aria-hidden="true">
     </div>
   </div>
 </section>
 
-<!-- PLANNER -->
-<section class="section" id="biaya">
+<!-- COVERAGE PLANNER -->
+<section class="section paper" id="coverage">
   <div class="wrap planner-grid">
-    <div class="section-head left">
-      <p class="eyebrow" data-i18n="plan.eyebrow">Perkiraan biaya</p>
-      <h2 data-i18n="plan.title">Hitung kebutuhan institusi Anda.</h2>
-      <p class="lead" data-i18n="plan.lead">Semua orang dalam program mendapat akses. Kapasitas menentukan berapa banyak sesi dukungan bersama yang tersedia setiap bulan.</p>
-      <p class="note" data-i18n="plan.note">Ini perkiraan awal. Biaya akhir tergantung jumlah peserta, kapasitas, kebutuhan laporan, dan cakupan implementasi.</p>
+    <div>
+      <p class="kicker">03 / <span data-i18n="plan.kicker">Perencana kapasitas</span></p>
+      <h2 class="display" data-i18n="plan.title">Rencanakan tingkat dukungan yang pas.</h2>
+      <p class="sub" data-i18n="plan.lead">Semua orang dalam program mendapat akses. Kapasitas menentukan berapa banyak sesi dukungan bersama yang tersedia setiap bulan.</p>
+      <p class="small" data-i18n="plan.note">Ini perkiraan awal. Biaya akhir tergantung jumlah peserta, kapasitas, kebutuhan laporan, dan cakupan implementasi.</p>
+      <img class="planner-kite" src="assets/kite-rust.svg" alt="" aria-hidden="true">
     </div>
-    <form class="planner card" id="planner" onsubmit="return false">
-      <label class="field">
-        <span data-i18n="plan.type">Jenis institusi</span>
+    <form class="note stitched planner" id="planner" onsubmit="return false">
+      <label class="field"><span><b>1</b> · <span data-i18n="plan.type">Jenis institusi</span></span>
         <select id="p-type">
           <option value="company" data-i18n="type.company">Perusahaan</option>
           <option value="hospital" data-i18n="type.hospital">Rumah sakit</option>
@@ -317,31 +292,106 @@
           <option value="public" data-i18n="type.public">Kesehatan masyarakat</option>
         </select>
       </label>
-      <label class="field">
-        <span id="p-pop-label" data-i18n="plan.pop.emp">Jumlah karyawan</span>
+      <label class="field"><span><b>2</b> · <span id="p-pop-label" data-i18n="plan.pop.emp">Jumlah karyawan</span></span>
         <input id="p-pop" type="number" inputmode="numeric" min="1" step="1" value="500">
       </label>
-      <fieldset class="field">
-        <legend data-i18n="plan.tier">Kapasitas</legend>
-        <div class="tiers" id="p-tiers"></div>
-      </fieldset>
+      <details class="quiz" id="quiz">
+        <summary data-i18n="quiz.open">Belum yakin? Jawab 5 pertanyaan singkat</summary>
+        <p class="small" data-i18n="quiz.intro">Beberapa pertanyaan membantu memperkirakan kapasitas awal yang masuk akal. Ini panduan, bukan keharusan.</p>
+        <div id="quiz-qs"></div>
+        <div id="quiz-out" class="quiz-out" aria-live="polite"></div>
+      </details>
+      <fieldset class="field" id="p-tier-wrap"><legend><b>3</b> · <span data-i18n="plan.tier">Pilih kapasitas</span></legend><div class="tiers" id="p-tiers"></div></fieldset>
       <div class="result" id="p-result" aria-live="polite"></div>
     </form>
   </div>
 </section>
 
-<!-- SAFETY -->
-<section class="section dark" id="keamanan">
+<!-- DASHBOARD -->
+<section class="band band-teal edge-both" id="dashboard">
   <div class="wrap">
-    <div class="section-head">
-      <p class="eyebrow" data-i18n="safe.eyebrow">Keamanan & privasi</p>
-      <h2 data-i18n="safe.title">Apa yang Nesya lakukan, dan apa yang tidak.</h2>
+    <div class="head light">
+      <h2 class="script" data-i18n="dash.title">Dari percakapan pribadi menjadi insight yang aman</h2>
+      <p class="lead" data-i18n="dash.lead">Pola pemakaian dan kesehatan mental yang anonim dan agregat, untuk perencanaan program, pencegahan, dan alokasi dukungan.</p>
     </div>
-    <div class="grid-4">
-      <article class="card glass"><h3 data-i18n="safe.1.t">Bukan alat diagnosis</h3><p data-i18n="safe.1.b">Nesya mengenali tanda dan kebutuhan dukungan. Diagnosis tetap tugas tenaga profesional.</p></article>
-      <article class="card glass"><h3 data-i18n="safe.2.t">Bukan pengganti psikolog</h3><p data-i18n="safe.2.b">Nesya adalah langkah pertama. Penanganan yang lebih dalam tetap dilakukan manusia.</p></article>
-      <article class="card glass"><h3 data-i18n="safe.3.t">Percakapan tetap privat</h3><p data-i18n="safe.3.b">Institusi tidak pernah membaca isi percakapan. Ringkasan untuk psikolog hanya dikirim atas izin pengguna.</p></article>
-      <article class="card glass"><h3 data-i18n="safe.4.t">Diteruskan ke manusia</h3><p data-i18n="safe.4.b">Saat ada tanda risiko, pengguna diarahkan ke psikolog atau layanan darurat.</p></article>
+    <div class="dash note">
+      <span class="tape t-l"></span><span class="tape t-r"></span>
+      <div class="dash-head">
+        <strong data-i18n="dash.name">Dashboard institusi N2CIAS</strong>
+        <span class="badge" data-i18n="dash.badge">Contoh data · anonim · agregat</span>
+      </div>
+      <div class="filters small-f" role="tablist" id="dash-tabs">
+        <button role="tab" aria-selected="true" data-dtab="sum" data-i18n="dash.tab1">Ringkasan</button>
+        <button role="tab" aria-selected="false" data-dtab="con" data-i18n="dash.tab2">Keluhan</button>
+        <button role="tab" aria-selected="false" data-dtab="tre" data-i18n="dash.tab3">Tren</button>
+        <button role="tab" aria-selected="false" data-dtab="act" data-i18n="dash.tab4">Tindakan</button>
+      </div>
+      <div class="dpanel" data-dpanel="sum">
+        <div class="kpis">
+          <div class="kpi"><small data-i18n="dash.k1">Total check-in</small><b>1.248</b><em data-i18n="dash.k1n">Semua departemen</em></div>
+          <div class="kpi"><small data-i18n="dash.k2">Tingkat penyelesaian</small><b>82%</b><em data-i18n="dash.k2n">Di atas rata-rata</em></div>
+          <div class="kpi"><small data-i18n="dash.k3">Sinyal kebutuhan tinggi</small><b>3%</b><em data-i18n="dash.k3n">Diarahkan ke psikolog</em></div>
+        </div>
+        <div class="dash-2">
+          <div class="panel"><h4 data-i18n="dash.risk">Distribusi tingkat risiko</h4>
+            <div class="stack"><i style="--w:48%;--c:#8dbfa9"></i><i style="--w:34%;--c:#c9902f"></i><i style="--w:15%;--c:#d0704a"></i><i style="--w:3%;--c:#7a3a22"></i></div>
+            <ul class="legend"><li><i style="--c:#8dbfa9"></i><span data-i18n="risk.1">Dukungan ringan</span><b>48%</b></li><li><i style="--c:#c9902f"></i><span data-i18n="risk.2">Dukungan terpandu</span><b>34%</b></li><li><i style="--c:#d0704a"></i><span data-i18n="risk.3">Disarankan ke psikolog</span><b>15%</b></li><li><i style="--c:#7a3a22"></i><span data-i18n="risk.4">Butuh dukungan segera</span><b>3%</b></li></ul>
+          </div>
+          <div class="panel"><h4 data-i18n="dash.need">Langkah lanjutan yang dipilih</h4>
+            <ul class="legend big"><li><i style="--c:#8dbfa9"></i><span data-i18n="need.1">Mandiri</span><b>54%</b></li><li><i style="--c:#2c6a65"></i><span data-i18n="need.2">Dipandu AI</span><b>31%</b></li><li><i style="--c:#d0704a"></i><span data-i18n="need.3">Rujukan psikolog</span><b>15%</b></li></ul>
+            <p class="small" data-i18n="dash.neednote">Langkah yang dipilih pengguna setelah setiap check-in.</p>
+          </div>
+        </div>
+      </div>
+      <div class="dpanel" data-dpanel="con" hidden>
+        <div class="panel"><h4 data-i18n="dash.top">Keluhan terbanyak</h4>
+          <ul class="bars">
+            <li><span data-i18n="c.stress">Stres akademik / kerja</span><i style="--w:78%"></i><b>78%</b></li>
+            <li><span data-i18n="c.burnout">Burnout</span><i style="--w:64%"></i><b>64%</b></li>
+            <li><span data-i18n="c.anx">Kecemasan</span><i style="--w:52%"></i><b>52%</b></li>
+            <li><span data-i18n="c.sleep">Gangguan tidur</span><i style="--w:41%"></i><b>41%</b></li>
+            <li><span data-i18n="c.rel">Tekanan relasi</span><i style="--w:33%"></i><b>33%</b></li>
+          </ul>
+        </div>
+      </div>
+      <div class="dpanel" data-dpanel="tre" hidden>
+        <div class="panel"><h4 data-i18n="dash.trend">Tren beban emosional · 30 hari</h4>
+          <svg viewBox="0 0 600 160" class="spark-chart" role="img" aria-label="Grafik tren">
+            <path d="M0 120 C60 112 100 104 150 98 S240 52 300 40 S400 80 450 92 S540 104 600 102 L600 160 L0 160Z" fill="#c9902f" opacity=".18"/>
+            <path d="M0 120 C60 112 100 104 150 98 S240 52 300 40 S400 80 450 92 S540 104 600 102" fill="none" stroke="#b5532f" stroke-width="3" stroke-dasharray="1 0"/>
+            <circle cx="300" cy="40" r="6" fill="#b5532f"/>
+          </svg>
+          <p class="small" data-i18n="dash.trendnote">Puncak di pertengahan bulan, bertepatan dengan masa ujian atau tenggat kerja.</p>
+        </div>
+      </div>
+      <div class="dpanel" data-dpanel="act" hidden>
+        <div class="panel"><h4 data-i18n="dash.act">Saran tindakan untuk institusi</h4>
+          <ul class="leafs">
+            <li data-i18n="dash.a1">Tambah slot konselor saat masa ujian atau puncak beban kerja</li>
+            <li data-i18n="dash.a2">Kampanye psikoedukasi tentang stres dan tidur</li>
+            <li data-i18n="dash.a3">Workshop pencegahan burnout</li>
+            <li data-i18n="dash.a4">Pantau unit atau fakultas dengan beban tinggi yang berulang</li>
+          </ul>
+        </div>
+      </div>
+      <p class="dash-foot"><svg width="16" height="16"><use href="#i-lock"/></svg> <span data-i18n="dash.foot">Institusi tidak pernah melihat percakapan pribadi. Angka hanya muncul jika kelompoknya cukup besar sehingga tidak ada orang yang bisa dikenali.</span></p>
+    </div>
+  </div>
+</section>
+
+<!-- SAFETY -->
+<section class="section paper" id="safety">
+  <img class="deco sprig-side r" src="assets/sprig-olive.svg" alt="" aria-hidden="true">
+  <div class="wrap">
+    <div class="head">
+      <h2 class="script" data-i18n="safe.title">Privasi, keamanan, dan manusia di dalamnya</h2>
+      <img class="divider" src="assets/divider.svg" alt="" width="200" height="18">
+    </div>
+    <div class="cols-4 cards">
+      <article class="note stitched"><h3 class="caps" data-i18n="safe.1.t">Bukan alat diagnosis</h3><p data-i18n="safe.1.b">N2CIAS mengenali tanda dan kebutuhan dukungan. Diagnosis tetap tugas tenaga profesional.</p></article>
+      <article class="note stitched"><h3 class="caps" data-i18n="safe.2.t">Bukan pengganti psikolog</h3><p data-i18n="safe.2.b">Nesya adalah langkah pertama dan penunjuk arah. Penanganan lebih dalam tetap oleh manusia.</p></article>
+      <article class="note stitched"><h3 class="caps" data-i18n="safe.3.t">Privasi lebih dulu</h3><p data-i18n="safe.3.b">Institusi tidak melihat percakapan. Dashboard hanya menampilkan pola agregat yang anonim.</p></article>
+      <article class="note stitched"><h3 class="caps" data-i18n="safe.4.t">Eskalasi saat perlu</h3><p data-i18n="safe.4.b">Saat ada tanda risiko, pengguna diarahkan ke psikolog atau jalur bantuan yang sesuai.</p></article>
     </div>
     <div class="crisis">
       <strong data-i18n="crisis.t">Sedang dalam bahaya atau berpikir untuk menyakiti diri?</strong>
@@ -351,90 +401,111 @@
 </section>
 
 <!-- INDONESIA -->
-<section class="section">
+<section class="section tint torn-top" id="indonesia">
   <div class="wrap">
-    <div class="section-head">
-      <p class="eyebrow"><span class="flag">🇮🇩</span> <span data-i18n="id.eyebrow">Dari Indonesia, untuk Indonesia</span></p>
-      <h2 data-i18n="id.title">Paham cara kita bercerita.</h2>
-    </div>
-    <div class="grid-3">
-      <article class="card plain"><h3 data-i18n="id.1.t">Bahasa sehari-hari</h3><p data-i18n="id.1.b">Nesya mengerti “capek banget”, “lagi down”, dan “pengen ngilang aja” seperti yang orang maksud, bukan terjemahan kaku.</p></article>
-      <article class="card plain"><h3 data-i18n="id.2.t">Mengikuti cara institusi bekerja</h3><p data-i18n="id.2.b">Disusun untuk alur universitas, rumah sakit, BUMN, korporasi, Puskesmas, dan Dinas Kesehatan.</p></article>
-      <article class="card plain"><h3 data-i18n="id.3.t">Tim lokal</h3><p data-i18n="id.3.b">Dibangun di Jakarta oleh psikolog, desainer, dan praktisi AI yang melayani institusi Indonesia.</p></article>
+    <p class="kicker">04 / <span data-i18n="id.kicker">Dari Indonesia, untuk Indonesia</span></p>
+    <h2 class="display" data-i18n="id.title">Paham cara kita bercerita.</h2>
+    <div class="cols-3 ruled">
+      <article><h3 class="caps-lg" data-i18n="id.1.t">Bahasa sehari-hari</h3><p data-i18n="id.1.b">Nesya mengerti “capek banget”, “lagi down”, dan “pengen ngilang aja” seperti yang orang maksud, bukan terjemahan kaku.</p></article>
+      <article><h3 class="caps-lg" data-i18n="id.2.t">Konteks lokal</h3><p data-i18n="id.2.b">Mengikuti alur universitas, rumah sakit, BUMN, korporasi, sampai Puskesmas dan Dinas Kesehatan.</p></article>
+      <article><h3 class="caps-lg" data-i18n="id.3.t">Tim Indonesia</h3><p data-i18n="id.3.b">Dibangun di Jakarta oleh TenangAI: psikolog, desainer, dan praktisi AI yang melayani institusi Indonesia.</p></article>
     </div>
   </div>
 </section>
 
-<!-- AVAILABILITY -->
-<section class="section tint" id="ketersediaan">
-  <div class="wrap">
-    <div class="section-head">
-      <p class="eyebrow" data-i18n="av.eyebrow">Ketersediaan</p>
-      <h2 data-i18n="av.title">Mulai dengan yang sudah ada, tumbuh bersama kami.</h2>
+<!-- WHY: rust band -->
+<section class="band band-rust edge-both" id="why">
+  <div class="wrap why">
+    <div class="why-art" aria-hidden="true"><img src="assets/kite-olive.svg" alt="" class="why-kite"><img src="assets/mushroom.svg" alt="" class="why-mush"></div>
+    <div>
+      <h2 class="script" data-i18n="why.title">Kenapa institusi memilih N2CIAS</h2>
+      <ul class="why-list">
+        <li><b data-i18n="why.1.t">Lebih dari chatbot.</b> <span data-i18n="why.1.b">Dukungan AI, jalur perawatan, rujukan profesional, dan insight institusi dalam satu tempat.</span></li>
+        <li><b data-i18n="why.2.t">Untuk konteks Indonesia.</b> <span data-i18n="why.2.b">Bahasa dan pola komunikasi lokal.</span></li>
+        <li><b data-i18n="why.3.t">Bersama ahli psikologi.</b> <span data-i18n="why.3.b">Disusun dengan pemahaman psikologi klinis dan penggunaan AI yang bertanggung jawab.</span></li>
+        <li><b data-i18n="why.4.t">Manusia tetap terlibat.</b> <span data-i18n="why.4.b">Melengkapi psikolog dan konselor, tidak menggantikan.</span></li>
+        <li><b data-i18n="why.5.t">Bisa ditindaklanjuti.</b> <span data-i18n="why.5.b">Pola agregat yang bisa langsung dipakai untuk memperbaiki program.</span></li>
+      </ul>
     </div>
-    <div class="two">
-      <article class="card">
+  </div>
+</section>
+
+<!-- AVAILABILITY / PILOT -->
+<section class="section paper" id="pilot">
+  <div class="wrap">
+    <div class="head">
+      <h2 class="script" data-i18n="av.title">Mulai sekarang, berkembang bersama kami</h2>
+      <img class="divider" src="assets/divider.svg" alt="" width="200" height="18">
+      <p class="lead" data-i18n="av.lead">Mulai dengan yang sudah tersedia, atau lewat pilot terstruktur sebelum implementasi yang lebih luas.</p>
+    </div>
+    <div class="cols-2">
+      <article class="note tilt-l"><span class="tape"></span>
         <span class="pill ok" data-i18n="av.now">Tersedia sekarang</span>
-        <ul class="ticks">
+        <ul class="leafs">
           <li data-i18n="av.n1">Nesya, teman cerita berbasis AI</li>
-          <li data-i18n="av.n2">Akses lewat web untuk seluruh peserta</li>
+          <li data-i18n="av.n2">Akses institusi lewat web</li>
           <li data-i18n="av.n3">Dashboard institusi dasar</li>
           <li data-i18n="av.n4">Ringkasan untuk psikolog atas izin pengguna</li>
           <li data-i18n="av.n5">Pendampingan implementasi dari tim TenangAI</li>
         </ul>
       </article>
-      <article class="card">
+      <article class="note tilt-r"><span class="tape"></span>
         <span class="pill soon" data-i18n="av.soon">Sedang dikembangkan</span>
-        <ul class="ticks muted">
+        <ul class="leafs muted">
           <li data-i18n="av.s1">Check-up lewat percakapan 7 menit</li>
-          <li data-i18n="av.s2">Pemetaan kondisi emosi dan tanda risiko awal</li>
-          <li data-i18n="av.s3">Jalur dukungan yang dipersonalisasi</li>
-          <li data-i18n="av.s4">Analitik institusi yang lebih dalam</li>
-          <li data-i18n="av.s5">Saran intervensi otomatis</li>
+          <li data-i18n="av.s2">Pemetaan kondisi emosi</li>
+          <li data-i18n="av.s3">Deteksi kebutuhan dan sinyal risiko awal</li>
+          <li data-i18n="av.s4">Jalur dukungan yang dipersonalisasi</li>
+          <li data-i18n="av.s5">Analitik institusi lebih dalam dan saran intervensi</li>
         </ul>
       </article>
     </div>
-    <p class="center note" data-i18n="av.pilot">Ingin mencoba dulu? Pilot biasanya berjalan 8–12 minggu untuk satu kelompok, lengkap dengan onboarding, target yang disepakati, dan evaluasi bersama.</p>
+    <div class="pilot-card">
+      <h3 class="script-sm" data-i18n="av.pilot.t">Ingin mulai dengan pilot?</h3>
+      <p data-i18n="av.pilot">Pilot biasanya berjalan 8–12 minggu untuk satu populasi, dengan onboarding, target keberhasilan, dan evaluasi bersama.</p>
+      <a href="#demo" class="btn btn-teal" data-i18n="cta.pilot">Diskusikan pilot</a>
+    </div>
   </div>
 </section>
 
 <!-- FAQ -->
-<section class="section" id="faq">
+<section class="section tint torn-top" id="faq">
   <div class="wrap narrow">
-    <div class="section-head">
-      <p class="eyebrow">FAQ</p>
-      <h2 data-i18n="faq.title">Pertanyaan yang sering muncul</h2>
-    </div>
+    <p class="kicker">05 / FAQ</p>
+    <h2 class="display" data-i18n="faq.title">Pertanyaan yang sering muncul.</h2>
     <div class="faq">
       <details><summary data-i18n="faq.1.q">Apakah institusi bisa membaca percakapan karyawan atau mahasiswa?</summary><p data-i18n="faq.1.a">Tidak. Institusi hanya melihat angka agregat, dan hanya untuk kelompok yang cukup besar sehingga tidak ada individu yang bisa dikenali.</p></details>
       <details><summary data-i18n="faq.2.q">Apakah Nesya seorang psikolog?</summary><p data-i18n="faq.2.a">Bukan. Nesya adalah AI yang membantu orang bercerita, menenangkan diri, dan menemukan langkah berikutnya. Untuk penanganan lebih dalam, Nesya merujuk ke psikolog atau konselor.</p></details>
-      <details><summary data-i18n="faq.3.q">Apa yang terjadi jika seseorang dalam kondisi krisis?</summary><p data-i18n="faq.3.a">Nesya mengarahkan pengguna ke layanan darurat dan jalur rujukan yang disepakati dengan institusi. Nesya bukan layanan krisis.</p></details>
+      <details><summary data-i18n="faq.3.q">Apa yang terjadi jika seseorang dalam kondisi krisis?</summary><p data-i18n="faq.3.a">Nesya mengarahkan pengguna ke layanan darurat dan jalur rujukan yang disepakati dengan institusi. N2CIAS bukan layanan krisis.</p></details>
       <details><summary data-i18n="faq.4.q">Perlu mengunduh aplikasi?</summary><p data-i18n="faq.4.a">Tidak. Nesya bisa diakses lewat browser di ponsel maupun laptop.</p></details>
-      <details><summary data-i18n="faq.5.q">Bagaimana biaya dihitung?</summary><p data-i18n="faq.5.a">Per peserta per bulan, sesuai tingkat kapasitas yang dipilih. Gunakan perkiraan biaya di atas, lalu kami sesuaikan saat diskusi.</p></details>
+      <details><summary data-i18n="faq.5.q">Bagaimana biaya dihitung?</summary><p data-i18n="faq.5.a">Per peserta per bulan, sesuai tingkat kapasitas yang dipilih. Gunakan perencana kapasitas di atas, lalu kami sesuaikan saat diskusi.</p></details>
       <details><summary data-i18n="faq.6.q">Bisa mulai dari skala kecil?</summary><p data-i18n="faq.6.a">Bisa. Banyak institusi memulai dengan pilot untuk satu fakultas, unit, atau departemen.</p></details>
     </div>
   </div>
 </section>
 
 <!-- CONTACT -->
-<section class="section tint" id="kontak">
+<section class="section paper" id="demo">
   <div class="wrap contact-grid">
-    <div class="section-head left">
-      <p class="eyebrow" data-i18n="ct.eyebrow">Hubungi kami</p>
-      <h2 data-i18n="ct.title">Ceritakan siapa yang ingin Anda dukung.</h2>
-      <p class="lead" data-i18n="ct.lead">Kami akan membahas bentuk implementasi yang paling cocok untuk institusi Anda.</p>
-      <h4 data-i18n="ct.inc">Setiap implementasi mencakup</h4>
-      <ul class="ticks">
-        <li data-i18n="ct.i1">Akses Nesya untuk seluruh peserta program</li>
-        <li data-i18n="ct.i2">Dashboard institusi</li>
-        <li data-i18n="ct.i3">Ringkasan untuk psikolog atas izin pengguna</li>
-        <li data-i18n="ct.i4">Pendampingan implementasi dan evaluasi program</li>
+    <div>
+      <h2 class="script" data-i18n="ct.title">Ceritakan siapa yang ingin Anda dukung</h2>
+      <img class="divider left" src="assets/divider.svg" alt="" width="180" height="16">
+      <p class="lead" data-i18n="ct.lead">Kami akan membahas implementasi N2CIAS yang paling cocok untuk universitas, rumah sakit, perusahaan, atau program kesehatan masyarakat Anda.</p>
+      <h4 class="caps" data-i18n="ct.inc">Setiap implementasi mencakup</h4>
+      <ul class="leafs">
+        <li data-i18n="ct.i1">Akses platform untuk seluruh peserta program</li>
+        <li data-i18n="ct.i2">Nesya, teman cerita berbasis AI</li>
+        <li data-i18n="ct.i3">Dashboard institusi</li>
+        <li data-i18n="ct.i4">Ringkasan untuk psikolog atas izin pengguna</li>
+        <li data-i18n="ct.i5">Pendampingan implementasi dan evaluasi program</li>
       </ul>
-      <p class="mail">✉️ <a href="mailto:hai@tenangaja.co.id">hai@tenangaja.co.id</a></p>
+      <p class="mail"><span data-i18n="ct.mail">Atau kirim email ke</span> <a href="mailto:hai@tenangaja.co.id">hai@tenangaja.co.id</a></p>
     </div>
-    <form class="card form" id="contact">
+    <form class="note letter" id="contact">
+      <span class="stamp" aria-hidden="true"><img src="assets/nesya.svg" alt=""></span>
       <label class="field"><span data-i18n="f.name">Nama lengkap</span><input name="name" required autocomplete="name"></label>
       <label class="field"><span data-i18n="f.email">Email kantor</span><input name="email" type="email" required autocomplete="email"></label>
+      <label class="field"><span data-i18n="f.wa">Nomor WhatsApp (opsional)</span><input name="wa" type="tel" autocomplete="tel"></label>
       <div class="row">
         <label class="field"><span data-i18n="f.org">Nama institusi</span><input name="org" required autocomplete="organization"></label>
         <label class="field"><span data-i18n="f.role">Jabatan</span><input name="role" autocomplete="organization-title"></label>
@@ -451,19 +522,34 @@
         </label>
         <label class="field"><span data-i18n="f.size">Jumlah peserta</span><input name="size" type="number" min="1" inputmode="numeric"></label>
       </div>
-      <label class="field"><span data-i18n="f.wa">WhatsApp (opsional)</span><input name="wa" type="tel" autocomplete="tel"></label>
-      <label class="field"><span data-i18n="f.msg">Apa yang Anda butuhkan?</span><textarea name="msg" rows="4"></textarea></label>
-      <button class="btn btn-primary block" type="submit" data-i18n="cta.demo">Jadwalkan demo</button>
-      <p class="note" data-i18n="f.note">Tombol ini membuka aplikasi email Anda dengan pesan yang sudah terisi.</p>
+      <label class="field"><span data-i18n="f.msg">Pesan / kebutuhan</span><textarea name="msg" rows="4"></textarea></label>
+      <button class="btn btn-mustard block" type="submit"><span data-i18n="cta.demo">Jadwalkan demo</span> <svg width="18" height="12"><use href="#arrow"/></svg></button>
+      <p class="small" data-i18n="f.note">Tombol ini membuka aplikasi email Anda dengan pesan yang sudah terisi.</p>
     </form>
   </div>
 </section>
 
-<section class="final">
-  <div class="wrap final-inner">
-    <div class="nesya-face lg" aria-hidden="true"><i></i><i></i></div>
-    <h2 data-i18n="final.title">Dukung orang-orang Anda sebelum bebannya tak terlihat.</h2>
-    <a href="#kontak" class="btn btn-light" data-i18n="cta.talk">Bicara dengan tim kami</a>
+<!-- FINAL: night scene -->
+<section class="night edge-top">
+  <svg class="night-scene" viewBox="0 0 1200 360" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
+    <g fill="#e2b866"><use href="#spark" x="120" y="40" width="14" height="14"/><use href="#spark" x="320" y="90" width="9" height="9"/><use href="#spark" x="880" y="50" width="16" height="16"/><use href="#spark" x="1040" y="120" width="10" height="10"/><use href="#spark" x="620" y="30" width="8" height="8"/><use href="#spark" x="460" y="150" width="7" height="7"/></g>
+    <circle cx="1020" cy="70" r="30" fill="#f1dca8" opacity=".85"/>
+    <image href="assets/kite-rust.svg" x="140" y="60" width="70" height="146" opacity=".9"/>
+    <image href="assets/kite-indigo.svg" x="960" y="140" width="56" height="116" opacity=".85"/>
+    <path d="M0 260 L60 200 L120 260 Z M90 270 L160 180 L230 270Z M980 270 L1050 190 L1120 270Z M1090 260 L1150 200 L1210 260Z" fill="#133a36"/>
+    <path d="M0 290 C200 250 380 270 600 290 S1000 260 1200 280 V360 H0Z" fill="#173d39"/>
+    <path d="M0 320 C240 300 480 315 700 325 S1050 305 1200 315 V360 H0Z" fill="#102f2c"/>
+    <image href="assets/mushroom.svg" x="230" y="268" width="50" height="50"/>
+    <image href="assets/mushroom.svg" x="900" y="272" width="42" height="42"/>
+  </svg>
+  <div class="wrap night-inner">
+    <img src="assets/nesya.svg" alt="" width="110" height="121" class="night-nesya">
+    <h2 class="script" data-i18n="final.title">Dukung orang-orang Anda sebelum bebannya tak terlihat</h2>
+    <p data-i18n="final.lead">N2CIAS membantu institusi membangun lapisan dukungan kesehatan mental yang lebih awal: check-in berbasis AI, navigasi perawatan, rujukan ke profesional, dan insight anonim.</p>
+    <div class="hero-cta center">
+      <a href="#demo" class="btn btn-mustard" data-i18n="cta.demo">Jadwalkan demo</a>
+      <a href="mailto:hai@tenangaja.co.id" class="link-u light" data-i18n="cta.talk">Bicara dengan tim kami</a>
+    </div>
   </div>
 </section>
 
@@ -472,23 +558,24 @@
 <footer class="footer">
   <div class="wrap foot-grid">
     <div>
-      <a href="#top" class="brand"><img src="assets/favicon.svg" alt="" width="28" height="28"><span>Tenang<b>AI</b></span></a>
-      <p data-i18n="foot.about">N2CIAS oleh TenangAI: layanan kesehatan mental preventif untuk institusi Indonesia. Dibuat di Jakarta.</p>
+      <a href="#top" class="brand light"><img src="assets/favicon.svg" alt="" width="36" height="36"><span><b>N2CIAS</b><small data-i18n="brand.by">oleh TenangAI</small></span></a>
+      <p data-i18n="foot.about">Layanan kesehatan mental preventif untuk institusi Indonesia. Dibuat di Jakarta, Indonesia.</p>
     </div>
     <nav aria-label="Footer">
-      <a href="#nesya" data-i18n="nav.nesya">Nesya</a>
-      <a href="#cara-kerja" data-i18n="nav.how">Cara kerja</a>
-      <a href="#institusi" data-i18n="nav.inst">Untuk institusi</a>
-      <a href="#biaya" data-i18n="nav.price">Biaya</a>
-      <a href="#keamanan" data-i18n="nav.safety">Keamanan</a>
-      <a href="#faq">FAQ</a>
+      <h4 class="caps" data-i18n="foot.explore">Jelajahi</h4>
+      <a href="#platform">Platform</a>
+      <a href="#use-cases" data-i18n="nav.cases">Studi kasus</a>
+      <a href="#dashboard">Dashboard</a>
+      <a href="#safety" data-i18n="nav.safety">Keamanan</a>
+      <a href="#pilot">Pilot</a>
     </nav>
     <div>
+      <h4 class="caps" data-i18n="foot.contact">Kontak</h4>
       <a href="mailto:hai@tenangaja.co.id">hai@tenangaja.co.id</a>
     </div>
   </div>
   <div class="wrap foot-legal">
-    <p data-i18n="foot.disc">Nesya dan N2CIAS adalah layanan dukungan kesehatan mental dan navigasi perawatan. Bukan alat diagnosis, bukan layanan krisis, dan bukan pengganti perawatan profesional. Dalam keadaan darurat hubungi 112 atau 119 ext. 8.</p>
+    <p data-i18n="foot.disc">N2CIAS dirancang untuk dukungan kesehatan mental dan navigasi perawatan. N2CIAS bukan alat diagnosis, bukan layanan krisis, dan bukan pengganti perawatan profesional. Dalam keadaan darurat hubungi 112 atau 119 ext. 8.</p>
     <p>© <span id="year">2026</span> TenangAI</p>
   </div>
 </footer>

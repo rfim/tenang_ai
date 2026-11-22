@@ -8,11 +8,12 @@
 
   function store(key, value) { try { localStorage.setItem(key, value); } catch (e) {} }
   function load(key) { try { return localStorage.getItem(key); } catch (e) { return null; } }
-
   function t(key) {
     if (lang === "en" && EN[key]) return EN[key];
     return ID_JS[key] || original[key] || EN[key] || key;
   }
+  function L(pair) { return lang === "en" ? pair.en : pair.id; }
+  function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
 
   // ---------- Language ----------
   var nodes = document.querySelectorAll("[data-i18n]");
@@ -32,9 +33,10 @@
       b.setAttribute("aria-pressed", String(b.dataset.lang === lang));
     });
     document.title = lang === "en"
-      ? "TenangAI · 24/7 mental health support for institutions"
-      : "TenangAI · Dukungan kesehatan mental 24/7 untuk institusi";
+      ? "N2CIAS by TenangAI · 24/7 mental health support for institutions"
+      : "N2CIAS oleh TenangAI · Dukungan kesehatan mental 24/7 untuk institusi";
     store("lang", lang);
+    renderQuiz();
     renderPlanner();
   }
   document.querySelectorAll(".lang button").forEach(function (b) {
@@ -42,7 +44,6 @@
   });
 
   // ---------- Nav ----------
-  var nav = document.querySelector(".nav");
   var links = document.querySelector(".nav-links");
   var menuBtn = document.querySelector(".menu-btn");
   menuBtn.addEventListener("click", function () {
@@ -52,20 +53,16 @@
   links.addEventListener("click", function (e) {
     if (e.target.tagName === "A") { links.classList.remove("open"); menuBtn.setAttribute("aria-expanded", "false"); }
   });
-  function onScroll() { nav.classList.toggle("scrolled", window.scrollY > 8); }
-  window.addEventListener("scroll", onScroll, { passive: true });
-  onScroll();
 
   // ---------- Hero chat ----------
   var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  var chatItems = document.querySelectorAll("#chat .msg, #chat .quick");
-  chatItems.forEach(function (el, i) {
+  document.querySelectorAll("#chat .msg, #chat .quick").forEach(function (el, i) {
     if (reduce) { el.classList.add("show"); return; }
     setTimeout(function () { el.classList.add("show"); }, 500 + i * 1100);
   });
 
   // ---------- Reveal on scroll ----------
-  var revealEls = document.querySelectorAll(".section-head, .card, .steps li, .pathway li, .dash");
+  var revealEls = document.querySelectorAll(".head, .note, .col, .collage-3 article, .process li, .journey li, .cols-3 article");
   if ("IntersectionObserver" in window && !reduce) {
     var io = new IntersectionObserver(function (entries) {
       entries.forEach(function (en) {
@@ -75,19 +72,23 @@
     revealEls.forEach(function (el) { el.classList.add("reveal"); io.observe(el); });
   }
 
-  // ---------- Tabs ----------
-  var tabs = document.querySelectorAll('[role="tab"]');
-  tabs.forEach(function (tab) {
-    tab.addEventListener("click", function () {
-      tabs.forEach(function (x) { x.setAttribute("aria-selected", String(x === tab)); });
-      document.querySelectorAll(".tab-panel").forEach(function (p) {
-        p.hidden = p.dataset.panel !== tab.dataset.tab;
+  // ---------- Tabs (case studies, dashboard) ----------
+  function tabs(btnSel, attr, panelSel, panelAttr) {
+    var btns = document.querySelectorAll(btnSel);
+    btns.forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        btns.forEach(function (x) { x.setAttribute("aria-selected", String(x === btn)); });
+        document.querySelectorAll(panelSel).forEach(function (p) {
+          p.hidden = p.getAttribute(panelAttr) !== btn.getAttribute(attr);
+        });
       });
     });
-  });
+  }
+  tabs("#use-cases [data-tab]", "data-tab", "#use-cases [data-panel]", "data-panel");
+  tabs("#dash-tabs [data-dtab]", "data-dtab", "#dashboard [data-dpanel]", "data-dpanel");
 
   // ---------- Coverage planner ----------
-  // Rates in IDR per person per month; capacity = shared sessions as a share of headcount.
+  // Rates in IDR per person per month; cap = shared sessions as a share of headcount.
   var TIERS = {
     corporate: [
       { id: "essential", name: "Essential", rate: 10000, cap: 0.2 },
@@ -104,54 +105,154 @@
   var BAND = { company: "corporate", hospital: "corporate", university: "education", public: null };
   var POP_LABEL = { company: "plan.pop.emp", hospital: "plan.pop.emp", university: "plan.pop.stu", public: "plan.pop.ppl" };
 
+  // Capacity quiz: five questions scored 0-2; the total suggests a capacity range.
+  var QUIZ = [
+    { id: "existing_demand",
+      q: { id: "Seberapa terlihat kebutuhan dukungan kesehatan mental saat ini?", en: "How visible is the current demand for mental health support?" },
+      o: [
+        { id: "Terbatas atau belum diketahui", en: "Limited or unknown" },
+        { id: "Ada beberapa permintaan atau rujukan", en: "Some existing demand" },
+        { id: "Kebutuhan rutin dan jelas, misalnya antrean konseling", en: "Clear recurring demand, e.g. counselling queues" }
+      ],
+      why: { id: "Kebutuhan dukungan sudah terlihat", en: "Demand for support is already visible" } },
+    { id: "operating_intensity",
+      q: { id: "Apakah populasi Anda bekerja di lingkungan bertekanan tinggi?", en: "Does your population work under high pressure or demand peaks?" },
+      o: [
+        { id: "Sebagian besar normal", en: "Mostly standard" },
+        { id: "Ada periode puncak (ujian, tenggat, rotasi)", en: "Some peak periods (exams, deadlines, rotations)" },
+        { id: "24/7, sistem shift, atau tekanan tinggi terus-menerus", en: "24/7, shift-based, or consistently high-pressure" }
+      ],
+      why: { id: "Ada tekanan atau periode puncak", en: "There is sustained pressure or demand peaks" } },
+    { id: "existing_support_usage",
+      q: { id: "Apakah sudah ada layanan dukungan kesehatan mental?", en: "Do you already provide mental health support?" },
+      o: [
+        { id: "Belum ada atau sangat terbatas", en: "Not yet / very limited" },
+        { id: "Ada, tapi pemakaiannya belum jelas", en: "Available, but usage is limited or unclear" },
+        { id: "Sudah ada dan aktif dipakai", en: "Established and actively used" }
+      ],
+      why: { id: "Layanan yang ada sudah aktif dipakai", en: "Existing support is actively used" } },
+    { id: "adoption_strategy",
+      q: { id: "Seberapa aktif N2CIAS akan diperkenalkan?", en: "How actively will you introduce N2CIAS?" },
+      o: [
+        { id: "Peluncuran ringan", en: "Light launch" },
+        { id: "Komunikasi aktif dan onboarding", en: "Active communication and onboarding" },
+        { id: "Dipimpin champion, kampanye, dan atasan", en: "Champion-led adoption and campaigns" }
+      ],
+      why: { id: "Adopsi akan didorong secara aktif", en: "Adoption will be actively driven" } },
+    { id: "population_profile",
+      q: { id: "Mana yang paling menggambarkan populasi Anda?", en: "Which best describes your population?" },
+      o: [
+        { id: "Campuran yang luas", en: "Broad mixed population" },
+        { id: "Muda dan terbiasa dengan layanan digital", en: "Younger and comfortable with digital services" },
+        { id: "Kelompok tertentu dengan kebutuhan lebih tinggi", en: "A defined cohort with higher needs" }
+      ],
+      why: { id: "Populasinya cenderung aktif memakai", en: "The population is likely to engage" } }
+  ];
+  var BANDS = [
+    { max: 2, tiers: ["essential"], title: { id: "Essential · sekitar 20%", en: "Essential · around 20%" }, copy: { id: "Titik awal yang masuk akal, dengan ruang untuk meninjau pemakaian setelah peluncuran.", en: "A practical starting point, with room to review usage after launch." } },
+    { max: 4, tiers: ["essential", "standard"], title: { id: "Essential sampai Standard · 20–30%", en: "Essential to Standard · 20–30%" }, copy: { id: "Mulai luas, dengan ruang untuk tumbuh.", en: "Start broad, with room to grow." } },
+    { max: 6, tiers: ["standard", "plus"], title: { id: "Standard sampai Plus · 30–40%", en: "Standard to Plus · 30–40%" }, copy: { id: "Perkiraan kebutuhan sedang sampai aktif.", en: "Moderate to active expected demand." } },
+    { max: 8, tiers: ["plus", "high"], title: { id: "Plus sampai High Capacity · 40–50%", en: "Plus to High Capacity · 40–50%" }, copy: { id: "Perkiraan keterlibatan lebih tinggi.", en: "Higher expected engagement." } },
+    { max: 10, tiers: ["high"], title: { id: "High Capacity · 50% ke atas", en: "High Capacity · 50%+" }, copy: { id: "Kebutuhan tinggi atau berulang. Kapasitas di atas 50% sebaiknya didiskusikan dengan tim kami.", en: "High or recurring demand. Capacity above 50% is best discussed with our team." } }
+  ];
+  var answers = {};
+  var autoApply = false;
+
   var typeEl = document.getElementById("p-type");
   var popEl = document.getElementById("p-pop");
   var popLabel = document.getElementById("p-pop-label");
   var tiersEl = document.getElementById("p-tiers");
+  var tierWrap = document.getElementById("p-tier-wrap");
   var resultEl = document.getElementById("p-result");
+  var quizQs = document.getElementById("quiz-qs");
+  var quizOut = document.getElementById("quiz-out");
   var tierId = "standard";
+  var recommended = [];
 
   function rupiah(n) { return "Rp" + new Intl.NumberFormat("id-ID").format(Math.round(n)); }
   function num(n) { return new Intl.NumberFormat(lang === "en" ? "en-US" : "id-ID").format(n); }
 
-  function renderPlanner() {
-    if (!typeEl) return;
-    var type = typeEl.value;
-    var band = BAND[type];
-    popLabel.setAttribute("data-i18n", POP_LABEL[type]);
-    popLabel.textContent = t(POP_LABEL[type]);
+  function renderQuiz() {
+    if (!quizQs) return;
+    quizQs.innerHTML = QUIZ.map(function (q, qi) {
+      return '<fieldset><legend>' + (qi + 1) + ". " + esc(L(q.q)) + '</legend><div class="opts">' +
+        q.o.map(function (o, oi) {
+          var id = "q-" + q.id + "-" + oi;
+          return '<label class="opt" for="' + id + '"><input type="radio" id="' + id + '" name="' + q.id + '" value="' + oi + '"' +
+            (answers[q.id] === oi ? " checked" : "") + "><span>" + esc(L(o)) + "</span></label>";
+        }).join("") + "</div></fieldset>";
+    }).join("");
+    quizQs.querySelectorAll("input").forEach(function (inp) {
+      inp.addEventListener("change", function () { answers[inp.name] = Number(inp.value); autoApply = true; scoreQuiz(); });
+    });
+    scoreQuiz();
+  }
 
-    var list = band ? TIERS[band] : [];
-    if (!list.some(function (x) { return x.id === tierId; })) tierId = list.length ? "standard" : tierId;
+  function scoreQuiz() {
+    var done = QUIZ.every(function (q) { return q.id in answers; });
+    if (!done) { quizOut.innerHTML = '<p class="small">' + esc(t("quiz.answer")) + "</p>"; recommended = []; renderTiersOnly(); return; }
+    var total = QUIZ.reduce(function (s, q) { return s + answers[q.id]; }, 0);
+    var band = BANDS.find(function (b) { return total <= b.max; });
+    var reasons = QUIZ.filter(function (q) { return answers[q.id] > 0; })
+      .sort(function (a, b) { return answers[b.id] - answers[a.id]; }).slice(0, 3);
+    recommended = band.tiers;
+    quizOut.innerHTML = '<div class="rec-box"><b>' + esc(L(band.title)) + "</b>" + esc(L(band.copy)) +
+      (reasons.length ? '<ul>' + reasons.map(function (r) { return "<li>" + esc(L(r.why)) + "</li>"; }).join("") + "</ul>" : "") +
+      '<p style="margin:10px 0 0"><a href="#p-tier-wrap" id="quiz-apply">' + esc(t("quiz.apply")) + "</a></p></div>";
+    function apply() {
+      var list = currentList();
+      if (!list.length) return;
+      var pick = band.tiers.filter(function (id) { return list.some(function (x) { return x.id === id; }); });
+      tierId = pick[0] || list[list.length - 1].id;
+      renderPlanner();
+    }
+    document.getElementById("quiz-apply").addEventListener("click", apply);
+    if (autoApply) { autoApply = false; apply(); } else { renderTiersOnly(); }
+  }
 
+  function currentList() { var b = BAND[typeEl.value]; return b ? TIERS[b] : []; }
+
+  function renderTiersOnly() {
+    var list = currentList();
     tiersEl.innerHTML = "";
-    tiersEl.parentElement.hidden = !band;
     list.forEach(function (tier) {
       var wrap = document.createElement("div");
-      wrap.className = "tier";
+      var rec = recommended.indexOf(tier.id) !== -1 || (recommended.indexOf("high") !== -1 && tier.id === "plus" && !list.some(function (x) { return x.id === "high"; }));
+      wrap.className = "tier" + (rec ? " rec" : "");
       var id = "tier-" + tier.id;
       wrap.innerHTML =
         '<input type="radio" name="tier" id="' + id + '" value="' + tier.id + '"' + (tier.id === tierId ? " checked" : "") + ">" +
-        '<label for="' + id + '"><b>' + tier.name + "</b><small>" + Math.round(tier.cap * 100) + "% · " + t("tier." + tier.id) + "</small></label>";
+        '<label for="' + id + '" data-rec="' + esc(t("plan.rec")) + '"><b>' + tier.name + "</b><small>" + Math.round(tier.cap * 100) + "% · " + esc(t("tier." + tier.id)) + "</small></label>";
       wrap.querySelector("input").addEventListener("change", function () { tierId = tier.id; renderPlanner(); });
       tiersEl.appendChild(wrap);
     });
+  }
+
+  function renderPlanner() {
+    if (!typeEl) return;
+    var type = typeEl.value;
+    var list = currentList();
+    popLabel.setAttribute("data-i18n", POP_LABEL[type]);
+    popLabel.textContent = t(POP_LABEL[type]);
+    if (list.length && !list.some(function (x) { return x.id === tierId; })) tierId = list[list.length - 1].id;
+    tierWrap.hidden = !list.length;
+    renderTiersOnly();
 
     var pop = Math.max(0, Math.floor(Number(popEl.value) || 0));
-    if (!band) {
-      resultEl.innerHTML = "<p>" + t("plan.custom") + '</p><a href="#kontak">' + t("plan.customcta") + " →</a>";
+    if (!list.length) {
+      resultEl.innerHTML = "<p>" + esc(t("plan.custom")) + '</p><a href="#demo">' + esc(t("plan.customcta")) + " &rarr;</a>";
       return;
     }
     var tier = list.find(function (x) { return x.id === tierId; }) || list[0];
     var monthly = pop * tier.rate;
     resultEl.innerHTML =
-      "<small>" + t("plan.monthly") + "</small>" +
+      "<small>" + esc(t("plan.monthly")) + "</small>" +
       '<span class="big">' + rupiah(monthly) + "</span>" +
       "<dl>" +
-      "<dt>" + t("plan.people") + "</dt><dd>" + num(pop) + "</dd>" +
-      "<dt>" + t("plan.sessions") + "</dt><dd>" + num(Math.round(pop * tier.cap)) + "</dd>" +
-      "<dt>" + t("plan.rate") + "</dt><dd>" + rupiah(tier.rate) + "</dd>" +
-      "<dt>" + t("plan.annual") + "</dt><dd>" + rupiah(monthly * 12) + "</dd>" +
+      "<dt>" + esc(t("plan.people")) + "</dt><dd>" + num(pop) + "</dd>" +
+      "<dt>" + esc(t("plan.sessions")) + "</dt><dd>" + num(Math.round(pop * tier.cap)) + "</dd>" +
+      "<dt>" + esc(t("plan.rate")) + "</dt><dd>" + rupiah(tier.rate) + "</dd>" +
+      "<dt>" + esc(t("plan.annual")) + "</dt><dd>" + rupiah(monthly * 12) + "</dd>" +
       "</dl>";
   }
   if (typeEl) {
@@ -159,7 +260,7 @@
     popEl.addEventListener("input", renderPlanner);
   }
 
-  // ---------- Contact form → email ----------
+  // ---------- Contact form: opens an email ----------
   var form = document.getElementById("contact");
   form.addEventListener("submit", function (e) {
     e.preventDefault();
@@ -168,11 +269,11 @@
     var lines = [
       t("f.name") + ": " + d.get("name"),
       t("f.email") + ": " + d.get("email"),
+      t("f.wa") + ": " + (d.get("wa") || "-"),
       t("f.org") + ": " + d.get("org"),
       t("f.role") + ": " + (d.get("role") || "-"),
       t("f.type") + ": " + d.get("type"),
       t("f.size") + ": " + (d.get("size") || "-"),
-      "WhatsApp: " + (d.get("wa") || "-"),
       "",
       d.get("msg") || ""
     ];
@@ -181,7 +282,5 @@
   });
 
   document.getElementById("year").textContent = new Date().getFullYear();
-
-  var saved = load("lang");
-  setLang(saved || "id");
+  setLang(load("lang") || "id");
 })();
