@@ -16,6 +16,7 @@ head = index[: index.index("</head>")]
 body_start = index[index.index("</head>") : index.index('<main id="main">')]
 footer = index[index.index('<footer class="footer">') : index.index('<script src="i18n.js">')]
 
+CAROUSEL = index[index.index("<!-- PARTNERS: moving logo carousel -->") : index.index("<!-- PLATFORM: what is N2CIAS -->")]
 ID_TEXT = dict(re.findall(r'data-i18n="([^"]+)"[^>]*>([^<]+)<', index))
 
 HOME_ANCHORS = ["platform", "use-cases", "dashboard", "safety", "pilot", "demo", "coverage", "how-it-works", "faq"]
@@ -67,6 +68,7 @@ def page_hero(kicker_key, kicker_id, kicker_en, title_key, title_id, title_en, l
       </div>
     </div>
     <div class="page-hero-art" aria-hidden="true">
+      <div class="mm-wrap mmw-ph" data-parallax="-0.1"><img class="mm mm-day" src="assets/mm-c.svg" alt=""><img class="mm mm-night" src="assets/mm-c-night.svg" alt=""></div>
       <img class="pha-kite" src="assets/{art}.svg" alt="">
       <img class="pha-nesya" src="assets/nesya.svg" alt="">
       <img class="pha-mush" src="assets/mushroom.svg" alt="">
@@ -225,20 +227,8 @@ for o in ORGS:
         for i, h in enumerate(o["h"], 1))
     outcomes = "\n".join(f'        <li data-i18n="use.{o["use"]}.{i}">{ID_TEXT.get(f"use.{o['use']}.{i}", "")}</li>' for i in range(1, o["n"] + 1))
     campus = ""
-    if o.get("campus"):
-        campus = '''
-<section class="logos">
-  <div class="wrap logos-inner">
-    <p class="label" data-i18n="logos.label">Bekerja bersama kampus di Indonesia</p>
-    <ul class="logo-row">
-      <li><img src="assets/logos/ui.svg" alt="Universitas Indonesia" onerror="this.remove()"><span>Universitas Indonesia</span></li>
-      <li><img src="assets/logos/itb.svg" alt="Institut Teknologi Bandung" onerror="this.remove()"><span>ITB</span></li>
-      <li><img src="assets/logos/ugm.svg" alt="Universitas Gadjah Mada" onerror="var b=document.createElement('b');b.textContent='UGM';this.parentNode.classList.add('wordmark');this.replaceWith(b)"><span>Gadjah Mada</span></li>
-      <li class="wordmark"><b>BINUS</b><span>University</span></li>
-      <li><img src="assets/logos/telkom.png" alt="Telkom University" onerror="this.remove()"><span>Telkom University</span></li>
-    </ul>
-  </div>
-</section>'''
+    if o["key"] in ("uni", "hos"):
+        campus = "\n" + CAROUSEL
     main = page_hero(f"org.{k}.kicker", o["kicker"][0], o["kicker"][1],
                      f"org.{k}.title", o["title"][0], o["title"][1],
                      f"org.{k}.lead", o["lead"][0], o["lead"][1], art=o["art"]) + campus + f'''

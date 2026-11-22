@@ -80,6 +80,19 @@
     setTimeout(function () { el.classList.add("show"); }, 500 + i * 1100);
   });
 
+  // ---------- Parallax: elements with data-parallax move a little as the page scrolls ----------
+  var para = [].slice.call(document.querySelectorAll("[data-parallax]"));
+  if (para.length && !reduce) {
+    var ticking = false;
+    function movePara() {
+      var y = window.scrollY;
+      para.forEach(function (el) { el.style.transform = "translateY(" + (y * parseFloat(el.dataset.parallax)).toFixed(1) + "px)"; });
+      ticking = false;
+    }
+    window.addEventListener("scroll", function () { if (!ticking) { ticking = true; requestAnimationFrame(movePara); } }, { passive: true });
+    movePara();
+  }
+
   // ---------- Reveal on scroll ----------
   var revealEls = document.querySelectorAll(".head, .note, .col, .collage-3 article, .process li, .journey li, .cols-3 article");
   if ("IntersectionObserver" in window && !reduce) {

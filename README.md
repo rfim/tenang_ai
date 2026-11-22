@@ -16,3 +16,9 @@ Pricing in the planner (IDR per person per month) is in `app.js` under `TIERS`.
 Run locally: `python3 -m http.server` and open http://localhost:8000.
 
 Deploy: GitHub Pages, Settings → Pages → Deploy from a branch → `main` / root.
+
+## Art
+
+- `docs/art-prompts.md`: prompt pack for painted scenes (style block, palette, per-page prompts, motion loops).
+- `tools/mega_mendung.py`: generates the mega mendung batik clouds (`assets/mm-*.svg`, day and night colours). Run it after changing shapes or colours.
+- Partner logos for the moving carousel are in `assets/logos/` (official files from each institution or Wikimedia Commons).
