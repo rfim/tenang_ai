@@ -6,6 +6,8 @@ Static site for N2CIAS and Nesya, the AI companion. Bilingual (Bahasa Indonesia 
 - `i18n.js`: English copy (keys match `data-i18n` attributes) and Indonesian strings used only from JavaScript.
 - `app.js`: language switch, chat animation, tabs, coverage planner with the 5-question capacity quiz, contact form (opens an email to hai@tenangaja.co.id).
 - `styles.css`: storybook / paper-collage style.
+- `research.html` and the organisation pages (`universitas.html`, `perusahaan.html`, `rumah-sakit.html`, `kesehatan-masyarakat.html`) are generated: edit `tools/build_pages.py`, then run `python3 tools/build_pages.py`. It copies the header and footer from `index.html`, so rerun it after changing those.
+- `data.js`: clinical studies, team publications, team members and the reading list. Empty lists show a "coming soon" note. `research.js` renders them.
 - `assets/`: SVG illustrations (kites, plants, mushrooms, Nesya, paper edges, grain).
 - `assets/logos/`: university logos. Binus has no logo file yet (shown as a wordmark); drop `binus.svg` or `binus.png` in and swap the `.wordmark` item in `index.html`. If `ugm.svg` is missing, UGM also shows as a wordmark.
 

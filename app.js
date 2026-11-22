@@ -38,6 +38,7 @@
     store("lang", lang);
     renderQuiz();
     renderPlanner();
+    document.dispatchEvent(new CustomEvent("langchange", { detail: lang }));
   }
   document.querySelectorAll(".lang button").forEach(function (b) {
     b.addEventListener("click", function () { setLang(b.dataset.lang); });
@@ -52,6 +53,13 @@
   });
   links.addEventListener("click", function (e) {
     if (e.target.tagName === "A") { links.classList.remove("open"); menuBtn.setAttribute("aria-expanded", "false"); }
+  });
+
+  document.querySelectorAll(".dd-btn").forEach(function (b) {
+    b.addEventListener("click", function () {
+      var open = b.parentNode.classList.toggle("open");
+      b.setAttribute("aria-expanded", String(open));
+    });
   });
 
   // ---------- Hero chat ----------
@@ -262,7 +270,7 @@
 
   // ---------- Contact form: opens an email ----------
   var form = document.getElementById("contact");
-  form.addEventListener("submit", function (e) {
+  if (form) form.addEventListener("submit", function (e) {
     e.preventDefault();
     if (!form.reportValidity()) return;
     var d = new FormData(form);
@@ -281,6 +289,7 @@
     window.location.href = "mailto:hai@tenangaja.co.id?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(lines.join("\n"));
   });
 
-  document.getElementById("year").textContent = new Date().getFullYear();
+  var yearEl = document.getElementById("year");
+  if (yearEl) yearEl.textContent = new Date().getFullYear();
   setLang(load("lang") || "id");
 })();

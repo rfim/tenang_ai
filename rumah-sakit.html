@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rumah sakit · N2CIAS oleh TenangAI</title>
+<meta name="description" content="Perawat, dokter, dan staf bisa bercerita sesudah shift malam. Manajemen melihat unit mana yang paling tertekan, tanpa melihat siapa bercerita apa.">
+<meta property="og:title" content="Rumah sakit · N2CIAS oleh TenangAI">
+<meta property="og:description" content="Tempat aman untuk bercerita, kapan saja. Insight anonim untuk institusi.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#1d4a45">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Fraunces:opsz,wght,SOFT@9..144,500..800,50..100&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- Icon sprite -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="spark" viewBox="0 0 20 20"><path d="M10 0C11 7 13 9 20 10C13 11 11 13 10 20C9 13 7 11 0 10C7 9 9 7 10 0Z"/></symbol>
+  <symbol id="i-company" viewBox="0 0 64 64"><g fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 56V14l22-6v48M34 22h18v34M6 56h52"/><path d="M19 20h6M19 29h6M19 38h6M41 30h4M41 39h4M24 56v-8h4v8"/></g></symbol>
+  <symbol id="i-hospital" viewBox="0 0 64 64"><g fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M10 56V26L32 10l22 16v30M6 56h52"/><path d="M32 24v16M24 32h16"/><path d="M27 56v-8h10v8"/></g></symbol>
+  <symbol id="i-university" viewBox="0 0 64 64"><g fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 24l28-12 28 12-28 12z"/><path d="M16 30v12c0 5 8 9 16 9s16-4 16-9V30"/><path d="M60 24v14"/><circle cx="60" cy="41" r="2.5"/></g></symbol>
+  <symbol id="i-public" viewBox="0 0 64 64"><g fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="32" cy="20" r="7"/><circle cx="13" cy="27" r="5.5"/><circle cx="51" cy="27" r="5.5"/><path d="M20 52c0-9 5-16 12-16s12 7 12 16M4 50c0-7 4-12 9-12 3 0 5 1 7 3M60 50c0-7-4-12-9-12-3 0-5 1-7 3"/></g></symbol>
+  <symbol id="i-moon" viewBox="0 0 24 24"><path d="M15 3a9 9 0 1 0 6 13A8 8 0 0 1 15 3z" fill="currentColor"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></g></symbol>
+  <symbol id="i-people" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="9" cy="8" r="3.5"/><path d="M2 20c0-4 3-7 7-7s7 3 7 7"/><path d="M16 4.5a3.5 3.5 0 0 1 0 7M18 13c2.5 1 4 3.5 4 7"/></g></symbol>
+  <symbol id="i-chat" viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M8 10h8M8 13h5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 3v3h6V3M9 12l2 2 4-4M9 17h6"/></g></symbol>
+  <symbol id="i-leaf" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 19C5 10 10 5 20 4c0 10-5 15-14 15z"/><path d="M5 19l8-8"/></g></symbol>
+  <symbol id="i-doc" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h9l4 4v14H6z"/><path d="M14 3v5h5M9 13h7M9 17h5"/></g></symbol>
+  <symbol id="i-chart" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 20h16M7 16v-4M12 16V7M17 16v-6"/></g></symbol>
+  <symbol id="arrow" viewBox="0 0 20 12"><path d="M1 6h17M13 1l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+</svg>
+
+<a class="skip" href="#main" data-i18n="skip">Langsung ke isi</a>
+
+<header class="nav" id="nav">
+  <div class="wrap nav-inner">
+    <a href="index.html" class="brand" aria-label="N2CIAS oleh TenangAI">
+      <img src="assets/favicon.svg" alt="" width="40" height="40">
+      <span><b>N2CIAS</b><small data-i18n="brand.by">oleh TenangAI</small></span>
+    </a>
+    <nav class="nav-links" aria-label="Utama">
+      <a href="index.html#platform">Platform</a>
+      <div class="dd">
+        <button type="button" class="dd-btn" aria-expanded="false"><span data-i18n="nav.org">Organisasi</span></button>
+        <div class="dd-menu">
+          <a href="universitas.html" data-i18n="type.university">Universitas</a>
+          <a href="perusahaan.html" data-i18n="type.company">Perusahaan</a>
+          <a aria-current="page" href="rumah-sakit.html" data-i18n="type.hospital">Rumah sakit</a>
+          <a href="kesehatan-masyarakat.html" data-i18n="type.public">Kesehatan masyarakat</a>
+        </div>
+      </div>
+      <a href="research.html" data-i18n="nav.research">Riset</a>
+      <a href="index.html#dashboard">Dashboard</a>
+      <a href="index.html#safety" data-i18n="nav.safety">Keamanan</a>
+      <a href="index.html#pilot" data-i18n="nav.pilot">Ketersediaan</a>
+    </nav>
+    <div class="nav-actions">
+      <div class="lang" role="group" aria-label="Bahasa / Language">
+        <button type="button" data-lang="id" aria-pressed="true">ID</button>
+        <button type="button" data-lang="en" aria-pressed="false">EN</button>
+      </div>
+      <a href="index.html#demo" class="btn btn-mustard btn-sm" data-i18n="cta.demo">Jadwalkan demo</a>
+      <button class="menu-btn" type="button" aria-label="Menu" aria-expanded="false"><span></span><span></span></button>
+    </div>
+  </div>
+  <a href="index.html#pilot" class="ribbon"><span data-i18n="ribbon">Pilot 8–12 minggu</span><svg width="14" height="14"><use href="#spark"/></svg></a>
+</header>
+
+<main id="main" class="subpage">
+<section class="page-hero">
+  <img class="deco sprig-l" src="assets/sprig-olive.svg" alt="" aria-hidden="true">
+  <div class="wrap page-hero-grid">
+    <div>
+      <p class="kicker"><a href="index.html">N2CIAS</a> / <span data-i18n="org.hos.kicker">Rumah sakit</span></p>
+      <h1 class="display" data-i18n="org.hos.title">Dukungan untuk orang-orang yang merawat orang lain.</h1>
+      <img class="divider left" src="assets/divider.svg" alt="" width="200" height="18">
+      <p class="lead" data-i18n="org.hos.lead">Perawat, dokter, dan staf bisa bercerita sesudah shift malam. Manajemen melihat unit mana yang paling tertekan, tanpa melihat siapa bercerita apa.</p>
+      <div class="hero-cta">
+        <a href="index.html#demo" class="btn btn-mustard"><span data-i18n="cta.demo">Jadwalkan demo</span></a>
+        <a href="index.html#coverage" class="link-u" data-i18n="org.plan">Hitung kebutuhan</a>
+      </div>
+    </div>
+    <div class="page-hero-art" aria-hidden="true">
+      <img class="pha-kite" src="assets/kite-olive.svg" alt="">
+      <img class="pha-nesya" src="assets/nesya.svg" alt="">
+      <img class="pha-mush" src="assets/mushroom.svg" alt="">
+    </div>
+  </div>
+</section>
+
+<section class="section paper">
+  <div class="wrap">
+    <div class="head"><h2 class="script" data-i18n="org.challenge">Tantangannya</h2><img class="divider" src="assets/divider.svg" alt="" width="200" height="18"></div>
+    <div class="cols-4 cols-3x">
+      <article class="col"><h3 class="caps" data-i18n="org.hos.c1t">Shift panjang</h3><p data-i18n="org.hos.c1b">Jam kerja tenaga kesehatan jarang cocok dengan jam layanan konseling.</p></article>
+      <article class="col"><h3 class="caps" data-i18n="org.hos.c2t">Tekanan tinggi terus-menerus</h3><p data-i18n="org.hos.c2b">Beban emosional dari pasien, keluarga, dan kejadian kritis menumpuk.</p></article>
+      <article class="col"><h3 class="caps" data-i18n="org.hos.c3t">Burnout terlambat terlihat</h3><p data-i18n="org.hos.c3b">Tanda kelelahan sering baru terlihat saat sudah memengaruhi layanan.</p></article>
+    </div>
+  </div>
+</section>
+
+<section class="band band-olive edge-both">
+  <div class="wrap">
+    <h2 class="script center" data-i18n="org.helps">Bagaimana N2CIAS membantu</h2>
+    <ol class="org-helps">
+      <li><span class="num">1</span><h3 class="caps" data-i18n="org.hos.h1t">Tersedia di semua shift</h3><p data-i18n="org.hos.h1b">Nesya bisa diakses kapan saja, termasuk dini hari.</p></li>
+      <li><span class="num">2</span><h3 class="caps" data-i18n="org.hos.h2t">Dukungan setelah kejadian berat</h3><p data-i18n="org.hos.h2b">Ruang untuk memproses hari yang berat, dan rujukan bila perlu.</p></li>
+      <li><span class="num">3</span><h3 class="caps" data-i18n="org.hos.h3t">Peta beban per unit</h3><p data-i18n="org.hos.h3b">Tren agregat per unit untuk perencanaan jadwal dan dukungan.</p></li>
+      <li><span class="num">4</span><h3 class="caps" data-i18n="org.hos.h4t">Terhubung dengan K3 dan psikolog</h3><p data-i18n="org.hos.h4b">Rujukan ke layanan kesehatan kerja atau psikolog rumah sakit.</p></li>
+    </ol>
+  </div>
+</section>
+
+<section class="section paper">
+  <div class="wrap org-out">
+    <div class="note stitched">
+      <h3 class="caps" data-i18n="org.outcomes">Hasil yang diharapkan</h3>
+      <ul class="leafs">
+        <li data-i18n="use.hos.1">Tersedia di semua shift</li>
+        <li data-i18n="use.hos.2">Tanda burnout terlihat lebih awal</li>
+        <li data-i18n="use.hos.3">Rujukan ke psikolog saat dibutuhkan</li>
+        <li data-i18n="use.hos.4">Gambaran beban per unit</li>
+      </ul>
+    </div>
+    <div>
+      <h2 class="script-sm" data-i18n="org.cta.t">Mulai dengan pilot</h2>
+      <p data-i18n="org.cta.b">Pilot biasanya berjalan 8–12 minggu untuk satu kelompok, dengan onboarding, target yang disepakati, dan evaluasi bersama.</p>
+      <div class="hero-cta">
+        <a href="index.html#demo" class="btn btn-mustard" data-i18n="cta.demo">Jadwalkan demo</a>
+        <a href="research.html" class="link-u" data-i18n="org.research">Lihat riset yang kami pelajari</a>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="footer">
+  <div class="wrap foot-grid">
+    <div>
+      <a href="index.html" class="brand light"><img src="assets/favicon.svg" alt="" width="36" height="36"><span><b>N2CIAS</b><small data-i18n="brand.by">oleh TenangAI</small></span></a>
+      <p data-i18n="foot.about">Layanan kesehatan mental preventif untuk institusi Indonesia. Dibuat di Jakarta, Indonesia.</p>
+    </div>
+    <nav aria-label="Footer">
+      <h4 class="caps" data-i18n="foot.explore">Jelajahi</h4>
+      <a href="index.html#platform">Platform</a>
+      <a href="index.html#use-cases" data-i18n="nav.cases">Studi kasus</a>
+      <a href="index.html#dashboard">Dashboard</a>
+      <a href="index.html#safety" data-i18n="nav.safety">Keamanan</a>
+      <a href="index.html#pilot">Pilot</a>
+    </nav>
+    <nav aria-label="Organisasi">
+      <h4 class="caps" data-i18n="nav.org">Organisasi</h4>
+      <a href="universitas.html" data-i18n="type.university">Universitas</a>
+      <a href="perusahaan.html" data-i18n="type.company">Perusahaan</a>
+      <a href="rumah-sakit.html" data-i18n="type.hospital">Rumah sakit</a>
+      <a href="kesehatan-masyarakat.html" data-i18n="type.public">Kesehatan masyarakat</a>
+      <a href="research.html" data-i18n="nav.research">Riset</a>
+    </nav>
+    <div>
+      <h4 class="caps" data-i18n="foot.contact">Kontak</h4>
+      <a href="mailto:hai@tenangaja.co.id">hai@tenangaja.co.id</a>
+    </div>
+  </div>
+  <div class="wrap foot-legal">
+    <p data-i18n="foot.disc">N2CIAS dirancang untuk dukungan kesehatan mental dan navigasi perawatan. N2CIAS bukan alat diagnosis, bukan layanan krisis, dan bukan pengganti perawatan profesional. Dalam keadaan darurat hubungi 112 atau 119 ext. 8.</p>
+    <p>© <span id="year">2026</span> TenangAI</p>
+  </div>
+</footer>
+
+<script src="i18n.js"></script>
+<script src="i18n-pages.js"></script>
+<script src="app.js"></script>
+<script src="data.js"></script>
+<script src="research.js"></script>
+</body>
+</html>

@@ -27,6 +27,11 @@
   <symbol id="i-moon" viewBox="0 0 24 24"><path d="M15 3a9 9 0 1 0 6 13A8 8 0 0 1 15 3z" fill="currentColor"/></symbol>
   <symbol id="i-lock" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></g></symbol>
   <symbol id="i-people" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="9" cy="8" r="3.5"/><path d="M2 20c0-4 3-7 7-7s7 3 7 7"/><path d="M16 4.5a3.5 3.5 0 0 1 0 7M18 13c2.5 1 4 3.5 4 7"/></g></symbol>
+  <symbol id="i-chat" viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M8 10h8M8 13h5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 3v3h6V3M9 12l2 2 4-4M9 17h6"/></g></symbol>
+  <symbol id="i-leaf" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 19C5 10 10 5 20 4c0 10-5 15-14 15z"/><path d="M5 19l8-8"/></g></symbol>
+  <symbol id="i-doc" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h9l4 4v14H6z"/><path d="M14 3v5h5M9 13h7M9 17h5"/></g></symbol>
+  <symbol id="i-chart" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 20h16M7 16v-4M12 16V7M17 16v-6"/></g></symbol>
   <symbol id="arrow" viewBox="0 0 20 12"><path d="M1 6h17M13 1l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
 </svg>
 
@@ -40,7 +45,16 @@
     </a>
     <nav class="nav-links" aria-label="Utama">
       <a href="#platform">Platform</a>
-      <a href="#use-cases" data-i18n="nav.cases">Studi kasus</a>
+      <div class="dd">
+        <button type="button" class="dd-btn" aria-expanded="false"><span data-i18n="nav.org">Organisasi</span></button>
+        <div class="dd-menu">
+          <a href="universitas.html" data-i18n="type.university">Universitas</a>
+          <a href="perusahaan.html" data-i18n="type.company">Perusahaan</a>
+          <a href="rumah-sakit.html" data-i18n="type.hospital">Rumah sakit</a>
+          <a href="kesehatan-masyarakat.html" data-i18n="type.public">Kesehatan masyarakat</a>
+        </div>
+      </div>
+      <a href="research.html" data-i18n="nav.research">Riset</a>
       <a href="#dashboard">Dashboard</a>
       <a href="#safety" data-i18n="nav.safety">Keamanan</a>
       <a href="#pilot" data-i18n="nav.pilot">Ketersediaan</a>
@@ -155,6 +169,25 @@
         <li><svg><use href="#i-people"/></svg><div><b data-i18n="about.3.t">Menjangkau lebih banyak orang</b><span data-i18n="about.3.b">Lebih mudah diperluas dibanding sesi psikolog satu-per-satu.</span></div></li>
       </ul>
     </aside>
+  </div>
+</section>
+
+<!-- TOOLKIT (feature grid) -->
+<section class="section paper" id="toolkit">
+  <div class="wrap">
+    <div class="head">
+      <h2 class="script" data-i18n="tool.title">Isi kotak alat Nesya</h2>
+      <img class="divider" src="assets/divider.svg" alt="" width="200" height="18">
+      <p class="lead" data-i18n="tool.lead">Bukan sekadar chatbot. Alat yang membantu orang merasa lebih baik dan tahu langkah berikutnya.</p>
+    </div>
+    <div class="tool-grid">
+      <article class="note tool"><svg class="tool-ico"><use href="#i-chat"/></svg><h3 data-i18n="tool.1.t">Teman cerita AI</h3><p data-i18n="tool.1.b">Ngobrol kapan saja dalam Bahasa Indonesia sehari-hari, dengan empati dan tanpa menghakimi.</p></article>
+      <article class="note tool"><svg class="tool-ico"><use href="#i-check"/></svg><h3 data-i18n="tool.2.t">Check-in singkat</h3><p data-i18n="tool.2.b">Beberapa pertanyaan untuk mengenali perasaan dan apa yang sedang dibutuhkan.</p></article>
+      <article class="note tool"><svg class="tool-ico"><use href="#i-leaf"/></svg><h3 data-i18n="tool.3.t">Latihan menenangkan diri</h3><p data-i18n="tool.3.b">Latihan napas, grounding, dan refleksi singkat yang bisa dilakukan di mana saja.</p></article>
+      <article class="note tool"><svg class="tool-ico"><use href="#i-people"/></svg><h3 data-i18n="tool.4.t">Rujukan ke psikolog</h3><p data-i18n="tool.4.b">Saat butuh lebih dari sekadar cerita, Nesya mengarahkan ke psikolog atau konselor.</p></article>
+      <article class="note tool"><svg class="tool-ico"><use href="#i-doc"/></svg><h3 data-i18n="tool.5.t">Ringkasan untuk psikolog</h3><p data-i18n="tool.5.b">Atas izin pengguna, psikolog menerima ringkasan agar sesi tidak mulai dari nol.</p></article>
+      <article class="note tool"><svg class="tool-ico"><use href="#i-chart"/></svg><h3 data-i18n="tool.6.t">Dashboard institusi</h3><p data-i18n="tool.6.b">Pola agregat yang anonim untuk merencanakan program dukungan.</p></article>
+    </div>
   </div>
 </section>
 
@@ -413,6 +446,17 @@
   </div>
 </section>
 
+<!-- RESEARCH TEASER -->
+<section class="section tint torn-top" id="research">
+  <div class="wrap">
+    <p class="kicker">05 / <span data-i18n="rs.kicker">Riset</span></p>
+    <h2 class="display" data-i18n="rs.title">Dibangun di atas bukti.</h2>
+    <p class="sub" data-i18n="rs.sub">Penelitian tentang pendamping AI untuk kesehatan mental yang kami pelajari dalam membangun Nesya.</p>
+    <div class="paper-list" id="reading-teaser"></div>
+    <p class="center"><a class="btn btn-teal" href="research.html" data-i18n="rs.all">Lihat semua riset</a></p>
+  </div>
+</section>
+
 <!-- WHY: rust band -->
 <section class="band band-rust edge-both" id="why">
   <div class="wrap why">
@@ -471,7 +515,7 @@
 <!-- FAQ -->
 <section class="section tint torn-top" id="faq">
   <div class="wrap narrow">
-    <p class="kicker">05 / FAQ</p>
+    <p class="kicker">06 / FAQ</p>
     <h2 class="display" data-i18n="faq.title">Pertanyaan yang sering muncul.</h2>
     <div class="faq">
       <details><summary data-i18n="faq.1.q">Apakah institusi bisa membaca percakapan karyawan atau mahasiswa?</summary><p data-i18n="faq.1.a">Tidak. Institusi hanya melihat angka agregat, dan hanya untuk kelompok yang cukup besar sehingga tidak ada individu yang bisa dikenali.</p></details>
@@ -569,6 +613,14 @@
       <a href="#safety" data-i18n="nav.safety">Keamanan</a>
       <a href="#pilot">Pilot</a>
     </nav>
+    <nav aria-label="Organisasi">
+      <h4 class="caps" data-i18n="nav.org">Organisasi</h4>
+      <a href="universitas.html" data-i18n="type.university">Universitas</a>
+      <a href="perusahaan.html" data-i18n="type.company">Perusahaan</a>
+      <a href="rumah-sakit.html" data-i18n="type.hospital">Rumah sakit</a>
+      <a href="kesehatan-masyarakat.html" data-i18n="type.public">Kesehatan masyarakat</a>
+      <a href="research.html" data-i18n="nav.research">Riset</a>
+    </nav>
     <div>
       <h4 class="caps" data-i18n="foot.contact">Kontak</h4>
       <a href="mailto:hai@tenangaja.co.id">hai@tenangaja.co.id</a>
@@ -582,5 +634,7 @@
 
 <script src="i18n.js"></script>
 <script src="app.js"></script>
+<script src="data.js"></script>
+<script src="research.js"></script>
 </body>
 </html>
