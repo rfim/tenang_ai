@@ -26,3 +26,7 @@ Deploy: GitHub Pages, Settings → Pages → Deploy from a branch → `main` / r
 ## Gallery
 
 `galeri.html` ("Dari ELIZA ke Nesya") is generated from `tools/gallery.py`: eleven rooms from Turing (1950) and ELIZA (1966) to Therabot (2025), each with an artefact, a placard and a lesson for Nesya. Sources are listed at the bottom of the page. Edit the `ROOMS` list, then run `python3 tools/build_pages.py`.
+
+## Video
+
+`docs/videos/tenang-before-after.mp4` (30 s, 1920×1080, with sound): *Rembug rasa*, the old tenang.ai next to the new site and what was missing. Poster: `docs/videos/poster.jpg`; storyboard, music and how to render it again: `docs/videos/before-after-plan.md`; caption: `docs/videos/share-copy.txt`.

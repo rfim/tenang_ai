@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="id"><head><meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Caveat:wght@700&display=swap" rel="stylesheet">
+<style>
+:root { --ink: #0f1d1c; --cream: #f5ecd9; --gold: #e2b866; --teal: #2c6a65; --mint: #6fcf97; }
+* { box-sizing: border-box; margin: 0; }
+html, body { width: 1920px; height: 1080px; overflow: hidden; background: var(--ink); font-family: Inter, system-ui, sans-serif; color: var(--cream); }
+.scene { position: absolute; inset: 0; opacity: 0; }
+.serif { font-family: Marcellus, Georgia, serif; font-weight: 400; }
+.eyebrow { font: 600 22px Inter; letter-spacing: .26em; text-transform: uppercase; color: var(--gold); }
+/* hook */
+#hook { display: grid; place-items: center; text-align: center; background: radial-gradient(ellipse at 50% 60%, #17312e, var(--ink) 70%); }
+#hook h1 { font-size: 190px; line-height: 1; letter-spacing: .01em; }
+#hook h1 span { display: inline-block; opacity: 0; }
+#hook p { margin-top: 34px; font-size: 38px; color: rgba(245,236,217,.8); opacity: 0; }
+/* frames */
+.frame { position: absolute; border-radius: 18px; overflow: hidden; background: #fff; box-shadow: 0 40px 90px -30px rgba(0,0,0,.65), 0 0 0 1px rgba(255,255,255,.08); }
+.bar { height: 44px; display: flex; align-items: center; gap: 9px; padding: 0 18px; background: #e9e6df; }
+.bar i { width: 13px; height: 13px; border-radius: 50%; background: #c9c3b8; }
+.bar b { margin-left: 18px; padding: 6px 18px; border-radius: 999px; background: #fff; font: 500 17px Inter; color: #6b6b6b; }
+.dark .bar { background: #1d2b2a; } .dark .bar i { background: #3c4b49; } .dark .bar b { background: #0f1d1c; color: #c8c0ad; }
+.shot { position: absolute; left: 0; right: 0; top: 44px; bottom: 0; background-size: cover; background-position: center top; }
+.tag { position: absolute; display: inline-flex; align-items: center; gap: 12px; padding: 12px 22px 12px 14px; border-radius: 999px; font: 600 25px Inter; white-space: nowrap; }
+.tag svg { width: 30px; height: 30px; flex: none; }
+.tag.miss { background: rgba(245,236,217,.08); color: rgba(245,236,217,.85); border: 1px solid rgba(245,236,217,.18); }
+.tag.miss svg { color: #e58a6a; }
+.tag.got { background: var(--cream); color: var(--ink); }
+.tag.got svg { color: var(--teal); }
+.lab { position: absolute; font: 600 19px Inter; letter-spacing: .24em; text-transform: uppercase; }
+/* before */
+#before .title { position: absolute; left: 120px; top: 150px; width: 560px; }
+#before h2 { font-size: 84px; line-height: 1.05; margin-top: 22px; }
+#before p { margin-top: 28px; font-size: 32px; line-height: 1.45; color: rgba(245,236,217,.78); }
+/* pairs */
+.pair .head { position: absolute; left: 0; right: 0; top: 70px; text-align: center; }
+.pair .head .num { font: 400 30px Marcellus; color: var(--gold); letter-spacing: .1em; }
+.pair .head h2 { font-size: 76px; margin-top: 6px; }
+.empty { position: absolute; left: 0; right: 0; top: 44px; bottom: 0; display: grid; place-items: center; background: repeating-linear-gradient(135deg, #f6f4ef 0 22px, #efece5 22px 44px); color: #8a857b; font: 500 30px Inter; text-align: center; }
+/* mission */
+#mission { background: var(--cream); color: var(--ink); display: grid; place-items: center; text-align: center; }
+#mission .eyebrow { color: #a36d1d; }
+#mission h2 { font-size: 92px; line-height: 1.1; margin-top: 26px; max-width: 1500px; }
+#mission p { margin-top: 34px; font-size: 44px; line-height: 1.35; color: #2c4a46; max-width: 1400px; }
+#mission .l { display: block; opacity: 0; }
+/* outro */
+#outro { display: grid; place-items: center; text-align: center; background: radial-gradient(ellipse at 50% 45%, #17312e, var(--ink) 70%); }
+.wm { font: 400 150px Marcellus; letter-spacing: .06em; position: relative; display: inline-block; }
+.wm i { font: italic 400 54px Georgia, serif; color: rgba(245,236,217,.7); letter-spacing: 0; margin-right: 18px; }
+.wm sup { font: 700 30px Inter; color: var(--gold); letter-spacing: .2em; vertical-align: top; position: relative; top: 26px; margin-left: 8px; }
+.n2 { margin-top: 20px; font: 400 40px Marcellus; letter-spacing: .38em; color: var(--gold); }
+.mean { margin-top: 26px; font: 500 28px Inter; letter-spacing: .08em; color: rgba(245,236,217,.85); text-transform: uppercase; }
+.mean b { color: var(--gold); }
+.url { margin-top: 54px; display: inline-block; padding: 16px 34px; border-radius: 999px; border: 1px solid rgba(245,236,217,.3); font: 500 32px Inter; }
+.cat { position: absolute; width: 230px; filter: drop-shadow(0 18px 26px rgba(0,0,0,.4)); }
+</style></head>
+<body>
+<svg width="0" height="0" style="position:absolute"><defs>
+  <symbol id="x" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8.5 8.5l7 7M15.5 8.5l-7 7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></symbol>
+  <symbol id="ok" viewBox="0 0 24 24"><circle cx="12" cy="12" r="11" fill="currentColor"/><path d="M7 12.5l3.2 3.2L17.2 8.7" fill="none" stroke="#f5ecd9" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+</defs></svg>
+
+<section class="scene" id="hook">
+  <div><h1 class="serif"><span>Rembug</span> <span>rasa.</span></h1>
+  <p>Ruang untuk membicarakan perasaan, bersama.</p></div>
+</section>
+
+<section class="scene" id="before">
+  <div class="title"><p class="eyebrow">Sebelum</p><h2 class="serif">tenang.ai, sebelumnya.</h2><p>Informasinya ada. Rasanya belum: templat biru, banyak teks, tanpa wajah dan tanpa cerita.</p></div>
+  <div class="frame" id="bf" style="left:760px; top:150px; width:1040px; height:690px"><div class="bar"><i></i><i></i><i></i><b>tenang.ai</b></div><div class="shot" style="background-image:url(old/hero2x.png)"></div></div>
+</section>
+
+<!-- pairs: filled by script -->
+<div id="pairs"></div>
+
+<section class="scene" id="mission">
+  <div><p class="eyebrow">Misi kami</p>
+  <h2 class="serif"><span class="l">Kesejahteraan bukan beban</span><span class="l">satu orang saja.</span></h2>
+  <p><span class="l">Nesya menemani dan menunjukkan jalan.</span><span class="l">Manusia dan institusi tetap bertanggung jawab.</span></p></div>
+</section>
+
+<section class="scene" id="outro">
+  <div>
+    <div class="wm"><i>by</i>Tenang<sup>AI</sup></div>
+    <div class="n2">N2CIAS</div>
+    <div class="mean"><b>N</b>esya &amp; <b>N</b>avigation · <b>C</b>are · <b>I</b>nsight · <b>A</b>ccess · <b>S</b>afety</div>
+    <div class="url">rfim.github.io/tenang_ai</div>
+  </div>
+  <img class="cat" id="ocat" src="nesya.png" style="right:150px; bottom:110px" alt="">
+</section>
+
+<script>
+const PAIRS = [
+  { num: '01', title: 'Wajah', old: 'old/nesya2x.png', oldPos: '4% 78%', oldSize: '175%', neu: 'new/nesya2x.png', neuPos: 'center top', miss: 'Nesya hanya sebuah ikon', got: 'Nesya punya wajah dan suara' },
+  { num: '02', title: 'Bukti', old: 'old/partners2x.png', oldPos: '20% 84%', oldSize: '230%', neu: 'new/hero2x.png', neuPos: 'center bottom', miss: 'Mitra hanya di teks kecil', got: 'Mitra terlihat di layar pertama' },
+  { num: '03', title: 'Riset', old: null, neu: 'new/research2x.png', neuPos: 'center 40%', miss: 'Tidak ada halaman riset', got: 'Bacaan riset, lengkap dengan jurnalnya' },
+  { num: '04', title: 'Cerita', old: 'old/d1.png', oldPos: 'center top', neu: 'new/gallery2x.png', neuPos: 'center top', miss: 'Tanpa cerita, tanpa arti nama', got: 'Dari ELIZA ke N2CIAS, dan arti namanya' },
+];
+const host = document.getElementById('pairs');
+PAIRS.forEach((p, i) => {
+  const s = document.createElement('section'); s.className = 'scene pair'; s.id = 'p' + i;
+  const oldShot = p.old ? `<div class="shot" style="background-image:url(${p.old});background-position:${p.oldPos};background-size:${p.oldSize || 'cover'}"></div>` : `<div class="empty">Tidak ada halaman riset<br>di tenang.ai</div>`;
+  s.innerHTML = `<div class="head"><div class="num">${p.num}</div><h2 class="serif">${p.title}</h2></div>
+    <div class="lab" style="left:110px; top:250px; color:rgba(245,236,217,.6)">Sebelum</div>
+    <div class="lab" style="left:990px; top:250px; color:var(--gold)">Sesudah</div>
+    <div class="frame fo" style="left:110px; top:290px; width:820px; height:560px; filter:saturate(.55) brightness(.92)"><div class="bar"><i></i><i></i><i></i><b>tenang.ai</b></div>${oldShot}</div>
+    <div class="frame dark fn" style="left:990px; top:290px; width:820px; height:560px"><div class="bar"><i></i><i></i><i></i><b>rfim.github.io/tenang_ai</b></div><div class="shot" style="background-image:url(${p.neu});background-position:${p.neuPos}"></div></div>
+    <div class="tag miss" style="left:110px; top:885px"><svg><use href="#x"/></svg>${p.miss}</div>
+    <div class="tag got" style="left:990px; top:885px"><svg><use href="#ok"/></svg>${p.got}</div>`;
+  host.appendChild(s);
+});
+
+const ease = x => x <= 0 ? 0 : x >= 1 ? 1 : 1 - Math.pow(1 - x, 3);
+const clamp = (x, a = 0, b = 1) => Math.max(a, Math.min(b, x));
+const fadeIO = (t, a, b, f = .3) => clamp(Math.min((t - a) / f, (b - t) / f));
+function rise(el, t, at, dur = .55, dy = 40) { const k = ease((t - at) / dur); el.style.opacity = k; el.style.transform = `translateY(${(1 - k) * dy}px)`; }
+
+window.render = function (t) {
+  // hook 0–3
+  const hook = document.getElementById('hook'); hook.style.opacity = fadeIO(t, -1, 3, .35);
+  const hs = hook.querySelectorAll('h1 span'); rise(hs[0], t, .5, .5, 60); rise(hs[1], t, 1.0, .5, 60); rise(hook.querySelector('p'), t, 1.7, .6, 24);
+  // before 3–7
+  const bf = document.getElementById('before'); bf.style.opacity = fadeIO(t, 3, 7, .3);
+  rise(bf.querySelector('.title'), t, 3.1, .7, 30);
+  const fr = document.getElementById('bf'); const k = ease((t - 3) / 1); fr.style.opacity = k;
+  fr.style.transform = `translateY(${(1 - k) * 60}px) scale(${1.04 - .04 * clamp((t - 3) / 4)})`;
+  fr.querySelector('.shot').style.backgroundPosition = `center ${clamp((t - 4.2) / 2.6) * 55}%`;
+  // pairs 7–23, 4 s each
+  PAIRS.forEach((p, i) => {
+    const a = 7 + i * 4, s = document.getElementById('p' + i); s.style.opacity = fadeIO(t, a, a + 4, .25);
+    rise(s.querySelector('.head'), t, a, .5, 24);
+    rise(s.querySelector('.fo'), t, a + .25, .6, 50); rise(s.querySelector('.fn'), t, a + .75, .6, 50);
+    rise(s.querySelector('.tag.miss'), t, a + 1.25, .45, 16); rise(s.querySelector('.tag.got'), t, a + 1.75, .45, 16);
+    const sh = s.querySelector('.fn .shot'); const z = 1 + .05 * clamp((t - a - .75) / 3.2); sh.style.transform = `scale(${z})`; sh.style.transformOrigin = 'center top';
+  });
+  // mission 23–27
+  const m = document.getElementById('mission'); m.style.opacity = fadeIO(t, 23, 27, .3);
+  m.querySelectorAll('.l').forEach((l, i) => rise(l, t, 23.25 + [0, .5, 1.5, 2.0][i], .55, 26));
+  rise(m.querySelector('.eyebrow'), t, 23.1, .4, 12);
+  // outro 27–30
+  const o = document.getElementById('outro'); o.style.opacity = clamp((t - 27) / .3) * clamp((30.05 - t) / .5 + .0001);
+  rise(o.querySelector('.wm'), t, 27.1, .6, 30); rise(o.querySelector('.n2'), t, 27.5, .5, 16); rise(o.querySelector('.mean'), t, 27.9, .5, 14); rise(o.querySelector('.url'), t, 28.3, .5, 12);
+  const c = document.getElementById('ocat'); const ck = ease((t - 28) / .6); c.style.opacity = ck; c.style.transform = `translateY(${(1 - ck) * 50 + Math.sin(t * 3) * 4}px) rotate(${Math.sin(t * 2) * 2}deg)`;
+};
+render(0);
+</script>
+</body></html>
