@@ -98,6 +98,24 @@
   document.querySelectorAll(".drawer-foot a").forEach(function (a) {
     a.addEventListener("click", function () { setMenu(false); });
   });
+  // Symmetrical centre pill: both sides take the width of the wider one
+  function balanceNav() {
+    var l = document.querySelector(".nav2 .nav-links-l"), r = document.querySelector(".nav2 .nav-links-r");
+    if (!l || !r) return;
+    l.style.width = r.style.width = "";
+    if (window.innerWidth <= 920) return;
+    // every item gets the same slot width, so the halves mirror exactly
+    var items = [].slice.call(l.children).concat([].slice.call(r.children));
+    items.forEach(function (it) { it.style.width = ""; });
+    var slot = Math.ceil(Math.max.apply(null, items.map(function (it) { return it.getBoundingClientRect().width; })));
+    var n = Math.max(l.children.length, r.children.length);
+    l.style.width = r.style.width = slot * n + "px";
+  }
+  balanceNav();
+  window.addEventListener("resize", balanceNav);
+  document.addEventListener("langchange", balanceNav);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(balanceNav);
+
   // Solid header once the page scrolls past the hero's top
   function onScrollHeader() { header.classList.toggle("scrolled", window.scrollY > 40); }
   window.addEventListener("scroll", onScrollHeader, { passive: true });

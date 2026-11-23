@@ -1689,3 +1689,16 @@ html:not([data-mode="dark"]) .phone-on-film { border-color: rgba(29,74,69,.18) !
 .ga-sticker .nesya { width: 100%; filter: drop-shadow(0 8px 14px rgba(0,0,0,.45)); }
 @media (max-width: 600px) { .ga-sticker { width: 70px; right: 12px; bottom: 10px; } }
 .media-nesya .phone-on-film { transform: translateY(-50%) !important; }
+
+/* =================== Symmetrical pill =================== */
+.nav2-pill { padding: 4px 10px; }
+.nav2 .nav-links-l, .nav2 .nav-links-r { justify-content: space-evenly !important; gap: 4px; box-sizing: content-box; }
+.nav2-pill .brand.wm { margin: 0 34px; }
+.wm-t { position: relative; }
+.wm-t .wm-by { position: absolute; right: 100%; bottom: 3px; margin-right: 6px; }
+.wm-t sup { position: absolute; left: 100%; top: -1px; margin-left: 4px !important; }
+.wm-word { display: inline-block; }
+@media (max-width: 920px) { .wm-t .wm-by, .wm-t sup { position: static; } }
+.nav2 .brand.wm .wm-word, .nav2-pill .brand.wm span.wm-word, .nav2 .brand-m.wm span.wm-word { display: inline-block !important; }
+/* mirror: each side's items are centred in equal halves, so outer gaps match */
+.nav2 .nav-links-l, .nav2 .nav-links-r { display: grid !important; grid-auto-flow: column; grid-auto-columns: 1fr; justify-items: center; gap: 0; }
