@@ -174,6 +174,55 @@
     revealEls.forEach(showEl);
   }
 
+  // ---------- Gallery: rooms light up, ELIZA types, the brass rail fills, the year follows you ----------
+  var hall = document.querySelector(".ga-hall");
+  if (hall) {
+    var rooms = [].slice.call(document.querySelectorAll(".ga-room"));
+    var fill = hall.querySelector(".ga-rail-fill");
+    var nowYear = hall.querySelector(".ga-now-year");
+    function typeLines(box) {
+      if (box.dataset.done) return; box.dataset.done = "1";
+      var lines = [].slice.call(box.querySelectorAll("[data-line]"));
+      var caret = box.querySelector(".ga-caret");
+      if (reduce) { lines.forEach(function (l) { l.textContent = l.dataset.line; }); return; }
+      var li = 0;
+      (function nextLine() {
+        if (li >= lines.length) return;
+        var el = lines[li], txt = el.dataset.line, ci = 0;
+        if (caret) el.appendChild(caret);
+        (function nextChar() {
+          ci++;
+          el.textContent = txt.slice(0, ci);
+          if (caret) el.appendChild(caret);
+          if (ci < txt.length) setTimeout(nextChar, el.classList.contains("e") ? 38 : 26);
+          else { li++; setTimeout(nextLine, el.classList.contains("e") ? 650 : 420); }
+        })();
+      })();
+    }
+    function light(room) {
+      room.classList.add("lit");
+      room.querySelectorAll("[data-type]").forEach(typeLines);
+    }
+    if ("IntersectionObserver" in window && !reduce) {
+      var gio = new IntersectionObserver(function (es) {
+        es.forEach(function (e) { if (e.isIntersecting) { light(e.target); gio.unobserve(e.target); } });
+      }, { threshold: 0.35 });
+      rooms.forEach(function (r) { gio.observe(r); });
+    } else { rooms.forEach(light); }
+    var gTick = false;
+    function onGallery() {
+      var r = hall.getBoundingClientRect(), vh = window.innerHeight;
+      var p = Math.min(1, Math.max(0, (vh * 0.5 - r.top) / r.height));
+      if (fill) fill.parentNode.style.setProperty("--p", p.toFixed(4));
+      var mid = vh * 0.5, best = null, bd = 1e9;
+      rooms.forEach(function (rm) { var b = rm.getBoundingClientRect(); var d = Math.abs(b.top + b.height / 2 - mid); if (d < bd) { bd = d; best = rm; } });
+      if (best && nowYear && nowYear.textContent !== best.dataset.year) nowYear.textContent = best.dataset.year;
+      gTick = false;
+    }
+    window.addEventListener("scroll", function () { if (!gTick) { gTick = true; requestAnimationFrame(onGallery); } }, { passive: true });
+    onGallery();
+  }
+
   // Hero entrance: copy rises in, scene settles (Bija's 14s "film")
   var hero = document.querySelector(".hero2");
   if (hero) requestAnimationFrame(function () { hero.classList.add("hero-in"); });

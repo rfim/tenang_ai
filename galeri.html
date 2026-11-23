@@ -1,0 +1,329 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Galeri: dari ELIZA ke Nesya · N2CIAS oleh TenangAI</title>
+<meta name="description" content="Sejarah percakapan antara manusia dan mesin di kesehatan mental, dari ELIZA (1966) sampai Nesya.">
+<meta property="og:title" content="Galeri: dari ELIZA ke Nesya · N2CIAS oleh TenangAI">
+<meta property="og:description" content="Tempat aman untuk bercerita, kapan saja. Insight anonim untuk institusi.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#1d4a45">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Marcellus&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<script>
+  // Set light/dark before the page paints: saved choice first, then the system setting.
+  (function () {
+    var m = null;
+    try { m = localStorage.getItem("mode"); } catch (e) {}
+    if (!m) m = window.matchMedia && matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+    document.documentElement.setAttribute("data-mode", m);
+  })();
+</script>
+</head>
+<body>
+
+<!-- Icon sprite -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="spark" viewBox="0 0 20 20"><path d="M10 0C11 7 13 9 20 10C13 11 11 13 10 20C9 13 7 11 0 10C7 9 9 7 10 0Z"/></symbol>
+  <symbol id="i-company" viewBox="0 0 64 64"><g fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 56V14l22-6v48M34 22h18v34M6 56h52"/><path d="M19 20h6M19 29h6M19 38h6M41 30h4M41 39h4M24 56v-8h4v8"/></g></symbol>
+  <symbol id="i-hospital" viewBox="0 0 64 64"><g fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M10 56V26L32 10l22 16v30M6 56h52"/><path d="M32 24v16M24 32h16"/><path d="M27 56v-8h10v8"/></g></symbol>
+  <symbol id="i-university" viewBox="0 0 64 64"><g fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 24l28-12 28 12-28 12z"/><path d="M16 30v12c0 5 8 9 16 9s16-4 16-9V30"/><path d="M60 24v14"/><circle cx="60" cy="41" r="2.5"/></g></symbol>
+  <symbol id="i-public" viewBox="0 0 64 64"><g fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="32" cy="20" r="7"/><circle cx="13" cy="27" r="5.5"/><circle cx="51" cy="27" r="5.5"/><path d="M20 52c0-9 5-16 12-16s12 7 12 16M4 50c0-7 4-12 9-12 3 0 5 1 7 3M60 50c0-7-4-12-9-12-3 0-5 1-7 3"/></g></symbol>
+  <symbol id="i-moon" viewBox="0 0 24 24"><path d="M15 3a9 9 0 1 0 6 13A8 8 0 0 1 15 3z" fill="currentColor"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></g></symbol>
+  <symbol id="i-people" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="9" cy="8" r="3.5"/><path d="M2 20c0-4 3-7 7-7s7 3 7 7"/><path d="M16 4.5a3.5 3.5 0 0 1 0 7M18 13c2.5 1 4 3.5 4 7"/></g></symbol>
+  <symbol id="i-chat" viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M8 10h8M8 13h5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 3v3h6V3M9 12l2 2 4-4M9 17h6"/></g></symbol>
+  <symbol id="i-leaf" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 19C5 10 10 5 20 4c0 10-5 15-14 15z"/><path d="M5 19l8-8"/></g></symbol>
+  <symbol id="i-doc" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h9l4 4v14H6z"/><path d="M14 3v5h5M9 13h7M9 17h5"/></g></symbol>
+  <symbol id="i-chart" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 20h16M7 16v-4M12 16V7M17 16v-6"/></g></symbol>
+  <symbol id="arrow" viewBox="0 0 20 12"><path d="M1 6h17M13 1l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+</svg>
+
+<a class="skip" href="#main" data-i18n="skip">Langsung ke isi</a>
+
+<header class="nav2" id="nav">
+  <div class="bar">
+    <span data-i18n="bar.text">Program pilot 8–12 minggu untuk institusi di Indonesia.</span>
+    <a href="index.html#demo" data-i18n="bar.link">Jadwalkan demo</a>
+  </div>
+  <div class="wrap nav2-inner">
+    <div class="nav2-side nav2-l">
+      <button class="menu-btn" type="button" aria-label="Menu" aria-expanded="false"><span></span><span></span></button>
+      <a href="index.html" class="lockup" aria-label="N2CIAS">
+        <span class="lk-word">N2CIAS</span>
+      </a>
+      <span class="lk-rule" aria-hidden="true"></span>
+      <a href="research.html" class="lk-sub" data-i18n="lk.sub">Clinical Research</a>
+    </div>
+    <a href="index.html" class="brand brand-m" aria-label="N2CIAS oleh TenangAI">
+      <img src="assets/favicon.svg" alt="" width="34" height="34">
+      <span><b>N2CIAS</b><small data-i18n="brand.by">oleh TenangAI</small></span>
+    </a>
+    <div class="nav2-pill">
+      <nav class="nav-links nav-links-l" aria-label="Utama">
+        <div class="dd">
+          <button type="button" class="dd-btn" aria-expanded="false"><span>Platform</span></button>
+          <div class="dd-menu">
+            <a href="index.html#toolkit" data-i18n="tool.eyebrow">Fitur</a>
+            <a href="index.html#how-it-works" data-i18n="nav.how2">Cara kerja</a>
+            <a href="index.html#dashboard">Dashboard</a>
+            <a href="index.html#safety" data-i18n="nav.safety">Keamanan</a>
+            <a href="index.html#pilot">Pilot</a>
+          </div>
+        </div>
+        <div class="dd">
+          <button type="button" class="dd-btn" aria-expanded="false"><span data-i18n="nav.org">Organisasi</span></button>
+          <div class="dd-menu">
+            <a href="universitas.html" data-i18n="type.university">Universitas</a>
+            <a href="perusahaan.html" data-i18n="type.company">Perusahaan</a>
+            <a href="rumah-sakit.html" data-i18n="type.hospital">Rumah sakit</a>
+            <a href="kesehatan-masyarakat.html" data-i18n="type.public">Kesehatan masyarakat</a>
+          </div>
+        </div>
+      </nav>
+      <a href="index.html" class="brand" aria-label="N2CIAS oleh TenangAI">
+        <img src="assets/favicon.svg" alt="" width="34" height="34">
+        <span><b>N2CIAS</b><small data-i18n="brand.by">oleh TenangAI</small></span>
+      </a>
+      <nav class="nav-links nav-links-r" aria-label="Lainnya">
+        <a aria-current="page" href="galeri.html" data-i18n="nav.story">Cerita</a>
+        <a href="index.html#pilot">Pilot</a>
+        <a href="index.html#demo" data-i18n="nav.contact">Kontak</a>
+      </nav>
+      <a href="research.html" class="drawer-cr" data-i18n="lk.sub">Clinical Research</a>
+      <div class="drawer-foot">
+        <button type="button" class="mode-btn" aria-label="Mode gelap / dark mode" aria-pressed="false">
+          <svg class="i-moon2" viewBox="0 0 24 24"><path d="M15 3a9 9 0 1 0 6 13A8 8 0 0 1 15 3z" fill="currentColor"/></svg>
+          <svg class="i-sun" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8"/></g></svg>
+        </button>
+        <a href="index.html#demo" class="pbtn pbtn-light"><span class="pbtn-t" data-i18n="cta.demo">Jadwalkan demo</span><span class="pbtn-i"><svg width="14" height="10"><use href="#arrow"/></svg></span></a>
+      </div>
+    </div>
+    <div class="nav2-side nav2-r">
+      <div class="util-pill">
+        <button type="button" class="mode-btn" aria-label="Mode gelap / dark mode" aria-pressed="false">
+          <svg class="i-moon2" viewBox="0 0 24 24"><path d="M15 3a9 9 0 1 0 6 13A8 8 0 0 1 15 3z" fill="currentColor"/></svg>
+          <svg class="i-sun" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8"/></g></svg>
+        </button>
+        <div class="lang" role="group" aria-label="Bahasa / Language">
+          <button type="button" data-lang="id" aria-pressed="true">ID</button>
+          <button type="button" data-lang="en" aria-pressed="false">EN</button>
+        </div>
+      </div>
+      <a href="index.html#demo" class="pbtn pbtn-sm pbtn-light demo-btn"><span class="pbtn-t" data-i18n="cta.demo">Jadwalkan demo</span><span class="pbtn-i"><svg width="14" height="10"><use href="#arrow"/></svg></span></a>
+      <div class="lang lang-m" role="group" aria-label="Bahasa / Language">
+        <button type="button" data-lang="id" aria-pressed="true">ID</button>
+        <button type="button" data-lang="en" aria-pressed="false">EN</button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main id="main" class="subpage">
+<section class="ga-hero">
+  <div class="ga-hero-light" aria-hidden="true"></div>
+  <div class="wrap ga-hero-in">
+    <p class="eyebrow2"><a href="index.html">N2CIAS</a> · <span data-i18n="ga.kicker">Galeri</span></p>
+    <h1 class="h1" data-i18n="ga.title">Dari ELIZA ke Nesya.</h1>
+    <p class="ga-lead" data-i18n="ga.lead">Sebuah galeri tentang enam puluh tahun percakapan antara manusia dan mesin, dan pelajaran yang kami bawa ke dalam Nesya. Berjalanlah perlahan; setiap ruang menyala saat Anda tiba.</p>
+    <a href="#r0" class="ga-enter"><span data-i18n="ga.enter">Masuk galeri</span> <span aria-hidden="true">↓</span></a>
+  </div>
+</section>
+
+<section class="ga-hall" aria-label="Galeri">
+  <div class="ga-rail" aria-hidden="true"><div class="ga-rail-fill"></div></div>
+  <div class="ga-now" aria-hidden="true"><span class="ga-now-year">1950</span></div>
+  <div class="wrap ga-rooms">
+    <article class="ga-room ga-left" id="r0" data-year="1950">
+      <div class="ga-frame"><div class="ga-light"></div><div class="ga-art"><div class="ga-paper"><small>Mind · Vol. LIX · 1950</small><b>Computing Machinery and Intelligence</b><i></i><i></i><i></i><i></i></div></div></div>
+      <div class="ga-plaque">
+        <p class="ga-no"><span data-i18n="ga.room">Ruang</span> 00 · <span class="ga-year">1950</span></p>
+        <h2 class="ga-title" data-i18n="ga.r0.t">Pertanyaan pertama</h2>
+        <p class="ga-obj" data-i18n="ga.r0.o">Makalah · jurnal Mind · Alan Turing</p>
+        <p class="ga-body" data-i18n="ga.r0.b">Alan Turing bertanya: dapatkah mesin berpikir? Ia mengusulkan sebuah permainan imitasi: jika lewat percakapan kita tidak bisa membedakan mesin dari manusia, apa artinya? Pertanyaan ini menjadi titik awal semua chatbot.</p>
+        <div class="ga-lesson"><span><span data-i18n="ga.lesson">Pelajaran untuk Nesya</span></span><p data-i18n="ga.r0.l">Percakapan adalah antarmuka yang paling manusiawi.</p></div>
+      </div>
+    </article>
+    <article class="ga-room ga-right" id="r1" data-year="1966">
+      <div class="ga-frame"><div class="ga-light"></div><div class="ga-art"><div class="ga-crt" data-type><div class="ga-crt-screen"><p class="u" data-line="Men are all alike."></p><p class="e" data-line="IN WHAT WAY?"></p><p class="u" data-line="They're always bugging us about something or other."></p><p class="e" data-line="CAN YOU THINK OF A SPECIFIC EXAMPLE?"></p><p class="u" data-line="Well, my boyfriend made me come here."></p><p class="e" data-line="YOUR BOYFRIEND MADE YOU COME HERE?"></p><span class="ga-caret"></span></div><div class="ga-crt-base"></div></div></div></div>
+      <div class="ga-plaque">
+        <p class="ga-no"><span data-i18n="ga.room">Ruang</span> 01 · <span class="ga-year">1966</span></p>
+        <h2 class="ga-title" data-i18n="ga.r1.t">ELIZA</h2>
+        <p class="ga-obj" data-i18n="ga.r1.o">Program komputer · MIT · Joseph Weizenbaum</p>
+        <p class="ga-body" data-i18n="ga.r1.b">Skrip DOCTOR membuat ELIZA meniru gaya terapis Rogerian: memantulkan kata-kata pengguna dengan aturan sederhana. Tidak ada pemahaman sama sekali. Namun orang-orang tetap membuka diri kepadanya. Weizenbaum menulis bahwa sekretarisnya sendiri meminta ia keluar ruangan agar bisa berbicara dengan ELIZA. Fenomena ini kemudian dikenal sebagai efek ELIZA.</p>
+        <div class="ga-lesson"><span><span data-i18n="ga.lesson">Pelajaran untuk Nesya</span></span><p data-i18n="ga.r1.l">Orang cepat percaya pada mesin yang mendengarkan. Itu tanggung jawab, bukan celah. Nesya selalu jujur bahwa ia adalah AI.</p></div>
+      </div>
+    </article>
+    <article class="ga-room ga-left" id="r2" data-year="1972">
+      <div class="ga-frame"><div class="ga-light"></div><div class="ga-art"><div class="ga-net"><span class="ga-node">ELIZA<small>MIT</small></span><span class="ga-wire"><i></i></span><span class="ga-node">PARRY<small>Stanford</small></span><em>ARPANET · 1972</em></div></div></div>
+      <div class="ga-plaque">
+        <p class="ga-no"><span data-i18n="ga.room">Ruang</span> 02 · <span class="ga-year">1972</span></p>
+        <h2 class="ga-title" data-i18n="ga.r2.t">PARRY</h2>
+        <p class="ga-obj" data-i18n="ga.r2.o">Program komputer · Stanford · Kenneth Colby, psikiater</p>
+        <p class="ga-body" data-i18n="ga.r2.b">Jika ELIZA berperan sebagai terapis, PARRY berperan sebagai pasien: ia mensimulasikan seseorang dengan skizofrenia paranoid. Dalam uji yang dirancang Colby, psikiater kesulitan membedakan transkrip PARRY dari pasien sungguhan. Pada 1972, PARRY dan ELIZA bahkan bertemu dan bercakap lewat ARPANET.</p>
+        <div class="ga-lesson"><span><span data-i18n="ga.lesson">Pelajaran untuk Nesya</span></span><p data-i18n="ga.r2.l">Terdengar meyakinkan tidak sama dengan memahami. Penilaian klinis tetap milik manusia.</p></div>
+      </div>
+    </article>
+    <article class="ga-room ga-right" id="r3" data-year="1976">
+      <div class="ga-frame"><div class="ga-light"></div><div class="ga-art"><div class="ga-book"><span>Computer Power<br>and Human Reason</span><small>Joseph Weizenbaum</small></div></div></div>
+      <div class="ga-plaque">
+        <p class="ga-no"><span data-i18n="ga.room">Ruang</span> 03 · <span class="ga-year">1976</span></p>
+        <h2 class="ga-title" data-i18n="ga.r3.t">Peringatan sang pencipta</h2>
+        <p class="ga-obj" data-i18n="ga.r3.o">Buku · Computer Power and Human Reason</p>
+        <p class="ga-body" data-i18n="ga.r3.b">Terkejut oleh reaksi orang terhadap ELIZA, Weizenbaum menjadi salah satu pengkritik paling tajam dunia komputer. Ia menulis: “What I had not realized is that extremely short exposures to a relatively simple computer program could induce powerful delusional thinking in quite normal people.”</p>
+        <div class="ga-lesson"><span><span data-i18n="ga.lesson">Pelajaran untuk Nesya</span></span><p data-i18n="ga.r3.l">Teknologi untuk kesehatan mental harus dibangun dengan batas, bukan hanya kemampuan.</p></div>
+      </div>
+    </article>
+    <article class="ga-room ga-left" id="r4" data-year="2000-an">
+      <div class="ga-frame"><div class="ga-light"></div><div class="ga-art"><div class="ga-monitor"><div class="ga-mon-screen"><b>Modul 1</b><span></span><span></span><span class="s"></span><em>Lanjut →</em></div><div class="ga-mon-stand"></div></div></div></div>
+      <div class="ga-plaque">
+        <p class="ga-no"><span data-i18n="ga.room">Ruang</span> 04 · <span class="ga-year">2000-an</span></p>
+        <h2 class="ga-title" data-i18n="ga.r4.t">Terapi lewat layar</h2>
+        <p class="ga-obj" data-i18n="ga.r4.o">Program CBT terkomputerisasi · MoodGYM, Beating the Blues</p>
+        <p class="ga-body" data-i18n="ga.r4.b">Teknik terapi kognitif-perilaku (CBT) yang terstruktur mulai dikemas menjadi program komputer dan diuji secara ilmiah, seperti MoodGYM di Australia dan Beating the Blues di Inggris. Pada 2006, NICE di Inggris merekomendasikan CBT terkomputerisasi untuk depresi ringan hingga sedang.</p>
+        <div class="ga-lesson"><span><span data-i18n="ga.lesson">Pelajaran untuk Nesya</span></span><p data-i18n="ga.r4.l">Metode berbasis bukti bisa bekerja lewat layar, asal terstruktur dan teruji.</p></div>
+      </div>
+    </article>
+    <article class="ga-room ga-right" id="r5" data-year="2017">
+      <div class="ga-frame"><div class="ga-light"></div><div class="ga-art"><div class="ga-phone"><span class="b u"></span><span class="b"></span><span class="b u s"></span><div class="ga-bars"><i style="--h:80%"></i><i style="--h:62%"></i><i style="--h:44%"></i></div></div></div></div>
+      <div class="ga-plaque">
+        <p class="ga-no"><span data-i18n="ga.room">Ruang</span> 05 · <span class="ga-year">2017</span></p>
+        <h2 class="ga-title" data-i18n="ga.r5.t">Chatbot masuk uji klinis</h2>
+        <p class="ga-obj" data-i18n="ga.r5.o">Uji acak terkontrol · Woebot · JMIR Mental Health</p>
+        <p class="ga-body" data-i18n="ga.r5.b">Untuk pertama kalinya, chatbot berbasis CBT diuji lewat uji acak terkontrol: 70 mahasiswa, dua minggu, dan penurunan gejala depresi yang lebih besar dibanding kelompok pembanding. Wysa dari India menyusul dengan data penggunaan di dunia nyata pada 2018.</p>
+        <div class="ga-lesson"><span><span data-i18n="ga.lesson">Pelajaran untuk Nesya</span></span><p data-i18n="ga.r5.l">Ukur dampaknya, jangan hanya mengklaim.</p></div>
+      </div>
+    </article>
+    <article class="ga-room ga-left" id="r6" data-year="2020">
+      <div class="ga-frame"><div class="ga-light"></div><div class="ga-art"><div class="ga-big"><b>+25%</b><small>kecemasan & depresi · anxiety & depression</small></div></div></div>
+      <div class="ga-plaque">
+        <p class="ga-no"><span data-i18n="ga.room">Ruang</span> 06 · <span class="ga-year">2020</span></p>
+        <h2 class="ga-title" data-i18n="ga.r6.t">Dunia di dalam rumah</h2>
+        <p class="ga-obj" data-i18n="ga.r6.o">Laporan ilmiah · WHO, 2022</p>
+        <p class="ga-body" data-i18n="ga.r6.b">WHO mencatat prevalensi kecemasan dan depresi di dunia naik sekitar 25% pada tahun pertama pandemi COVID-19. Banyak layanan pindah ke telepon dan layar. Di Indonesia, layanan psikologi SEJIWA lewat 119 ext. 8 dibuka pada tahun yang sama.</p>
+        <div class="ga-lesson"><span><span data-i18n="ga.lesson">Pelajaran untuk Nesya</span></span><p data-i18n="ga.r6.l">Dukungan harus bisa dijangkau dari mana saja, kapan saja.</p></div>
+      </div>
+    </article>
+    <article class="ga-room ga-right" id="r7" data-year="2022">
+      <div class="ga-frame"><div class="ga-light"></div><div class="ga-art"><div class="ga-three"><span></span><span class="on"></span><span></span><small>1 dari 3 · 1 in 3</small></div></div></div>
+      <div class="ga-plaque">
+        <p class="ga-no"><span data-i18n="ga.room">Ruang</span> 07 · <span class="ga-year">2022</span></p>
+        <h2 class="ga-title" data-i18n="ga.r7.t">Potret Indonesia</h2>
+        <p class="ga-obj" data-i18n="ga.r7.o">Survei nasional · I-NAMHS</p>
+        <p class="ga-body" data-i18n="ga.r7.b">Survei nasional pertama tentang kesehatan mental remaja Indonesia (I-NAMHS) menemukan sekitar satu dari tiga remaja mengalami masalah kesehatan mental dalam 12 bulan terakhir. Hanya sebagian kecil dari mereka yang pernah mengakses layanan.</p>
+        <div class="ga-lesson"><span><span data-i18n="ga.lesson">Pelajaran untuk Nesya</span></span><p data-i18n="ga.r7.l">Kebutuhannya besar, tetapi jalannya belum terbuka. Di situlah kami ingin membantu.</p></div>
+      </div>
+    </article>
+    <article class="ga-room ga-left" id="r8" data-year="2022">
+      <div class="ga-frame"><div class="ga-light"></div><div class="ga-art"><div class="ga-type"><span>Aku lagi capek banget…</span><i class="ga-caret"></i></div></div></div>
+      <div class="ga-plaque">
+        <p class="ga-no"><span data-i18n="ga.room">Ruang</span> 08 · <span class="ga-year">2022</span></p>
+        <h2 class="ga-title" data-i18n="ga.r8.t">Bahasa alami untuk semua</h2>
+        <p class="ga-obj" data-i18n="ga.r8.o">Model bahasa besar · rilis publik ChatGPT, November 2022</p>
+        <p class="ga-body" data-i18n="ga.r8.b">Model bahasa besar membuat percakapan dengan mesin terasa alami bagi ratusan juta orang, dalam banyak bahasa, termasuk Bahasa Indonesia sehari-hari. Untuk pertama kalinya, sebuah chatbot bisa mengerti “capek banget” seperti yang dimaksud penuturnya.</p>
+        <div class="ga-lesson"><span><span data-i18n="ga.lesson">Pelajaran untuk Nesya</span></span><p data-i18n="ga.r8.l">Teknologinya kini siap untuk bahasa kita.</p></div>
+      </div>
+    </article>
+    <article class="ga-room ga-right" id="r9" data-year="2023">
+      <div class="ga-frame"><div class="ga-light"></div><div class="ga-art"><div class="ga-warn"><span>!</span></div></div></div>
+      <div class="ga-plaque">
+        <p class="ga-no"><span data-i18n="ga.room">Ruang</span> 09 · <span class="ga-year">2023</span></p>
+        <h2 class="ga-title" data-i18n="ga.r9.t">Pelajaran dari Tessa</h2>
+        <p class="ga-obj" data-i18n="ga.r9.o">Chatbot · organisasi gangguan makan di AS (NEDA)</p>
+        <p class="ga-body" data-i18n="ga.r9.b">Sebuah organisasi gangguan makan di Amerika Serikat menonaktifkan chatbot “Tessa” setelah chatbot itu memberikan saran diet yang berisiko kepada orang-orang yang mencari bantuan.</p>
+        <div class="ga-lesson"><span><span data-i18n="ga.lesson">Pelajaran untuk Nesya</span></span><p data-i18n="ga.r9.l">Tanpa batas keamanan dan pengawasan klinis, AI bisa menyakiti. Nesya punya batas topik dan jalur eskalasi ke manusia.</p></div>
+      </div>
+    </article>
+    <article class="ga-room ga-left" id="r10" data-year="2025">
+      <div class="ga-frame"><div class="ga-light"></div><div class="ga-art"><div class="ga-duo"><span class="ga-person"></span><span class="ga-plus">+</span><img src="assets/nesya.svg" alt=""></div></div></div>
+      <div class="ga-plaque">
+        <p class="ga-no"><span data-i18n="ga.room">Ruang</span> 10 · <span class="ga-year">2025</span></p>
+        <h2 class="ga-title" data-i18n="ga.r10.t">AI generatif dalam uji klinis</h2>
+        <p class="ga-obj" data-i18n="ga.r10.o">Uji acak terkontrol · Therabot, Dartmouth · NEJM AI</p>
+        <p class="ga-body" data-i18n="ga.r10.b">Uji acak pertama untuk chatbot AI generatif dalam terapi menunjukkan penurunan gejala depresi dan kecemasan setelah empat minggu. Sepanjang uji, klinisi memantau percakapan dan siap turun tangan.</p>
+        <div class="ga-lesson"><span><span data-i18n="ga.lesson">Pelajaran untuk Nesya</span></span><p data-i18n="ga.r10.l">AI generatif bisa membantu, selama manusia tetap terlibat.</p></div>
+      </div>
+    </article>
+  </div>
+</section>
+
+<section class="ga-final">
+  <div class="wrap">
+    <div class="ga-final-head">
+      <img src="assets/nesya.svg" alt="" class="ga-final-nesya">
+      <p class="ga-no"><span data-i18n="ga.room">Ruang</span> 11 · <span class="ga-year"><span data-i18n="ga.nowlbl">Kini</span></span></p>
+      <h2 class="h2 center" data-i18n="ga.final.t">Nesya: semua pelajaran itu, dalam satu percakapan.</h2>
+      <p class="ed-p center" data-i18n="ga.final.b">Kami tidak menciptakan percakapan antara manusia dan mesin. Kami belajar dari enam puluh tahun percobaannya, termasuk kesalahannya, lalu membangun Nesya untuk orang Indonesia.</p>
+    </div>
+    <ol class="ga-lessons"><li><small>1966</small><span data-i18n="ga.f1">Jujur bahwa ia AI</span></li><li><small>1972</small><span data-i18n="ga.f2">Penilaian klinis oleh manusia</span></li><li><small>1976 · 2023</small><span data-i18n="ga.f3">Batas yang jelas</span></li><li><small>2000-an</small><span data-i18n="ga.f4">Metode berbasis bukti</span></li><li><small>2017</small><span data-i18n="ga.f5">Dampak yang diukur</span></li><li><small>2020</small><span data-i18n="ga.f6">Tersedia kapan saja</span></li><li><small>2022</small><span data-i18n="ga.f7">Untuk kebutuhan Indonesia</span></li><li><small>2022</small><span data-i18n="ga.f8">Berbahasa Indonesia sehari-hari</span></li><li><small>2025</small><span data-i18n="ga.f9">Manusia tetap terlibat</span></li></ol>
+    <div class="pbtn-row center">
+      <a href="research.html" class="pbtn pbtn-dark"><span class="pbtn-t" data-i18n="ga.cta1">Lihat rujukan riset</span><span class="pbtn-i"><svg width="14" height="10"><use href="#arrow"/></svg></span></a>
+      <a href="index.html#demo" class="pbtn pbtn-soft"><span class="pbtn-t" data-i18n="cta.demo">Jadwalkan demo</span><span class="pbtn-i"><svg width="14" height="10"><use href="#arrow"/></svg></span></a>
+    </div>
+  </div>
+</section>
+
+<section class="ga-sources">
+  <div class="wrap narrow">
+    <details>
+      <summary><span data-i18n="ga.src">Sumber untuk setiap ruang</span></summary>
+      <ol><li>Turing AM. Computing Machinery and Intelligence. Mind. 1950;59(236):433–460.</li><li>Weizenbaum J. ELIZA: a computer program for the study of natural language communication between man and machine. Communications of the ACM. 1966;9(1):36–45.</li><li>Colby KM, Weber S, Hilf FD. Artificial paranoia. Artificial Intelligence. 1971;2(1):1–25.</li><li>Weizenbaum J. Computer Power and Human Reason: From Judgment to Calculation. W. H. Freeman; 1976.</li><li>NICE. Computerised cognitive behaviour therapy for depression and anxiety (TA97). 2006.</li><li>Fitzpatrick KK, Darcy A, Vierhile M. Delivering CBT to young adults using a fully automated conversational agent (Woebot): a randomized controlled trial. JMIR Mental Health. 2017;4(2):e19.</li><li>Inkster B, Sarda S, Subramanian V. An empathy-driven, conversational AI agent (Wysa) for digital mental well-being. JMIR mHealth and uHealth. 2018;6(11):e12106.</li><li>World Health Organization. Mental health and COVID-19: early evidence of the pandemic's impact. Scientific brief, 2 March 2022.</li><li>Center for Reproductive Health UGM, University of Queensland, Johns Hopkins Bloomberg School of Public Health. Indonesia National Adolescent Mental Health Survey (I-NAMHS) report. 2022.</li><li>Media reports on NEDA's Tessa chatbot being taken offline, June 2023.</li><li>Heinz MV, et al. Randomized trial of a generative AI chatbot for mental health treatment. NEJM AI. 2025;2(4).</li></ol>
+    </details>
+  </div>
+</section>
+</main>
+
+<footer class="footer foot2">
+  <div class="wrap foot2-grid">
+    <div class="foot2-big reveal">
+      <h2 class="h2" data-i18n="final.title">Dukung orang-orang Anda sebelum bebannya tak terlihat</h2>
+      <p data-i18n="foot.about">Layanan kesehatan mental preventif untuk institusi Indonesia. Dibuat di Jakarta, Indonesia.</p>
+      <a href="index.html#demo" class="pbtn pbtn-light"><span class="pbtn-t" data-i18n="cta.demo">Jadwalkan demo</span><span class="pbtn-i"><svg width="14" height="10"><use href="#arrow"/></svg></span></a>
+    </div>
+    <nav aria-label="Footer">
+      <h4 data-i18n="foot.explore">Jelajahi</h4>
+      <a href="index.html#platform">Platform</a>
+      <a href="index.html#story" data-i18n="nav.story">Cerita</a>
+      <a href="index.html#how-it-works" data-i18n="nav.how2">Cara kerja</a>
+      <a href="index.html#dashboard">Dashboard</a>
+      <a href="index.html#safety" data-i18n="nav.safety">Keamanan</a>
+      <a href="index.html#pilot">Pilot</a>
+      <a href="index.html#faq">FAQ</a>
+    </nav>
+    <nav aria-label="Organisasi">
+      <h4 data-i18n="nav.org">Organisasi</h4>
+      <a href="universitas.html" data-i18n="type.university">Universitas</a>
+      <a href="perusahaan.html" data-i18n="type.company">Perusahaan</a>
+      <a href="rumah-sakit.html" data-i18n="type.hospital">Rumah sakit</a>
+      <a href="kesehatan-masyarakat.html" data-i18n="type.public">Kesehatan masyarakat</a>
+    </nav>
+    <nav aria-label="Riset">
+      <h4 data-i18n="nav.research">Riset</h4>
+      <a href="research.html" data-i18n="rp.kicker">Riset & publikasi</a>
+      <a href="research.html#team" data-i18n="rp.t.title">Tim klinis</a>
+      <a href="galeri.html" data-i18n="ga.kicker">Galeri</a>
+      <h4 data-i18n="foot.contact">Kontak</h4>
+      <a href="mailto:hai@tenangaja.co.id">hai@tenangaja.co.id</a>
+    </nav>
+  </div>
+  <div class="wrap foot-legal">
+    <p data-i18n="foot.disc">N2CIAS dirancang untuk dukungan kesehatan mental dan navigasi perawatan. N2CIAS bukan alat diagnosis, bukan layanan krisis, dan bukan pengganti perawatan profesional. Dalam keadaan darurat hubungi 112 atau 119 ext. 8.</p>
+    <p>© <span id="year">2026</span> TenangAI</p>
+  </div>
+</footer>
+
+<a href="index.html#demo" class="m-cta" aria-hidden="true" tabindex="-1"><span data-i18n="cta.demo">Jadwalkan demo</span><svg width="18" height="12"><use href="#arrow"/></svg></a>
+
+<script src="i18n.js"></script>
+<script src="i18n-pages.js"></script>
+<script src="app.js"></script>
+<script src="data.js"></script>
+<script src="research.js"></script>
+</body>
+</html>

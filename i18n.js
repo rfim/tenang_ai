@@ -4,6 +4,8 @@ window.I18N_EN = {
   "brand.by": "by TenangAI",
   "nav.cases": "Case studies",
   "nav.story": "Story",
+  "st.gallery": "Enter the gallery: from ELIZA to Nesya",
+  "ga.kicker": "Gallery",
   "lk.sub": "Clinical Research",
   "nav.contact": "Contact",
   "st.eyebrow": "Philosophy & story",

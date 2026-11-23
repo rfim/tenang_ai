@@ -22,3 +22,7 @@ Deploy: GitHub Pages, Settings → Pages → Deploy from a branch → `main` / r
 - `docs/art-prompts.md`: prompt pack for painted scenes (style block, palette, per-page prompts, motion loops).
 - `tools/mega_mendung.py`: generates the mega mendung batik clouds (`assets/mm-*.svg`, day and night colours). Run it after changing shapes or colours.
 - Partner logos for the moving carousel are in `assets/logos/` (official files from each institution or Wikimedia Commons).
+
+## Gallery
+
+`galeri.html` ("Dari ELIZA ke Nesya") is generated from `tools/gallery.py`: eleven rooms from Turing (1950) and ELIZA (1966) to Therabot (2025), each with an artefact, a placard and a lesson for Nesya. Sources are listed at the bottom of the page. Edit the `ROOMS` list, then run `python3 tools/build_pages.py`.
