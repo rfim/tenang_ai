@@ -199,8 +199,7 @@ add(`<section class="scene dark c" id="outro"><div>
   <div class="mean"><b>N</b>esya &amp; <b>N</b>avigation · <b>C</b>are · <b>I</b>nsight · <b>A</b>ccess · <b>S</b>afety</div>
   <div><span class="cta">${T.cta}<svg><use href="#arrow"/></svg></span></div><div class="url">rfim.github.io/tenang_ai</div></div>
   <img class="cat" id="ocat" src="nesya/tilt-4.png"></section>`);
-add(`<section class="scene c" id="credits"><div><p class="film">${T.film}</p><div class="rr">Rembug Rasa Projects</div><p class="sup">${T.sup}</p>
-  <div class="logos"><img src="logos/creadv-light.svg" style="height:46px"><span class="cl"><img src="logos/claude.svg" style="height:54px"><small>${T.forStartups}</small></span><img src="logos/lpdp.png" style="height:104px"><img src="logos/goldsmiths.png" style="height:84px"></div></div></section>`);
+add(`<section class="scene c" id="credits"><div><p class="film">${T.film}</p><div class="rr">Rembug Rasa Projects</div></div></section>`);
 
 const ease = x => x <= 0 ? 0 : x >= 1 ? 1 : 1 - Math.pow(1 - x, 3);
 const inout = x => x <= 0 ? 0 : x >= 1 ? 1 : x < .5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
@@ -274,8 +273,7 @@ window.render = function (t) {
   const oc = $('#ocat'); const ok = ease((t - 66) / .6); oc.style.opacity = ok; oc.style.transform = `translateY(${(1 - ok) * 50 + Math.sin(t * 3) * 4}px) rotate(${Math.sin(t * 2) * 2}deg)`;
   // credits 69–74
   const cr = $('#credits'); cr.style.opacity = clamp((t - 69) / .35) * clamp((74 - t) / .8);
-  rise($('.film', cr), t, 69.1, .5, 12); rise($('.rr', cr), t, 69.4, .6, 20); rise($('.sup', cr), t, 70.2, .5, 12);
-  cr.querySelectorAll('.logos > *').forEach((l, i) => rise(l, t, 70.5 + i * .3, .5, 16));
+  rise($('.film', cr), t, 69.1, .5, 12); rise($('.rr', cr), t, 69.4, .6, 20); 
 };
 render(0);
 </script>

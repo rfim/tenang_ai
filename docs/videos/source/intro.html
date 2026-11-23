@@ -8,6 +8,11 @@ html, body { width: 1920px; height: 1080px; overflow: hidden; background: #000; 
 .scene { position: absolute; inset: 0; opacity: 0; }
 .grid { background-image: linear-gradient(rgba(255,255,255,.045) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.045) 1px, transparent 1px); background-size: 48px 48px; }
 .scan::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: repeating-linear-gradient(0deg, rgba(0,0,0,.18) 0 2px, transparent 2px 4px); }
+#spons { position: absolute; left: 0; right: 0; top: 820px; text-align: center; opacity: 0; }
+#spons small { display: block; font: 500 18px "IBM Plex Mono"; letter-spacing: .3em; text-transform: uppercase; color: rgba(245,236,217,.6); }
+#spons .sl { margin-top: 26px; display: flex; justify-content: center; align-items: center; gap: 70px; }
+#spons img { filter: brightness(0) invert(1); opacity: .88; }
+#spons .cl { display: grid; justify-items: center; gap: 4px; } #spons .cl em { font: 500 15px "IBM Plex Mono"; font-style: normal; color: rgba(245,236,217,.7); letter-spacing: .08em; }
 /* part 0: the pioneers */
 #pq { position: absolute; left: 0; right: 0; top: 96px; text-align: center; font: 500 30px "IBM Plex Mono"; color: var(--ph); text-shadow: 0 0 10px rgba(43,228,199,.5); white-space: pre; }
 .pf { position: absolute; top: 190px; width: 540px; margin: 0; opacity: 0; }
@@ -83,6 +88,7 @@ html, body { width: 1920px; height: 1080px; overflow: hidden; background: #000; 
   <div id="title"></div>
   <div id="sub"></div>
   <div id="meta"></div>
+  <div id="spons"><small></small><div class="sl"><img src="logos/creadv.svg" style="height:34px; filter:none; opacity:1"><span class="cl"><img src="logos/claude.svg" style="height:40px"><em>for Startups</em></span><img src="logos/lpdp.png" style="height:74px"><img src="logos/goldsmiths.png" style="height:60px"></div></div>
 </section>
 <section class="scene grid scan" id="collab">
   <div id="shards"></div>
@@ -98,12 +104,12 @@ html, body { width: 1920px; height: 1080px; overflow: hidden; background: #000; 
 <script>
 const LANG = (location.search.match(/lang=(id|en)/) || [, 'en'])[1];
 const T = {
-  en: { pq: '> it began with two questions', pA: 'wrote the first program for a machine', pT: 'asked: can machines think?', pboth: 'Both born in London.', pcred: 'Portraits: A. E. Chalon (c. 1840), Elliott & Fry (1951). Public domain.', sub: 'Talking feelings through, together. Research between London and Yogyakarta', meta: 'Research first · AI · wellbeing · est. 2026',
+  en: { sup: 'Supported by', pq: '> it began with two questions', pA: 'wrote the first program for a machine', pT: 'asked: can machines think?', pboth: 'Both born in London.', pcred: 'Portraits: A. E. Chalon (c. 1840), Elliott & Fry (1951). Public domain.', sub: 'Talking feelings through, together. Research between London and Yogyakarta', meta: 'Research first · AI · wellbeing · est. 2026',
     roL: 'Reads the research on AI\ncompanions and wellbeing.', roJ: 'Tests conversations in\neveryday Bahasa Indonesia.',
     h2: 'London <em>×</em> Jogja.<br>Researching AI that listens.', p: 'Two cities, six hours apart, one question: can AI help people talk about how they feel, safely?',
     pk: ['papers', 'interview notes', 'conversation drafts', 'safety rules', 'Bahasa Indonesia', 'feedback'],
     log: [['lo', '[london]', 'reading the research on AI companions'], ['jo', '[jogja] ', 'testing conversations with Indonesian users in mind'], ['bo', '[both]  ', 'writing the safety rules together'], ['bo', '>', ' next: N2CIAS']] },
-  id: { pq: '> semuanya dimulai dari dua pertanyaan', pA: 'menulis program pertama untuk mesin', pT: 'bertanya: dapatkah mesin berpikir?', pboth: 'Keduanya lahir di London.', pcred: 'Potret: A. E. Chalon (c. 1840), Elliott & Fry (1951). Domain publik.', sub: 'Membicarakan rasa, bersama. Riset antara London dan Yogyakarta', meta: 'Riset dulu · AI · kesejahteraan · sejak 2026',
+  id: { sup: 'Didukung oleh', pq: '> semuanya dimulai dari dua pertanyaan', pA: 'menulis program pertama untuk mesin', pT: 'bertanya: dapatkah mesin berpikir?', pboth: 'Keduanya lahir di London.', pcred: 'Potret: A. E. Chalon (c. 1840), Elliott & Fry (1951). Domain publik.', sub: 'Membicarakan rasa, bersama. Riset antara London dan Yogyakarta', meta: 'Riset dulu · AI · kesejahteraan · sejak 2026',
     roL: 'Membaca riset tentang pendamping\nAI dan kesejahteraan.', roJ: 'Menguji percakapan dalam\nBahasa Indonesia sehari-hari.',
     h2: 'London <em>×</em> Jogja.<br>Meneliti AI yang mendengarkan.', p: 'Dua kota, selisih enam jam, satu pertanyaan: bisakah AI membantu orang bercerita tentang perasaannya, dengan aman?',
     pk: ['makalah', 'catatan wawancara', 'draf percakapan', 'aturan keamanan', 'Bahasa Indonesia', 'masukan'],
@@ -211,7 +217,15 @@ const renderMain = function (t) {
     const tag = s.slice(0, l[1].length), rest = s.slice(l[1].length); out.push(`<span class="${l[0]}">${tag}</span>${rest}`); });
   log.innerHTML = out.join('\n') + (blink ? '<span class="cur"></span>' : '');
 };
-window.render = function (t) { renderPioneers(t); renderMain(t - SHIFT); };
+// hold the Rembug Rasa title for 1.5 s while the supporters appear
+const HOLD_AT = 4.6, HOLD = 1.5;
+window.render = function (t) {
+  renderPioneers(t);
+  const m = t - SHIFT;
+  renderMain(m < HOLD_AT ? m : m < HOLD_AT + HOLD ? HOLD_AT : m - HOLD);
+  const sp = $('#spons'); $('#spons small').textContent = T.sup;
+  const k = ease((m - 3.9) / .6); sp.style.opacity = k; sp.style.transform = `translateY(${(1 - k) * 16}px)`;
+};
 render(0);
 </script>
 </body></html>
