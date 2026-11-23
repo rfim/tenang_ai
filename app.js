@@ -320,6 +320,24 @@
     });
   });
 
+  // Partner strip: sits at the bottom of the first screen, then pins under the header
+  var pinStrip = document.querySelector(".partners-pin");
+  var heroEl = document.querySelector(".hero2:not(.hero-sub)");
+  if (pinStrip && heroEl) {
+    var pq = false;
+    function pinCheck() {
+      var navh = header.getBoundingClientRect().height;
+      header.style.setProperty("--navh", navh + "px");
+      pinStrip.style.setProperty("--navh", navh + "px");
+      var limit = heroEl.getBoundingClientRect().bottom - pinStrip.offsetHeight;
+      pinStrip.classList.toggle("pin-top", limit <= navh);
+      pq = false;
+    }
+    window.addEventListener("scroll", function () { if (!pq) { pq = true; requestAnimationFrame(pinCheck); } }, { passive: true });
+    window.addEventListener("resize", pinCheck);
+    pinCheck();
+  }
+
   // Hero entrance: copy rises in, scene settles (Bija's 14s "film")
   var hero = document.querySelector(".hero2");
   if (hero) requestAnimationFrame(function () { hero.classList.add("hero-in"); });
