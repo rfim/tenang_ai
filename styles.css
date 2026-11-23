@@ -2184,3 +2184,6 @@ html[data-mode="dark"] .sleeper { display: block; }
 @media (max-width: 920px) { .meet-egg { width: 76px; margin-left: -38px; } .meet-egg img { width: 76px; } }
 /* avatar: open-eyed Nesya, filling the circle */
 .meet-i img { width: 42px !important; height: 42px !important; max-width: none; margin-top: 6px; object-fit: contain; }
+.meet-egg.up { transform-origin: 50% 100%; animation-name: meet-pop-up; }
+.meet-egg.up.out { animation-name: meet-out; }
+@keyframes meet-pop-up { 0% { opacity: 0; transform: translateY(26px) scale(.35); } 100% { opacity: 1; transform: none; } }

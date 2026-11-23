@@ -96,7 +96,7 @@
     l.addEventListener("click", function (e) { if (e.target.closest("a")) setMenu(false); });
   });
   document.querySelectorAll(".drawer-foot a").forEach(function (a) {
-    a.addEventListener("click", function () { setMenu(false); });
+    a.addEventListener("click", function (e) { if (!e.target.closest(".meet-i")) setMenu(false); });
   });
   // Symmetrical centre pill: both sides take the width of the wider one
   function balanceNav() {
@@ -330,10 +330,12 @@
   }
   // ---------- Kenali Nesya: a small easter egg ----------
   // hover: she winks. tap: tiny green and white hearts. every third tap: she hops out and says hello.
-  var meet = document.querySelector(".meet-btn"), meetImg = meet && meet.querySelector(".meet-i img");
-  if (meet && meetImg) {
+  // in the phone menu the avatar is its own tap target, so tapping it plays instead of closing the menu
+  ["wink", "happy", "heart"].forEach(function (f) { var i = new Image(); i.src = "assets/nesya/" + f + ".png"; });
+  [].forEach.call(document.querySelectorAll(".meet-btn"), function (meet) {
+    var meetImg = meet.querySelector(".meet-i img"), inDrawer = !!meet.closest(".drawer-foot");
+    if (!meetImg) return;
     var REST = meetImg.getAttribute("src"), taps = 0, eggOn = false, hovering = false;
-    ["wink", "happy", "heart"].forEach(function (f) { var i = new Image(); i.src = "assets/nesya/" + f + ".png"; });
     var HEART = '<svg viewBox="0 0 24 22"><path d="M12 21C5 15.5 1 11.7 1 7.2 1 3.7 3.7 1 7 1c2 0 3.8 1 5 2.6C13.2 2 15 1 17 1c3.3 0 6 2.7 6 6.2 0 4.5-4 8.3-11 13.8z"/></svg>';
     function circle() { return meet.querySelector(".meet-i").getBoundingClientRect(); }
     meet.addEventListener("mouseenter", function () { hovering = true; if (!eggOn) meetImg.src = "assets/nesya/wink.png"; });
@@ -360,7 +362,9 @@
       var r = circle(), en = document.documentElement.lang === "en";
       var box = document.createElement("div");
       box.className = "meet-egg";
-      box.style.left = Math.min(r.left + r.width / 2, innerWidth - 84) + "px"; box.style.top = (r.bottom + 8) + "px";
+      var up = r.bottom + 140 > innerHeight; // no room below (the phone menu): she pops up above the avatar
+      if (up) box.className += " up";
+      box.style.left = Math.min(r.left + r.width / 2, innerWidth - 84) + "px"; box.style.top = (up ? r.top - 132 : r.bottom + 8) + "px";
       box.innerHTML = '<img src="assets/nesya/happy.png" alt="">' + words(en);
       document.body.appendChild(box);
       meetImg.src = "assets/nesya/heart.png";
@@ -369,7 +373,8 @@
       setTimeout(function () { box.classList.add("out"); }, 2800);
       setTimeout(function () { box.remove(); eggOn = false; meetImg.src = hovering ? "assets/nesya/wink.png" : REST; }, 3300);
     }
-    meet.addEventListener("click", function () {
+    meet.addEventListener("click", function (e) {
+      if (inDrawer) { if (!e.target.closest(".meet-i")) return; e.preventDefault(); e.stopPropagation(); }
       if (reduce || eggOn) return;
       taps++;
       hearts();
@@ -377,11 +382,11 @@
     });
     // now and then, when nobody is looking at her, a slow blink
     if (!reduce) setInterval(function () {
-      if (eggOn || hovering || document.hidden) return;
+      if (eggOn || hovering || document.hidden || !meet.offsetParent) return;
       meetImg.src = "assets/nesya/wink.png";
       setTimeout(function () { if (!eggOn && !hovering) meetImg.src = REST; }, 700);
     }, 9000);
-  }
+  });
   // back to top: appears after the first screen
   var toTop = document.querySelector(".to-top");
   if (toTop) window.addEventListener("scroll", function () { toTop.classList.toggle("show", window.scrollY > window.innerHeight * 1.2); }, { passive: true });
