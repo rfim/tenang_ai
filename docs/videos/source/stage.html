@@ -126,10 +126,10 @@ const T = {
     alwaysEye: 'The promise', alwaysB: 'Any hour, any day.', alwaysS: 'No queue, no appointment. Nesya is there at 3 a.m. too.',
     misEye: 'Our mission', mis1: 'Mental wellbeing is not', mis2: "one person's burden.", mis3: 'Nesya keeps people company and shows the way.', mis4: 'People and institutions stay responsible.',
     dEye: 'For institutions', dH: 'One dashboard. The whole picture.', dP: 'See where support is needed, without seeing who said what.',
-    d1: ['Trends, at a glance', 'Emotional load, check-ins and high-need signals, per period and per location.'],
+    d1: ['A 30-day map, at a glance', 'Topics running high, emotional load and check-ins around the month, per institution.'],
     d2: ['When people really need it', 'Late-night peaks show why support has to be there 24/7.'],
     d3: ['From data to action', 'Suggested steps update with the numbers, ready for the next meeting.'],
-    d4: ['A full console per institution', 'A 30-day map, topics day by day, and a report you can download as PDF.'],
+    d4: ['One console, Map and Analytics', 'Map, trends and analytics in one place, with a report you can download as PDF.'],
     d5: ['Who needs help', 'Names masked. The clinical team sees serious signals early: signals, not diagnoses.'], dPill: 'Main feature',
     cta: 'Book a pilot demo', film: 'A film by', sup: 'Supported by', forStartups: 'for Startups',
   },
@@ -151,10 +151,10 @@ const T = {
     alwaysEye: 'Janji kami', alwaysB: 'Jam berapa pun, hari apa pun.', alwaysS: 'Tanpa antre, tanpa appointment. Nesya ada, bahkan jam 3 pagi.',
     misEye: 'Misi kami', mis1: 'Mental wellbeing bukan', mis2: 'beban satu orang saja.', mis3: 'Nesya menemani dan menunjukkan jalan.', mis4: 'Manusia dan institusi tetap bertanggung jawab.',
     dEye: 'Untuk institusi', dH: 'Satu dashboard. Gambaran utuh.', dP: 'Lihat di mana dukungan dibutuhkan, tanpa melihat siapa yang bercerita.',
-    d1: ['Tren dalam sekali lihat', 'Beban emosional, check-in, dan sinyal kebutuhan tinggi, per periode dan per lokasi.'],
+    d1: ['Peta 30 hari, sekali lihat', 'Topik yang tinggi, beban emosional, dan check-in sepanjang bulan, per institusi.'],
     d2: ['Saat orang paling membutuhkan', 'Puncak tengah malam menunjukkan mengapa dukungan harus ada 24/7.'],
     d3: ['Dari data ke tindakan', 'Saran langkah ikut berubah dengan angka, siap dibawa ke rapat berikutnya.'],
-    d4: ['Konsol lengkap per institusi', 'Peta 30 hari, topik hari per hari, dan laporan yang bisa diunduh sebagai PDF.'],
+    d4: ['Satu konsol, Peta dan Analitik', 'Peta, tren, dan analitik di satu tempat, dengan laporan yang bisa diunduh sebagai PDF.'],
     d5: ['Siapa perlu dibantu', 'Nama disamarkan. Tim klinis melihat sinyal serius lebih awal: sinyal, bukan diagnosis.'], dPill: 'Fitur utama',
     cta: 'Jadwalkan demo pilot', film: 'Sebuah film dari', sup: 'Didukung oleh', forStartups: 'for Startups',
   },
@@ -166,7 +166,7 @@ const R = (img, key) => RECTS[LANG + '/' + img][key];
 // --- the timeline ---
 const SCENES = [
   { id: 'p1', a: 13, b: 17, kind: 'problem', g: 0, txt: T.p1, shots: [{ img: 'old-hero', box: 'h1', at: 13 }] },
-  { id: 's1', a: 17, b: 21, kind: 'solved', g: 0, txt: T.s1, fix: T.p1[0], shots: [{ img: 'new-hero', box: 'h1', at: 17 }] },
+  { id: 's1', a: 17, b: 21, kind: 'solved', g: 0, txt: T.s1, fix: T.p1[0], shots: [{ img: 'new-hero', box: 'h1', at: 17 }, { img: 'new-hero', box: 'peek', at: 19.1 }] },
   { id: 'p2', a: 21, b: 25, kind: 'problem', g: 1, txt: T.p2, shots: [{ img: 'old-nesya', box: 'card', at: 21 }] },
   { id: 's2', a: 25, b: 29, kind: 'solved', g: 1, txt: T.s2, fix: T.p2[0], shots: [{ img: 'new-nesya', box: 'media', at: 25 }] },
   { id: 'p3', a: 39, b: 44, kind: 'problem', g: 2, txt: T.p3, shots: [{ img: 'old-partners', box: 'line', at: 39 }, { img: 'old-partners', box: 'nav', at: 41.5 }] },
@@ -290,7 +290,7 @@ window.render = function (t) {
 
 // ---------- main selling point: the institution dashboard (inserted at 39 s, lasts 7 s) ----------
 const DASH_AT = 39, DASH_LEN = 17;
-const DSHOTS = [{ img: 'new-dash', box: 'card', at: 0 }, { img: 'new-dash', box: 'heat', at: 3.2 }, { img: 'new-dash', box: 'act', at: 6.5 }, { img: 'new-console', box: 'all', at: 9.8 }, { img: 'new-att', box: 'list', at: 13.3 }];
+const DSHOTS = [{ img: 'new-dash', box: 'card', at: 0 }, { img: 'new-an', box: 'heat', at: 3.2 }, { img: 'new-an', box: 'act', at: 6.5 }, { img: 'new-console', box: 'all', at: 9.8 }, { img: 'new-att', box: 'list', at: 13.3 }];
 add(`<section class="scene dark solved" id="dashf">
   <div class="gh"><span class="num" style="color:var(--mint)">★</span><h2 class="serif">${T.dH}</h2></div>
   <div class="frame new" style="left:80px; top:190px; width:${FW}px; height:${FH}px"><div class="bar"><i></i><i></i><i></i><b class="durl">rfim.github.io/tenang_ai · Dashboard</b></div>
@@ -308,7 +308,7 @@ function renderDash(t) {
   DSHOTS.forEach((sh, i) => { const st = DASH_AT + sh.at, end = i + 1 < DSHOTS.length ? DASH_AT + DSHOTS[i + 1].at : DASH_AT + DASH_LEN;
     const L = layers[i]; L.style.opacity = i === 0 ? clamp((end + .3 - t) / .35) : clamp(Math.min((t - st) / .35, (end + .3 - t) / .35));
     camera(L, R(sh.img, sh.box), t, st, end); if (sh.box === 'all') $('.hl', L).style.display = 'none';
-    if (t >= st && t < end) $('.durl', el).textContent = sh.img === 'new-dash' ? 'rfim.github.io/tenang_ai · Dashboard' : 'rfim.github.io/tenang_ai/dashboard.html';
+    if (t >= st && t < end) $('.durl', el).textContent = (sh.img === 'new-dash' || sh.img === 'new-an') ? 'rfim.github.io/tenang_ai · Dashboard' : 'rfim.github.io/tenang_ai/dashboard.html';
     const tx = el.querySelector('.dtxt[data-i="' + i + '"]'); const k = clamp(Math.min((t - st - .5) / .4, (end + .1 - t) / .3)); tx.style.opacity = k; tx.style.transform = `translateY(${(1 - Math.min(1, (t - st - .5) / .4 < 0 ? 0 : 1)) * 12}px)`; });
   // the whole-dashboard shot gets no highlight box
   $('.layer[data-k="0"] .hl', el).style.display = 'none';
