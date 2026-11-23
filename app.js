@@ -459,11 +459,33 @@
   setScrollPad();
   window.addEventListener("resize", setScrollPad);
   // arriving from another page with #section: land again once fonts and images have settled the layout
-  function landOnHash() {
-    setScrollPad();
-    var id = decodeURIComponent(location.hash.slice(1)), t = id && document.getElementById(id);
-    if (t && id !== "top" && id !== "main") t.scrollIntoView({ block: "start", behavior: "instant" });
+  // Shortcuts land on the section's heading, not on its padded top edge, so the content starts right below the header
+  function anchorOf(t) {
+    if (/^(H1|H2|H3)$/.test(t.tagName)) return t;
+    var h = t.querySelector(".eyebrow2, .kicker, .eyebrow, h1, h2, h3");
+    if (!h) return t;
+    var gap = h.getBoundingClientRect().top - t.getBoundingClientRect().top;
+    return gap > 24 ? h : t;
   }
+  function goTo(id, smooth) {
+    var t = id && document.getElementById(id);
+    if (!t || id === "top" || id === "main") return false;
+    setScrollPad();
+    var pad = parseFloat(document.documentElement.style.scrollPaddingTop) || 90;
+    var y = anchorOf(t).getBoundingClientRect().top + window.scrollY - pad - 8;
+    window.scrollTo({ top: Math.max(0, y), behavior: smooth && !reduce ? "smooth" : "instant" });
+    return true;
+  }
+  function landOnHash() { goTo(decodeURIComponent(location.hash.slice(1)), false); }
+  document.addEventListener("click", function (e) {
+    var a = e.target.closest && e.target.closest("a[href*='#']");
+    if (!a || e.defaultPrevented || e.metaKey || e.ctrlKey || e.shiftKey) return;
+    var url = new URL(a.href, location.href);
+    var norm = function (p) { return p.replace(/index\.html$/, ""); };
+    if (norm(url.pathname) !== norm(location.pathname) || !url.hash || url.hash.length < 2) return;
+    var id = decodeURIComponent(url.hash.slice(1));
+    if (goTo(id, true)) { e.preventDefault(); history.pushState(null, "", "#" + id); }
+  });
   if (location.hash.length > 1) {
     window.addEventListener("load", function () { landOnHash(); setTimeout(landOnHash, 400); });
     if (document.fonts && document.fonts.ready) document.fonts.ready.then(landOnHash);
