@@ -2420,3 +2420,7 @@ html[lang="en"] .hero2 [data-i18n="hero.pre"] { display: none; }
 .chat-live .msg, .chat-live .quick { animation: chat-in .45s cubic-bezier(.2,.7,.3,1) both; }
 .chat-live .leaving { opacity: 0 !important; transform: translateY(-10px); transition: opacity .4s ease, transform .4s ease; }
 @keyframes chat-in { from { opacity: 0; transform: translateY(10px) scale(.98); } to { opacity: 1; transform: none; } }
+.hero2 .h1 .nw { white-space: nowrap; }
+.hero2:not(.hero-sub) .hero2-lead { -webkit-line-clamp: 4 !important; }
+@media (min-width: 921px) and (max-height: 760px) { .hero2:not(.hero-sub) .hero2-lead { -webkit-line-clamp: 2 !important; } }
+@media (max-width: 920px) { .hero2:not(.hero-sub) .hero2-copy > .made-with { margin-top: 16px !important; } }
