@@ -47,29 +47,13 @@
 
 <a class="skip" href="#main" data-i18n="skip">Langsung ke isi</a>
 
-<header class="nav" id="nav">
-  <div class="wrap nav-inner">
-    <a href="index.html" class="brand" aria-label="N2CIAS oleh TenangAI">
-      <img src="assets/favicon.svg" alt="" width="40" height="40">
-      <span><b>N2CIAS</b><small data-i18n="brand.by">oleh TenangAI</small></span>
-    </a>
-    <nav class="nav-links" aria-label="Utama">
-      <a href="index.html#platform">Platform</a>
-      <div class="dd">
-        <button type="button" class="dd-btn" aria-expanded="false"><span data-i18n="nav.org">Organisasi</span></button>
-        <div class="dd-menu">
-          <a href="universitas.html" data-i18n="type.university">Universitas</a>
-          <a aria-current="page" href="perusahaan.html" data-i18n="type.company">Perusahaan</a>
-          <a href="rumah-sakit.html" data-i18n="type.hospital">Rumah sakit</a>
-          <a href="kesehatan-masyarakat.html" data-i18n="type.public">Kesehatan masyarakat</a>
-        </div>
-      </div>
-      <a href="research.html" data-i18n="nav.research">Riset</a>
-      <a href="index.html#dashboard">Dashboard</a>
-      <a href="index.html#safety" data-i18n="nav.safety">Keamanan</a>
-      <a href="index.html#pilot" data-i18n="nav.pilot">Ketersediaan</a>
-    </nav>
-    <div class="nav-actions">
+<header class="nav2" id="nav">
+  <div class="bar">
+    <span data-i18n="bar.text">Program pilot 8–12 minggu untuk institusi di Indonesia.</span>
+    <a href="index.html#demo" data-i18n="bar.link">Jadwalkan demo</a>
+  </div>
+  <div class="wrap nav2-inner">
+    <div class="nav2-side nav2-l">
       <button type="button" class="mode-btn" aria-label="Mode gelap / dark mode" aria-pressed="false">
         <svg class="i-moon2" viewBox="0 0 24 24"><path d="M15 3a9 9 0 1 0 6 13A8 8 0 0 1 15 3z" fill="currentColor"/></svg>
         <svg class="i-sun" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8"/></g></svg>
@@ -78,11 +62,36 @@
         <button type="button" data-lang="id" aria-pressed="true">ID</button>
         <button type="button" data-lang="en" aria-pressed="false">EN</button>
       </div>
-      <a href="index.html#demo" class="btn btn-mustard btn-sm" data-i18n="cta.demo">Jadwalkan demo</a>
+    </div>
+    <div class="nav2-pill">
+      <nav class="nav-links nav-links-l" aria-label="Utama">
+        <a href="index.html#platform">Platform</a>
+        <div class="dd">
+          <button type="button" class="dd-btn" aria-expanded="false"><span data-i18n="nav.org">Organisasi</span></button>
+          <div class="dd-menu">
+            <a href="universitas.html" data-i18n="type.university">Universitas</a>
+            <a aria-current="page" href="perusahaan.html" data-i18n="type.company">Perusahaan</a>
+            <a href="rumah-sakit.html" data-i18n="type.hospital">Rumah sakit</a>
+            <a href="kesehatan-masyarakat.html" data-i18n="type.public">Kesehatan masyarakat</a>
+          </div>
+        </div>
+        <a href="index.html#dashboard">Dashboard</a>
+      </nav>
+      <a href="index.html" class="brand" aria-label="N2CIAS oleh TenangAI">
+        <img src="assets/favicon.svg" alt="" width="34" height="34">
+        <span><b>N2CIAS</b><small data-i18n="brand.by">oleh TenangAI</small></span>
+      </a>
+      <nav class="nav-links nav-links-r" aria-label="Lainnya">
+        <a href="research.html" data-i18n="nav.research">Riset</a>
+        <a href="index.html#safety" data-i18n="nav.safety">Keamanan</a>
+        <a href="index.html#pilot" data-i18n="nav.pilot">Ketersediaan</a>
+      </nav>
+    </div>
+    <div class="nav2-side nav2-r">
+      <a href="index.html#demo" class="pbtn pbtn-sm pbtn-light"><span class="pbtn-t" data-i18n="cta.demo">Jadwalkan demo</span><span class="pbtn-i"><svg width="14" height="10"><use href="#arrow"/></svg></span></a>
       <button class="menu-btn" type="button" aria-label="Menu" aria-expanded="false"><span></span><span></span></button>
     </div>
   </div>
-  <a href="index.html#pilot" class="ribbon"><span data-i18n="ribbon">Pilot 8–12 minggu</span><svg width="14" height="14"><use href="#spark"/></svg></a>
 </header>
 
 <main id="main" class="subpage">
@@ -154,32 +163,36 @@
 </section>
 </main>
 
-<footer class="footer">
-  <div class="wrap foot-grid">
-    <div>
-      <a href="index.html" class="brand light"><img src="assets/favicon.svg" alt="" width="36" height="36"><span><b>N2CIAS</b><small data-i18n="brand.by">oleh TenangAI</small></span></a>
+<footer class="footer foot2">
+  <div class="wrap foot2-grid">
+    <div class="foot2-big">
+      <h2 class="h2" data-i18n="final.title">Dukung orang-orang Anda sebelum bebannya tak terlihat</h2>
       <p data-i18n="foot.about">Layanan kesehatan mental preventif untuk institusi Indonesia. Dibuat di Jakarta, Indonesia.</p>
+      <a href="index.html#demo" class="pbtn pbtn-light"><span class="pbtn-t" data-i18n="cta.demo">Jadwalkan demo</span><span class="pbtn-i"><svg width="14" height="10"><use href="#arrow"/></svg></span></a>
     </div>
     <nav aria-label="Footer">
-      <h4 class="caps" data-i18n="foot.explore">Jelajahi</h4>
+      <h4 data-i18n="foot.explore">Jelajahi</h4>
       <a href="index.html#platform">Platform</a>
-      <a href="index.html#use-cases" data-i18n="nav.cases">Studi kasus</a>
+      <a href="index.html#how-it-works" data-i18n="nav.how2">Cara kerja</a>
       <a href="index.html#dashboard">Dashboard</a>
       <a href="index.html#safety" data-i18n="nav.safety">Keamanan</a>
       <a href="index.html#pilot">Pilot</a>
+      <a href="index.html#faq">FAQ</a>
     </nav>
     <nav aria-label="Organisasi">
-      <h4 class="caps" data-i18n="nav.org">Organisasi</h4>
+      <h4 data-i18n="nav.org">Organisasi</h4>
       <a href="universitas.html" data-i18n="type.university">Universitas</a>
       <a href="perusahaan.html" data-i18n="type.company">Perusahaan</a>
       <a href="rumah-sakit.html" data-i18n="type.hospital">Rumah sakit</a>
       <a href="kesehatan-masyarakat.html" data-i18n="type.public">Kesehatan masyarakat</a>
-      <a href="research.html" data-i18n="nav.research">Riset</a>
     </nav>
-    <div>
-      <h4 class="caps" data-i18n="foot.contact">Kontak</h4>
+    <nav aria-label="Riset">
+      <h4 data-i18n="nav.research">Riset</h4>
+      <a href="research.html" data-i18n="rp.kicker">Riset & publikasi</a>
+      <a href="research.html#team" data-i18n="rp.t.title">Tim klinis</a>
+      <h4 data-i18n="foot.contact">Kontak</h4>
       <a href="mailto:hai@tenangaja.co.id">hai@tenangaja.co.id</a>
-    </div>
+    </nav>
   </div>
   <div class="wrap foot-legal">
     <p data-i18n="foot.disc">N2CIAS dirancang untuk dukungan kesehatan mental dan navigasi perawatan. N2CIAS bukan alat diagnosis, bukan layanan krisis, dan bukan pengganti perawatan profesional. Dalam keadaan darurat hubungi 112 atau 119 ext. 8.</p>

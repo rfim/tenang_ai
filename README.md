@@ -5,7 +5,7 @@ Static site for N2CIAS and Nesya, the AI companion. Bilingual (Bahasa Indonesia 
 - `index.html`: page and Bahasa Indonesia copy. Section anchors match the old tenang.ai site: `#platform`, `#how-it-works`, `#use-cases`, `#dashboard`, `#safety`, `#pilot`, `#demo`.
 - `i18n.js`: English copy (keys match `data-i18n` attributes) and Indonesian strings used only from JavaScript.
 - `app.js`: language switch, chat animation, tabs, coverage planner with the 5-question capacity quiz, contact form (opens an email to hai@tenangaja.co.id).
-- `styles.css`: storybook / paper-collage style.
+- `styles.css`: storybook / paper-collage style. The home page uses an editorial layout modelled on the Bija site's structure (floating pill menu, full-bleed hero, split sections, bordered partner strip); see the "Layout v3" block.
 - `research.html` and the organisation pages (`universitas.html`, `perusahaan.html`, `rumah-sakit.html`, `kesehatan-masyarakat.html`) are generated: edit `tools/build_pages.py`, then run `python3 tools/build_pages.py`. It copies the header and footer from `index.html`, so rerun it after changing those.
 - `data.js`: clinical studies, team publications, team members and the reading list. Empty lists show a "coming soon" note. `research.js` renders them.
 - `assets/`: SVG illustrations (kites, plants, mushrooms, Nesya, paper edges, grain).

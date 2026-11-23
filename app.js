@@ -72,15 +72,22 @@
   });
 
   // ---------- Nav ----------
-  var links = document.querySelector(".nav-links");
+  var header = document.querySelector(".nav2") || document.querySelector(".nav");
   var menuBtn = document.querySelector(".menu-btn");
-  menuBtn.addEventListener("click", function () {
-    var open = links.classList.toggle("open");
+  function setMenu(open) {
+    header.classList.toggle("menu-open", open);
+    document.querySelectorAll(".nav-links").forEach(function (l) { l.classList.toggle("open", open); });
     menuBtn.setAttribute("aria-expanded", String(open));
+  }
+  menuBtn.addEventListener("click", function () { setMenu(!header.classList.contains("menu-open")); });
+  document.querySelectorAll(".nav-links").forEach(function (l) {
+    l.addEventListener("click", function (e) { if (e.target.closest("a")) setMenu(false); });
   });
-  links.addEventListener("click", function (e) {
-    if (e.target.tagName === "A") { links.classList.remove("open"); menuBtn.setAttribute("aria-expanded", "false"); }
-  });
+  // Solid header once the page scrolls past the hero's top
+  function onScrollHeader() { header.classList.toggle("scrolled", window.scrollY > 40); }
+  window.addEventListener("scroll", onScrollHeader, { passive: true });
+  onScrollHeader();
+  if (!document.querySelector(".hero2")) header.classList.add("solid");
 
   document.querySelectorAll(".dd-btn").forEach(function (b) {
     b.addEventListener("click", function () {

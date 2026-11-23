@@ -14,10 +14,29 @@ index = (ROOT / "index.html").read_text(encoding="utf-8")
 
 head = index[: index.index("</head>")]
 body_start = index[index.index("</head>") : index.index('<main id="main">')]
-footer = index[index.index('<footer class="footer">') : index.index('<script src="i18n.js">')]
+footer = index[index.index('<footer class="footer') : index.index('<script src="i18n.js">')]
 
-CAROUSEL = index[index.index("<!-- PARTNERS: moving logo carousel -->") : index.index("<!-- PLATFORM: what is N2CIAS -->")]
+CAROUSEL = index[index.index("<!-- PARTNERS: moving logo carousel -->") : index.index("<!-- /PARTNERS -->")]
 ID_TEXT = dict(re.findall(r'data-i18n="([^"]+)"[^>]*>([^<]+)<', index))
+# Outcome lines for the organisation pages (Indonesian; English is in i18n.js)
+ID_TEXT.update({
+ "use.uni.1": "Mahasiswa mencari bantuan lebih awal",
+ "use.uni.2": "Antrean konseling berkurang",
+ "use.uni.3": "Diarahkan ke langkah yang sesuai",
+ "use.uni.4": "Periode puncak kebutuhan terlihat",
+ "use.uni.5": "Bahan perencanaan program kemahasiswaan",
+ "use.hos.1": "Tersedia di semua shift",
+ "use.hos.2": "Tanda burnout terlihat lebih awal",
+ "use.hos.3": "Rujukan ke psikolog saat dibutuhkan",
+ "use.hos.4": "Gambaran beban per unit",
+ "use.com.1": "Tunjangan benar-benar dipakai",
+ "use.com.2": "Biaya lebih terukur dari sesi satu-per-satu",
+ "use.com.3": "Data untuk program kesejahteraan",
+ "use.com.4": "Masalah terlihat sebelum memengaruhi kinerja",
+ "use.pub.1": "Akses tanpa antre",
+ "use.pub.2": "Gambaran kebutuhan per wilayah",
+ "use.pub.3": "Rujukan ke layanan setempat"
+})
 
 HOME_ANCHORS = ["platform", "use-cases", "dashboard", "safety", "pilot", "demo", "coverage", "how-it-works", "faq"]
 
