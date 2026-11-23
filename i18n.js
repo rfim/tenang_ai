@@ -5,7 +5,7 @@ window.I18N_EN = {
   "nav.cases": "Case studies",
   "nav.story": "Story",
   "mw.a": "Made with",
-  "mw.b": "by a joint Indonesia and United Kingdom team of psychologists, psychiatrists, doctors and researchers",
+  "mw.b": "by psychologists, psychiatrists, doctors and researchers from Indonesia and the UK",
   "hb.demo": "Book a demo",
   "hb.cat": "Meet Nesya",
   "hb.story.e": "Our story",
