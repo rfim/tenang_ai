@@ -134,9 +134,8 @@ window.I18N_EN = {
   "ribbon": "8–12 week pilot",
 
   "hero.label": "mental health support for institutions",
-  "hero.t1": "A safe place",
-  "hero.t2": "to talk, any time.",
-  "hero.247": "always there, any hour",
+  "hero.pre": "\u200b",
+  "hero.post": "mental health support for everyone in your organization.",
   "hero.lead": "Give employees, students, or healthcare workers a safe space to talk, open up, and get mental health support whenever they need it, while helping your organization understand their mental health at an aggregate level without opening private conversations.",
   "hero.motto": "Calm starts here.",
   "chip.1": "Bahasa Indonesia first",
