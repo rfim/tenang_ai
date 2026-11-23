@@ -1542,3 +1542,43 @@ video.film, .hero2-video { display: block; width: 100%; height: 100%; object-fit
   .nav2 .brand-m.brand-badge img { width: 32px; height: 32px; }
   .nav2 .brand-m .bb-by { font-size: 10.5px; }
 }
+
+/* =================== One calm background (Bija): no sudden colour changes =================== */
+.ed, .ed-dark, .section, .section.tint, .band, .band-teal, .band-olive, .band-rust, .logos, .ed-partners, #solution { background-color: var(--paper) !important; color: var(--ink); }
+.edge-both::before, .edge-both::after, .edge-top::before, .torn-top::before { display: none !important; }
+.ed-dark .h2, .ed-dark .h3, .ed-dark h3, .band .script, .band h3, .band .h2 { color: var(--ink) !important; }
+.ed-dark .eyebrow2 { color: var(--ink-2); }
+.ed-dark .ed-p, .ed-dark p, .band p, .band .lead { color: var(--ink-2); }
+.ed-dark .caps { color: var(--ink); }
+.ed-dark .mail a { color: var(--rust); }
+.ed-dark .dash-list li { border-color: var(--line); color: var(--ink-2); }
+.ed-dark .dash-list b { color: var(--ink); }
+.steps2 li, .steps2 li:last-child { border-color: var(--line); }
+.steps2 b { color: var(--rust); }
+.steps2 strong { color: var(--ink); }
+.steps2 em { color: var(--ink-2); }
+.tcard { background: var(--card); border-color: var(--line); }
+.tcard h3 { color: var(--ink) !important; }
+.tcard p { color: var(--ink-2) !important; }
+.tcard:hover { border-color: var(--mustard); }
+.ed-dark .pbtn-light .pbtn-t { background: var(--teal); color: var(--cream); }
+.ed-dark .pbtn-light .pbtn-i { background: #0c2b28; color: var(--cream); border: 0; }
+.id-box { background: var(--card); border-color: var(--line); }
+.id-list dt { color: var(--rust); }
+.id-list dd { color: var(--ink-2); }
+.org-helps h3 { color: var(--ink) !important; }
+.org-helps .num { background: var(--rust); color: #fffaf0; }
+.band .note p { color: var(--ink-2); }
+.journey::before { border-color: var(--line); }
+.bubble { border-color: var(--mustard); }
+html[data-mode="dark"] .ed-dark .pbtn-light .pbtn-t { background: #2c6a65; }
+
+/* hero video melts into the page */
+.hero2::before { display: none !important; }
+.hero2::after { content: ""; position: absolute; left: 0; right: 0; bottom: -1px; height: 180px; z-index: 1; pointer-events: none;
+  background: linear-gradient(180deg, transparent, var(--paper)) !important; -webkit-mask: none !important; mask: none !important; animation: none !important; transform: none !important; }
+.hero2 .hero2-grid { z-index: 2; }
+
+/* footer: page colour fades into the night clip */
+.foot2-film::after { content: ""; position: absolute; left: 0; right: 0; top: -1px; height: 200px; background: linear-gradient(180deg, var(--paper), transparent); }
+.foot2 { margin-top: 0; }
