@@ -16,7 +16,7 @@
       daily: "Harian", avg7: "Rata-rata 7 hari", peak: "Puncak", heat: "Kapan orang bercerita", heatSub: "Jumlah check-in per jam dan hari",
       topics: "Topik keluhan", topicsSub: "% check-in yang menyebut topik ini", risk: "Tingkat dukungan per lokasi", riskSub: "% check-in per lokasi",
       steps: "Langkah lanjutan yang dipilih", stepsSub: "% setelah check-in", act: "Saran tindakan", actSub: "Berdasarkan data di atas",
-      table: "Tabel", chart: "Grafik", day: "Hari", hour: "Jam", count: "check-in", index: "Indeks",
+      table: "Tabel", chart: "Grafik", expand: "Perbesar", close: "Tutup", day: "Hari", hour: "Jam", count: "check-in", index: "Indeks",
       days: ["Sen", "Sel", "Rab", "Kam", "Jum", "Sab", "Min"],
       t: ["Stres akademik / kerja", "Burnout", "Kecemasan", "Gangguan tidur", "Tekanan relasi"],
       r: ["Dukungan ringan", "Dukungan terpandu", "Disarankan ke psikolog", "Butuh dukungan segera"],
@@ -37,7 +37,7 @@
       daily: "Daily", avg7: "7-day average", peak: "Peak", heat: "When people talk", heatSub: "Check-ins by hour and day",
       topics: "Concern topics", topicsSub: "% of check-ins mentioning the topic", risk: "Support level by location", riskSub: "% of check-ins per location",
       steps: "Next step chosen", stepsSub: "% after a check-in", act: "Suggested actions", actSub: "Based on the data above",
-      table: "Table", chart: "Chart", day: "Day", hour: "Hour", count: "check-ins", index: "Index",
+      table: "Table", chart: "Chart", expand: "Expand", close: "Close", day: "Day", hour: "Hour", count: "check-ins", index: "Index",
       days: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
       t: ["Study / work stress", "Burnout", "Anxiety", "Sleep problems", "Relationship strain"],
       r: ["Light support", "Guided support", "Referred to a psychologist", "Needs urgent support"],
@@ -94,13 +94,27 @@
   function hideTip() { tip.style.opacity = 0; }
   function card(id, title, sub, wide) {
     var c = document.createElement("section"); c.className = "dv-card" + (wide ? " " + wide : ""); c.id = id;
-    c.innerHTML = '<header><div><h4>' + title + '</h4><p>' + sub + '</p></div><button type="button" class="dv-toggle" aria-pressed="false">' + L().table + '</button></header><div class="dv-body"></div><div class="dv-table" hidden></div>';
+    c.innerHTML = '<header><div><h4>' + title + '</h4><p>' + sub + '</p></div><span class="dv-tools"><button type="button" class="dv-toggle" aria-pressed="false">' + L().table + '</button><button type="button" class="dv-max" aria-label="' + L().expand + '" title="' + L().expand + '"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 6V2h4M10 2h4v4M14 10v4h-4M6 14H2v-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button></span></header><div class="dv-body"></div><div class="dv-table" hidden></div>';
     c.querySelector(".dv-toggle").addEventListener("click", function (e) {
       var on = e.currentTarget.getAttribute("aria-pressed") !== "true"; views[id] = on; e.currentTarget.setAttribute("aria-pressed", String(on));
       e.currentTarget.textContent = on ? L().chart : L().table; c.querySelector(".dv-body").hidden = on; c.querySelector(".dv-table").hidden = !on;
     });
+    c.querySelector(".dv-max").addEventListener("click", function () { toggleMax(c); });
+    c.addEventListener("click", function (e) { if (!c.classList.contains("is-max") && !e.target.closest("button, select, a, li, .dv-srow i, rect, .dv-table") ) toggleMax(c); });
     return c;
   }
+  // Focus view: one chart large, centred, with the page dimmed behind it
+  var scrim = document.createElement("div"); scrim.className = "dv-scrim"; document.body.appendChild(scrim);
+  function toggleMax(c, force) {
+    var on = force === undefined ? !c.classList.contains("is-max") : force;
+    document.querySelectorAll(".dv-card.is-max").forEach(function (o) { if (o !== c) o.classList.remove("is-max"); });
+    c.classList.toggle("is-max", on); scrim.classList.toggle("on", on); document.body.classList.toggle("dv-lock", on);
+    var b = c.querySelector(".dv-max"); if (b) { b.setAttribute("aria-label", on ? L().close : L().expand); b.title = on ? L().close : L().expand;
+      b.innerHTML = on ? '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 3l10 10M13 3L3 13" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>' : '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 6V2h4M10 2h4v4M14 10v4h-4M6 14H2v-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>'; if (on) b.focus(); }
+    hideTip();
+  }
+  scrim.addEventListener("click", function () { var c = document.querySelector(".dv-card.is-max"); if (c) toggleMax(c, false); });
+  document.addEventListener("keydown", function (e) { if (e.key === "Escape") { var c = document.querySelector(".dv-card.is-max"); if (c) toggleMax(c, false); } });
   function table(rows) { return "<table><tbody>" + rows.map(function (r, i) { return "<tr>" + r.map(function (c) { return (i ? "<td>" : "<th>") + c + (i ? "</td>" : "</th>"); }).join("") + "</tr>"; }).join("") + "</tbody></table>"; }
 
   // ---------- charts ----------
