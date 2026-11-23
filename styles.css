@@ -2379,3 +2379,41 @@ html[lang="en"] .hero2 .h1.h1-247 .h-247 { padding-left: 0; }
 @media (min-width: 921px) and (min-height: 960px) { .hero2:not(.hero-sub) .hero2-lead { -webkit-line-clamp: 3; } }
 html[lang="en"] .hero2 [data-i18n="hero.pre"] { display: none; }
 @media (max-width: 920px) and (max-height: 620px) { .hero2:not(.hero-sub) .h1.h1-247 { font-size: 1.75rem !important; } }
+
+/* Nesya the elephant: smooth, distinct little behaviours instead of frame swaps */
+.nesya { display: inline-block; }
+.nesya img { display: block; width: 100%; height: auto; transform-origin: 50% 92%; will-change: transform; }
+/* platform: she waves hello, a happy rock with a little lift */
+.nesya-peek .nesya { animation: none !important; }
+.nesya-peek .nesya img { animation: ele-hello 3.2s cubic-bezier(.45,0,.3,1) infinite; }
+@keyframes ele-hello { 0%, 100% { transform: rotate(0) translateY(0); } 15% { transform: rotate(-5deg) translateY(-4px); } 30% { transform: rotate(4deg) translateY(-6px); } 45% { transform: rotate(-3deg) translateY(-3px); } 60% { transform: rotate(0) translateY(0); } }
+/* story quote: a happy bounce, squash before the jump and on landing, then hearts float up */
+.quote-cat { position: relative; }
+.quote-cat img { animation: ele-bounce 3.6s cubic-bezier(.3,0,.3,1) infinite; }
+@keyframes ele-bounce { 0%, 55%, 100% { transform: translateY(0) scale(1, 1); } 62% { transform: translateY(0) scale(1.08, .9); } 72% { transform: translateY(-18px) scale(.95, 1.06); } 82% { transform: translateY(0) scale(1.06, .93); } 90% { transform: translateY(0) scale(.98, 1.02); } }
+.quote-cat::before, .quote-cat::after { content: ""; position: absolute; width: 16px; height: 14px; top: 8px; background: #e98aa0; opacity: 0;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 22'%3E%3Cpath d='M12 21C5 15.5 1 11.7 1 7.2 1 3.7 3.7 1 7 1c2 0 3.8 1 5 2.6C13.2 2 15 1 17 1c3.3 0 6 2.7 6 6.2 0 4.5-4 8.3-11 13.8z'/%3E%3C/svg%3E") center/contain no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 22'%3E%3Cpath d='M12 21C5 15.5 1 11.7 1 7.2 1 3.7 3.7 1 7 1c2 0 3.8 1 5 2.6C13.2 2 15 1 17 1c3.3 0 6 2.7 6 6.2 0 4.5-4 8.3-11 13.8z'/%3E%3C/svg%3E") center/contain no-repeat;
+  animation: ele-heart 3.6s ease-out infinite; }
+.quote-cat::before { left: 8px; } .quote-cat::after { right: 4px; width: 11px; height: 10px; background: #6fcf97; animation-delay: .25s; }
+@keyframes ele-heart { 0%, 70% { opacity: 0; transform: translateY(10px) scale(.4); } 78% { opacity: 1; } 100% { opacity: 0; transform: translateY(-34px) scale(1.1) rotate(-12deg); } }
+/* call-to-action bands: a curious head tilt with pauses, a peek over the edge, a springy hop */
+.cta-cat.look img { animation: ele-tilt 5s ease-in-out infinite; }
+@keyframes ele-tilt { 0%, 18%, 100% { transform: rotate(0); } 28%, 45% { transform: rotate(-10deg); } 58%, 75% { transform: rotate(8deg); } 86% { transform: rotate(0); } }
+.cta-cat.hop { animation: none !important; }
+.cta-cat.hop img { animation: ele-hop 2.4s cubic-bezier(.3,0,.3,1) infinite; }
+@keyframes ele-hop { 0%, 40%, 100% { transform: translateY(0) scale(1, 1); } 48% { transform: translateY(0) scale(1.1, .88); } 60% { transform: translateY(-22px) rotate(-6deg) scale(.95, 1.06); } 72% { transform: translateY(0) rotate(0) scale(1.08, .92); } 80% { transform: translateY(0) scale(1, 1); } }
+/* FAQ: thinking, a slow sway with a little nod */
+.faq-cat img { animation: ele-ponder 4.5s ease-in-out infinite; }
+@keyframes ele-ponder { 0%, 100% { transform: rotate(-4deg); } 50% { transform: rotate(4deg) translateY(-2px); } }
+/* crisis box, empty states, night sleeper: calm breathing */
+.crisis-cat.breathe, .soon-cat.breathe, .sleeper.breathe { animation: none !important; }
+.crisis-cat img, .soon-cat img, .sleeper img { animation: ele-breathe 4.2s ease-in-out infinite; }
+@keyframes ele-breathe { 0%, 100% { transform: scale(1, 1); } 50% { transform: scale(1.03, .97) translateY(1px); } }
+/* footer walker: a waddle while she crosses */
+.walker .walk img { animation: ele-waddle .7s ease-in-out infinite alternate; }
+@keyframes ele-waddle { from { transform: rotate(-5deg) translateY(0); } to { transform: rotate(5deg) translateY(-3px); } }
+/* gallery stickers */
+.ga-sticker .nesya img { animation: ele-hello 3.6s cubic-bezier(.45,0,.3,1) infinite; }
+.ga-final-nesya img { animation: ele-bounce 3.6s cubic-bezier(.3,0,.3,1) infinite; }
+@media (prefers-reduced-motion: reduce) { .nesya img, .quote-cat::before, .quote-cat::after { animation: none !important; } }

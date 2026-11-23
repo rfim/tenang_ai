@@ -6,7 +6,7 @@ Each room: (key, year, title_id, title_en, object_id, object_en, body_id, body_e
 """
 
 
-NESYA_STICKER = '<span class="ga-sticker"><span class="nesya" aria-hidden="true" data-seq="wave-1,wave-2,wave-3,wave-2" data-fps="4"><img src="assets/nesya/wave-1.png" alt=""></span></span>'
+NESYA_STICKER = '<span class="ga-sticker"><span class="nesya" aria-hidden="true"><img src="assets/nesya/wave-1.png" alt=""></span></span>'
 NESYA = '<span class="nesya" aria-hidden="true"><img src="assets/nesya/happy.png" alt=""></span>'
 
 
@@ -218,7 +218,7 @@ def build(t, page, page_hero_unused=None):
 <section class="ga-final">
   <div class="wrap">
     <div class="ga-final-head">
-      <span class="nesya ga-final-nesya" aria-hidden="true" data-seq="sit-1,sit-2" data-fps="1.2"><img src="assets/nesya/sit-1.png" alt=""></span>
+      <span class="nesya ga-final-nesya" aria-hidden="true"><img src="assets/nesya/sit-1.png" alt=""></span>
       <p class="ga-no">{t("ga.exit", "Pintu keluar", "Exit")}</p>
       {t("ga.final.t", "N2CIAS: enam puluh tahun pelajaran, untuk institusi Indonesia.", "N2CIAS: sixty years of lessons, for Indonesian institutions.", tag="h2", cls="h2 center")}
       {t("ga.final.b", "Kami tidak menciptakan percakapan antara manusia dan mesin. Kami belajar dari enam puluh tahun percobaannya, termasuk kesalahannya, lalu membangun Nesya untuk setiap orang dan N2CIAS untuk institusinya.", "We didn't invent conversations between people and machines. We learned from sixty years of attempts, mistakes included, and built Nesya for each person and N2CIAS for their institution.", tag="p", cls="ed-p center")}
