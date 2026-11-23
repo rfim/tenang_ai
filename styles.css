@@ -2198,3 +2198,26 @@ html[data-mode="dark"] .sleeper { display: block; }
   .hero2:not(.hero-sub) .hero2-copy > .hero-story { margin-top: 16px !important; margin-bottom: 0; }
   .hero2:not(.hero-sub) .hero2-copy > .made-with { display: block !important; margin: 26px auto 4px !important; max-width: 300px; font-size: .78rem; line-height: 1.55; text-wrap: balance; opacity: .85; }
 }
+
+/* wordmark: on hover, focus or tap "by Tenang AI" lifts a little and N2CIAS appears under it */
+.brand.wm { position: relative; }
+.brand.wm .wm-t { top: 0; transition: top .45s var(--ease-out); }
+.brand.wm .wm-n2 { position: absolute; left: 50%; top: 100%; display: inline-flex; align-items: center; gap: 8px; white-space: nowrap; pointer-events: none;
+  font: 400 10px/1 "Marcellus", var(--display); letter-spacing: .34em; text-indent: .34em; color: #e2b866;
+  opacity: 0; transform: translate(-50%, 3px); transition: opacity .35s ease, transform .45s var(--ease-out); }
+.brand.wm .wm-n2::before, .brand.wm .wm-n2::after { content: ""; width: 16px; height: 1px; background: currentColor; opacity: .6; transform: scaleX(0); transition: transform .5s var(--ease-out) .12s; }
+.brand.wm:is(:hover, :focus-visible, .show-n2) .wm-t { top: -6px !important; }
+.brand.wm:is(:hover, :focus-visible, .show-n2) .wm-n2 { opacity: 1; transform: translate(-50%, -3px); }
+.brand.wm:is(:hover, :focus-visible, .show-n2) .wm-n2::before, .brand.wm:is(:hover, :focus-visible, .show-n2) .wm-n2::after { transform: none; }
+
+/* phone hero label: a glass badge so it reads at a glance */
+@media (max-width: 920px) {
+  .hero2:not(.hero-sub) .hero-eyebrow { display: inline-flex; align-items: center; gap: 10px; max-width: 100%; box-sizing: border-box; margin-left: auto; margin-right: auto;
+    padding: 6px 14px 6px 6px; border-radius: 999px; background: rgba(10,22,24,.52); border: 1px solid rgba(245,236,217,.22);
+    -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); box-shadow: 0 6px 18px rgba(0,0,0,.18); letter-spacing: 0; }
+  .hero2:not(.hero-sub) .hero2-copy { padding-top: 12px !important; }
+  .hero-eyebrow .he-dot { display: none; }
+  .hero-eyebrow .he-n2 { flex: none; padding: 6px 10px 5px; border-radius: 999px; background: #e2b866; color: #17302d; font: 400 12px/1 "Marcellus", var(--display); letter-spacing: .12em; }
+  .hero-eyebrow .he-t { color: var(--cream); font: 600 12px/1.3 var(--sans); letter-spacing: .02em; text-transform: none; text-align: left; }
+  .hero-eyebrow .he-t::first-letter { text-transform: uppercase; }
+}

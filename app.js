@@ -387,6 +387,11 @@
       setTimeout(function () { if (!eggOn && !hovering) meetImg.src = REST; }, 700);
     }, 9000);
   });
+  // wordmark: tapping "by Tenang AI" shows N2CIAS under it for a moment (hover does the same on desktop)
+  [].forEach.call(document.querySelectorAll(".brand.wm"), function (b) {
+    var t = null;
+    b.addEventListener("click", function () { b.classList.add("show-n2"); clearTimeout(t); t = setTimeout(function () { b.classList.remove("show-n2"); }, 2400); });
+  });
   // back to top: appears after the first screen
   var toTop = document.querySelector(".to-top");
   if (toTop) window.addEventListener("scroll", function () { toTop.classList.toggle("show", window.scrollY > window.innerHeight * 1.2); }, { passive: true });
