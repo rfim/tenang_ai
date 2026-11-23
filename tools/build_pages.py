@@ -112,6 +112,7 @@ research_main = page_hero(
   </div>
 </section>
 
+{CAROUSEL}
 <section class="section tint torn-top" id="publications">
   <div class="wrap">
     <p class="kicker">02 / {t("rp.p.kicker", "Publikasi tim", "Team publications")}</p>
