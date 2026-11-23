@@ -353,19 +353,13 @@
         (function (el) { setTimeout(function () { el.remove(); }, 1300); })(h);
       }
     }
-    // the words: one of four designs (A arc, B ribbon, C pill, D letters); ?egg= previews the others
-    var EGG = (location.search.match(/[?&]egg=([abcd])/) || [, "a"])[1];
-    function words(en) {
-      var t = en ? "Nice to meet you!" : "Senang kenal kamu!";
-      if (EGG === "a") return '<svg class="me-arc" viewBox="0 0 200 70" aria-hidden="true"><path id="meArc" d="M14 14 Q100 74 186 14" fill="none"/><text><textPath href="#meArc" startOffset="50%" text-anchor="middle">' + t + "</textPath></text></svg>";
-      if (EGG === "d") return '<span class="me-letters">' + t.split("").map(function (c, i) { return '<i style="animation-delay:' + (450 + i * 45) + 'ms">' + (c === " " ? "&nbsp;" : c) + "</i>"; }).join("") + "</span>";
-      return '<span class="me-words">' + (EGG === "c" ? '<svg viewBox="0 0 24 22" aria-hidden="true"><path d="M12 21C5 15.5 1 11.7 1 7.2 1 3.7 3.7 1 7 1c2 0 3.8 1 5 2.6C13.2 2 15 1 17 1c3.3 0 6 2.7 6 6.2 0 4.5-4 8.3-11 13.8z"/></svg>' : "") + t + "</span>";
-    }
+    // the words: a rust ribbon, like "Halo, aku Nesya!"
+    function words(en) { return '<span class="me-words">' + (en ? "Nice to meet you!" : "Senang kenal kamu!") + "</span>"; }
     function hello() {
       eggOn = true;
       var r = circle(), en = document.documentElement.lang === "en";
       var box = document.createElement("div");
-      box.className = "meet-egg egg-" + EGG;
+      box.className = "meet-egg";
       box.style.left = Math.min(r.left + r.width / 2, innerWidth - 84) + "px"; box.style.top = (r.bottom + 8) + "px";
       box.innerHTML = '<img src="assets/nesya/happy.png" alt="">' + words(en);
       document.body.appendChild(box);
