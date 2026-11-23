@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="id"><head><meta charset="utf-8">
+<html lang="en"><head><meta charset="utf-8">
 <link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Caveat:wght@700&display=swap" rel="stylesheet">
 <style>
 :root { --ink: #0f1d1c; --cream: #f5ecd9; --gold: #e2b866; --teal: #2c6a65; --mint: #6fcf97; }
@@ -15,7 +15,7 @@ html, body { width: 1920px; height: 1080px; overflow: hidden; background: var(--
 #hook p { margin-top: 34px; font-size: 38px; color: rgba(245,236,217,.8); opacity: 0; }
 /* frames */
 .frame { position: absolute; border-radius: 18px; overflow: hidden; background: #fff; box-shadow: 0 40px 90px -30px rgba(0,0,0,.65), 0 0 0 1px rgba(255,255,255,.08); }
-.bar { height: 44px; display: flex; align-items: center; gap: 9px; padding: 0 18px; background: #e9e6df; }
+.bar { position: relative; z-index: 2; height: 44px; display: flex; align-items: center; gap: 9px; padding: 0 18px; background: #e9e6df; }
 .bar i { width: 13px; height: 13px; border-radius: 50%; background: #c9c3b8; }
 .bar b { margin-left: 18px; padding: 6px 18px; border-radius: 999px; background: #fff; font: 500 17px Inter; color: #6b6b6b; }
 .dark .bar { background: #1d2b2a; } .dark .bar i { background: #3c4b49; } .dark .bar b { background: #0f1d1c; color: #c8c0ad; }
@@ -43,7 +43,7 @@ html, body { width: 1920px; height: 1080px; overflow: hidden; background: var(--
 #mission p { margin-top: 34px; font-size: 44px; line-height: 1.35; color: #2c4a46; max-width: 1400px; }
 #mission .l { display: block; opacity: 0; }
 /* outro */
-#outro { display: grid; place-items: center; text-align: center; background: radial-gradient(ellipse at 50% 45%, #17312e, var(--ink) 70%); }
+#outro { display: grid; place-items: center; padding-bottom: 120px; text-align: center; background: radial-gradient(ellipse at 50% 45%, #17312e, var(--ink) 70%); }
 .wm { font: 400 150px Marcellus; letter-spacing: .06em; position: relative; display: inline-block; }
 .wm i { font: italic 400 54px Georgia, serif; color: rgba(245,236,217,.7); letter-spacing: 0; margin-right: 18px; }
 .wm sup { font: 700 30px Inter; color: var(--gold); letter-spacing: .2em; vertical-align: top; position: relative; top: 26px; margin-left: 8px; }
@@ -52,6 +52,19 @@ html, body { width: 1920px; height: 1080px; overflow: hidden; background: var(--
 .mean b { color: var(--gold); }
 .url { margin-top: 54px; display: inline-block; padding: 16px 34px; border-radius: 999px; border: 1px solid rgba(245,236,217,.3); font: 500 32px Inter; }
 .cat { position: absolute; width: 230px; filter: drop-shadow(0 18px 26px rgba(0,0,0,.4)); }
+#gaps .gh { position: absolute; left: 0; right: 0; top: 120px; text-align: center; }
+#gaps h2 { font-size: 72px; margin-top: 18px; }
+#gaps .grid { position: absolute; left: 110px; right: 110px; top: 380px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 28px; }
+.gap { padding: 34px 30px 36px; border-radius: 22px; background: rgba(245,236,217,.06); border: 1px solid rgba(226,184,102,.28); opacity: 0; }
+.gap .n { font: 400 64px/1 Marcellus; color: var(--gold); }
+.gap h3 { font: 400 40px/1.15 Marcellus; margin-top: 18px; }
+.gap .q { font: 600 18px Inter; letter-spacing: .2em; text-transform: uppercase; color: rgba(226,184,102,.85); margin-top: 10px; }
+.gap p { margin-top: 22px; font: 400 25px/1.45 Inter; color: rgba(245,236,217,.8); }
+.pair .head .q { font: 600 20px Inter; letter-spacing: .22em; text-transform: uppercase; color: rgba(245,236,217,.6); margin-top: 10px; }
+.inset { position: absolute; border-radius: 14px; overflow: hidden; box-shadow: 0 24px 60px -18px rgba(0,0,0,.7), 0 0 0 1px rgba(255,255,255,.1); background: #fff; }
+.sponsor { position: absolute; left: 0; right: 0; bottom: 70px; text-align: center; opacity: 0; }
+.sponsor small { display: block; font: 600 18px Inter; letter-spacing: .3em; text-transform: uppercase; color: rgba(245,236,217,.55); }
+.sponsor b { display: block; margin-top: 10px; font: 400 40px Marcellus; letter-spacing: .08em; color: var(--cream); }
 </style></head>
 <body>
 <svg width="0" height="0" style="position:absolute"><defs>
@@ -60,22 +73,26 @@ html, body { width: 1920px; height: 1080px; overflow: hidden; background: var(--
 </defs></svg>
 
 <section class="scene" id="hook">
-  <div><h1 class="serif"><span>Rembug</span> <span>rasa.</span></h1>
-  <p>Ruang untuk membicarakan perasaan, bersama.</p></div>
+  <div><h1 class="serif"><span>Before.</span> <span>After.</span></h1>
+  <p>What tenang.ai was missing, and what N2CIAS has now.</p></div>
 </section>
 
 <section class="scene" id="before">
-  <div class="title"><p class="eyebrow">Sebelum</p><h2 class="serif">tenang.ai, sebelumnya.</h2><p>Informasinya ada. Rasanya belum: templat biru, banyak teks, tanpa wajah dan tanpa cerita.</p></div>
-  <div class="frame" id="bf" style="left:760px; top:150px; width:1040px; height:690px"><div class="bar"><i></i><i></i><i></i><b>tenang.ai</b></div><div class="shot" style="background-image:url(old/hero2x.png)"></div></div>
+  <div class="title"><p class="eyebrow">Before</p><h2 class="serif">tenang.ai, as it was.</h2><p>The information was there. The feeling wasn't.</p></div>
+  <div class="frame" id="bf" style="left:760px; top:150px; width:1040px; height:690px"><div class="bar"><i></i><i></i><i></i><b>tenang.ai</b></div><div class="shot" style="background-image:url(old_en/hero2x.png)"></div></div>
 </section>
 
+<section class="scene" id="gaps">
+  <div class="gh"><p class="eyebrow">What was missing</p><h2 class="serif">Four gaps. No overlaps, nothing left out.</h2></div>
+  <div class="grid"></div>
+</section>
 <!-- pairs: filled by script -->
 <div id="pairs"></div>
 
 <section class="scene" id="mission">
-  <div><p class="eyebrow">Misi kami</p>
-  <h2 class="serif"><span class="l">Kesejahteraan bukan beban</span><span class="l">satu orang saja.</span></h2>
-  <p><span class="l">Nesya menemani dan menunjukkan jalan.</span><span class="l">Manusia dan institusi tetap bertanggung jawab.</span></p></div>
+  <div><p class="eyebrow">Our mission</p>
+  <h2 class="serif"><span class="l">Wellbeing is not</span><span class="l">one person's burden.</span></h2>
+  <p><span class="l">Nesya keeps people company and shows the way.</span><span class="l">People and institutions stay responsible.</span></p></div>
 </section>
 
 <section class="scene" id="outro">
@@ -85,27 +102,35 @@ html, body { width: 1920px; height: 1080px; overflow: hidden; background: var(--
     <div class="mean"><b>N</b>esya &amp; <b>N</b>avigation · <b>C</b>are · <b>I</b>nsight · <b>A</b>ccess · <b>S</b>afety</div>
     <div class="url">rfim.github.io/tenang_ai</div>
   </div>
+  <div class="sponsor"><small>Supported by</small><b>Rembug Rasa Projects</b></div>
   <img class="cat" id="ocat" src="nesya.png" style="right:150px; bottom:110px" alt="">
 </section>
 
 <script>
 const PAIRS = [
-  { num: '01', title: 'Wajah', old: 'old/nesya2x.png', oldPos: '4% 78%', oldSize: '175%', neu: 'new/nesya2x.png', neuPos: 'center top', miss: 'Nesya hanya sebuah ikon', got: 'Nesya punya wajah dan suara' },
-  { num: '02', title: 'Bukti', old: 'old/partners2x.png', oldPos: '20% 84%', oldSize: '230%', neu: 'new/hero2x.png', neuPos: 'center bottom', miss: 'Mitra hanya di teks kecil', got: 'Mitra terlihat di layar pertama' },
-  { num: '03', title: 'Riset', old: null, neu: 'new/research2x.png', neuPos: 'center 40%', miss: 'Tidak ada halaman riset', got: 'Bacaan riset, lengkap dengan jurnalnya' },
-  { num: '04', title: 'Cerita', old: 'old/d1.png', oldPos: 'center top', neu: 'new/gallery2x.png', neuPos: 'center top', miss: 'Tanpa cerita, tanpa arti nama', got: 'Dari ELIZA ke N2CIAS, dan arti namanya' },
+  { num: '01', title: 'Look & feel', q: 'How it feels', old: 'old_en/hero2x.png', oldPos: 'center top', neu: 'new_en/hero2x.png', neuPos: 'center top', miss: 'A blue template, text only', got: 'Calm film, its own art and type' },
+  { num: '02', title: 'Character', q: 'Who you talk to', old: 'old_en/nesya2x.png', oldPos: '4% 52%', oldSize: '175%', neu: 'new_en/nesya2x.png', neuPos: 'center top', miss: 'Nesya was just an icon', got: 'Nesya has a face and a voice' },
+  { num: '03', title: 'Credibility', q: 'Why trust it', old: 'old_en/partners2x.png', oldPos: '14% 30%', oldSize: '230%', neu: 'new_en/hero2x.png', neuPos: 'center 100%', neuSize: '150%', inset: 'new_en/research2x.png', miss: 'Partners in fine print, no research', got: 'Partner logos up front, a reading list' },
+  { num: '04', title: 'Story', q: 'Why it exists', old: 'old_en/d1.png', oldPos: 'center top', neu: 'new_en/gallery2x.png', neuPos: 'center top', miss: 'No story, no meaning in the name', got: 'From ELIZA to N2CIAS, and the name explained' },
 ];
+const GAPS = [
+  ['1', 'Look & feel', 'How it feels', 'A generic blue template. Text only, no images.'],
+  ['2', 'Character', 'Who you talk to', 'Nesya was just an icon.'],
+  ['3', 'Credibility', 'Why trust it', 'Partners in fine print. No research page.'],
+  ['4', 'Story', 'Why it exists', 'No story, and no meaning behind the name.'],
+];
+document.querySelector('#gaps .grid').innerHTML = GAPS.map(g => `<div class="gap"><div class="n">${g[0]}</div><h3>${g[1]}</h3><div class="q">${g[2]}</div><p>${g[3]}</p></div>`).join('');
 const host = document.getElementById('pairs');
 PAIRS.forEach((p, i) => {
   const s = document.createElement('section'); s.className = 'scene pair'; s.id = 'p' + i;
-  const oldShot = p.old ? `<div class="shot" style="background-image:url(${p.old});background-position:${p.oldPos};background-size:${p.oldSize || 'cover'}"></div>` : `<div class="empty">Tidak ada halaman riset<br>di tenang.ai</div>`;
-  s.innerHTML = `<div class="head"><div class="num">${p.num}</div><h2 class="serif">${p.title}</h2></div>
-    <div class="lab" style="left:110px; top:250px; color:rgba(245,236,217,.6)">Sebelum</div>
-    <div class="lab" style="left:990px; top:250px; color:var(--gold)">Sesudah</div>
-    <div class="frame fo" style="left:110px; top:290px; width:820px; height:560px; filter:saturate(.55) brightness(.92)"><div class="bar"><i></i><i></i><i></i><b>tenang.ai</b></div>${oldShot}</div>
-    <div class="frame dark fn" style="left:990px; top:290px; width:820px; height:560px"><div class="bar"><i></i><i></i><i></i><b>rfim.github.io/tenang_ai</b></div><div class="shot" style="background-image:url(${p.neu});background-position:${p.neuPos}"></div></div>
+  const oldShot = p.old ? `<div class="shot" style="background-image:url(${p.old});background-position:${p.oldPos};background-size:${p.oldSize || 'cover'}"></div>` : `<div class="empty">No research page</div>`;
+  s.innerHTML = `<div class="head"><div class="num">${p.num}</div><h2 class="serif">${p.title}</h2><div class="q">${p.q}</div></div>
+    <div class="lab" style="left:110px; top:262px; color:rgba(245,236,217,.6)">Before</div>
+    <div class="lab" style="left:990px; top:262px; color:var(--gold)">After</div>
+    <div class="frame fo" style="left:110px; top:300px; width:820px; height:550px; filter:saturate(.55) brightness(.92)"><div class="bar"><i></i><i></i><i></i><b>tenang.ai</b></div>${oldShot}</div>
+    <div class="frame dark fn" style="left:990px; top:300px; width:820px; height:550px"><div class="bar"><i></i><i></i><i></i><b>rfim.github.io/tenang_ai</b></div><div class="shot" style="background-image:url(${p.neu});background-position:${p.neuPos};background-size:${p.neuSize || 'cover'}"></div></div>
     <div class="tag miss" style="left:110px; top:885px"><svg><use href="#x"/></svg>${p.miss}</div>
-    <div class="tag got" style="left:990px; top:885px"><svg><use href="#ok"/></svg>${p.got}</div>`;
+    <div class="tag got" style="left:990px; top:885px"><svg><use href="#ok"/></svg>${p.got}</div>${p.inset ? `<div class="inset" style="left:1500px; top:356px; width:330px; height:250px"><div class="shot" style="top:0;background-image:url(${p.inset});background-position:center 30%"></div></div>` : ''}`;
   host.appendChild(s);
 });
 
@@ -124,22 +149,28 @@ window.render = function (t) {
   const fr = document.getElementById('bf'); const k = ease((t - 3) / 1); fr.style.opacity = k;
   fr.style.transform = `translateY(${(1 - k) * 60}px) scale(${1.04 - .04 * clamp((t - 3) / 4)})`;
   fr.querySelector('.shot').style.backgroundPosition = `center ${clamp((t - 4.2) / 2.6) * 55}%`;
-  // pairs 7–23, 4 s each
+  // gaps overview 7–11
+  const g = document.getElementById('gaps'); g.style.opacity = fadeIO(t, 7, 11, .3);
+  rise(g.querySelector('.gh'), t, 7.05, .5, 20);
+  g.querySelectorAll('.gap').forEach((c, i) => rise(c, t, 7.5 + i * .5, .5, 40));
+  // pairs 11–27, 4 s each
   PAIRS.forEach((p, i) => {
-    const a = 7 + i * 4, s = document.getElementById('p' + i); s.style.opacity = fadeIO(t, a, a + 4, .25);
+    const a = 11 + i * 4, s = document.getElementById('p' + i); s.style.opacity = fadeIO(t, a, a + 4, .25);
     rise(s.querySelector('.head'), t, a, .5, 24);
     rise(s.querySelector('.fo'), t, a + .25, .6, 50); rise(s.querySelector('.fn'), t, a + .75, .6, 50);
     rise(s.querySelector('.tag.miss'), t, a + 1.25, .45, 16); rise(s.querySelector('.tag.got'), t, a + 1.75, .45, 16);
-    const sh = s.querySelector('.fn .shot'); const z = 1 + .05 * clamp((t - a - .75) / 3.2); sh.style.transform = `scale(${z})`; sh.style.transformOrigin = 'center top';
+    const ins = s.querySelector('.inset'); if (ins) rise(ins, t, a + 2.25, .5, 30);
+    const sh = s.querySelector('.fn .shot'); const z = 1 + .05 * clamp((t - a - .75) / 3.2); sh.style.transform = `scale(${z})`; sh.style.transformOrigin = p.neuSize ? 'center bottom' : 'center top';
   });
-  // mission 23–27
-  const m = document.getElementById('mission'); m.style.opacity = fadeIO(t, 23, 27, .3);
-  m.querySelectorAll('.l').forEach((l, i) => rise(l, t, 23.25 + [0, .5, 1.5, 2.0][i], .55, 26));
-  rise(m.querySelector('.eyebrow'), t, 23.1, .4, 12);
-  // outro 27–30
-  const o = document.getElementById('outro'); o.style.opacity = clamp((t - 27) / .3) * clamp((30.05 - t) / .5 + .0001);
-  rise(o.querySelector('.wm'), t, 27.1, .6, 30); rise(o.querySelector('.n2'), t, 27.5, .5, 16); rise(o.querySelector('.mean'), t, 27.9, .5, 14); rise(o.querySelector('.url'), t, 28.3, .5, 12);
-  const c = document.getElementById('ocat'); const ck = ease((t - 28) / .6); c.style.opacity = ck; c.style.transform = `translateY(${(1 - ck) * 50 + Math.sin(t * 3) * 4}px) rotate(${Math.sin(t * 2) * 2}deg)`;
+  // mission 27–31
+  const m = document.getElementById('mission'); m.style.opacity = fadeIO(t, 27, 31, .3);
+  m.querySelectorAll('.l').forEach((l, i) => rise(l, t, 27.25 + [0, .5, 1.5, 2.0][i], .55, 26));
+  rise(m.querySelector('.eyebrow'), t, 27.1, .4, 12);
+  // outro 31–36, sponsor from 32.5
+  const o = document.getElementById('outro'); o.style.opacity = clamp((t - 31) / .3) * clamp((36 - t) / .6);
+  rise(o.querySelector('.wm'), t, 31.1, .6, 30); rise(o.querySelector('.n2'), t, 31.5, .5, 16); rise(o.querySelector('.mean'), t, 31.9, .5, 14); rise(o.querySelector('.url'), t, 32.3, .5, 12);
+  rise(o.querySelector('.sponsor'), t, 33.0, .6, 14);
+  const c = document.getElementById('ocat'); const ck = ease((t - 32) / .6); c.style.opacity = ck; c.style.transform = `translateY(${(1 - ck) * 50 + Math.sin(t * 3) * 4}px) rotate(${Math.sin(t * 2) * 2}deg)`;
 };
 render(0);
 </script>

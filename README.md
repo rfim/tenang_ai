@@ -29,4 +29,4 @@ Deploy: GitHub Pages, Settings → Pages → Deploy from a branch → `main` / r
 
 ## Video
 
-`docs/videos/tenang-before-after.mp4` (30 s, 1920×1080, with sound): *Rembug rasa*, the old tenang.ai next to the new site and what was missing. Poster: `docs/videos/poster.jpg`; storyboard, music and how to render it again: `docs/videos/before-after-plan.md`; caption: `docs/videos/share-copy.txt`.
+`docs/videos/tenang-before-after.mp4` (36 s, 1920×1080, English, with sound): the old tenang.ai next to the new site, the four gaps it had (look & feel, character, credibility, story), the mission, and the sponsor credit (Rembug Rasa Projects). Poster: `docs/videos/poster.jpg`; storyboard, music and how to render it again: `docs/videos/before-after-plan.md`; caption: `docs/videos/share-copy.txt`.
