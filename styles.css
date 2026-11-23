@@ -2273,7 +2273,7 @@ html[data-mode="dark"] .sleeper { display: block; }
 .n2-mean { margin: 0; font: 500 11px/1.45 var(--sans); letter-spacing: .06em; color: rgba(245,236,217,.82); }
 .n2-mean b { color: #e2b866; font-weight: 700; }
 .n2-mean-hero { display: none; }
-.n2-mean-mm { margin-top: 12px; max-width: 220px; font-size: 12px; letter-spacing: .04em; }
+.n2-mean-mm { margin-top: 12px; white-space: nowrap; font-size: 11px; letter-spacing: .02em; }
 .mm-headbox { display: flex; flex-direction: column; }
 @media (max-width: 920px) {
   .hero2:not(.hero-sub) .hero-eyebrow .n2-mean-hero { display: block; text-transform: uppercase; text-shadow: 0 1px 8px rgba(0,0,0,.45); text-align: center; }
