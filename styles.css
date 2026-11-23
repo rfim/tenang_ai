@@ -2062,3 +2062,10 @@ html[data-mode="dark"] .partners-pin { background: color-mix(in srgb, var(--pape
 @media (max-width: 600px) { .partners-pin .marquee-track li img, .partners-pin .marquee-track li img[src] { width: 88px !important; height: 30px !important; } }
 .partners-pin .marquee-track li img[src*="ui.svg"], .partners-pin .marquee-track li img[src*="itb"], .partners-pin .marquee-track li img[src*="ugm"] { height: 46px !important; }
 @media (max-width: 600px) { .partners-pin .marquee-track li img[src*="ui.svg"], .partners-pin .marquee-track li img[src*="itb"], .partners-pin .marquee-track li img[src*="ugm"] { height: 34px !important; } }
+/* no grow; sticky at the bottom of the screen on desktop */
+.partners-pin .marquee-track li { transform: none !important; }
+.partners-pin { padding-top: 10px !important; padding-bottom: 10px !important; }
+@media (min-width: 921px) {
+  .partners-pin { position: fixed !important; left: 0; right: 0; bottom: 0; z-index: 40; }
+  body:has(.partners-pin) .footer { padding-bottom: 110px; }
+}

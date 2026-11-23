@@ -320,15 +320,6 @@
     });
   });
 
-  // Partner strip grows a little as the page starts to scroll
-  var pin = document.querySelector(".partners-pin");
-  if (pin && !reduce) {
-    var pt = false;
-    function growPin() { var g = 1 + Math.min(window.scrollY, 240) / 240 * 0.22; pin.style.setProperty("--grow", g.toFixed(3)); pt = false; }
-    window.addEventListener("scroll", function () { if (!pt) { pt = true; requestAnimationFrame(growPin); } }, { passive: true });
-    growPin();
-  }
-
   // Hero entrance: copy rises in, scene settles (Bija's 14s "film")
   var hero = document.querySelector(".hero2");
   if (hero) requestAnimationFrame(function () { hero.classList.add("hero-in"); });
