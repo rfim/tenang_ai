@@ -320,15 +320,6 @@
     });
   });
 
-  // Painted hero scene: switch layout only once the image actually loads
-  var scene = document.querySelector(".hero-scene img");
-  if (scene) {
-    var q = new URLSearchParams(location.search).get("scene");
-    var srcScene = q === "preview" ? "assets/art/_preview/hero-scene.webp" : scene.getAttribute("data-src");
-    scene.onload = function () { document.querySelector(".hero2").classList.add("has-scene"); header.classList.add("solid"); };
-    scene.src = srcScene;
-  }
-
   // Partner strip: sits at the bottom of the first screen, then pins under the header
   var pinStrip = document.querySelector(".partners-pin");
   var heroEl = document.querySelector(".hero2:not(.hero-sub)");
