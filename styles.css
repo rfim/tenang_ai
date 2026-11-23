@@ -1998,3 +1998,23 @@ html[data-mode="dark"] .partners-pin { background: color-mix(in srgb, var(--pape
 @media (max-width: 600px) { .partners-pin .logos-inner { padding-right: 6px; } .partners-pin .h2 { font-size: .8rem !important; } }
 .partners-pin { background: color-mix(in srgb, var(--paper) 96%, #8a7650) !important; }
 html[data-mode="dark"] .partners-pin { background: color-mix(in srgb, var(--paper) 90%, transparent) !important; }
+/* partner strip inside the hero: no light band, white monochrome logos */
+.partners-pin, html[data-mode="dark"] .partners-pin { background: linear-gradient(180deg, transparent, rgba(5,12,14,.55)) !important; -webkit-backdrop-filter: none !important; backdrop-filter: none !important; box-shadow: none !important; }
+.partners-pin .h2 { color: rgba(245,236,217,.78) !important; }
+.partners-pin .marquee-track img, html[data-mode="dark"] .partners-pin .marquee-track img { filter: brightness(0) invert(1) !important; opacity: .78; background: none !important; padding: 0 !important; border-radius: 0 !important; transition: filter .4s, opacity .4s; }
+.partners-pin .marquee-track li:hover img { filter: none !important; opacity: 1; }
+.partners-pin .marquee { -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent); mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent); }
+/* frosted glass strip, proportional monochrome logos, grows on scroll */
+.partners-pin, html[data-mode="dark"] .partners-pin { background: rgba(10,20,22,.34) !important; -webkit-backdrop-filter: blur(18px) saturate(1.1) !important; backdrop-filter: blur(18px) saturate(1.1) !important; border-top: 1px solid rgba(245,236,217,.12) !important; }
+.partners-pin .marquee-track { gap: 0 !important; }
+.partners-pin .marquee-track li { width: 150px; padding: 0 !important; transform: scale(var(--grow, 1)); transition: transform .25s linear; }
+.partners-pin .marquee-track img, html[data-mode="dark"] .partners-pin .marquee-track img { opacity: .85; max-width: 120px; object-fit: contain; }
+/* emblems keep their inner detail */
+.partners-pin .marquee-track img[src*="ui.svg"], .partners-pin .marquee-track img[src*="itb"], .partners-pin .marquee-track img[src*="ugm"] { filter: grayscale(1) brightness(1.7) contrast(.95) !important; height: 40px !important; }
+/* wordmarks become white line art */
+.partners-pin .marquee-track img[src*="binus"], .partners-pin .marquee-track img[src*="telkom"], .partners-pin .marquee-track img[src*="mayapada"] { filter: brightness(0) invert(1) !important; height: 32px !important; }
+.partners-pin .marquee-track img[src*="mayapada"] { height: 26px !important; }
+.partners-pin .marquee-track li:hover img { filter: none !important; opacity: 1; }
+.partners-pin .h2 { color: rgba(245,236,217,.85) !important; }
+.partners-pin { transition: padding .25s linear; padding-top: calc(10px + 8px * (var(--grow, 1) - 1) * 4) !important; padding-bottom: calc(10px + 8px * (var(--grow, 1) - 1) * 4) !important; }
+@media (max-width: 600px) { .partners-pin .marquee-track li { width: 104px; } .partners-pin .marquee-track img[src*="ui.svg"], .partners-pin .marquee-track img[src*="itb"], .partners-pin .marquee-track img[src*="ugm"] { height: 30px !important; } .partners-pin .marquee-track img[src*="binus"], .partners-pin .marquee-track img[src*="telkom"] { height: 24px !important; } .partners-pin .marquee-track img[src*="mayapada"] { height: 20px !important; } }
