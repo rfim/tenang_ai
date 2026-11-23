@@ -93,6 +93,24 @@
     movePara();
   }
 
+  // ---------- Mobile sticky call to action: after the hero, hidden near the contact form ----------
+  var mcta = document.querySelector(".m-cta");
+  if (mcta) {
+    var demo = document.getElementById("demo");
+    var demoVisible = false;
+    if (demo && "IntersectionObserver" in window) {
+      new IntersectionObserver(function (en) { demoVisible = en[0].isIntersecting; updateCta(); }).observe(demo);
+    }
+    function updateCta() {
+      var show = window.scrollY > window.innerHeight * 0.9 && !demoVisible;
+      mcta.classList.toggle("show", show);
+      mcta.setAttribute("aria-hidden", String(!show));
+      mcta.tabIndex = show ? 0 : -1;
+    }
+    window.addEventListener("scroll", updateCta, { passive: true });
+    updateCta();
+  }
+
   // ---------- Reveal on scroll ----------
   var revealEls = document.querySelectorAll(".head, .note, .col, .collage-3 article, .process li, .journey li, .cols-3 article");
   if ("IntersectionObserver" in window && !reduce) {

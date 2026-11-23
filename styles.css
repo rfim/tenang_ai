@@ -610,3 +610,117 @@ html[data-mode="dark"] .mm-night { display: block; }
   .mmw-1 { width: 180px; } .mmw-2 { width: 110px; } .mmw-3 { display: none; }
   .mmw-tool { display: none; } .mmw-n1 { width: 200px; } .mmw-n2 { width: 150px; }
 }
+
+/* =================== mobile polish =================== */
+.m-cta { display: none; }
+@media (max-width: 600px) {
+  body { font-size: 15.5px; }
+  /* header: compact bar, shorter clouds */
+  .nav-inner { height: 60px; gap: 10px; }
+  .nav::after { height: 22px; -webkit-mask-size: 520px 22px; mask-size: 520px 22px; }
+  .nav::before { height: 30px; -webkit-mask-size: 640px 30px; mask-size: 640px 30px; }
+  .nav-links { top: 60px; max-height: calc(100vh - 60px); overflow-y: auto; }
+  .brand img { width: 34px; height: 34px; }
+  .brand b { font-size: 1.05rem; }
+  .brand small { font-size: .9rem; }
+  .lang button { padding: 9px 10px; font-size: 12px; }
+  .mode-btn, .menu-btn { width: 40px; height: 40px; }
+  html { scroll-padding-top: 76px; }
+
+  /* tap targets */
+  .link-u { display: inline-flex; align-items: center; min-height: 42px; padding-bottom: 0; }
+  .filters button { min-height: 40px; }
+  .faq summary { padding-top: 16px; padding-bottom: 16px; }
+
+  /* hero */
+  .hero { padding-top: 44px; }
+  .hero-cta { gap: 6px 18px; margin: 22px 0 18px; }
+  .hero-cta .btn { flex: 1 1 auto; }
+  .proof { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 12px; }
+  .proof li { padding: 8px 4px; min-width: 0; background: var(--card); border: 1px solid var(--line); border-radius: 10px; }
+  .proof li::before, .proof li::after { display: none; }
+  .proof b { font-size: 1.35rem; }
+  .proof span { font-size: 12.5px; }
+  .made { font-size: 13px; }
+  .hero-art { min-height: 500px; margin: 0 -16px; }
+  .phone { width: 264px; bottom: 34px; }
+  .chat { min-height: 300px; }
+  .msg { font-size: 13.5px; }
+
+  /* swipeable card rows */
+  .tool-grid, .cols-4, .collage-3, .cols-3.ruled, .principles, .cols-2, #reading-teaser, .cols-3x {
+    display: flex !important; gap: 14px; overflow-x: auto; overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch;
+    margin-left: -16px; margin-right: -16px; padding: 6px 16px 18px; scrollbar-width: none;
+  }
+  .tool-grid::-webkit-scrollbar, .cols-4::-webkit-scrollbar, .collage-3::-webkit-scrollbar, .cols-3.ruled::-webkit-scrollbar,
+  .principles::-webkit-scrollbar, .cols-2::-webkit-scrollbar, #reading-teaser::-webkit-scrollbar, .cols-3x::-webkit-scrollbar { display: none; }
+  .tool-grid > *, .cols-4 > *, .collage-3 > *, .cols-3.ruled > *, .principles > *, .cols-2 > *, #reading-teaser > *, .cols-3x > * {
+    flex: 0 0 82%; scroll-snap-align: start; scroll-margin-left: 16px;
+  }
+  .cols-4 .col, .cols-3x .col { background: var(--card); border: 1px solid var(--line); border-radius: 8px; padding: 22px 18px; }
+  .collage-3 article, .cols-3.ruled article { padding: 0 !important; border: 0 !important; }
+  .cols-3.ruled article { background: var(--card); border-radius: 8px; padding: 20px !important; border: 1px solid var(--line) !important; }
+  .tilt-l, .tilt-r, .tilt-l.reveal.in, .tilt-r.reveal.in { transform: none; }
+  .cols-2 .note { margin-top: 14px; }
+  .swipe-hint { display: flex; }
+
+  /* journey + bands */
+  .mush-band { display: none; }
+  .journey { grid-template-columns: 1fr 1fr; gap: 22px 12px; }
+  .bubble { width: 62px; height: 62px; font-size: 1.6rem; }
+  .org-helps li { display: grid; grid-template-columns: 44px 1fr; column-gap: 14px; }
+  .org-helps .num { grid-row: span 2; }
+
+  /* dashboard */
+  .dash { padding: 18px 14px; }
+  .dash-head strong { font-size: 1.05rem; }
+  .small-f { flex-wrap: nowrap; overflow-x: auto; margin: 14px -14px; padding: 0 14px; scrollbar-width: none; }
+  .small-f button { flex: none; }
+  .kpis { grid-template-columns: repeat(3, 1fr) !important; gap: 8px; }
+  .kpi { padding: 12px 10px; }
+  .kpi small { font-size: 10.5px; letter-spacing: .04em; min-height: 2.6em; }
+  .kpi b { font-size: 1.45rem; }
+  .kpi em { font-size: 11.5px; display: block; }
+  .tier label small { font-size: 12.5px; }
+
+  /* research cards */
+  .paper-card { grid-template-columns: 64px 1fr !important; gap: 14px; padding: 16px; }
+  .paper-cover { width: 64px; padding: 8px 6px; gap: 4px; transform: rotate(-2deg); }
+  .paper-cover b, .paper-cover i { display: none; }
+  .paper-cover small { font-size: 7px; }
+  .paper-cover span { font-size: 10px; }
+  .paper-title { font-size: 1.05rem; }
+  .paper-sum { font-size: 14px; }
+  #reading-teaser .paper-card { grid-template-columns: 1fr !important; }
+  #reading-teaser .paper-cover { display: none; }
+  .study-card { grid-template-columns: 1fr; }
+
+  /* page heroes */
+  .page-hero { padding-top: 40px; }
+  .page-hero-art { height: 200px; }
+  .pha-nesya { width: 130px; }
+  .mmw-ph { width: 160px; }
+
+  /* footer */
+  .foot-grid { grid-template-columns: 1fr 1fr !important; gap: 26px 18px; }
+  .foot-grid > div:first-child { grid-column: 1 / -1; }
+  .foot-grid > div:last-child { grid-column: 1 / -1; }
+  .footer { padding-bottom: 96px; }
+
+  /* sticky call to action */
+  .m-cta { display: flex; position: fixed; left: 12px; right: 12px; bottom: 12px; z-index: 60; justify-content: center; align-items: center; gap: 10px;
+    padding: 15px 20px; border-radius: 12px; background: var(--mustard); color: #fffaf0; text-decoration: none; font: 600 13px var(--sans); letter-spacing: .12em; text-transform: uppercase;
+    box-shadow: 0 10px 28px -8px rgba(0,0,0,.45); transform: translateY(140%); transition: transform .3s ease; padding-bottom: calc(15px + env(safe-area-inset-bottom, 0px)); }
+  .m-cta.show { transform: none; }
+}
+.swipe-hint { display: none; }
+@media (max-width: 600px) {
+  .lang button { padding: 11px 11px; }
+  .btn-ghost-sm { min-height: 40px; }
+  .paper-actions .btn { min-height: 40px; }
+  .marquee-track { gap: 40px; }
+  .marquee-track img { height: 48px; max-width: 150px; }
+  .marquee-track img[src*="mayapada"] { height: 34px; }
+}
+@media (max-width: 600px) and (prefers-reduced-motion: reduce) { .marquee-track { gap: 18px 30px; } }
