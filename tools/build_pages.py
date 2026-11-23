@@ -302,10 +302,11 @@ dash_main = """
 """
 dash_js = '<script src="console.js"></script>\n'
 # full-screen app: no site header or footer
-_h = re.sub(r"<title>.*?</title>", "<title>Konsol institusi · N2CIAS</title>", head, flags=re.S)
+_h = re.sub(r"<title>.*?</title>", "<title>Demo Konsol Institusi · N2CIAS</title>", head, flags=re.S)
 (ROOT / "dashboard.html").write_text(_h + """<body class="cx-full">
 <script>try{var l=localStorage.getItem("lang");if(l)document.documentElement.lang=l;}catch(e){}</script>
 <div class="cx" id="cx"></div>
+<script src="dash.js"></script>
 <script src="console.js"></script>
 </body>
 </html>
