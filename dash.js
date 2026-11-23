@@ -14,8 +14,8 @@
       vs: "vs periode sebelumnya", up: "naik", down: "turun",
       trend: "Indeks beban emosional harian", trendSub: "0 = ringan, 100 = berat · rata-rata anonim per hari",
       daily: "Harian", avg7: "Rata-rata 7 hari", peak: "Puncak", heat: "Kapan orang bercerita", heatSub: "Jumlah check-in per jam dan hari",
-      topics: "Topik keluhan", topicsSub: "% check-in yang menyebut topik ini", risk: "Tingkat dukungan per lokasi", riskSub: "% check-in per lokasi",
-      steps: "Langkah lanjutan yang dipilih", stepsSub: "% setelah check-in", act: "Saran tindakan", actSub: "Berdasarkan data di atas",
+      topics: "Topik keluhan", topicsSub: "% check-in per topik", risk: "Dukungan per lokasi", riskSub: "% check-in per lokasi",
+      steps: "Langkah lanjutan", stepsSub: "Dipilih setelah check-in", act: "Saran tindakan", actSub: "Berdasarkan data di atas",
       table: "Tabel", chart: "Grafik", expand: "Perbesar", close: "Tutup", day: "Hari", hour: "Jam", count: "check-in", index: "Indeks",
       days: ["Sen", "Sel", "Rab", "Kam", "Jum", "Sab", "Min"],
       t: ["Stres akademik / kerja", "Burnout", "Kecemasan", "Gangguan tidur", "Tekanan relasi"],
@@ -35,8 +35,8 @@
       vs: "vs previous period", up: "up", down: "down",
       trend: "Daily emotional load index", trendSub: "0 = light, 100 = heavy · anonymous daily average",
       daily: "Daily", avg7: "7-day average", peak: "Peak", heat: "When people talk", heatSub: "Check-ins by hour and day",
-      topics: "Concern topics", topicsSub: "% of check-ins mentioning the topic", risk: "Support level by location", riskSub: "% of check-ins per location",
-      steps: "Next step chosen", stepsSub: "% after a check-in", act: "Suggested actions", actSub: "Based on the data above",
+      topics: "Concern topics", topicsSub: "% of check-ins mentioning the topic", risk: "Support by location", riskSub: "% of check-ins per location",
+      steps: "Next steps", stepsSub: "% after a check-in", act: "Suggested actions", actSub: "Based on the data above",
       table: "Table", chart: "Chart", expand: "Expand", close: "Close", day: "Day", hour: "Hour", count: "check-ins", index: "Index",
       days: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
       t: ["Study / work stress", "Burnout", "Anxiety", "Sleep problems", "Relationship strain"],
@@ -94,10 +94,10 @@
   function hideTip() { tip.style.opacity = 0; }
   function card(id, title, sub, wide) {
     var c = document.createElement("section"); c.className = "dv-card" + (wide ? " " + wide : ""); c.id = id;
-    c.innerHTML = '<header><div><h4>' + title + '</h4><p>' + sub + '</p></div><span class="dv-tools"><button type="button" class="dv-toggle" aria-pressed="false">' + L().table + '</button><button type="button" class="dv-max" aria-label="' + L().expand + '" title="' + L().expand + '"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 6V2h4M10 2h4v4M14 10v4h-4M6 14H2v-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button></span></header><div class="dv-body"></div><div class="dv-table" hidden></div>';
+    c.innerHTML = '<header><div><h4>' + title + '</h4><p>' + sub + '</p></div><span class="dv-tools"><button type="button" class="dv-toggle" aria-pressed="false" aria-label="' + L().table + '" title="' + L().table + '"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 3h12v10H2zM2 6.5h12M2 10h12M6.5 3v10" fill="none" stroke="currentColor" stroke-width="1.4"/></svg></button><button type="button" class="dv-max" aria-label="' + L().expand + '" title="' + L().expand + '"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 6V2h4M10 2h4v4M14 10v4h-4M6 14H2v-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button></span></header><div class="dv-body"></div><div class="dv-table" hidden></div>';
     c.querySelector(".dv-toggle").addEventListener("click", function (e) {
       var on = e.currentTarget.getAttribute("aria-pressed") !== "true"; views[id] = on; e.currentTarget.setAttribute("aria-pressed", String(on));
-      e.currentTarget.textContent = on ? L().chart : L().table; c.querySelector(".dv-body").hidden = on; c.querySelector(".dv-table").hidden = !on;
+      e.currentTarget.title = on ? L().chart : L().table; e.currentTarget.classList.toggle("on", on); c.querySelector(".dv-body").hidden = on; c.querySelector(".dv-table").hidden = !on;
     });
     c.querySelector(".dv-max").addEventListener("click", function () { toggleMax(c); });
     c.addEventListener("click", function (e) { if (!c.classList.contains("is-max") && !e.target.closest("button, select, a, li, .dv-srow i, rect, .dv-table") ) toggleMax(c); });
@@ -125,7 +125,7 @@
     var p = pts[pts.length - 1]; el("circle", { cx: p[0], cy: p[1], r: 3, class: "dv-spark-end" }, svg);
   }
   function lineChart(box, d, t) {
-    var W = 640, H = 240, m = { l: 34, r: 12, t: 14, b: 26 }, iw = W - m.l - m.r, ih = H - m.t - m.b, n = d.series.length;
+    var W = 640, H = 165, m = { l: 34, r: 12, t: 16, b: 24 }, iw = W - m.l - m.r, ih = H - m.t - m.b, n = d.series.length;
     var svg = el("svg", { viewBox: "0 0 " + W + " " + H, class: "dv-svg", role: "img", "aria-label": t.trend }, box);
     var x = function (i) { return m.l + i * iw / (n - 1); }, y = function (v) { return m.t + ih - v / 100 * ih; };
     [0, 25, 50, 75, 100].forEach(function (g) { el("line", { x1: m.l, x2: W - m.r, y1: y(g), y2: y(g), class: "dv-grid" }, svg); var tx = el("text", { x: m.l - 6, y: y(g) + 4, class: "dv-ax", "text-anchor": "end" }, svg); tx.textContent = g; });
@@ -146,7 +146,7 @@
     var lg = document.createElement("div"); lg.className = "dv-legend"; lg.innerHTML = '<span><i class="k1"></i>' + t.daily + '</span><span><i class="k2"></i>' + t.avg7 + "</span>"; box.appendChild(lg);
   }
   function heatmap(box, d, t) {
-    var cw = 16, ch = 34, ml = 34, mt = 4, W = ml + 24 * cw + 4, H = mt + 7 * ch + 20, mx = Math.max.apply(0, d.heat.map(function (r) { return Math.max.apply(0, r); }));
+    var cw = 16, ch = 26, ml = 34, mt = 4, W = ml + 24 * cw + 4, H = mt + 7 * ch + 20, mx = Math.max.apply(0, d.heat.map(function (r) { return Math.max.apply(0, r); }));
     var svg = el("svg", { viewBox: "0 0 " + W + " " + H, class: "dv-svg", role: "img", "aria-label": t.heat }, box);
     d.heat.forEach(function (row, di) {
       var lab = el("text", { x: ml - 6, y: mt + di * ch + ch / 2 + 4, class: "dv-ax", "text-anchor": "end" }, svg); lab.textContent = t.days[di];
@@ -192,9 +192,10 @@
     bar.innerHTML = '<div class="dv-f"><span>' + t.period + '</span><div class="dv-seg" role="group">' +
       [30, 90].map(function (n) { return '<button type="button" data-days="' + n + '" aria-pressed="' + (state.days === n) + '">' + t["d" + n] + "</button>"; }).join("") + "</div></div>" +
       '<label class="dv-f"><span>' + t.loc + '</span><select>' + ['<option value="all">' + t.all + "</option>"].concat(CITIES.map(function (c) { return '<option value="' + c + '"' + (state.loc === c ? " selected" : "") + ">" + c + "</option>"; })).join("") + "</select></label>" +
-      '<p class="dv-meta">' + t.updated + " · " + t.kmin + "</p>";
+      '<p class="dv-meta" title="' + t.kmin + '">' + t.updated + "</p>";
     bar.querySelectorAll("[data-days]").forEach(function (b) { b.addEventListener("click", function () { state.days = +b.dataset.days; render(); }); });
     bar.querySelector("select").addEventListener("change", function (e) { state.loc = e.target.value; render(); });
+    var head = root.parentNode.querySelector('.dash-head'); if (head) { head.classList.add('dv-head'); bar.insertBefore(head, bar.firstChild); }
     root.appendChild(bar);
 
     var k = document.createElement("div"); k.className = "dv-kpis";

@@ -2578,3 +2578,57 @@ html[data-mode="dark"] .dv-seg button[aria-pressed="true"] { color: #0d1a18; }
 .dv-scrim.on { opacity: 1; pointer-events: auto; }
 body.dv-lock { overflow: hidden; }
 @media (prefers-reduced-motion: reduce) { .dv-card.is-max { animation: none; } }
+/* dashboard fits one screen on desktop: 12-column grid, actions in the bottom row */
+@media (min-width: 961px) {
+  .dv-dash { padding: 18px 22px 14px !important; }
+  .dv-dash .dash-head { margin-bottom: 0; }
+  .dv-filters { margin: 10px 0 10px; padding: 8px 12px; }
+  .dv-kpis { gap: 10px; } .dv-kpi { min-height: 0; padding: 10px 14px; gap: 2px; } .dv-kpi b { font-size: 24px; } .dv-sparksvg { top: 34px !important; }
+  .dv-grid { grid-template-columns: repeat(12, 1fr); gap: 10px; margin-top: 10px; }
+  .dv-grid > #dv-trend { grid-column: span 8; } .dv-grid > #dv-heat { grid-column: span 4; }
+  .dv-grid > #dv-topics, .dv-grid > #dv-risk, .dv-grid > #dv-steps, .dv-grid > .dv-actions { grid-column: span 3; }
+  .dv-card { padding: 10px 14px 10px; } .dv-card header { margin-bottom: 6px; }
+  .dv-bars { gap: 6px; } .dv-bars li { font-size: 12px; grid-template-columns: minmax(80px, 44%) 1fr 34px; gap: 8px; } .dv-bars li div, .dv-bars li i { height: 11px; max-height: 11px; } .dv-bars b { font-size: 12px; }
+  .dv-stack { gap: 8px; } .dv-srow { grid-template-columns: 70px 1fr; font-size: 12px; } .dv-srow > div { height: 18px; } .dv-srow i { font-size: 10px; }
+  .dv-card .dv-legend { margin-top: 6px; font-size: 11px; gap: 4px 10px; }
+  .dv-actions ol { grid-template-columns: 1fr !important; gap: 5px; font-size: 12px; line-height: 1.4; padding-left: 16px; }
+  .dv-dash .dash-foot { margin-top: 8px; font-size: 12px; }
+  .dv-card.is-max .dv-bars li { font-size: 15px; grid-template-columns: minmax(160px, 34%) 1fr 56px; } .dv-card.is-max .dv-bars li div, .dv-card.is-max .dv-bars li i { height: 22px; max-height: 22px; } .dv-card.is-max .dv-bars b { font-size: 15px; }
+  .dv-card.is-max .dv-srow { grid-template-columns: 120px 1fr; font-size: 15px; } .dv-card.is-max .dv-srow > div { height: 34px; } .dv-card.is-max .dv-srow i { font-size: 13px; }
+}
+.dv-toggle { display: inline-grid; place-items: center; width: 26px; height: 24px; padding: 0; }
+.dv-toggle svg { width: 13px; height: 13px; } .dv-toggle.on { background: var(--dv-s1); color: #fff; border-color: var(--dv-s1); }
+.dv-filters .dv-head { display: flex; align-items: center; gap: 12px; margin: 0 8px 0 0; flex-basis: 100%; }
+.dv-filters .dv-head strong { font: 400 1.25rem var(--display); }
+.dv-filters .dv-head .badge { margin-left: auto; }
+@media (min-width: 1100px) { .dv-filters .dv-head { flex-basis: auto; margin-right: 14px; } .dv-filters .dv-head .badge { margin-left: 4px; } }
+@media (min-width: 961px) {
+  .dv-card header p { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%; }
+  .dv-card header > div { min-width: 0; }
+  .dv-bars li { grid-template-columns: minmax(110px, 52%) 1fr 32px; }
+  .dv-card.is-max header p { white-space: normal; }
+}
+@media (min-width: 961px) {
+  .dv-dash { padding-top: 12px !important; }
+  .dv-filters { margin-top: 0; flex-wrap: nowrap; }
+  .dv-filters .dv-head { flex-basis: auto; margin-right: 10px; white-space: nowrap; }
+  .dv-filters .dv-head .badge { font-size: 10px; padding: 5px 8px; }
+  .dv-meta { white-space: nowrap; }
+  .dv-grid > #dv-topics { grid-column: span 3; } .dv-grid > #dv-risk { grid-column: span 3; } .dv-grid > #dv-steps { grid-column: span 2; } .dv-grid > .dv-actions { grid-column: span 4; }
+  .dv-actions ol { gap: 4px; }
+}
+@media (min-width: 961px) and (max-width: 1240px) { .dv-filters { flex-wrap: wrap; } .dv-filters .dv-head { flex-basis: 100%; } }
+@media (min-width: 961px) { .dv-dash { padding-bottom: 8px !important; } .dv-dash .dash-foot { margin-top: 6px; margin-bottom: 0; } .dv-kpi { padding: 8px 14px; } }
+@media (min-width: 961px) {
+  .dv-filters .dv-head .badge { white-space: nowrap; }
+  .dv-seg button, .dv-f { white-space: nowrap; }
+  .dv-f select { min-width: 150px; }
+  .dv-filters { gap: 10px 16px; }
+  .dv-sparksvg { top: 10px !important; width: 72px !important; height: 22px; }
+  .dv-grid > #dv-topics, .dv-grid > #dv-risk, .dv-grid > #dv-steps, .dv-grid > .dv-actions { grid-column: span 3 !important; }
+  .dv-actions ol { font-size: 11.5px; line-height: 1.35; gap: 3px; }
+  .dv-card header h4 { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+}
+@media (min-width: 961px) and (max-width: 1360px) { .dv-filters .dv-head .badge { display: none; } }
+@media (min-width: 961px) { .dv-filters .dv-head { flex-wrap: nowrap !important; flex-direction: row !important; align-items: center; } .dv-filters .dv-head .badge { margin: 0 0 0 4px !important; } }
+@media (min-width: 961px) and (max-width: 1500px) { .dv-meta { display: none; } }

@@ -473,6 +473,7 @@
   });
   // Shortcuts land on the section's heading, not on its padded top edge, so the content starts right below the header
   function anchorOf(t) {
+    if (t.dataset.landOn) { var inner = t.querySelector(t.dataset.landOn); if (inner) return inner; }
     if (t.dataset.land === "top" || /^(H1|H2|H3)$/.test(t.tagName)) return t;
     var h = t.querySelector(".eyebrow2, .kicker, .eyebrow, h1, h2, h3");
     if (!h) return t;
