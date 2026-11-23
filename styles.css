@@ -2227,3 +2227,18 @@ html[data-mode="dark"] .sleeper { display: block; }
   .hero-eyebrow .he-n2 { padding: 5px 9px 4px; font-size: 11px; }
   .hero-eyebrow .he-t { font-size: 11.5px; }
 }
+
+/* gallery on phones: centred like a museum walk; the side rail becomes a lit stop between rooms */
+@media (max-width: 920px) {
+  .ga-rail { display: none; }
+  .ga-rooms { padding-left: 20px !important; padding-right: 20px !important; gap: 110px; }
+  .ga-art { text-align: left; }
+  .ga-room { text-align: center; }
+  .ga-room::before { left: 50% !important; top: -62px !important; margin: 0 0 0 -7px; }
+  .ga-room::after { content: ""; position: absolute; left: 50%; top: -100px; width: 2px; height: 30px; margin-left: -1px; background: linear-gradient(transparent, rgba(226,184,102,.55)); }
+  .ga-room:first-child::before, .ga-room:first-child::after { display: none; }
+  .ga-plaque { display: flex; flex-direction: column; align-items: center; }
+  .ga-plaque .ga-obj, .ga-plaque .ga-body { text-align: center; }
+  .ga-plaque .ga-obj { align-self: stretch; }
+  .ga-lesson { align-self: stretch; border-left: 0; border-top: 2px solid var(--mustard-l); border-radius: 0 0 12px 12px; padding: 16px 18px; }
+}
