@@ -2165,16 +2165,35 @@ html[data-mode="dark"] .sleeper { display: block; }
 .meet-egg { position: fixed; z-index: 130; width: 92px; margin-left: -46px; pointer-events: none; transform-origin: 50% 0;
   animation: meet-pop .55s cubic-bezier(.3,1.5,.5,1) both; }
 .meet-egg img { display: block; width: 92px; height: auto; filter: drop-shadow(0 8px 14px rgba(0,0,0,.28)); animation: n-bob 2.4s ease-in-out .6s infinite; }
-.meet-egg .me-bub { position: absolute; right: 78px; top: 22px; white-space: nowrap; padding: 7px 12px; border-radius: 14px 14px 4px 14px;
-  background: #fbf8f0; color: #22403d; font: 600 13px/1.2 var(--sans, system-ui); box-shadow: 0 6px 16px rgba(0,0,0,.18);
-  opacity: 0; transform: translateY(4px); animation: meet-bub .35s ease-out .45s forwards; }
 .meet-egg.out { animation: meet-out .45s ease-in forwards; }
 @keyframes meet-pop { 0% { opacity: 0; transform: translateY(-26px) scale(.35); } 100% { opacity: 1; transform: none; } }
 @keyframes meet-bub { to { opacity: 1; transform: none; } }
 @keyframes meet-out { to { opacity: 0; transform: translateY(-18px) scale(.6); } }
-@media (max-width: 920px) { .meet-egg { width: 76px; margin-left: -38px; } .meet-egg img { width: 76px; } .meet-egg .me-bub { right: 64px; font-size: 12px; } }
+
 
 /* waving Nesya in the platform film: slower, with a rest between waves, and a soft sway */
 .nesya-peek .nesya { animation: n-sway 6s ease-in-out infinite; transform-origin: 50% 100%; }
 @keyframes n-sway { 0%, 100% { transform: rotate(0); } 50% { transform: rotate(-1.5deg) translateY(-2px); } }
 @media (prefers-reduced-motion: reduce) { .nesya-peek .nesya, .meet-egg, .meet-egg img { animation: none !important; } }
+
+/* easter egg words, four designs */
+.meet-egg .me-arc, .meet-egg .me-words, .meet-egg .me-letters { opacity: 0; animation: meet-bub .4s ease-out .5s forwards; }
+/* A: handwritten words curving under her, like a sticker caption */
+.egg-a .me-arc { position: absolute; left: 50%; top: 80px; width: 176px; margin-left: -88px; overflow: visible; transform: translateY(4px); }
+.egg-a .me-arc text { font: 700 25px var(--script); fill: #2c6a65; stroke: #fbf8f0; stroke-width: 6px; stroke-linejoin: round; paint-order: stroke; }
+/* B: the rust ribbon, same as "Halo, aku Nesya!" */
+.egg-b .me-words { position: absolute; right: 8px; top: 84px; white-space: nowrap; background: var(--rust); color: #fffaf0; font: 700 1.2rem var(--script);
+  padding: 3px 18px 3px 12px; clip-path: polygon(0 0, 100% 0, 93% 50%, 100% 100%, 0 100%); transform: rotate(-5deg); box-shadow: 0 6px 14px rgba(0,0,0,.2); }
+.egg-b .me-words { animation-name: meet-rib; }
+@keyframes meet-rib { from { opacity: 0; transform: rotate(-5deg) translateX(10px); } to { opacity: 1; transform: rotate(-5deg); } }
+/* C: a small glass label */
+.egg-c .me-words { position: absolute; right: 4px; top: 86px; display: inline-flex; align-items: center; gap: 7px; white-space: nowrap; padding: 7px 14px;
+  border-radius: 999px; background: rgba(251,248,240,.72); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px);
+  border: 1px solid rgba(255,255,255,.7); color: #22403d; font: 400 14px/1 "Marcellus", var(--display); letter-spacing: .02em; box-shadow: 0 8px 20px rgba(0,0,0,.14); }
+.egg-c .me-words svg { width: 13px; height: 12px; fill: #6fcf97; animation: n-pulse 2.2s ease-in-out infinite; }
+/* D: letters that pop one by one beside her, no box */
+.egg-d .me-letters { position: absolute; right: 98px; top: 30px; white-space: nowrap; opacity: 1; animation: none; font: 700 26px var(--script); color: #fbf8f0;
+  text-shadow: 0 2px 0 #2c6a65, 0 0 1px #2c6a65, 0 6px 14px rgba(0,0,0,.35); }
+.egg-d .me-letters i { display: inline-block; font-style: normal; opacity: 0; transform: translateY(8px) scale(.6); animation: meet-letter .35s cubic-bezier(.3,1.6,.5,1) forwards; }
+@keyframes meet-letter { to { opacity: 1; transform: none; } }
+@media (max-width: 920px) { .meet-egg { width: 76px; margin-left: -38px; } .meet-egg img { width: 76px; } }
