@@ -38,7 +38,8 @@ ID_TEXT.update({
  "use.pub.3": "Rujukan ke layanan setempat"
 })
 
-HOME_ANCHORS = ["story", "toolkit", "platform", "use-cases", "dashboard", "safety", "pilot", "demo", "coverage", "how-it-works", "faq"]
+# Every section of the home page that the copied header or footer links to: those links point back to index.html.
+HOME_ANCHORS = sorted(set(re.findall(r'href="#([a-z][\w-]*)"', index)) & set(re.findall(r'id="([a-z][\w-]*)"', index)) - {"top", "main"})
 
 
 def relink(html):

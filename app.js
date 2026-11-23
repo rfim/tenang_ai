@@ -434,7 +434,16 @@
   }
   setScrollPad();
   window.addEventListener("resize", setScrollPad);
-  window.addEventListener("load", setScrollPad);
+  // arriving from another page with #section: land again once fonts and images have settled the layout
+  function landOnHash() {
+    setScrollPad();
+    var id = decodeURIComponent(location.hash.slice(1)), t = id && document.getElementById(id);
+    if (t && id !== "top" && id !== "main") t.scrollIntoView({ block: "start", behavior: "instant" });
+  }
+  if (location.hash.length > 1) {
+    window.addEventListener("load", function () { landOnHash(); setTimeout(landOnHash, 400); });
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(landOnHash);
+  } else window.addEventListener("load", setScrollPad);
 
   // Hero entrance: copy rises in, scene settles (Bija's 14s "film")
   var hero = document.querySelector(".hero2");
