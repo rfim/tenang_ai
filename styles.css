@@ -1396,3 +1396,10 @@ h1, h2, h3, h4, .h1, .h2, .h3, .display, .script, .script-sm, .c4-t, .tcard h3, 
   .nav2.menu-open .dd-menu a { text-align: center; }
   body.menu-lock .m-cta { display: none !important; }
 }
+/* N2CIAS menu: grouped like Bija (gold labels, links beneath) */
+.dd-grouped { min-width: 210px; }
+.dd-label { display: block; padding: 10px 14px 4px; font: 600 10.5px var(--sans); letter-spacing: .18em; text-transform: uppercase; color: var(--mustard); }
+.dd-label:not(:first-child) { margin-top: 6px; border-top: 1px solid var(--line); padding-top: 12px; }
+@media (max-width: 920px) {
+  .nav2.menu-open .dd-label { color: var(--mustard-l); border: 0; margin-top: 10px; padding: 8px 0 4px; text-align: center; }
+}
