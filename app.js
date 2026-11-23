@@ -426,6 +426,16 @@
     pinCheck();
   }
 
+  // Menu jumps land below the fixed header and, on the home page, below the pinned partner strip
+  function setScrollPad() {
+    var pad = header.getBoundingClientRect().height + 14;
+    if (pinStrip) pad += pinStrip.offsetHeight;
+    document.documentElement.style.scrollPaddingTop = Math.round(pad) + "px";
+  }
+  setScrollPad();
+  window.addEventListener("resize", setScrollPad);
+  window.addEventListener("load", setScrollPad);
+
   // Hero entrance: copy rises in, scene settles (Bija's 14s "film")
   var hero = document.querySelector(".hero2");
   if (hero) requestAnimationFrame(function () { hero.classList.add("hero-in"); });
