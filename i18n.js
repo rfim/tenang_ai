@@ -29,6 +29,7 @@ window.I18N_EN = {
   "n2.more": "Read more",
   "n2.what": "What does N2CIAS mean?",
   "n2n.eyebrow": "The name",
+  "n2n.tag": "That's my name!",
   "n2n.title": "What does N2CIAS mean?",
   "n2n.lead": "Two Ns for two things that always go together: Nesya, who keeps people company, and navigation, which shows the way. CIAS are our four promises to every person and every institution.",
   "n2n.n1": "An AI companion people can talk to 24 hours a day, in everyday Bahasa Indonesia, without judgement.",

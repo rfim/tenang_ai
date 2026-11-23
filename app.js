@@ -459,9 +459,21 @@
   setScrollPad();
   window.addEventListener("resize", setScrollPad);
   // arriving from another page with #section: land again once fonts and images have settled the layout
+  // Clicking a link inside a desktop dropdown closes it, even while the mouse is still over it
+  document.querySelectorAll(".nav2 .dd").forEach(function (dd) {
+    dd.addEventListener("click", function (e) {
+      if (!e.target.closest(".dd-menu a")) return;
+      dd.classList.add("dd-shut"); dd.classList.remove("open");
+      if (document.activeElement && dd.contains(document.activeElement)) document.activeElement.blur();
+      setTimeout(function () { [].forEach.call(dd.querySelectorAll(".n2-what[aria-expanded=true]"), function (b) { b.click(); }); }, 400);
+    });
+    // it opens again only when the pointer comes back to its button
+    var btn = dd.querySelector(".dd-btn");
+    if (btn) btn.addEventListener("mouseenter", function () { dd.classList.remove("dd-shut"); });
+  });
   // Shortcuts land on the section's heading, not on its padded top edge, so the content starts right below the header
   function anchorOf(t) {
-    if (/^(H1|H2|H3)$/.test(t.tagName)) return t;
+    if (t.dataset.land === "top" || /^(H1|H2|H3)$/.test(t.tagName)) return t;
     var h = t.querySelector(".eyebrow2, .kicker, .eyebrow, h1, h2, h3");
     if (!h) return t;
     var gap = h.getBoundingClientRect().top - t.getBoundingClientRect().top;

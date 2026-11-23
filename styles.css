@@ -2445,3 +2445,19 @@ html[lang="en"] .hero2 [data-i18n="hero.pre"] { display: none; }
 @keyframes meet-ring { to { transform: rotate(360deg); } }
 @media (prefers-reduced-motion: reduce) { .meet-i, .meet-i::before { animation: none !important; } }
 .meet-i img { width: 34px !important; height: 34px !important; margin-top: 3px !important; position: relative; z-index: 1; }
+
+/* close a desktop dropdown right after one of its links is clicked */
+.nav2 .dd.dd-shut .dd-menu { visibility: hidden !important; opacity: 0 !important; pointer-events: none !important; }
+
+/* "Apa arti N2CIAS?": Nesya beside the heading, proud of her name */
+.st-name { display: grid; grid-template-columns: 1fr auto; column-gap: 40px; align-items: end; }
+.st-name > .st-letters { grid-column: 1 / -1; }
+.st-name-cat { position: relative; display: grid; justify-items: center; margin-right: 4%; }
+.st-name-cat .name-cat { width: 132px; filter: drop-shadow(0 10px 18px rgba(0,0,0,.18)); }
+.st-name-cat .name-cat img { animation: ele-hello 3.4s cubic-bezier(.45,0,.3,1) infinite; }
+.st-name-cat .tag { position: static; margin-top: -8px; transform: rotate(-4deg); font-size: 1.15rem; }
+@media (max-width: 600px) {
+  .st-name { grid-template-columns: 1fr; }
+  .st-name-cat { order: -1; margin: 0 auto 10px; }
+  .st-name-cat .name-cat { width: 96px; }
+}
