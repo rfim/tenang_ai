@@ -2197,3 +2197,5 @@ html[data-mode="dark"] .sleeper { display: block; }
 .egg-d .me-letters i { display: inline-block; font-style: normal; opacity: 0; transform: translateY(8px) scale(.6); animation: meet-letter .35s cubic-bezier(.3,1.6,.5,1) forwards; }
 @keyframes meet-letter { to { opacity: 1; transform: none; } }
 @media (max-width: 920px) { .meet-egg { width: 76px; margin-left: -38px; } .meet-egg img { width: 76px; } }
+/* avatar: open-eyed Nesya, filling the circle */
+.meet-i img { width: 42px !important; height: 42px !important; max-width: none; margin-top: 6px; object-fit: contain; }
