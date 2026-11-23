@@ -16,7 +16,7 @@ head = index[: index.index("</head>")]
 body_start = index[index.index("</head>") : index.index('<main id="main">')]
 footer = index[index.index('<footer class="footer') : index.index('<script src="i18n.js">')]
 
-CAROUSEL = index[index.index("<!-- PARTNERS: moving logo carousel -->") : index.index("<!-- /PARTNERS -->")].replace(' partners-home', '')
+CAROUSEL = index[index.index("<!-- PARTNERS: moving logo carousel -->") : index.index("<!-- /PARTNERS -->")].replace('<div class="logos partners-home partners-pin"', '<section class="logos ed-partners"').rstrip()[:-6] + "</section>"
 ID_TEXT = dict(re.findall(r'data-i18n="([^"]+)"[^>]*>([^<]+)<', index))
 # Outcome lines for the organisation pages (Indonesian; English is in i18n.js)
 ID_TEXT.update({
