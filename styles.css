@@ -2078,3 +2078,62 @@ html[data-mode="dark"] .partners-pin { background: color-mix(in srgb, var(--pape
 .partners-pin.pin-top .h2 { font-size: .95rem !important; }
 .hero2:not(.hero-sub).has-pin { padding-bottom: 96px !important; }
 @media (max-width: 600px) { .partners-pin.pin-top .marquee-track li img, .partners-pin.pin-top .marquee-track li img[src] { height: 24px !important; } }
+
+/* =================== Nesya sticker set: one distinct pose per place =================== */
+.nesya { animation: none; }
+.nesya img { width: 100%; height: auto; display: block; filter: drop-shadow(0 6px 10px rgba(0,0,0,.18)); }
+.nesya .lid { display: none; }
+@keyframes n-bob { 50% { transform: translateY(-4%); } }
+@keyframes n-breathe { 50% { transform: scale(1.03, .97); } }
+@keyframes n-pulse { 0%, 60%, 100% { transform: scale(1); } 30% { transform: scale(1.08); } 45% { transform: scale(.98); } }
+@keyframes n-peek { 0%, 12% { transform: translateY(70%); } 25%, 80% { transform: translateY(0); } 92%, 100% { transform: translateY(70%); } }
+@keyframes n-walk { from { transform: translateX(-160px); } to { transform: translateX(calc(100vw + 40px)); } }
+@keyframes n-hop { 0%, 100% { transform: translateY(0); } 40% { transform: translateY(-16%); } }
+.bob { animation: n-bob 3.2s ease-in-out infinite; }
+.breathe { transform-origin: 50% 100%; animation: n-breathe 4.5s ease-in-out infinite; }
+.pulse { animation: n-pulse 2.2s ease-in-out infinite; }
+.tilt img { transition: transform .5s var(--ease-out); }
+.tilt:hover img { transform: rotate(-10deg); }
+
+.nesya.lg { width: 150px; }
+.phone-top .nesya.av { width: 42px; }
+.stamp .nesya { width: 100%; }
+.cta-in { position: relative; }
+.cta-cat { position: absolute; z-index: 2; pointer-events: none; }
+.cta-cat.look { width: 96px; right: 26px; top: -62px; }
+.cta-cat.peek { width: 150px; left: 50%; top: -58px; margin-left: -75px; overflow: hidden; height: 66px; }
+.cta-cat.peek img { animation: n-peek 6s ease-in-out infinite; }
+.cta-cat.hop { width: 90px; right: 30px; top: -70px; animation: n-hop .8s ease-in-out infinite; }
+.st-quote { position: relative; }
+.quote-cat { width: 92px; display: block; margin: 0 auto 10px; }
+.crisis { position: relative; padding-right: 150px; }
+.crisis-cat { position: absolute; right: 14px; bottom: 8px; width: 128px; }
+.faq-cat { width: 74px; display: block; margin: 0 auto 6px; }
+.soon-cat { width: 64px; display: block; margin: 0 auto 8px; }
+.walker { position: absolute; left: 0; right: 0; top: -66px; height: 70px; overflow: hidden; pointer-events: none; z-index: 2; }
+.walker .walk { position: absolute; bottom: 0; width: 66px; animation: n-walk 22s linear infinite; }
+.sleeper { display: none; position: absolute; right: 8%; top: -44px; width: 96px; z-index: 2; }
+html[data-mode="dark"] .walker { display: none; }
+html[data-mode="dark"] .sleeper { display: block; }
+.foot2 { overflow: visible; }
+.to-top { position: fixed; right: 20px; bottom: 22px; z-index: 55; width: 58px; opacity: 0; transform: translateY(20px); pointer-events: none; transition: opacity .3s, transform .4s var(--ease-out); }
+.to-top img { width: 100%; filter: drop-shadow(0 8px 14px rgba(0,0,0,.3)); }
+.to-top.show { opacity: 1; transform: none; pointer-events: auto; }
+.to-top:hover img { transform: translateY(-4px); transition: transform .3s; }
+.meet-i img { width: 30px !important; height: 30px !important; }
+.ga-final-nesya { width: 140px !important; }
+.ga-nesya .nesya { width: 130px; }
+@media (max-width: 600px) {
+  .cta-cat.look, .cta-cat.hop { width: 70px; top: -52px; right: 16px; }
+  .crisis { padding-right: 18px; padding-top: 70px; } .crisis-cat { right: auto; left: 14px; top: -10px; bottom: auto; width: 100px; }
+  .to-top { bottom: 84px; right: 14px; width: 48px; }
+  .nesya.lg { width: 100px; }
+}
+@media (prefers-reduced-motion: reduce) { .bob, .breathe, .pulse, .cta-cat.hop, .cta-cat.peek img, .walker .walk { animation: none !important; } .walker .walk { left: 8%; } }
+.made-with { display: inline-flex; align-items: center; gap: 6px; margin: 18px 0 0; font-size: 13.5px; color: rgba(245,236,217,.85); }
+.mw-heart { width: 14px; height: 13px; fill: #e8899a; }
+.made-with + .hero-story { margin-top: 18px; }
+.foot-mw { color: rgba(245,236,217,.75) !important; margin: 0 0 8px; }
+.walker { top: 10px; height: 74px; }
+@media (max-width: 600px) { .hero2:not(.hero-sub) .made-with { font-size: 12px; margin-top: 12px; } }
+@media (min-width: 921px) and (max-height: 700px) { .hero2:not(.hero-sub) .made-with { display: none; } }

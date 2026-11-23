@@ -308,6 +308,30 @@
     films.forEach(function (v) { fio.observe(v); });
   }
 
+  // ---------- Nesya frame player: data-seq="a,b,c" plays sticker frames while on screen ----------
+  [].forEach.call(document.querySelectorAll(".nesya[data-seq]"), function (el) {
+    var frames = el.getAttribute("data-seq").split(","), img = el.querySelector("img");
+    frames.forEach(function (f) { var i = new Image(); i.src = "assets/nesya/" + f + ".png"; });
+    if (reduce) return;
+    var fps = parseFloat(el.getAttribute("data-fps") || "3"), k = 0, t = null;
+    function step() { k = (k + 1) % frames.length; img.src = "assets/nesya/" + frames[k] + ".png"; }
+    function start() { if (!t) t = setInterval(step, 1000 / fps); }
+    function stop() { clearInterval(t); t = null; }
+    if ("IntersectionObserver" in window) new IntersectionObserver(function (es) { es[0].isIntersecting ? start() : stop(); }).observe(el);
+    else start();
+  });
+  // chat avatar: curious while Nesya types, happy after she answers
+  var chatAv = document.querySelector("[data-chat-avatar] img");
+  if (chatAv) {
+    new MutationObserver(function () {
+      var typing = document.querySelector(".chat-live .msg.typing");
+      chatAv.src = "assets/nesya/" + (typing ? "curious" : "happy") + ".png";
+    }).observe(document.body, { subtree: true, childList: true, attributes: true, attributeFilter: ["class"] });
+  }
+  // back to top: appears after the first screen
+  var toTop = document.querySelector(".to-top");
+  if (toTop) window.addEventListener("scroll", function () { toTop.classList.toggle("show", window.scrollY > window.innerHeight * 1.2); }, { passive: true });
+
   // ---------- Nesya: a small heart when tapped ----------
   document.querySelectorAll(".nesya").forEach(function (cat) {
     cat.addEventListener("click", function () {

@@ -4,6 +4,8 @@ window.I18N_EN = {
   "brand.by": "by TenangAI",
   "nav.cases": "Case studies",
   "nav.story": "Story",
+  "mw.a": "Made with",
+  "mw.b": "by psychologists, psychiatrists, doctors and researchers",
   "hb.demo": "Book a demo",
   "hb.cat": "Meet Nesya",
   "hb.story.e": "Our story",

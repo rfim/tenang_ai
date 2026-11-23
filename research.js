@@ -13,7 +13,7 @@
   function lang() { return document.documentElement.lang === "en" ? "en" : "id"; }
   function L(v) { return v && typeof v === "object" ? (v[lang()] || v.id || "") : (v || ""); }
   function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
-  function soon(key) { return '<p class="soon note stitched">' + esc(L(UI[key])) + "</p>"; }
+  function soon(key) { return '<p class="soon note stitched"><span class="nesya soon-cat breathe" aria-hidden="true"><img src="assets/nesya/sleepy.png" alt=""></span>' + esc(L(UI[key])) + "</p>"; }
 
   function journalOf(p) { return p.venue.split(",")[0]; }
   function volOf(p) { var m = p.venue.split(",").slice(1).join(",").trim(); return m; }
