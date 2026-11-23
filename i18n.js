@@ -5,7 +5,7 @@ window.I18N_EN = {
   "nav.cases": "Case studies",
   "nav.story": "Story",
   "mw.a": "Made with",
-  "mw.b": "by an Indonesia\u2060–\u2060UK team, for Indonesia",
+  "mw.b": "by a team from Indonesia and the United Kingdom of Great Britain and Northern Ireland, for Indonesia",
   "hb.demo": "Book a demo",
   "hb.cat": "Meet Nesya",
   "hb.story.e": "Our story",
