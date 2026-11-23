@@ -2154,3 +2154,27 @@ html[data-mode="dark"] .sleeper { display: block; }
 .mw-hearts i:nth-of-type(3) { animation-delay: 2.2s; --dx: 9px; }
 @keyframes mw-float { 0% { opacity: 0; transform: translate(0, 0) scale(.6); } 15% { opacity: 1; } 100% { opacity: 0; transform: translate(var(--dx, 4px), -26px) scale(1.1); } }
 @media (prefers-reduced-motion: reduce) { .mw-hearts *, .mw-hearts { animation: none !important; } .mw-hearts i { display: none; } }
+
+/* Kenali Nesya easter egg: wink on hover, heart burst on tap, a hello on every third tap */
+.meet-i img { transition: transform .5s var(--ease-out); }
+.meet-burst { position: fixed; z-index: 130; width: 11px; height: 10px; pointer-events: none; opacity: 0;
+  transform: translate(-50%, -50%) scale(.4); animation: meet-burst 1.1s cubic-bezier(.2,.7,.3,1) forwards; }
+.meet-burst svg { display: block; width: 100%; height: 100%; fill: #6fcf97; filter: drop-shadow(0 1px 2px rgba(0,0,0,.25)); }
+.meet-burst.w svg { fill: #fbf8f0; }
+@keyframes meet-burst { 15% { opacity: 1; } 70% { opacity: 1; } 100% { opacity: 0; transform: translate(calc(-50% + var(--x)), calc(-50% + var(--y))) scale(1.15); } }
+.meet-egg { position: fixed; z-index: 130; width: 92px; margin-left: -46px; pointer-events: none; transform-origin: 50% 0;
+  animation: meet-pop .55s cubic-bezier(.3,1.5,.5,1) both; }
+.meet-egg img { display: block; width: 92px; height: auto; filter: drop-shadow(0 8px 14px rgba(0,0,0,.28)); animation: n-bob 2.4s ease-in-out .6s infinite; }
+.meet-egg .me-bub { position: absolute; right: 78px; top: 22px; white-space: nowrap; padding: 7px 12px; border-radius: 14px 14px 4px 14px;
+  background: #fbf8f0; color: #22403d; font: 600 13px/1.2 var(--sans, system-ui); box-shadow: 0 6px 16px rgba(0,0,0,.18);
+  opacity: 0; transform: translateY(4px); animation: meet-bub .35s ease-out .45s forwards; }
+.meet-egg.out { animation: meet-out .45s ease-in forwards; }
+@keyframes meet-pop { 0% { opacity: 0; transform: translateY(-26px) scale(.35); } 100% { opacity: 1; transform: none; } }
+@keyframes meet-bub { to { opacity: 1; transform: none; } }
+@keyframes meet-out { to { opacity: 0; transform: translateY(-18px) scale(.6); } }
+@media (max-width: 920px) { .meet-egg { width: 76px; margin-left: -38px; } .meet-egg img { width: 76px; } .meet-egg .me-bub { right: 64px; font-size: 12px; } }
+
+/* waving Nesya in the platform film: slower, with a rest between waves, and a soft sway */
+.nesya-peek .nesya { animation: n-sway 6s ease-in-out infinite; transform-origin: 50% 100%; }
+@keyframes n-sway { 0%, 100% { transform: rotate(0); } 50% { transform: rotate(-1.5deg) translateY(-2px); } }
+@media (prefers-reduced-motion: reduce) { .nesya-peek .nesya, .meet-egg, .meet-egg img { animation: none !important; } }
