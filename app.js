@@ -152,7 +152,7 @@
 
   // ---------- Reveal on scroll (after Bija: rise 16px and fade, soft ease-out) ----------
   // Home page marks elements with .reveal / .reveal-split; subpages get the same treatment automatically.
-  if (!document.querySelector(".hero2")) {
+  if (!document.querySelector(".hero2:not(.hero-sub)")) {
     document.querySelectorAll(".head, .note, .col, .collage-3 article, .process li, .journey li, .cols-3 article, .org-helps li, .page-hero h1, .page-hero .lead")
       .forEach(function (el) { el.classList.add("reveal"); });
   }
@@ -224,6 +224,22 @@
     }
     window.addEventListener("scroll", function () { if (!gTick) { gTick = true; requestAnimationFrame(onGallery); } }, { passive: true });
     onGallery();
+  }
+
+  // ---------- Film clips: play only while on screen (and never with reduced motion or Save-Data) ----------
+  var saveData = navigator.connection && navigator.connection.saveData;
+  var films = [].slice.call(document.querySelectorAll("video[data-film], .hero2-video"));
+  if (reduce || saveData) {
+    films.forEach(function (v) { v.removeAttribute("autoplay"); v.pause(); });
+  } else if ("IntersectionObserver" in window) {
+    var fio = new IntersectionObserver(function (es) {
+      es.forEach(function (e) {
+        var v = e.target;
+        if (e.isIntersecting) { if (v.preload === "none") v.preload = "auto"; var pr = v.play(); if (pr && pr.catch) pr.catch(function () {}); }
+        else v.pause();
+      });
+    }, { rootMargin: "120px 0px" });
+    films.forEach(function (v) { fio.observe(v); });
   }
 
   // Hero entrance: copy rises in, scene settles (Bija's 14s "film")

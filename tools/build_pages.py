@@ -72,25 +72,22 @@ def page(filename, title, desc, main_html, active=None):
     (ROOT / filename).write_text(out, encoding="utf-8")
 
 
-def page_hero(kicker_key, kicker_id, kicker_en, title_key, title_id, title_en, lead_key, lead_id, lead_en, art="kite-rust"):
-    return f'''<section class="page-hero">
-  <img class="deco sprig-l" src="assets/sprig-olive.svg" alt="" aria-hidden="true">
-  <div class="wrap page-hero-grid">
-    <div>
-      <p class="kicker"><a href="index.html">N2CIAS</a> / {t(kicker_key, kicker_id, kicker_en)}</p>
-      {t(title_key, title_id, title_en, tag="h1", cls="display")}
-      <img class="divider left" src="assets/divider.svg" alt="" width="200" height="18">
-      {t(lead_key, lead_id, lead_en, tag="p", cls="lead")}
-      <div class="hero-cta">
-        <a href="index.html#demo" class="btn btn-mustard"><span data-i18n="cta.demo">Jadwalkan demo</span></a>
-        <a href="index.html#coverage" class="link-u" data-i18n="org.plan">Hitung kebutuhan</a>
+def page_hero(kicker_key, kicker_id, kicker_en, title_key, title_id, title_en, lead_key, lead_id, lead_en, art="hero"):
+    film = art
+    return f'''<section class="hero2 hero-sub">
+  <div class="hero2-bg" aria-hidden="true">
+    <video class="hero2-video" autoplay muted loop playsinline preload="auto" poster="assets/film/{film}.jpg"><source src="assets/film/{film}.mp4" type="video/mp4"></video>
+    <div class="hero2-shade"></div>
+  </div>
+  <div class="wrap hero2-grid hero2-center">
+    <div class="hero2-copy">
+      <p class="eyebrow2"><a href="index.html">N2CIAS</a> · {t(kicker_key, kicker_id, kicker_en)}</p>
+      {t(title_key, title_id, title_en, tag="h1", cls="h1")}
+      {t(lead_key, lead_id, lead_en, tag="p", cls="hero2-lead")}
+      <div class="pbtn-row">
+        <a href="index.html#demo" class="pbtn pbtn-light"><span class="pbtn-t" data-i18n="cta.demo">Jadwalkan demo</span><span class="pbtn-i"><svg width="14" height="10"><use href="#arrow"/></svg></span></a>
+        <a href="index.html#coverage" class="pbtn pbtn-ghost"><span class="pbtn-t" data-i18n="org.plan">Hitung kebutuhan</span></a>
       </div>
-    </div>
-    <div class="page-hero-art" aria-hidden="true">
-      <div class="mm-wrap mmw-ph" data-parallax="-0.1"><img class="mm mm-day" src="assets/mm-c.svg" alt=""><img class="mm mm-night" src="assets/mm-c-night.svg" alt=""></div>
-      <img class="pha-kite" src="assets/{art}.svg" alt="">
-      <img class="pha-nesya" src="assets/nesya.svg" alt="">
-      <img class="pha-mush" src="assets/mushroom.svg" alt="">
     </div>
   </div>
 </section>'''
@@ -103,7 +100,7 @@ research_main = page_hero(
     "rp.lead",
     "Studi tentang N2CIAS, tulisan tim kami, dan penelitian tentang pendamping AI untuk kesehatan mental yang menjadi bahan belajar kami.",
     "Studies of N2CIAS, writing by our team, and research on AI companions for mental health that we learn from.",
-    art="kite-indigo",
+    art="safety",
 ) + f'''
 
 <section class="section paper" id="studies">
@@ -178,7 +175,7 @@ EN.update({
 
 ORGS = [
     {
-        "file": "universitas.html", "key": "uni", "use": "uni", "n": 5, "art": "kite-teal",
+        "file": "universitas.html", "key": "uni", "use": "uni", "n": 5, "art": "uni",
         "kicker": ("Universitas", "Universities"),
         "title": ("Dukungan untuk mahasiswa, di luar jam konseling.", "Support for students, beyond counselling hours."),
         "lead": ("Mahasiswa bisa bercerita kapan saja lewat Nesya. Tim kemahasiswaan melihat kapan dan di mana kebutuhan naik, tanpa membaca percakapan siapa pun.",
@@ -193,7 +190,7 @@ ORGS = [
               ("Melengkapi, tidak menggantikan", "Complements, doesn't replace", "N2CIAS memperluas jangkauan tim konseling yang sudah ada.", "N2CIAS extends the reach of your existing counselling team.")],
     },
     {
-        "file": "perusahaan.html", "key": "com", "use": "com", "n": 4, "art": "kite-rust",
+        "file": "perusahaan.html", "key": "com", "use": "com", "n": 4, "art": "company",
         "kicker": ("Perusahaan", "Companies"),
         "title": ("Bantu karyawan sebelum masalah jadi masalah kerja.", "Help employees before problems become work problems."),
         "lead": ("Tunjangan kesehatan mental yang benar-benar dipakai: tempat bercerita 24/7 untuk karyawan, dan gambaran anonim untuk HR.",
@@ -207,7 +204,7 @@ ORGS = [
               ("Biaya terukur", "Predictable cost", "Biaya per orang per bulan sesuai kapasitas yang dipilih.", "A per-person monthly cost based on the capacity you choose.")],
     },
     {
-        "file": "rumah-sakit.html", "key": "hos", "use": "hos", "n": 4, "art": "kite-olive",
+        "file": "rumah-sakit.html", "key": "hos", "use": "hos", "n": 4, "art": "rain",
         "kicker": ("Rumah sakit", "Hospitals"),
         "title": ("Dukungan untuk orang-orang yang merawat orang lain.", "Support for the people who care for others."),
         "lead": ("Perawat, dokter, dan staf bisa bercerita sesudah shift malam. Manajemen melihat unit mana yang paling tertekan, tanpa melihat siapa bercerita apa.",
@@ -221,7 +218,7 @@ ORGS = [
               ("Terhubung dengan K3 dan psikolog", "Linked to occupational health", "Rujukan ke layanan kesehatan kerja atau psikolog rumah sakit.", "Referral to occupational health or hospital psychologists.")],
     },
     {
-        "file": "kesehatan-masyarakat.html", "key": "pub", "use": "pub", "n": 3, "art": "kite-indigo",
+        "file": "kesehatan-masyarakat.html", "key": "pub", "use": "pub", "n": 3, "art": "public",
         "kicker": ("Kesehatan masyarakat", "Public health"),
         "title": ("Menjangkau lebih banyak orang, lebih awal.", "Reach more people, earlier."),
         "lead": ("Dari Puskesmas sampai Dinas Kesehatan: langkah pertama yang mudah dijangkau warga, dan data agregat untuk perencanaan program.",
