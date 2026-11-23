@@ -1996,3 +1996,5 @@ html[data-mode="dark"] .pc::after { background: linear-gradient(225deg, var(--ca
 html[data-mode="dark"] .partners-pin { background: color-mix(in srgb, var(--paper) 88%, transparent) !important; }
 .partners-pin { background: color-mix(in srgb, var(--paper) 86%, #6b5a40) !important; }
 @media (max-width: 600px) { .partners-pin .logos-inner { padding-right: 6px; } .partners-pin .h2 { font-size: .8rem !important; } }
+.partners-pin { background: color-mix(in srgb, var(--paper) 96%, #8a7650) !important; }
+html[data-mode="dark"] .partners-pin { background: color-mix(in srgb, var(--paper) 90%, transparent) !important; }
