@@ -2866,7 +2866,7 @@ html[data-mode="dark"] body.cx-full { background: #0b1214; }
   .hero2:not(.hero-sub) .hero2-center .hero-motto { text-align: left !important; margin-left: 0 !important; }
   .hero2:not(.hero-sub) .hero2-copy > .hero-story, .hero2:not(.hero-sub) .hero2-copy > .proof { display: none !important; }
   .hero2:not(.hero-sub) .hero2-copy > .made-with { display: block !important; margin: 18px 0 0 !important; text-align: left !important; font-size: .8rem; opacity: .85; }
-  .hero-peeks { display: block; position: absolute; inset: 0; z-index: 2; pointer-events: none; }
+  .hero-peeks { display: block; position: absolute; inset: 0; z-index: 3; pointer-events: none; }
   .hb { position: absolute; right: var(--hg); bottom: calc(var(--strip, 73px) + 44px); width: 452px; display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: auto 1fr auto; gap: 12px; pointer-events: auto; }
   .hb > a { color: #f5ecd9; text-decoration: none; border-radius: 18px; border: 1px solid rgba(255,255,255,.16);
     background: linear-gradient(160deg, rgba(255,255,255,.1), rgba(14,24,26,.22)); -webkit-backdrop-filter: blur(10px) saturate(1.25); backdrop-filter: blur(10px) saturate(1.25);
