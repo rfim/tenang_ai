@@ -4,6 +4,7 @@ window.I18N_EN = {
   "brand.by": "by TenangAI",
   "nav.cases": "Case studies",
   "nav.story": "Story",
+  "lk.sub": "Clinical Research",
   "nav.contact": "Contact",
   "st.eyebrow": "Philosophy & story",
   "st.title": "From research to a calm place to talk.",

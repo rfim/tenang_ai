@@ -1197,3 +1197,20 @@ html[data-mode="dark"] .st-path { background-color: #10202c; }
   .hero2 { padding-top: 132px; }
   .st-art .st-mm { width: 84%; }
 }
+
+/* left lockup: N2CIAS | Clinical Research */
+:root { --wordmark: var(--display); }
+.lockup { display: inline-flex; align-items: center; color: var(--cream); text-decoration: none; }
+.lk-word { font-family: var(--wordmark); font-weight: 500; font-size: 1.55rem; letter-spacing: .04em; line-height: 1; }
+.lk-rule { width: 1px; height: 24px; background: rgba(245,236,217,.35); margin: 0 14px; }
+.lk-sub { color: rgba(245,236,217,.82); text-decoration: none; font: 500 11.5px var(--sans); letter-spacing: .18em; text-transform: uppercase; white-space: nowrap; border-bottom: 1px solid transparent; padding: 4px 0; transition: border-color .3s, color .3s; }
+.lk-sub:hover { color: var(--cream); border-bottom-color: var(--mustard-l); }
+.nav2-l { gap: 0; }
+.nav2-r { gap: 8px; }
+.drawer-cr { display: none; }
+@media (max-width: 1180px) { .lk-sub { display: none; } .lk-rule { display: none; } }
+@media (max-width: 920px) {
+  .lockup, .lk-rule, .lk-sub { display: none !important; }
+  .nav2-r .util-pill { display: none; }
+  .nav2.menu-open .drawer-cr { display: inline-block; margin-top: 18px; padding: 10px 18px; border: 1px solid rgba(245,236,217,.3); border-radius: 999px; color: var(--cream); text-decoration: none; font: 500 12px var(--sans); letter-spacing: .18em; text-transform: uppercase; }
+}
