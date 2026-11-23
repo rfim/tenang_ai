@@ -149,14 +149,21 @@
       b.className = "msg show " + cls;
       b.textContent = text || "";
       live.appendChild(b);
-      while (live.children.length > 6) live.removeChild(live.firstChild);
+      while (live.children.length > 5) live.removeChild(live.firstChild);
       return b;
     }
     async function play() {
       if (running) return; running = true;
       while (visible) {
+        // the last round fades away while Nesya starts a new one, so the card is never empty
+        [].forEach.call(live.children, function (c) { c.classList.add("leaving"); });
+        await wait(450);
         live.innerHTML = "";
-        await wait(500);
+        var hi = bubble("bot typing", ""); hi.innerHTML = "<i></i><i></i><i></i>";
+        await wait(900);
+        hi.classList.remove("typing");
+        hi.textContent = document.documentElement.lang === "en" ? "Hi, I'm Nesya. What's on your mind today?" : "Halo, aku Nesya. Lagi kepikiran apa hari ini?";
+        await wait(1400);
         for (var i = 0; i < src.length && visible; i++) {
           var m = src[i], text = m.textContent, isUser = m.classList.contains("user");
           if (isUser) {
@@ -173,14 +180,14 @@
           }
         }
         if (quick && visible) { var q = quick.cloneNode(true); q.classList.add("show"); live.appendChild(q); }
-        await wait(5000);
+        for (var k = 0; k < 25 && visible; k++) await wait(200);   // linger on the finished chat, but stop at once if it scrolls away
       }
       running = false;
     }
     if ("IntersectionObserver" in window) {
       new IntersectionObserver(function (es) {
         visible = es[0].isIntersecting;
-        if (visible) play(); else clearTimeout(timer);
+        if (visible) play();   // when it scrolls away the loop finishes its current step and stops by itself
       }, { threshold: 0.4 }).observe(chat);
     }
   });

@@ -2417,3 +2417,6 @@ html[lang="en"] .hero2 [data-i18n="hero.pre"] { display: none; }
 .ga-sticker .nesya img { animation: ele-hello 3.6s cubic-bezier(.45,0,.3,1) infinite; }
 .ga-final-nesya img { animation: ele-bounce 3.6s cubic-bezier(.3,0,.3,1) infinite; }
 @media (prefers-reduced-motion: reduce) { .nesya img, .quote-cat::before, .quote-cat::after { animation: none !important; } }
+.chat-live .msg, .chat-live .quick { animation: chat-in .45s cubic-bezier(.2,.7,.3,1) both; }
+.chat-live .leaving { opacity: 0 !important; transform: translateY(-10px); transition: opacity .4s ease, transform .4s ease; }
+@keyframes chat-in { from { opacity: 0; transform: translateY(10px) scale(.98); } to { opacity: 1; transform: none; } }
