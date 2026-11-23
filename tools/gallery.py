@@ -149,6 +149,25 @@ SOURCES = [
 ]
 
 
+# Room 12 spells out the name, letter by letter (same meaning as the "Apa arti N2CIAS?" block on the home page).
+NAME = [
+    ("N", "Nesya", "n1", "Teman cerita AI, 24 jam sehari.", "An AI companion, 24 hours a day."),
+    ("N", "Navigation", "n2", "Jalan ke bantuan berikutnya.", "The way to the next kind of help."),
+    ("C", "Care", "c", "Dirancang bersama psikolog klinis.", "Designed with clinical psychologists."),
+    ("I", "Insight", "i", "Pola anonim untuk institusi.", "Anonymous patterns for the institution."),
+    ("A", "Access", "a", "Kapan saja, tanpa antre, tanpa stigma.", "Any time, no queue, no stigma."),
+    ("S", "Safety", "s", "Batas jelas, rujukan saat darurat.", "Clear limits, referral in an emergency."),
+]
+
+
+def name_block(t):
+    items = "".join(
+        f'<li><b class="gn-l">{l}</b><span class="gn-w">{w}</span>{t("ga.name." + k, i, e, tag="span", cls="gn-t")}</li>'
+        for l, w, k, i, e in NAME)
+    return (f'\n        <div class="ga-name">{t("ga.name.h", "Arti nama N2CIAS", "What N2CIAS stands for", tag="p", cls="gn-h")}'
+            f'<ol>{items}</ol><a class="gn-more" href="index.html#n2-name">{t("ga.name.more", "Baca selengkapnya", "Read more", tag="span")} <span aria-hidden="true">&rarr;</span></a></div>')
+
+
 def build(t, page, page_hero_unused=None):
     rooms = []
     for i, r in enumerate(ROOMS):
@@ -161,7 +180,7 @@ def build(t, page, page_hero_unused=None):
         <p class="ga-no">{t("ga.room", "Ruang", "Room")} {i:02d} · <span class="ga-year">{year}</span></p>
         {t(f"ga.{key}.t", tid, ten, tag="h2", cls="ga-title")}
         {t(f"ga.{key}.o", oid, oen, tag="p", cls="ga-obj")}
-        {t(f"ga.{key}.b", bid, ben, tag="p", cls="ga-body")}
+        {t(f"ga.{key}.b", bid, ben, tag="p", cls="ga-body")}{name_block(t) if key == "r12" else ""}
         <div class="ga-lesson"><span>{t("ga.built", "Yang kami bangun", "What we built") if key in ("r11", "r12") else t("ga.lesson", "Pelajaran untuk Nesya", "Lesson for Nesya")}</span>{t(f"ga.{key}.l", lid, len_, tag="p")}</div>
       </div>
     </article>''')

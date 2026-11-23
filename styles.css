@@ -2326,3 +2326,17 @@ html[lang="en"] .sl-gl { display: none; }
 }
 .n2-mean-mm .n2-more { color: #e2b866; opacity: 1; font-size: 12px; }
 @media (min-width: 921px) { .he-n2 { display: inline; line-height: inherit; vertical-align: baseline; margin: 0; text-transform: inherit; } }
+
+/* gallery room 12: the name, letter by letter */
+.ga-name { margin-top: 22px; padding: 18px 20px 16px; border: 1px solid rgba(226,184,102,.3); border-radius: 14px; background: rgba(255,255,255,.03); }
+.ga-name .gn-h { margin: 0 0 12px; font: 600 10.5px var(--sans); letter-spacing: .18em; text-transform: uppercase; color: var(--mustard-l); }
+.ga-name ol { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 14px 18px; }
+.ga-name li { display: grid; grid-template-columns: 30px 1fr; column-gap: 10px; align-items: baseline; text-align: left; }
+.ga-name .gn-l { grid-row: span 2; font: 400 1.9rem/1 "Marcellus", var(--display); color: #e2b866; text-align: center; }
+.ga-name .gn-w { font: 400 1.05rem/1.2 var(--display); color: var(--cream); }
+.ga-name .gn-t { font-size: 13px; line-height: 1.45; color: rgba(245,236,217,.72); }
+.ga-name .gn-more { display: inline-block; margin-top: 14px; font: 600 12.5px var(--sans); color: #e2b866; text-decoration: underline; text-underline-offset: 3px; }
+@media (max-width: 920px) { .ga-name { align-self: stretch; } }
+@media (max-width: 380px) { .ga-name ol { grid-template-columns: 1fr; } .ga-name li { justify-self: center; min-width: 220px; } }
+.ga-name li { align-items: start; grid-template-rows: auto 1fr; }
+.ga-name .gn-w { padding-top: 6px; }
