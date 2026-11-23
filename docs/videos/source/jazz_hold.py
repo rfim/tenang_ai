@@ -3,12 +3,13 @@
 import wave
 import json as _j
 _H = sorted(_j.load(open("holds.json"))["film"])
-def RT(t):  # scene time -> output time on the timeline with reading pauses
+def RT(t):  # scene time (original 74 s film) -> output time, with the 7 s dashboard scene inserted at 39 s and reading pauses
+    t = t + (10 if t >= 39 else 0)
     return t + sum(d for h, d in _H if h < t)
 import numpy as np
 
 SR = 44100
-DUR = RT(74.0)
+DUR = RT(74.0) + 0.0
 N = int(SR * DUR)
 L = np.zeros(N)
 R = np.zeros(N)
@@ -17,7 +18,7 @@ BAR = 2.0
 SWING = 2 / 3            # the off-beat eighth lands two thirds into the beat
 OUTRO = 2.0 * round(RT(64.0) / 2.0)             # from here: a held Dmaj9 and the vibraphone
 DRUMS = [(RT(3), RT(29)), (RT(34), RT(60))]          # full trio; lighter under Nesya, the mission and the outro
-SCENES = [RT(x) for x in [3, 8, 13, 17, 21, 25, 29, 34, 39, 44, 50, 54, 60, 65, 69]]
+SCENES = [RT(x) for x in [3, 8, 13, 17, 21, 25, 29, 34, 39, 44, 50, 54, 60, 65, 69]] + [RT(38.999) + 0.001 + x for x in (0,)]
 rng = np.random.default_rng(11)
 
 

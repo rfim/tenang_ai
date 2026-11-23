@@ -3,8 +3,10 @@
 // Every mark has a hover tooltip; every chart can be shown as a table.
 (function () {
   "use strict";
-  var root = document.getElementById("dash-app");
-  if (!root) return;
+  var DEMO = { seed: 0, users: 860, units: ["Jakarta", "Yogyakarta", "Surabaya"], weights: [0.46, 0.31, 0.23],
+    unitLabel: { id: "Lokasi", en: "Location" }, allLabel: { id: "Semua lokasi", en: "All locations" }, mascot: true };
+  var shared = null;
+  function mount(root, cfg) {
 
   var T = {
     id: {
@@ -50,17 +52,18 @@
       ]
     }
   };
-  var CITIES = ["Jakarta", "Yogyakarta", "Surabaya"];
+  var CITIES = cfg.units;
   var state = { days: 30, loc: "all" };
   var views = {};
-  function L() { return T[document.documentElement.lang === "en" ? "en" : "id"]; }
+  function lang() { return document.documentElement.lang === "en" ? "en" : "id"; }
+  function L() { return T[lang()]; }
   function fmt(n) { return Math.round(n).toLocaleString("id-ID"); }
 
   // ---------- sample data, seeded so the same filters always give the same numbers ----------
   function rng(seed) { return function () { seed = (seed * 1664525 + 1013904223) % 4294967296; return seed / 4294967296; }; }
   function data() {
-    var key = state.days * 7 + (state.loc === "all" ? 0 : CITIES.indexOf(state.loc) + 1), r = rng(9301 + key * 49297);
-    var scale = state.loc === "all" ? 1 : [0.46, 0.31, 0.23][CITIES.indexOf(state.loc)];
+    var key = state.days * 7 + (state.loc === "all" ? 0 : CITIES.indexOf(state.loc) + 1) + cfg.seed * 131, r = rng(9301 + key * 49297);
+    var scale = state.loc === "all" ? 1 : cfg.weights[CITIES.indexOf(state.loc)];
     var n = state.days, series = [];
     for (var i = 0; i < n; i++) {
       var exam = Math.exp(-Math.pow((i - n * 0.55) / (n * 0.09), 2)) * 22;
@@ -73,9 +76,9 @@
       if (h >= 3 && h <= 6) base *= 0.35; if (d >= 5) base *= 0.8;
       heat[d].push(Math.round(base * (0.8 + r() * 0.4) * scale * state.days / 30)); } }
     var topics = [78, 64, 52, 41, 33].map(function (v) { return Math.round(Math.max(8, Math.min(95, v + (r() - 0.5) * 10))); });
-    var risk = CITIES.map(function (c, i) { var a = [48 - i * 4 + (r() - .5) * 6, 34 + (r() - .5) * 5, 14 + i * 3 + (r() - .5) * 3]; var s4 = 3 + i + r(); var t = a[0] + a[1] + a[2] + s4; return [a[0], a[1], a[2], s4].map(function (x) { return Math.round(x / t * 1000) / 10; }); });
+    var risk = CITIES.map(function (c, i) { i = (i * 7 + cfg.seed) % 5; var a = [48 - i * 4 + (r() - .5) * 6, 34 + (r() - .5) * 5, 14 + i * 3 + (r() - .5) * 3]; var s4 = 3 + i + r(); var t = a[0] + a[1] + a[2] + s4; return [a[0], a[1], a[2], s4].map(function (x) { return Math.round(x / t * 1000) / 10; }); });
     var steps = [54, 31, 15].map(function (v) { return v + Math.round((r() - .5) * 6); }); var st = steps[0] + steps[1] + steps[2]; steps = steps.map(function (v) { return Math.round(v / st * 100); });
-    var users = Math.round(860 * scale * Math.sqrt(state.days / 30)), checks = heat.reduce(function (s, row) { return s + row.reduce(function (a, b) { return a + b; }, 0); }, 0);
+    var users = Math.round(cfg.users * scale * Math.sqrt(state.days / 30)), checks = heat.reduce(function (s, row) { return s + row.reduce(function (a, b) { return a + b; }, 0); }, 0);
     var spark = function (b, j, dir) { var o = []; for (var k = 0; k < 12; k++) o.push(b * (1 + (dir || 1) * (k - 11) * 0.018 + (r() - 0.5) * j)); return o; };
     return { series: series, avg: avg, heat: heat, topics: topics, risk: risk, steps: steps,
       kpi: [
@@ -89,7 +92,8 @@
   // ---------- small helpers ----------
   var NS = "http://www.w3.org/2000/svg";
   function el(tag, attrs, parent) { var e = document.createElementNS(NS, tag); for (var k in attrs) e.setAttribute(k, attrs[k]); if (parent) parent.appendChild(e); return e; }
-  var tip = document.createElement("div"); tip.className = "dv-tip"; tip.setAttribute("role", "status"); document.body.appendChild(tip);
+  if (!shared) { shared = { tip: document.createElement("div"), scrim: document.createElement("div") }; shared.tip.className = "dv-tip"; shared.tip.setAttribute("role", "status"); document.body.appendChild(shared.tip); shared.scrim.className = "dv-scrim"; document.body.appendChild(shared.scrim); }
+  var tip = shared.tip;
   function showTip(html, x, y) { tip.innerHTML = html; tip.style.opacity = 1; var w = tip.offsetWidth, h = tip.offsetHeight; tip.style.left = Math.min(innerWidth - w - 8, Math.max(8, x - w / 2)) + "px"; tip.style.top = Math.max(8, y - h - 14) + "px"; }
   function hideTip() { tip.style.opacity = 0; }
   function card(id, title, sub, wide) {
@@ -104,7 +108,7 @@
     return c;
   }
   // Focus view: one chart large, centred, with the page dimmed behind it
-  var scrim = document.createElement("div"); scrim.className = "dv-scrim"; document.body.appendChild(scrim);
+  var scrim = shared.scrim;
   function toggleMax(c, force) {
     var on = force === undefined ? !c.classList.contains("is-max") : force;
     document.querySelectorAll(".dv-card.is-max").forEach(function (o) { if (o !== c) o.classList.remove("is-max"); });
@@ -191,11 +195,12 @@
     var bar = document.createElement("div"); bar.className = "dv-filters";
     bar.innerHTML = '<div class="dv-f"><span>' + t.period + '</span><div class="dv-seg" role="group">' +
       [30, 90].map(function (n) { return '<button type="button" data-days="' + n + '" aria-pressed="' + (state.days === n) + '">' + t["d" + n] + "</button>"; }).join("") + "</div></div>" +
-      '<label class="dv-f"><span>' + t.loc + '</span><select>' + ['<option value="all">' + t.all + "</option>"].concat(CITIES.map(function (c) { return '<option value="' + c + '"' + (state.loc === c ? " selected" : "") + ">" + c + "</option>"; })).join("") + "</select></label>" +
+      '<label class="dv-f"><span>' + cfg.unitLabel[lang()] + '</span><select>' + ['<option value="all">' + cfg.allLabel[lang()] + "</option>"].concat(CITIES.map(function (c) { return '<option value="' + c + '"' + (state.loc === c ? " selected" : "") + ">" + c + "</option>"; })).join("") + "</select></label>" +
       '<p class="dv-meta" title="' + t.kmin + '">' + t.updated + "</p>";
     bar.querySelectorAll("[data-days]").forEach(function (b) { b.addEventListener("click", function () { state.days = +b.dataset.days; render(); }); });
     bar.querySelector("select").addEventListener("change", function (e) { state.loc = e.target.value; render(); });
     var head = root.parentNode.querySelector('.dash-head'); if (head) { head.classList.add('dv-head'); bar.insertBefore(head, bar.firstChild); }
+    if (cfg.mascot) { var nz = document.createElement('span'); nz.className = 'dv-nesya'; nz.setAttribute('aria-hidden', 'true'); nz.innerHTML = '<img src="' + (cfg.asset || '') + 'assets/nesya/happy.png" alt=""><em>' + (lang() === 'en' ? 'Here is this period at a glance!' : 'Ini ringkasan periode ini!') + '</em>'; bar.appendChild(nz); }
     root.appendChild(bar);
 
     var k = document.createElement("div"); k.className = "dv-kpis";
@@ -214,8 +219,8 @@
     c2.querySelector(".dv-table").innerHTML = table([[t.day].concat(["00–05", "06–11", "12–17", "18–23"])].concat(d.heat.map(function (r, i) { return [t.days[i]].concat([0, 6, 12, 18].map(function (s) { return fmt(r.slice(s, s + 6).reduce(function (a, b) { return a + b; }, 0)); })); })));
     var c3 = card("dv-topics", t.topics, t.topicsSub, "w1"); hbars(c3.querySelector(".dv-body"), t.t, d.topics, t, t.count);
     c3.querySelector(".dv-table").innerHTML = table([["", "%"]].concat(t.t.map(function (x, i) { return [x, d.topics[i] + "%"]; })));
-    var c4 = card("dv-risk", t.risk, t.riskSub, "w1"); stacked(c4.querySelector(".dv-body"), d, t);
-    c4.querySelector(".dv-table").innerHTML = table([[t.loc].concat(t.r)].concat(CITIES.map(function (c, i) { return [c].concat(d.risk[i].map(function (v) { return String(v).replace(".", ",") + "%"; })); })));
+    var c4 = card("dv-risk", cfg.riskTitle ? cfg.riskTitle[lang()] : t.risk, cfg.riskSub ? cfg.riskSub[lang()] : t.riskSub, "w1"); stacked(c4.querySelector(".dv-body"), d, t);
+    c4.querySelector(".dv-table").innerHTML = table([[cfg.unitLabel[lang()]].concat(t.r)].concat(CITIES.map(function (c, i) { return [c].concat(d.risk[i].map(function (v) { return String(v).replace(".", ",") + "%"; })); })));
     var c5 = card("dv-steps", t.steps, t.stepsSub, "w1"); hbars(c5.querySelector(".dv-body"), t.s, d.steps, t, "");
     c5.querySelector(".dv-table").innerHTML = table([["", "%"]].concat(t.s.map(function (x, i) { return [x, d.steps[i] + "%"]; })));
     // actions computed from the numbers on screen
@@ -229,5 +234,10 @@
     Object.keys(views).forEach(function (id) { if (views[id]) { var b = document.querySelector("#" + id + " .dv-toggle"); if (b) b.click(); views[id] = true; } });
   }
   render();
-  document.addEventListener("langchange", render);
+  document.addEventListener("langchange", function () { if (root.isConnected) render(); });
+  return { set: function (next) { cfg = next; CITIES = cfg.units; state.loc = "all"; render(); }, render: render };
+  }
+  window.N2Dash = { mount: mount, DEMO: DEMO };
+  var home = document.getElementById("dash-app");
+  if (home) mount(home, DEMO);
 })();

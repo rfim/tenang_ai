@@ -39,6 +39,8 @@ window.I18N_EN = {
   "n2n.i": "Institutions see anonymous, grouped patterns, such as which units or times are under most strain, never conversations.",
   "n2n.a": "Available any time from a phone, with no queue and no stigma, for everyone in the institution.",
   "n2n.s": "Clear safety limits: not a diagnostic tool and not a crisis service. When there are signs of danger, Nesya points people to 112 or 119 ext. 8.",
+  "dash.more": "Open the full console: ITB & Goldsmiths examples",
+  "nav.console": "Institution console (demo)",
   "mm.n2.h": "Get to know N2CIAS",
   "mm.plat": "Platform",
   "mm.plat.t": "For every person",

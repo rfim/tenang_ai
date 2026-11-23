@@ -125,6 +125,10 @@ const T = {
     meetEye: 'Meet the mascot', meetH: 'This is Nesya.', meetP: 'A little Sumatran elephant in a teal polka-dot scarf. Elephants never forget, and she listens without judging.', meetTag: 'Sumatran elephant · teal scarf · all ears',
     alwaysEye: 'The promise', alwaysB: 'Any hour, any day.', alwaysS: 'No queue, no appointment. Nesya is there at 3 a.m. too.',
     misEye: 'Our mission', mis1: 'Mental wellbeing is not', mis2: "one person's burden.", mis3: 'Nesya keeps people company and shows the way.', mis4: 'People and institutions stay responsible.',
+    dEye: 'For institutions', dH: 'One dashboard. The whole picture.', dP: 'See where support is needed, without seeing who said what.',
+    d1: ['Trends, at a glance', 'Emotional load, check-ins and high-need signals, per period and per location.'],
+    d2: ['When people really need it', 'Late-night peaks show why support has to be there 24/7.'],
+    d3: ['From data to action', 'Suggested steps update with the numbers, ready for the next meeting.'], dPill: 'Main feature',
     cta: 'Book a pilot demo', film: 'A film by', sup: 'Supported by', forStartups: 'for Startups',
   },
   id: {
@@ -144,6 +148,10 @@ const T = {
     meetEye: 'Kenalan dengan maskot', meetH: 'Ini Nesya.', meetP: 'Gajah sumatra kecil dengan syal teal berbintik. Gajah tak pernah lupa, dan ia mendengarkan tanpa menghakimi.', meetTag: 'Gajah sumatra · syal teal · siap mendengar',
     alwaysEye: 'Janji kami', alwaysB: 'Jam berapa pun, hari apa pun.', alwaysS: 'Tanpa antre, tanpa appointment. Nesya ada, bahkan jam 3 pagi.',
     misEye: 'Misi kami', mis1: 'Mental wellbeing bukan', mis2: 'beban satu orang saja.', mis3: 'Nesya menemani dan menunjukkan jalan.', mis4: 'Manusia dan institusi tetap bertanggung jawab.',
+    dEye: 'Untuk institusi', dH: 'Satu dashboard. Gambaran utuh.', dP: 'Lihat di mana dukungan dibutuhkan, tanpa melihat siapa yang bercerita.',
+    d1: ['Tren dalam sekali lihat', 'Beban emosional, check-in, dan sinyal kebutuhan tinggi, per periode dan per lokasi.'],
+    d2: ['Saat orang paling membutuhkan', 'Puncak tengah malam menunjukkan mengapa dukungan harus ada 24/7.'],
+    d3: ['Dari data ke tindakan', 'Saran langkah ikut berubah dengan angka, siap dibawa ke rapat berikutnya.'], dPill: 'Fitur utama',
     cta: 'Jadwalkan demo pilot', film: 'Sebuah film dari', sup: 'Didukung oleh', forStartups: 'for Startups',
   },
 }[LANG];
@@ -274,6 +282,36 @@ window.render = function (t) {
   // credits 69–74
   const cr = $('#credits'); cr.style.opacity = clamp((t - 69) / .35) * clamp((74 - t) / .8);
   rise($('.film', cr), t, 69.1, .5, 12); rise($('.rr', cr), t, 69.4, .6, 20); 
+};
+
+// ---------- main selling point: the institution dashboard (inserted at 39 s, lasts 7 s) ----------
+const DASH_AT = 39, DASH_LEN = 10;
+add(`<section class="scene dark solved" id="dashf">
+  <div class="gh"><span class="num" style="color:var(--mint)">★</span><h2 class="serif">${T.dH}</h2></div>
+  <div class="frame new" style="left:80px; top:190px; width:${FW}px; height:${FH}px"><div class="bar"><i></i><i></i><i></i><b>rfim.github.io/tenang_ai · Dashboard</b></div>
+    <div class="view">${['card', 'heat', 'act'].map((k, i) => `<div class="layer" data-k="${i}"><img src="${LANG}/new-dash.png"><div class="hl"></div></div>`).join('')}</div></div>
+  <div class="panel"><span class="pill"><svg><use href="#ok"/></svg>${T.dPill}</span>
+    <p class="d-eye" style="margin-top:22px;font:600 18px Inter;letter-spacing:.2em;text-transform:uppercase;color:var(--gold)">${T.dEye}</p>
+    ${[T.d1, T.d2, T.d3].map((d, i) => `<div class="dtxt" data-i="${i}" style="position:absolute;left:0;right:0;top:150px;opacity:0"><h3>${d[0]}</h3><p>${d[1]}</p></div>`).join('')}
+    <p class="d-foot" style="position:absolute;left:0;right:0;top:470px;margin:0;padding-top:18px;border-top:1px solid rgba(245,236,217,.18);font:500 21px/1.45 Inter;color:rgba(245,236,217,.65)">${T.dP}</p>
+  </div></section>`);
+const DSHOTS = [{ box: 'card', at: 0 }, { box: 'heat', at: 3.2 }, { box: 'act', at: 6.5 }];
+function renderDash(t) {
+  const el = $('#dashf'), u = t - DASH_AT; el.style.opacity = fadeIO(t, DASH_AT, DASH_AT + DASH_LEN);
+  rise($('.gh', el), t, DASH_AT, .5, 20); rise($('.pill', el), t, DASH_AT + .5, .45, 14); rise($('.d-eye', el), t, DASH_AT + .7, .45, 12); rise($('.d-foot', el), t, DASH_AT + 1.2, .5, 12);
+  const layers = el.querySelectorAll('.layer');
+  DSHOTS.forEach((sh, i) => { const st = DASH_AT + sh.at, end = i + 1 < DSHOTS.length ? DASH_AT + DSHOTS[i + 1].at : DASH_AT + DASH_LEN;
+    const L = layers[i]; L.style.opacity = i === 0 ? clamp((end + .3 - t) / .35) : clamp(Math.min((t - st) / .35, (end + .3 - t) / .35));
+    camera(L, R('new-dash', sh.box), t, st, end);
+    const tx = el.querySelector('.dtxt[data-i="' + i + '"]'); const k = clamp(Math.min((t - st - .5) / .4, (end + .1 - t) / .3)); tx.style.opacity = k; tx.style.transform = `translateY(${(1 - Math.min(1, (t - st - .5) / .4 < 0 ? 0 : 1)) * 12}px)`; });
+  // the whole-dashboard shot gets no highlight box
+  $('.layer[data-k="0"] .hl', el).style.display = 'none';
+}
+const baseRender = window.render;
+window.render = function (t) {
+  if (t < DASH_AT) { baseRender(t); renderDash(-10); }
+  else if (t < DASH_AT + DASH_LEN) { baseRender(DASH_AT - .001 + 100); renderDash(t); }
+  else { baseRender(t - DASH_LEN); renderDash(-10); }
 };
 render(0);
 </script>
