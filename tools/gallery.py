@@ -6,6 +6,7 @@ Each room: (key, year, title_id, title_en, object_id, object_en, body_id, body_e
 """
 
 
+NESYA_STICKER = '<span class="ga-sticker">' + '<span class="nesya" aria-hidden="true"><img src="assets/nesya-cat.png" alt=""><i class="lid l"></i><i class="lid r"></i></span>' + '</span>'
 NESYA = '<span class="nesya" aria-hidden="true"><img src="assets/nesya-cat.png" alt=""><i class="lid l"></i><i class="lid r"></i></span>'
 
 
@@ -30,7 +31,7 @@ ROOMS = [
      "Alan Turing asked: can machines think? He proposed an imitation game: if, in conversation, we can't tell a machine from a person, what does that mean? The question became the starting point of every chatbot.",
      "Percakapan adalah antarmuka yang paling manusiawi.",
      "Conversation is the most human interface there is.",
-     artifact_paper("Computing Machinery and Intelligence", "Mind · Vol. LIX · 1950")),
+     '<video class="ga-film" data-film muted loop playsinline preload="none" poster="assets/film/gallery/r0.jpg"><source src="assets/film/gallery/r0.mp4" type="video/mp4"></video>'),
 
     ("r1", "1966",
      "ELIZA", "ELIZA",
@@ -50,7 +51,7 @@ ROOMS = [
      "If ELIZA played the therapist, PARRY played the patient: it simulated a person with paranoid schizophrenia. In tests Colby designed, psychiatrists struggled to tell PARRY's transcripts from real patients'. In 1972 PARRY and ELIZA even met and talked over the ARPANET.",
      "Terdengar meyakinkan tidak sama dengan memahami. Penilaian klinis tetap milik manusia.",
      "Sounding convincing is not the same as understanding. Clinical judgement stays with people.",
-     '<div class="ga-net"><span class="ga-node">ELIZA<small>MIT</small></span><span class="ga-wire"><i></i></span><span class="ga-node">PARRY<small>Stanford</small></span><em>ARPANET · 1972</em></div>'),
+     '<video class="ga-film" data-film muted loop playsinline preload="none" poster="assets/film/gallery/r2.jpg"><source src="assets/film/gallery/r2.mp4" type="video/mp4"></video>'),
 
     ("r3", "1976",
      "Peringatan sang pencipta", "A warning from the maker",
@@ -59,7 +60,7 @@ ROOMS = [
      "Shocked by how people reacted to ELIZA, Weizenbaum became one of computing's sharpest critics. He wrote: “What I had not realized is that extremely short exposures to a relatively simple computer program could induce powerful delusional thinking in quite normal people.”",
      "Teknologi untuk kesehatan mental harus dibangun dengan batas, bukan hanya kemampuan.",
      "Technology for mental health must be built with limits, not just capabilities.",
-     '<div class="ga-book"><span>Computer Power<br>and Human Reason</span><small>Joseph Weizenbaum</small></div>'),
+     '<video class="ga-film" data-film muted loop playsinline preload="none" poster="assets/film/gallery/r3.jpg"><source src="assets/film/gallery/r3.mp4" type="video/mp4"></video>'),
 
     ("r4", "2000-an", "Terapi lewat layar", "Therapy on a screen",
      "Program CBT terkomputerisasi · MoodGYM, Beating the Blues", "Computerised CBT · MoodGYM, Beating the Blues",
@@ -67,7 +68,7 @@ ROOMS = [
      "Structured cognitive behavioural therapy (CBT) began to be packaged as computer programmes and tested scientifically, such as MoodGYM in Australia and Beating the Blues in the UK. In 2006 the UK's NICE recommended computerised CBT for mild to moderate depression.",
      "Metode berbasis bukti bisa bekerja lewat layar, asal terstruktur dan teruji.",
      "Evidence-based methods can work through a screen, if they are structured and tested.",
-     '<div class="ga-monitor"><div class="ga-mon-screen"><b>Modul 1</b><span></span><span></span><span class="s"></span><em>Lanjut →</em></div><div class="ga-mon-stand"></div></div>'),
+     '<video class="ga-film" data-film muted loop playsinline preload="none" poster="assets/film/gallery/r4.jpg"><source src="assets/film/gallery/r4.mp4" type="video/mp4"></video>'),
 
     ("r5", "2017", "Chatbot masuk uji klinis", "Chatbots enter clinical trials",
      "Uji acak terkontrol · Woebot · JMIR Mental Health", "Randomised controlled trial · Woebot · JMIR Mental Health",
@@ -75,7 +76,7 @@ ROOMS = [
      "For the first time, a CBT-based chatbot was tested in a randomised controlled trial: 70 university students, two weeks, and a larger drop in depression symptoms than the comparison group. Wysa, from India, followed with real-world usage data in 2018.",
      "Ukur dampaknya, jangan hanya mengklaim.",
      "Measure the impact; don't just claim it.",
-     '<div class="ga-phone"><span class="b u"></span><span class="b"></span><span class="b u s"></span><div class="ga-bars"><i style="--h:80%"></i><i style="--h:62%"></i><i style="--h:44%"></i></div></div>'),
+     '<video class="ga-film" data-film muted loop playsinline preload="none" poster="assets/film/gallery/r5.jpg"><source src="assets/film/gallery/r5.mp4" type="video/mp4"></video>'),
 
     ("r6", "2020", "Dunia di dalam rumah", "The world indoors",
      "Laporan ilmiah · WHO, 2022", "Scientific brief · WHO, 2022",
@@ -83,7 +84,7 @@ ROOMS = [
      "WHO reported that the global prevalence of anxiety and depression rose by about 25% in the first year of the COVID-19 pandemic. Many services moved to phones and screens. In Indonesia, the SEJIWA psychology line on 119 ext. 8 opened the same year.",
      "Dukungan harus bisa dijangkau dari mana saja, kapan saja.",
      "Support has to be reachable from anywhere, at any time.",
-     '<div class="ga-big"><b>+25%</b><small>kecemasan & depresi · anxiety & depression</small></div>'),
+     '<video class="ga-film" data-film muted loop playsinline preload="none" poster="assets/film/gallery/r6.jpg"><source src="assets/film/gallery/r6.mp4" type="video/mp4"></video>'),
 
     ("r7", "2022", "Potret Indonesia", "A portrait of Indonesia",
      "Survei nasional · I-NAMHS", "National survey · I-NAMHS",
@@ -91,7 +92,7 @@ ROOMS = [
      "The first national survey of adolescent mental health in Indonesia (I-NAMHS) found that about one in three adolescents had a mental health problem in the previous 12 months. Only a small share of them had ever used a service.",
      "Kebutuhannya besar, tetapi jalannya belum terbuka. Di situlah kami ingin membantu.",
      "The need is large, but the path isn't open yet. That's where we want to help.",
-     '<div class="ga-three"><span></span><span class="on"></span><span></span><small>1 dari 3 · 1 in 3</small></div>'),
+     '<video class="ga-film" data-film muted loop playsinline preload="none" poster="assets/film/gallery/r7.jpg"><source src="assets/film/gallery/r7.mp4" type="video/mp4"></video>'),
 
     ("r8", "2022", "Bahasa alami untuk semua", "Natural language for everyone",
      "Model bahasa besar · rilis publik ChatGPT, November 2022", "Large language models · ChatGPT public release, November 2022",
@@ -99,7 +100,7 @@ ROOMS = [
      "Large language models made talking to a machine feel natural for hundreds of millions of people, in many languages, including everyday Bahasa Indonesia. For the first time, a chatbot could understand “capek banget” the way the speaker meant it.",
      "Teknologinya kini siap untuk bahasa kita.",
      "The technology is now ready for our language.",
-     '<div class="ga-type"><span>Aku lagi capek banget…</span><i class="ga-caret"></i></div>'),
+     '<video class="ga-film" data-film muted loop playsinline preload="none" poster="assets/film/gallery/r8.jpg"><source src="assets/film/gallery/r8.mp4" type="video/mp4"></video>'),
 
     ("r9", "2023", "Pelajaran dari Tessa", "The lesson of Tessa",
      "Chatbot · organisasi gangguan makan di AS (NEDA)", "Chatbot · a US eating disorder organisation (NEDA)",
@@ -107,7 +108,7 @@ ROOMS = [
      "A US eating disorder organisation took its chatbot “Tessa” offline after it gave risky dieting advice to people who came for help.",
      "Tanpa batas keamanan dan pengawasan klinis, AI bisa menyakiti. Nesya punya batas topik dan jalur eskalasi ke manusia.",
      "Without safety limits and clinical oversight, AI can harm. Nesya has topic limits and an escalation path to people.",
-     '<div class="ga-warn"><span>!</span></div>'),
+     '<video class="ga-film" data-film muted loop playsinline preload="none" poster="assets/film/gallery/r9.jpg"><source src="assets/film/gallery/r9.mp4" type="video/mp4"></video>'),
 
     ("r10", "2025", "AI generatif dalam uji klinis", "Generative AI in a clinical trial",
      "Uji acak terkontrol · Therabot, Dartmouth · NEJM AI", "Randomised controlled trial · Therabot, Dartmouth · NEJM AI",
@@ -115,14 +116,14 @@ ROOMS = [
      "The first randomised trial of a generative AI chatbot for treatment showed reduced symptoms of depression and anxiety after four weeks. Throughout the trial, clinicians monitored conversations and were ready to step in.",
      "AI generatif bisa membantu, selama manusia tetap terlibat.",
      "Generative AI can help, as long as people stay involved.",
-     '<div class="ga-duo"><span class="ga-person"></span><span class="ga-plus">+</span>' + NESYA + '</div>'),
+     '<video class="ga-film" data-film muted loop playsinline preload="none" poster="assets/film/gallery/r10.jpg"><source src="assets/film/gallery/r10.mp4" type="video/mp4"></video>'),
     ("r11", "Kini", "Nesya", "Nesya",
      "Teman cerita berbasis AI · TenangAI, Jakarta", "AI companion · TenangAI, Jakarta",
      "Semua pelajaran itu kami bawa pulang ke Jakarta, dengan satu pertanyaan: bagaimana jika orang Indonesia punya tempat bercerita yang jujur bahwa ia AI, mengerti bahasa sehari-hari, tetap ada jam dua pagi, dan tahu kapan harus memanggil manusia? Jawabannya adalah Nesya, teman cerita yang dirancang bersama psikolog klinis.",
      "We brought all of those lessons home to Jakarta, with one question: what if people in Indonesia had a place to talk that is honest about being an AI, understands everyday language, is still there at two in the morning, and knows when to call a person? The answer is Nesya, an AI companion designed with clinical psychologists.",
      "Satu teman cerita untuk setiap orang, dengan batas yang jelas.",
      "A companion for every person, with clear limits.",
-     '<div class="ga-nesya">' + NESYA + '<span class="b u">Aku lagi capek banget\u2026</span><span class="b">Aku dengerin. Mau cerita pelan-pelan?</span></div>'),
+     '<video class="ga-film" data-film muted loop playsinline preload="none" poster="assets/film/gallery/r11.jpg"><source src="assets/film/gallery/r11.mp4" type="video/mp4"></video>' + NESYA_STICKER + ''),
 
     ("r12", "Kini", "Lalu menjadi N2CIAS", "Then it became N2CIAS",
      "Layanan untuk institusi · Nesya, jalur dukungan, dashboard anonim", "A service for institutions · Nesya, care pathway, anonymous dashboard",
@@ -130,7 +131,7 @@ ROOMS = [
      "One person feeling better isn't enough for a university, a hospital or a company. Institutions need to know when and where support is needed, without reading anyone's conversations. So Nesya became part of something bigger: N2CIAS. Nesya for every person, a care pathway that reaches psychologists, and an anonymous dashboard for the institution. Every institution starts with a pilot, and the results flow back into research.",
      "Dari riset, menjadi sistem dukungan untuk seluruh institusi.",
      "From research to a support system for a whole institution.",
-     '<div class="ga-sys"><span class="ga-s1">' + NESYA + 'Nesya</span><i></i><span class="ga-s2">Psikolog</span><i></i><span class="ga-s3"><b class="bars"><em style="--h:45%"></em><em style="--h:75%"></em><em style="--h:55%"></em></b>Dashboard</span><small>N2CIAS</small></div>')
+     '<video class="ga-film" data-film muted loop playsinline preload="none" poster="assets/film/gallery/r12.jpg"><source src="assets/film/gallery/r12.mp4" type="video/mp4"></video>' + NESYA_STICKER + '')
 ]
 
 SOURCES = [

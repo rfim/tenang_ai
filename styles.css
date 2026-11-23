@@ -1678,3 +1678,14 @@ html:not([data-mode="dark"]) .phone-on-film { border-color: rgba(29,74,69,.18) !
   .media-nesya .nesya-peek .tag { display: none; }
   .phone-on-film .chat-live .msg { font-size: 12.5px; }
 }
+/* subtle dropdown chevron */
+.nav2 .dd-btn { gap: 6px; }
+.nav2 .dd-btn::after { width: 5px !important; height: 5px !important; border-right-width: 1px !important; border-bottom-width: 1px !important; margin: 0 0 3px 1px !important; opacity: .55 !important; }
+
+/* gallery rooms: 15-second film loops fill the frame */
+.ga-art:has(.ga-film) { padding: 0; overflow: hidden; }
+.ga-film { position: absolute; inset: 10px; width: calc(100% - 20px); height: calc(100% - 20px); object-fit: cover; border-radius: 2px; }
+.ga-sticker { position: absolute; right: 18px; bottom: 16px; z-index: 2; width: 92px; }
+.ga-sticker .nesya { width: 100%; filter: drop-shadow(0 8px 14px rgba(0,0,0,.45)); }
+@media (max-width: 600px) { .ga-sticker { width: 70px; right: 12px; bottom: 10px; } }
+.media-nesya .phone-on-film { transform: translateY(-50%) !important; }
