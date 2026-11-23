@@ -317,7 +317,7 @@ window.I18N_EN = {
   "id.2.t": "Local context",
   "id.2.b": "Follows how universities, hospitals, state-owned enterprises, corporates, Puskesmas, and district health offices work.",
   "id.3.t": "An Indonesian team",
-  "id.3.b": "Built in Jakarta by TenangAI: psychologists, designers, and AI practitioners serving Indonesian institutions.",
+  "id.3.b": "Built in Jakarta, Yogyakarta and Surabaya by TenangAI: psychologists, designers, and AI practitioners serving Indonesian institutions.",
 
   "why.title": "Why institutions choose N2CIAS",
   "why.1.t": "More than a chatbot.",
