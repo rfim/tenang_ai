@@ -15,7 +15,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Marcellus&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css?v=27cc66f2">
+<link rel="stylesheet" href="styles.css?v=b23449a1">
 <script>
   // Set light/dark before the page paints: saved choice first, then the system setting.
   (function () {
@@ -117,10 +117,10 @@
     </a>
   </div>
   <script>(function(){var w=document.querySelector('.hero-peeks'),c=w&&w.querySelector('.hero-dash');if(!c)return;
-  function fit(){w.classList.remove('pk-off');if(getComputedStyle(w).display==='none')return;var r=c.getBoundingClientRect(),m=12,hit=false;
-  document.querySelectorAll('.hero2-copy > *').forEach(function(e){var b=e.getBoundingClientRect();if(!b.width)return;if(b.left<r.right+m&&b.right>r.left-m&&b.top<r.bottom+m&&b.bottom>r.top-m)hit=true;});
-  if(hit)w.classList.add('pk-off');}
-  addEventListener('resize',fit);addEventListener('load',fit);if(document.fonts)document.fonts.ready.then(fit);fit();})();</script>
+  function hits(){var r=c.getBoundingClientRect(),m=12,hit=false;document.querySelectorAll('.hero2-copy > *').forEach(function(e){var b=e.getBoundingClientRect();if(!b.width)return;if(b.left<r.right+m&&b.right>r.left-m&&b.top<r.bottom+m&&b.bottom>r.top-m)hit=true;});return hit;}
+  function fit(){w.classList.remove('pk-off');if(getComputedStyle(w).display==='none')return;var ws=[460,430,400,370,340,310,290];
+  for(var i=0;i<ws.length;i++){c.style.width=Math.min(ws[i],innerWidth-48)+'px';if(!hits())return;}w.classList.add('pk-off');}
+  addEventListener('resize',fit);addEventListener('load',fit);if(document.fonts)document.fonts.ready.then(fit);document.addEventListener('langchange',function(){setTimeout(fit,50);});fit();setTimeout(fit,1500);setTimeout(fit,3500);})();</script>
   <div class="wrap hero2-grid hero2-center">
     <div class="hero2-copy">
       <p class="eyebrow2 hero-eyebrow"><button type="button" class="he-n2" aria-expanded="false" aria-controls="n2-mean-hero" aria-label="N2CIAS: arti nama">N2CIAS<svg class="he-chev" viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button><span class="n2-mean n2-mean-hero" id="n2-mean-hero"><b>N</b>esya &amp; <b>N</b>avigation · <b>C</b>are · <b>I</b>nsight · <b>A</b>ccess · <b>S</b>afety <a class="n2-more" href="#n2-name" data-i18n="n2.more">Selengkapnya</a></span><span class="he-dot" aria-hidden="true"> · </span><span class="he-t" data-i18n="hero.label">dukungan kesehatan mental untuk institusi</span></p>
