@@ -198,16 +198,22 @@
     movePara();
   }
 
-  // ---------- Mobile sticky call to action: after the hero, hidden near the contact form ----------
+  // ---------- Mobile sticky call to action ----------
+  // Shows after the hero when the visitor scrolls up (looking for what to do next) and hides while they scroll down
+  // to read, so it never sits on top of what they are reading. Never over the contact form or the footer.
   var mcta = document.querySelector(".m-cta");
   if (mcta) {
-    var demo = document.getElementById("demo");
-    var demoVisible = false;
-    if (demo && "IntersectionObserver" in window) {
-      new IntersectionObserver(function (en) { demoVisible = en[0].isIntersecting; updateCta(); }).observe(demo);
+    var demoVisible = false, footVisible = false, lastY = window.scrollY, ctaOn = false;
+    if ("IntersectionObserver" in window) {
+      var demo = document.getElementById("demo"), foot = document.querySelector("footer");
+      if (demo) new IntersectionObserver(function (en) { demoVisible = en[0].isIntersecting; updateCta(); }).observe(demo);
+      if (foot) new IntersectionObserver(function (en) { footVisible = en[0].isIntersecting; updateCta(); }).observe(foot);
     }
     function updateCta() {
-      var show = window.scrollY > window.innerHeight * 0.9 && !demoVisible;
+      var y = window.scrollY, dy = y - lastY;
+      if (dy > 6) ctaOn = false; else if (dy < -6) ctaOn = true;
+      if (Math.abs(dy) > 6) lastY = y;
+      var show = ctaOn && y > window.innerHeight * 0.9 && !demoVisible && !footVisible;
       mcta.classList.toggle("show", show);
       mcta.setAttribute("aria-hidden", String(!show));
       mcta.tabIndex = show ? 0 : -1;
