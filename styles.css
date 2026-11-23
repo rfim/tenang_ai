@@ -1582,3 +1582,27 @@ html[data-mode="dark"] .ed-dark .pbtn-light .pbtn-t { background: #2c6a65; }
 /* footer: page colour fades into the night clip */
 .foot2-film::after { content: ""; position: absolute; left: 0; right: 0; top: -1px; height: 200px; background: linear-gradient(180deg, var(--paper), transparent); }
 .foot2 { margin-top: 0; }
+
+/* =================== Neat header: wordmark inside the pill, clean scrolled bar =================== */
+.nav2-pill .brand.wm { margin: 0 22px; padding: 0; align-self: center; display: flex; align-items: center; text-decoration: none; color: var(--cream); }
+.nav2-pill .brand.wm::before { display: none; }
+.wm-t { display: inline-flex; align-items: flex-start; font: 400 22px/1 var(--display); letter-spacing: .08em; color: var(--cream); white-space: nowrap; }
+.wm-t sup { font: 600 8.5px/1 var(--sans); letter-spacing: .2em; color: var(--mustard-l); margin: 1px 0 0 4px; }
+.nav2 .brand-m.wm { flex-direction: row; padding: 0; margin: 0; background: none; border-radius: 0; }
+.nav2 .brand-m.wm .wm-t { font-size: 20px; }
+/* scrolled: no cloud edge, a calm translucent bar with a hairline */
+.nav2.scrolled::after, .nav2.solid::after { display: none !important; }
+.nav2.scrolled, .nav2.solid { background: rgba(12,34,33,.9); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); border-bottom: 1px solid rgba(245,236,217,.1); }
+html[data-mode="dark"] .nav2.scrolled, html[data-mode="dark"] .nav2.solid { background: rgba(8,19,27,.9); }
+
+/* "Apa itu N2CIAS": the chat card fits, the clip sits quietly behind it */
+.media-nesya video.film { filter: brightness(.72) saturate(.8) blur(1.5px); transform: scale(1.04); }
+.phone-on-film { right: 50% !important; transform: translate(50%, -50%) rotate(-1.5deg) !important; width: 290px !important; max-height: 90%; overflow: hidden; box-shadow: 0 24px 50px -20px rgba(0,0,0,.6) !important; }
+.phone-on-film .msg:nth-of-type(4), .phone-on-film .quick { display: none; }
+.phone-on-film .chat { gap: 8px; padding-top: 10px; }
+.phone-on-film .msg { opacity: 1 !important; transform: none !important; }
+.nav2 .brand.wm .wm-t, .nav2-pill .brand.wm span.wm-t, .nav2 .brand-m.wm span.wm-t { display: inline-flex !important; flex-direction: row; align-items: flex-start; justify-items: initial; }
+.wm-t { align-items: baseline !important; }
+.wm-by { font: italic 400 13px/1 var(--display); letter-spacing: .02em; color: rgba(245,236,217,.7); margin-right: 7px; }
+.wm-t sup { align-self: flex-start; }
+.nav2 .brand-m.wm .wm-by { font-size: 12px; margin-right: 6px; }
