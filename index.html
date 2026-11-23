@@ -65,7 +65,15 @@
     </div>
     <div class="nav2-pill">
       <nav class="nav-links nav-links-l" aria-label="Utama">
-        <a href="#platform">Platform</a>
+        <div class="dd">
+          <button type="button" class="dd-btn" aria-expanded="false"><span>Platform</span></button>
+          <div class="dd-menu">
+            <a href="#toolkit" data-i18n="tool.eyebrow">Fitur</a>
+            <a href="#how-it-works" data-i18n="nav.how2">Cara kerja</a>
+            <a href="#dashboard">Dashboard</a>
+            <a href="#safety" data-i18n="nav.safety">Keamanan</a>
+          </div>
+        </div>
         <div class="dd">
           <button type="button" class="dd-btn" aria-expanded="false"><span data-i18n="nav.org">Organisasi</span></button>
           <div class="dd-menu">
@@ -75,7 +83,6 @@
             <a href="kesehatan-masyarakat.html" data-i18n="type.public">Kesehatan masyarakat</a>
           </div>
         </div>
-        <a href="#dashboard">Dashboard</a>
       </nav>
       <a href="#top" class="brand" aria-label="N2CIAS oleh TenangAI">
         <img src="assets/favicon.svg" alt="" width="34" height="34">
@@ -83,8 +90,7 @@
       </a>
       <nav class="nav-links nav-links-r" aria-label="Lainnya">
         <a href="research.html" data-i18n="nav.research">Riset</a>
-        <a href="#safety" data-i18n="nav.safety">Keamanan</a>
-        <a href="#pilot" data-i18n="nav.pilot">Ketersediaan</a>
+        <a href="#pilot">Pilot</a>
       </nav>
     </div>
     <div class="nav2-side nav2-r">
@@ -160,7 +166,7 @@
 <!-- ORGANISATIONS: four cards (Bija "stories" row) -->
 <section class="ed ed-light" id="use-cases">
   <div class="wrap">
-    <div class="ed-head">
+    <div class="ed-head reveal">
       <div>
         <p class="eyebrow2" data-i18n="org.eyebrow">Untuk institusi</p>
         <h2 class="h2" data-i18n="org.home.title">Satu layanan, untuk setiap institusi.</h2>
@@ -171,28 +177,28 @@
       </div>
     </div>
     <div class="card4">
-      <a class="c4" href="universitas.html">
+      <a class="c4 reveal" href="universitas.html">
         <span class="c4-media m-teal"><img src="assets/collage-indigo.svg" alt=""><img class="c4-ico" src="assets/kite-teal.svg" alt=""></span>
         <span class="eyebrow2" data-i18n="type.university">Universitas</span>
         <b class="c4-t" data-i18n="card.uni.t">Dukungan di luar jam konseling</b>
         <span class="c4-b" data-i18n="card.uni.b">Mahasiswa bisa mulai bercerita kapan saja. Tim kemahasiswaan melihat kapan kebutuhan naik.</span>
         <span class="pbtn pbtn-soft pbtn-sm"><span class="pbtn-t" data-i18n="card.more">Selengkapnya</span><span class="pbtn-i"><svg width="14" height="10"><use href="#arrow"/></svg></span></span>
       </a>
-      <a class="c4" href="rumah-sakit.html">
+      <a class="c4 reveal" href="rumah-sakit.html">
         <span class="c4-media"><img src="assets/collage-olive.svg" alt=""><img class="c4-ico" src="assets/kite-olive.svg" alt=""></span>
         <span class="eyebrow2" data-i18n="type.hospital">Rumah sakit</span>
         <b class="c4-t" data-i18n="card.hos.t">Untuk yang merawat orang lain</b>
         <span class="c4-b" data-i18n="card.hos.b">Perawat dan dokter bisa bercerita sesudah shift malam, tanpa menunggu jam layanan buka.</span>
         <span class="pbtn pbtn-soft pbtn-sm"><span class="pbtn-t" data-i18n="card.more">Selengkapnya</span><span class="pbtn-i"><svg width="14" height="10"><use href="#arrow"/></svg></span></span>
       </a>
-      <a class="c4" href="perusahaan.html">
+      <a class="c4 reveal" href="perusahaan.html">
         <span class="c4-media"><img src="assets/collage-rust.svg" alt=""><img class="c4-ico" src="assets/kite-indigo.svg" alt=""></span>
         <span class="eyebrow2" data-i18n="type.company">Perusahaan</span>
         <b class="c4-t" data-i18n="card.com.t">Tunjangan yang benar-benar dipakai</b>
         <span class="c4-b" data-i18n="card.com.b">Karyawan punya tempat untuk mulai. HR melihat tren tanpa tahu siapa bercerita apa.</span>
         <span class="pbtn pbtn-soft pbtn-sm"><span class="pbtn-t" data-i18n="card.more">Selengkapnya</span><span class="pbtn-i"><svg width="14" height="10"><use href="#arrow"/></svg></span></span>
       </a>
-      <a class="c4" href="kesehatan-masyarakat.html">
+      <a class="c4 reveal" href="kesehatan-masyarakat.html">
         <span class="c4-media m-dark"><img class="c4-mm" src="assets/mm-c-night.svg" alt=""></span>
         <span class="eyebrow2" data-i18n="type.public">Kesehatan masyarakat</span>
         <b class="c4-t" data-i18n="card.pub.t">Menjangkau lebih banyak orang</b>
@@ -205,7 +211,7 @@
 
 <!-- PLATFORM: split, text left / media right -->
 <section class="ed ed-light ed-tight" id="platform">
-  <div class="wrap split">
+  <div class="wrap split reveal-split">
     <div class="split-copy">
       <p class="eyebrow2" data-i18n="plat.eyebrow">Platform</p>
       <h2 class="h2" data-i18n="about.title">Apa itu N2CIAS?</h2>
@@ -227,7 +233,7 @@
 <!-- TOOLKIT: dark product-style grid -->
 <section class="ed ed-dark" id="toolkit">
   <div class="wrap">
-    <div class="ed-head">
+    <div class="ed-head reveal">
       <div>
         <p class="eyebrow2" data-i18n="tool.eyebrow">Fitur</p>
         <h2 class="h2" data-i18n="tool.title">Isi kotak alat Nesya</h2>
@@ -235,19 +241,19 @@
       </div>
     </div>
     <div class="tool-grid tg2">
-      <article class="tcard"><span class="tcard-top t1"><svg><use href="#i-chat"/></svg></span><h3 data-i18n="tool.1.t">Teman cerita AI</h3><p data-i18n="tool.1.b">Ngobrol kapan saja dalam Bahasa Indonesia sehari-hari, dengan empati dan tanpa menghakimi.</p></article>
-      <article class="tcard"><span class="tcard-top t2"><svg><use href="#i-check"/></svg></span><h3 data-i18n="tool.2.t">Check-in singkat</h3><p data-i18n="tool.2.b">Beberapa pertanyaan untuk mengenali perasaan dan apa yang sedang dibutuhkan.</p></article>
-      <article class="tcard"><span class="tcard-top t3"><svg><use href="#i-leaf"/></svg></span><h3 data-i18n="tool.3.t">Latihan menenangkan diri</h3><p data-i18n="tool.3.b">Latihan napas, grounding, dan refleksi singkat yang bisa dilakukan di mana saja.</p></article>
-      <article class="tcard"><span class="tcard-top t4"><svg><use href="#i-people"/></svg></span><h3 data-i18n="tool.4.t">Rujukan ke psikolog</h3><p data-i18n="tool.4.b">Saat butuh lebih dari sekadar cerita, Nesya mengarahkan ke psikolog atau konselor.</p></article>
-      <article class="tcard"><span class="tcard-top t5"><svg><use href="#i-doc"/></svg></span><h3 data-i18n="tool.5.t">Ringkasan untuk psikolog</h3><p data-i18n="tool.5.b">Atas izin pengguna, psikolog menerima ringkasan agar sesi tidak mulai dari nol.</p></article>
-      <article class="tcard"><span class="tcard-top t6"><svg><use href="#i-chart"/></svg></span><h3 data-i18n="tool.6.t">Dashboard institusi</h3><p data-i18n="tool.6.b">Pola agregat yang anonim untuk merencanakan program dukungan.</p></article>
+      <article class="tcard reveal"><span class="tcard-top t1"><svg><use href="#i-chat"/></svg></span><h3 data-i18n="tool.1.t">Teman cerita AI</h3><p data-i18n="tool.1.b">Ngobrol kapan saja dalam Bahasa Indonesia sehari-hari, dengan empati dan tanpa menghakimi.</p></article>
+      <article class="tcard reveal"><span class="tcard-top t2"><svg><use href="#i-check"/></svg></span><h3 data-i18n="tool.2.t">Check-in singkat</h3><p data-i18n="tool.2.b">Beberapa pertanyaan untuk mengenali perasaan dan apa yang sedang dibutuhkan.</p></article>
+      <article class="tcard reveal"><span class="tcard-top t3"><svg><use href="#i-leaf"/></svg></span><h3 data-i18n="tool.3.t">Latihan menenangkan diri</h3><p data-i18n="tool.3.b">Latihan napas, grounding, dan refleksi singkat yang bisa dilakukan di mana saja.</p></article>
+      <article class="tcard reveal"><span class="tcard-top t4"><svg><use href="#i-people"/></svg></span><h3 data-i18n="tool.4.t">Rujukan ke psikolog</h3><p data-i18n="tool.4.b">Saat butuh lebih dari sekadar cerita, Nesya mengarahkan ke psikolog atau konselor.</p></article>
+      <article class="tcard reveal"><span class="tcard-top t5"><svg><use href="#i-doc"/></svg></span><h3 data-i18n="tool.5.t">Ringkasan untuk psikolog</h3><p data-i18n="tool.5.b">Atas izin pengguna, psikolog menerima ringkasan agar sesi tidak mulai dari nol.</p></article>
+      <article class="tcard reveal"><span class="tcard-top t6"><svg><use href="#i-chart"/></svg></span><h3 data-i18n="tool.6.t">Dashboard institusi</h3><p data-i18n="tool.6.b">Pola agregat yang anonim untuk merencanakan program dukungan.</p></article>
     </div>
   </div>
 </section>
 
 <!-- PATHWAY: split, media left -->
 <section class="ed ed-dark ed-tight" id="pathway">
-  <div class="wrap split split-rev">
+  <div class="wrap split reveal-split split-rev">
     <figure class="split-media media-kite" aria-hidden="true">
       <img class="sm-bg" src="assets/collage-rust.svg" alt="">
       <img class="sm-kite" src="assets/kite-teal.svg" alt="">
@@ -267,7 +273,7 @@
 
 <!-- HOW IT WORKS: split with a steps table (Bija opening-hours table) -->
 <section class="ed ed-dark ed-tight" id="how-it-works">
-  <div class="wrap split">
+  <div class="wrap split reveal-split">
     <div class="split-copy">
       <p class="eyebrow2" data-i18n="how.eyebrow">Cara kerja</p>
       <h2 class="h2" data-i18n="how.title">Bagaimana N2CIAS bekerja</h2>
@@ -291,14 +297,14 @@
 <!-- DASHBOARD -->
 <section class="ed ed-dark ed-tight" id="dashboard">
   <div class="wrap">
-    <div class="ed-head">
+    <div class="ed-head reveal">
       <div>
         <p class="eyebrow2" data-i18n="dash.eyebrow">Dashboard institusi</p>
         <h2 class="h2" data-i18n="dash.title">Dari percakapan pribadi menjadi insight yang aman</h2>
         <p class="ed-p" data-i18n="dash.lead">Pola pemakaian dan kesehatan mental yang anonim dan agregat, untuk perencanaan program, pencegahan, dan alokasi dukungan.</p>
       </div>
     </div>
-    <div class="dash note">
+    <div class="dash note reveal">
       <div class="dash-head">
         <strong data-i18n="dash.name">Dashboard institusi N2CIAS</strong>
         <span class="badge" data-i18n="dash.badge">Contoh data · anonim · agregat</span>
@@ -364,7 +370,7 @@
 
 <!-- COVERAGE PLANNER -->
 <section class="ed ed-light" id="coverage">
-  <div class="wrap split split-top">
+  <div class="wrap split reveal-split split-top">
     <div class="split-copy">
       <p class="eyebrow2" data-i18n="plan.kicker">Perencana kapasitas</p>
       <h2 class="h2" data-i18n="plan.title">Rencanakan tingkat dukungan yang pas.</h2>
@@ -398,7 +404,7 @@
 
 <!-- SAFETY: split, media left -->
 <section class="ed ed-light ed-tight" id="safety">
-  <div class="wrap split split-rev">
+  <div class="wrap split reveal-split split-rev">
     <figure class="split-media media-lock" aria-hidden="true">
       <img class="sm-bg" src="assets/collage-indigo.svg" alt="">
       <span class="lock-badge"><svg><use href="#i-lock"/></svg></span>
@@ -423,7 +429,7 @@
 
 <!-- RESEARCH: split -->
 <section class="ed ed-light ed-tight" id="research">
-  <div class="wrap split">
+  <div class="wrap split reveal-split">
     <div class="split-copy">
       <p class="eyebrow2" data-i18n="rs.kicker">Riset</p>
       <h2 class="h2" data-i18n="rs.title">Dibangun di atas bukti.</h2>
@@ -436,7 +442,7 @@
 
 <!-- WHY + INDONESIA: dark -->
 <section class="ed ed-dark" id="why">
-  <div class="wrap split split-top">
+  <div class="wrap split reveal-split split-top">
     <div class="split-copy">
       <p class="eyebrow2" data-i18n="why.eyebrow">Kenapa N2CIAS</p>
       <h2 class="h2" data-i18n="why.title">Kenapa institusi memilih N2CIAS</h2>
@@ -463,7 +469,7 @@
 <!-- AVAILABILITY / PILOT -->
 <section class="ed ed-light" id="pilot">
   <div class="wrap">
-    <div class="ed-head">
+    <div class="ed-head reveal">
       <div>
         <p class="eyebrow2" data-i18n="av.eyebrow">Ketersediaan</p>
         <h2 class="h2" data-i18n="av.title">Mulai sekarang, berkembang bersama kami</h2>
@@ -493,7 +499,7 @@
 
 <!-- PARTNERS: moving logo carousel -->
 <section class="logos ed-partners" aria-labelledby="logos-label">
-  <div class="wrap logos-inner">
+  <div class="wrap logos-inner reveal">
     <p class="eyebrow2" data-i18n="logos.label">Bekerja bersama institusi di Indonesia</p>
     <h2 class="h2 center" id="logos-label" data-i18n="partners.title">Mitra kami.</h2>
   </div>
@@ -505,12 +511,12 @@
 
 <!-- FAQ -->
 <section class="ed ed-light" id="faq">
-  <div class="wrap split split-top">
+  <div class="wrap split reveal-split split-top">
     <div class="split-copy">
       <p class="eyebrow2">FAQ</p>
       <h2 class="h2" data-i18n="faq.title">Pertanyaan yang sering muncul.</h2>
     </div>
-    <div class="faq">
+    <div class="faq reveal">
       <details><summary data-i18n="faq.1.q">Apakah institusi bisa membaca percakapan karyawan atau mahasiswa?</summary><p data-i18n="faq.1.a">Tidak. Institusi hanya melihat angka agregat, dan hanya untuk kelompok yang cukup besar sehingga tidak ada individu yang bisa dikenali.</p></details>
       <details><summary data-i18n="faq.2.q">Apakah Nesya seorang psikolog?</summary><p data-i18n="faq.2.a">Bukan. Nesya adalah AI yang membantu orang bercerita, menenangkan diri, dan menemukan langkah berikutnya. Untuk penanganan lebih dalam, Nesya merujuk ke psikolog atau konselor.</p></details>
       <details><summary data-i18n="faq.3.q">Apa yang terjadi jika seseorang dalam kondisi krisis?</summary><p data-i18n="faq.3.a">Nesya mengarahkan pengguna ke layanan darurat dan jalur rujukan yang disepakati dengan institusi. N2CIAS bukan layanan krisis.</p></details>
@@ -523,7 +529,7 @@
 
 <!-- CONTACT -->
 <section class="ed ed-dark" id="demo">
-  <div class="wrap split split-top">
+  <div class="wrap split reveal-split split-top">
     <div class="split-copy">
       <p class="eyebrow2" data-i18n="ct.eyebrow">Hubungi kami</p>
       <h2 class="h2" data-i18n="ct.title">Ceritakan siapa yang ingin Anda dukung</h2>
@@ -566,7 +572,7 @@
 
 <footer class="footer foot2">
   <div class="wrap foot2-grid">
-    <div class="foot2-big">
+    <div class="foot2-big reveal">
       <h2 class="h2" data-i18n="final.title">Dukung orang-orang Anda sebelum bebannya tak terlihat</h2>
       <p data-i18n="foot.about">Layanan kesehatan mental preventif untuk institusi Indonesia. Dibuat di Jakarta, Indonesia.</p>
       <a href="#demo" class="pbtn pbtn-light"><span class="pbtn-t" data-i18n="cta.demo">Jadwalkan demo</span><span class="pbtn-i"><svg width="14" height="10"><use href="#arrow"/></svg></span></a>

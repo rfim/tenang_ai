@@ -74,10 +74,15 @@
   // ---------- Nav ----------
   var header = document.querySelector(".nav2") || document.querySelector(".nav");
   var menuBtn = document.querySelector(".menu-btn");
+  function setNavH() { header.style.setProperty("--navh", header.getBoundingClientRect().height + "px"); }
+  setNavH();
+  window.addEventListener("resize", setNavH);
   function setMenu(open) {
+    setNavH();
     header.classList.toggle("menu-open", open);
     document.querySelectorAll(".nav-links").forEach(function (l) { l.classList.toggle("open", open); });
     menuBtn.setAttribute("aria-expanded", String(open));
+    document.body.style.overflow = open ? "hidden" : "";
   }
   menuBtn.addEventListener("click", function () { setMenu(!header.classList.contains("menu-open")); });
   document.querySelectorAll(".nav-links").forEach(function (l) {
@@ -134,16 +139,36 @@
     updateCta();
   }
 
-  // ---------- Reveal on scroll ----------
-  var revealEls = document.querySelectorAll(".head, .note, .col, .collage-3 article, .process li, .journey li, .cols-3 article");
+  // ---------- Reveal on scroll (after Bija: rise 16px and fade, soft ease-out) ----------
+  // Home page marks elements with .reveal / .reveal-split; subpages get the same treatment automatically.
+  if (!document.querySelector(".hero2")) {
+    document.querySelectorAll(".head, .note, .col, .collage-3 article, .process li, .journey li, .cols-3 article, .org-helps li, .page-hero h1, .page-hero .lead")
+      .forEach(function (el) { el.classList.add("reveal"); });
+  }
+  var revealEls = [].slice.call(document.querySelectorAll(".reveal, .reveal-split"));
+  // stagger siblings in rows (cards, feature grid)
+  revealEls.forEach(function (el) {
+    var sibs = [].filter.call(el.parentNode.children, function (c) { return c.classList.contains("reveal"); });
+    var i = sibs.indexOf(el);
+    if (sibs.length > 1 && i > 0) el.style.transitionDelay = Math.min(i, 5) * 90 + "ms";
+  });
+  function showEl(el) {
+    el.classList.add("in");
+    // main buttons glow once as they arrive, like Bija's lamp-lit arrows
+    el.querySelectorAll(".pbtn-i").forEach(function (ic) { ic.classList.add("glow-once"); });
+  }
   if ("IntersectionObserver" in window && !reduce) {
     var io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (en) {
-        if (en.isIntersecting) { en.target.classList.add("in"); io.unobserve(en.target); }
-      });
-    }, { rootMargin: "0px 0px -60px 0px" });
-    revealEls.forEach(function (el) { el.classList.add("reveal"); io.observe(el); });
+      entries.forEach(function (en) { if (en.isIntersecting) { showEl(en.target); io.unobserve(en.target); } });
+    }, { rootMargin: "0px 0px -8% 0px" });
+    revealEls.forEach(function (el) { io.observe(el); });
+  } else {
+    revealEls.forEach(showEl);
   }
+
+  // Hero entrance: copy rises in, scene settles (Bija's 14s "film")
+  var hero = document.querySelector(".hero2");
+  if (hero) requestAnimationFrame(function () { hero.classList.add("hero-in"); });
 
   // ---------- Tabs (case studies, dashboard) ----------
   function tabs(btnSel, attr, panelSel, panelAttr) {
