@@ -27,10 +27,11 @@ html, body { width: 1920px; height: 1080px; overflow: hidden; background: #000; 
 #pboth { position: absolute; left: 0; right: 0; top: 960px; text-align: center; font: 400 44px Marcellus; letter-spacing: .02em; opacity: 0; }
 #pcred { position: absolute; right: 40px; bottom: 22px; font: 400 13px "IBM Plex Mono"; color: rgba(245,236,217,.4); opacity: 0; }
 /* opener */
-#mark { position: absolute; left: 50%; top: 210px; transform: translateX(-50%); display: grid; gap: 6px; }
-#mark .row { display: flex; gap: 6px; }
-#mark i { width: 20px; height: 20px; border-radius: 5px; background: rgba(43,228,199,.06); }
+#mark { position: absolute; left: 50%; top: 150px; transform: translateX(-50%); display: grid; gap: 5px; }
+#mark .row { display: flex; gap: 5px; }
+#mark i { width: 17px; height: 17px; border-radius: 4px; background: rgba(43,228,199,.06); }
 #mark i.on { background: var(--ph); box-shadow: 0 0 14px rgba(43,228,199,.75); }
+#mark i.ear { background: #f2a98f; box-shadow: 0 0 12px rgba(242,169,143,.55); }
 #mark i.heart { background: #ff8a8a; box-shadow: 0 0 14px rgba(255,138,138,.8); }
 #mark i.hot { background: #fff; box-shadow: 0 0 22px rgba(255,255,255,.9); }
 #title { position: absolute; left: 0; right: 0; top: 560px; text-align: center; font: 400 76px Audiowide; letter-spacing: .06em; color: var(--ph); text-shadow: 0 0 18px rgba(43,228,199,.45); white-space: pre; }
@@ -122,23 +123,29 @@ const fadeIO = (t, a, b, f = .35) => clamp(Math.min((t - a) / f, (b - t) / f));
 function rise(el, t, at, d = .6, dy = 24) { const k = ease((t - at) / d); el.style.opacity = k; el.style.transform = `translateY(${(1 - k) * dy}px)`; }
 
 // the mark: "RR" on a dot-matrix grid, two letters for two cities, joined by a bridge row
-// two speech bubbles facing each other (London and Jogja) and a small heart between them: talking feelings through, together
+// a pixel Nesya: front-facing elephant with big ears and a curled trunk, and a small heart
 const GLYPH = [
-  '.#######.........#######.',
-  '#.......#.......#.......#',
-  '#.##.##.#..*.*..#.##.##.#',
-  '#.......#.*****.#.......#',
-  '#.#####.#..***..#.#####.#',
-  '#.......#...*...#.......#',
-  '.#######.........#######.',
-  '..##.....................',
-  '.#...................##..',
-  '.......................#.',
+  '................................*.*.',
+  '....###.....#######.....##.....*****',
+  '...######..#########..#####.....***.',
+  '..##++++###############++++#.....*..',
+  '.##++++++#############++++++##......',
+  '.##++++++#############++++++##......',
+  '.##++++++###.#####.###++++++##......',
+  '.##++++++#####.#.#####++++++##......',
+  '.##++++++#+###.#.###+#++++++##......',
+  '..##+++++#####.#.#####+++++##.......',
+  '..###++##.####.#.####.##++###.......',
+  '...#####...###.#.###...#####........',
+  '............##.#.##.................',
+  '...............#....................',
+  '...............#.#..................',
+  '...............###..................',
 ];
 const mark = $('#mark'); const cells = [];
-GLYPH.forEach((row, y) => { const r = document.createElement('div'); r.className = 'row'; [...row].forEach((c, x) => { const i = document.createElement('i'); r.appendChild(i); if (c === '#') cells.push({ el: i, x, y }); else if (c === '*') cells.push({ el: i, x, y, bridge: true }); }); mark.appendChild(r); });
+GLYPH.forEach((row, y) => { const r = document.createElement('div'); r.className = 'row'; [...row].forEach((c, x) => { const i = document.createElement('i'); r.appendChild(i); if (c === '#') cells.push({ el: i, x, y }); else if (c === '+') cells.push({ el: i, x, y, pink: true }); else if (c === '*') cells.push({ el: i, x, y, bridge: true }); }); mark.appendChild(r); });
 // light order: the left letter from the top, the right letter from the top, then the bridge
-cells.sort((a, b) => (!!a.bridge - !!b.bridge) || ((a.x > 12) - (b.x > 12)) || (a.y - b.y) || (a.x - b.x));
+cells.sort((a, b) => (!!a.bridge - !!b.bridge) || (a.x - b.x) || (a.y - b.y));
 const BOOT = ['rembug-rasa ~ $ ./init --project research', 'loading nodes ........ london  ok', 'loading nodes ........ jogja   ok', 'handshake ............ ok'];
 const TITLE = 'REMBUG RASA PROJECTS';
 $('#head h2').innerHTML = T.h2; $('#head p').textContent = T.p; $('#sub').textContent = T.sub; $('#meta').textContent = T.meta;
@@ -175,8 +182,9 @@ const renderMain = function (t) {
   $('#boot').textContent = BOOT.join('\n').slice(0, bootChars);
   $('#boot').style.opacity = clamp((4.6 - t) / .6) * .9;
   const n = Math.floor(clamp((t - .5) / 1.9) * cells.length);
-  cells.forEach((c, i) => { c.el.className = i < n - 1 ? (c.bridge ? 'heart' : 'on') : i === n - 1 ? 'hot' : ''; });
-  if (t > 2.5) cells.forEach(c => c.el.className = c.bridge ? 'heart' : 'on');
+  const cls = c => c.bridge ? 'heart' : c.pink ? 'ear' : 'on';
+  cells.forEach((c, i) => { c.el.className = i < n - 1 ? cls(c) : i === n - 1 ? 'hot' : ''; });
+  if (t > 2.5) cells.forEach(c => c.el.className = cls(c));
   const beat = t > 2.5 ? 1 + .12 * Math.max(0, Math.sin((t - 2.5) * Math.PI * 2)) ** 6 : 1;
   cells.forEach(c => { if (c.bridge) c.el.style.transform = `scale(${beat})`; });
   // title types after the mark, with a block cursor
