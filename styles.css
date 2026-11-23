@@ -2463,3 +2463,6 @@ html[lang="en"] .hero2 [data-i18n="hero.pre"] { display: none; }
 }
 .st-name-cat .name-cap { margin-top: 8px; font: 500 .82rem var(--sans); letter-spacing: .02em; opacity: .7; text-align: center; }
 .st-name-cat .name-cap { white-space: nowrap; }
+.st-name-cat .name-tag { display: grid; justify-items: center; gap: 1px; padding: 6px 22px 7px 16px; line-height: 1.05; }
+.st-name-cat .name-tag b { font: 700 1.2rem var(--script); }
+.st-name-cat .name-tag small { font: 600 .72rem var(--sans); letter-spacing: .04em; opacity: .92; white-space: nowrap; }
