@@ -2426,3 +2426,22 @@ html[lang="en"] .hero2 [data-i18n="hero.pre"] { display: none; }
 @media (max-width: 920px) { .hero2:not(.hero-sub) .hero2-copy > .made-with { margin-top: 16px !important; } }
 .mw-flags { display: inline-flex; gap: 5px; vertical-align: -2px; margin-left: 2px; }
 .mw-flags .flag { width: 21px; height: 14px; border-radius: 2px; box-shadow: 0 0 0 1px rgba(255,255,255,.35), 0 1px 3px rgba(0,0,0,.3); }
+
+/* Kenali Nesya avatar: a soft breathing halo that invites a tap */
+.meet-i { position: relative; isolation: isolate; overflow: visible !important;
+  background: radial-gradient(circle at 50% 42%, #fffaf0 0 38%, #f5ecd9 70%) !important;
+  box-shadow: 0 0 0 1.5px rgba(255,250,240,.9), 0 0 14px 2px rgba(245,220,160,.55), 0 0 26px 6px rgba(111,207,151,.28);
+  animation: meet-glow 3.6s ease-in-out infinite; }
+.meet-i::before { content: ""; position: absolute; inset: -5px; border-radius: 50%; z-index: -1;
+  background: conic-gradient(from 0deg, rgba(111,207,151,.0), rgba(111,207,151,.55), rgba(245,220,160,.7), rgba(111,207,151,.0) 70%);
+  filter: blur(4px); animation: meet-ring 7s linear infinite; }
+.meet-i::after { content: ""; position: absolute; inset: 0; border-radius: 50%; overflow: hidden; pointer-events: none;
+  background: radial-gradient(circle at 32% 26%, rgba(255,255,255,.75), rgba(255,255,255,0) 34%); }
+.meet-i img { filter: drop-shadow(0 0 4px rgba(255,236,190,.9)) drop-shadow(0 2px 3px rgba(0,0,0,.18)); }
+.meet-btn:hover .meet-i, .meet-btn:focus-visible .meet-i { animation-duration: 1.8s; }
+@keyframes meet-glow {
+  0%, 100% { box-shadow: 0 0 0 1.5px rgba(255,250,240,.9), 0 0 12px 1px rgba(245,220,160,.45), 0 0 22px 4px rgba(111,207,151,.22); }
+  50% { box-shadow: 0 0 0 1.5px rgba(255,250,240,1), 0 0 20px 5px rgba(245,220,160,.7), 0 0 38px 10px rgba(111,207,151,.38); } }
+@keyframes meet-ring { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) { .meet-i, .meet-i::before { animation: none !important; } }
+.meet-i img { width: 34px !important; height: 34px !important; margin-top: 3px !important; position: relative; z-index: 1; }
