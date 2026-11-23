@@ -123,7 +123,7 @@ ROOMS = [
      "We brought all of those lessons home to Jakarta, with one question: what if people in Indonesia had a place to talk that is honest about being an AI, understands everyday language, is still there at two in the morning, and knows when to call a person? The answer is Nesya, an AI companion designed with clinical psychologists.",
      "Satu teman cerita untuk setiap orang, dengan batas yang jelas.",
      "A companion for every person, with clear limits.",
-     '<video class="ga-film" data-film muted loop playsinline preload="none" poster="assets/film/gallery/r11.jpg"><source src="assets/film/gallery/r11.mp4" type="video/mp4"></video>' + NESYA_STICKER + ''),
+     '<video class="ga-film" data-film muted loop playsinline preload="none" poster="assets/film/gallery/r11.jpg?v=c08a3677"><source src="assets/film/gallery/r11.mp4?v=c08a3677" type="video/mp4"></video>' + NESYA_STICKER + ''),
 
     ("r12", "Kini", "Lalu menjadi N2CIAS", "Then it became N2CIAS",
      "Layanan untuk institusi · Nesya, jalur dukungan, dashboard anonim", "A service for institutions · Nesya, care pathway, anonymous dashboard",
