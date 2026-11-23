@@ -7,8 +7,10 @@ const { chromium } = require('playwright'); const fs = require('fs');
     // hero with the console card
     await p.goto('http://localhost:8765/', { waitUntil: 'networkidle' }); await p.locator(`button[data-lang=${lang}]:visible`).first().click();
     await p.addStyleTag({ content: hide }); await p.evaluate(() => scrollTo(0, 0)); await p.waitForTimeout(5200);
-    await p.addStyleTag({ content: '.hb > a,.mw-arc,.pk-chips > span{animation:none!important}' }); await p.waitForTimeout(300);
+    await p.addStyleTag({ content: '.hb > a,.mw-arc,.pk-chips > span,.pk-heat rect,.tr-l,.pk-kpis > span,.pk-un rect,.pk-units2 > span{animation:none!important}' }); await p.waitForTimeout(300);
     await p.screenshot({ path: `${V}/${lang}/new-hero.png` });
+    for (const v of [1, 2, 3]) { await p.evaluate(v => window.N2Peek.show(v), v); await p.waitForTimeout(1200); await p.screenshot({ path: `${V}/${lang}/new-hero-t${v}.png` }); }
+    await p.evaluate(() => window.N2Peek.show(0)); await p.waitForTimeout(300);
     R[`${lang}/new-hero`] = { h1: await fr(p, '.hero2 h1'), strip: await fr(p, '.partners-pin .marquee'), peek: await fr(p, '.hb') };
     await p.addStyleTag({ content: '.partners-pin{display:none!important}' });
     // home dashboard: console on Peta, then the Analitik tab

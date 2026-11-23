@@ -23,6 +23,7 @@ html, body { width: 1920px; height: 1080px; overflow: hidden; background: var(--
 .view { position: absolute; left: 0; right: 0; top: 44px; bottom: 0; overflow: hidden; }
 .layer { position: absolute; left: 0; top: 0; transform-origin: 0 0; opacity: 0; }
 .layer img { display: block; width: 100%; height: 100%; }
+.layer .tabimg { position: absolute; left: 0; top: 0; opacity: 0; }
 .hl { position: absolute; border-radius: 12px; border: 5px solid var(--coral); box-shadow: 0 0 0 5000px rgba(4,10,12,.0), 0 0 40px rgba(255,138,101,.55); opacity: 0; }
 .solved .hl { border-color: var(--mint); box-shadow: 0 0 0 5000px rgba(4,10,12,.0), 0 0 40px rgba(111,207,151,.55); }
 /* side panel */
@@ -166,7 +167,7 @@ const R = (img, key) => RECTS[LANG + '/' + img][key];
 // --- the timeline ---
 const SCENES = [
   { id: 'p1', a: 13, b: 17, kind: 'problem', g: 0, txt: T.p1, shots: [{ img: 'old-hero', box: 'h1', at: 13 }] },
-  { id: 's1', a: 17, b: 21, kind: 'solved', g: 0, txt: T.s1, fix: T.p1[0], shots: [{ img: 'new-hero', box: 'h1', at: 17 }, { img: 'new-hero', box: 'peek', at: 19.1 }] },
+  { id: 's1', a: 17, b: 21, kind: 'solved', g: 0, txt: T.s1, fix: T.p1[0], shots: [{ img: 'new-hero', box: 'h1', at: 17 }, { img: 'new-hero', box: 'peek', at: 19.1, tabs: 4 }] },
   { id: 'p2', a: 21, b: 25, kind: 'problem', g: 1, txt: T.p2, shots: [{ img: 'old-nesya', box: 'card', at: 21 }] },
   { id: 's2', a: 25, b: 29, kind: 'solved', g: 1, txt: T.s2, fix: T.p2[0], shots: [{ img: 'new-nesya', box: 'media', at: 25 }] },
   { id: 'p3', a: 39, b: 44, kind: 'problem', g: 2, txt: T.p3, shots: [{ img: 'old-partners', box: 'line', at: 39 }, { img: 'old-partners', box: 'nav', at: 41.5 }] },
@@ -187,7 +188,7 @@ SCENES.forEach(s => {
   add(`<section class="scene dark ${s.kind}" id="${s.id}">
     <div class="gh"><span class="num">0${s.g + 1}</span><h2 class="serif">${g[0]}</h2><span class="q">${g[1]}</span></div>
     <div class="frame ${isNew ? 'new' : ''}" style="left:80px; top:190px; width:${FW}px; height:${FH}px"><div class="bar"><i></i><i></i><i></i><b>${isNew ? 'rfim.github.io/tenang_ai' : 'tenang.ai'}</b></div>
-      <div class="view">${s.shots.map((sh, k) => `<div class="layer" data-k="${k}"><img src="${LANG}/${sh.img}.png"><div class="hl"></div></div>`).join('')}</div></div>
+      <div class="view">${s.shots.map((sh, k) => `<div class="layer" data-k="${k}"><img src="${LANG}/${sh.img}.png">${sh.tabs ? [1, 2, 3].map(n => `<img class="tabimg" data-t="${n}" src="${LANG}/${sh.img}-t${n}.png" style="clip-path:inset(${((R(sh.img, sh.box)[1] - .01) * 100).toFixed(2)}% ${((1 - R(sh.img, sh.box)[2] - .01) * 100).toFixed(2)}% ${((1 - R(sh.img, sh.box)[3] - .01) * 100).toFixed(2)}% ${((R(sh.img, sh.box)[0] - .01) * 100).toFixed(2)}%)">`).join('') : ''}<div class="hl"></div></div>`).join('')}</div></div>
     <div class="panel"><span class="pill"><svg><use href="#${isNew ? 'ok' : 'x'}"/></svg>${isNew ? T.solved : T.problem}</span><h3>${s.txt[0]}</h3><p>${s.txt[1]}</p>${s.fix ? `<div class="fix">${T.fixes} <b>${s.fix}</b></div>` : ''}</div>
   </section>`);
 });
@@ -257,6 +258,7 @@ window.render = function (t) {
       const end = i + 1 < s.shots.length ? s.shots[i + 1].at : s.b;
       const L = layers[i]; L.style.opacity = i === 0 ? clamp((end + .3 - t) / .35) : clamp(Math.min((t - sh.at) / .35, (end + .3 - t) / .35));
       camera(L, R(sh.img, sh.box), t, sh.at, end);
+      if (sh.tabs) { const rt = window.RT || 0; L.querySelectorAll('.tabimg').forEach(im => { const n = +im.dataset.t, st = TAB_RT[n - 1], nx = TAB_RT[n] || 1e9; im.style.opacity = t < sh.at ? 0 : clamp(Math.min((rt - st) / .35, (nx + .35 - rt) / .35)); }); }
     });
   });
   // meet Nesya 29–34
@@ -313,8 +315,10 @@ function renderDash(t) {
   // the whole-dashboard shot gets no highlight box
   $('.layer[data-k="0"] .hl', el).style.display = 'none';
 }
+// hero cards switch tabs in real time (film seconds), so they keep moving while the scene is held for reading
+const TAB_RT = [31.2, 32.4, 33.6];
 const baseRender = window.render;
-window.render = function (t) {
+window.render = function (t, rt) { window.RT = rt;
   if (t < DASH_AT) { baseRender(t); renderDash(-10); }
   else if (t < DASH_AT + DASH_LEN) { baseRender(DASH_AT - .001 + 100); renderDash(t); }
   else { baseRender(t - DASH_LEN); renderDash(-10); }
