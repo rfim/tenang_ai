@@ -33,13 +33,13 @@
       trend: "Tren", up: "naik", down: "turun", flat: "stabil", peak: "Puncak", legend: "Legenda", map: "Peta 30 hari", h24: "Pola 24 jam", range: "Rentang",
       indNote: "Tampilan individu hanya untuk psikolog yang ditunjuk, atas izin pengguna. Institusi tidak pernah melihat tampilan ini.",
       aggNote: "Agregat dan anonim. Institusi tidak pernah melihat percakapan pribadi.", mock: "Data contoh", tools: ["Pilih", "Rentang", "Perbesar", "Perkecil", "Label", "Atur ulang", "Ekspor"] ,
-      avg: "beban rata-rata", sum: "check-in", of: "dari", load: "Beban", ci: "Check-in", keyNote: "Angka di kotak = beban emosional hari itu (0–100). Di bawahnya: jumlah check-in. Batang berwarna = topik yang sedang tinggi.", sideTitle: "Hari per hari", lvN: ["", "Ringan", "Sedang", "Berat"], pdf: "Unduh PDF", report: "Laporan N2CIAS" },
+      avg: "beban rata-rata", sum: "check-in", of: "dari", load: "Beban", ci: "Check-in", keyNote: "Angka di kotak = beban emosional hari itu (0–100). Di bawahnya: jumlah check-in. Batang berwarna = topik yang sedang tinggi.", sideTitle: "Hari per hari", lvN: ["", "Ringan", "Sedang", "Berat"], pdf: "Unduh PDF", report: "Laporan N2CIAS", back: "← Kembali ke situs" },
     en: { nav: ["Map", "Trends", "Units", "Reports", "Settings"], user: "Demo admin", sel: "Selection", days: "days", day: "Day", load: "load", ci: "check-ins",
       props: "Properties", source: "Source", agg: "Anonymous aggregate", ind: "One user, with consent", kmin: "Privacy threshold", kv: "≥ 10 people per cell", consent: "Consent", cv: "Given 5 Nov 2026",
       trend: "Trend", up: "up", down: "down", flat: "steady", peak: "Peak", legend: "Legend", map: "30-day map", h24: "24-hour pattern", range: "Range",
       indNote: "The individual view is only for the assigned psychologist, with the user's consent. Institutions never see this view.",
       aggNote: "Aggregated and anonymous. Institutions never see private conversations.", mock: "Sample data", tools: ["Select", "Range", "Zoom in", "Zoom out", "Labels", "Reset", "Export"],
-      avg: "average load", sum: "check-ins", of: "of", load: "Load", ci: "Check-ins", keyNote: "Number in the box = that day's emotional load (0–100). Below it: number of check-ins. Coloured bars = topics running high.", sideTitle: "Day by day", lvN: ["", "Light", "Moderate", "Heavy"], pdf: "Download PDF", report: "N2CIAS report" }
+      avg: "average load", sum: "check-ins", of: "of", load: "Load", ci: "Check-ins", keyNote: "Number in the box = that day's emotional load (0–100). Below it: number of check-ins. Coloured bars = topics running high.", sideTitle: "Day by day", lvN: ["", "Light", "Moderate", "Heavy"], pdf: "Download PDF", report: "N2CIAS report", back: "← Back to site" }
   };
   function L() { return T[lang()]; }
   function nm(t) { return t[lang()]; }
@@ -70,7 +70,8 @@
     return { days: days, feats: feats, lanes: lanes.length, hours: hours };
   }
 
-  var state = { tab: 0, sel: [12, 18], feat: null, zoom: 1, labels: true };
+  var state = { tab: 0, sel: [12, 18], feat: null, zoom: 1, labels: true, view: 0 };
+  var FULL = document.body.classList.contains("cx-full");
   var data = build(TABS[0]);
 
   // ---------- geometry ----------
@@ -90,9 +91,11 @@
     app.classList.toggle("is-ind", ind);
     // app bar + tabs
     var bar = h("div", "cx-bar", '<span class="cx-logo"><img src="assets/nesya/happy.png" alt=""></span><b class="cx-name">N2CIAS</b>' +
-      t.nav.map(function (n, i) { return '<span class="cx-nav' + (i === 0 ? " on" : "") + '">' + n + "</span>"; }).join("") +
-      '<span class="cx-user"><button type="button" class="cx-pdf"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 2v8M4.5 7L8 10.5 11.5 7M3 13h10" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>' + t.pdf + '</button><span class="cx-mock">' + t.mock + '</span><img src="assets/nesya/happy.png" alt="">' + t.user + "</span>");
+      t.nav.map(function (n, i) { return '<button type="button" class="cx-nav' + (i === state.view ? " on" : "") + '" data-v="' + i + '">' + n + "</button>"; }).join("") +
+      '<span class="cx-user">' + (FULL ? '<span class="cx-lang"><button type="button" data-l="id"' + (lang() === "id" ? ' class="on"' : "") + '>ID</button><button type="button" data-l="en"' + (lang() === "en" ? ' class="on"' : "") + '>EN</button></span><a class="cx-back" href="index.html">' + t.back + "</a>" : "") + '<button type="button" class="cx-pdf"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 2v8M4.5 7L8 10.5 11.5 7M3 13h10" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>' + t.pdf + '</button><span class="cx-mock">' + t.mock + '</span><img src="assets/nesya/happy.png" alt="">' + t.user + "</span>");
     app.appendChild(bar);
+    bar.querySelectorAll(".cx-nav").forEach(function (b) { b.addEventListener("click", function () { state.view = +b.dataset.v; render(); }); });
+    bar.querySelectorAll(".cx-lang button").forEach(function (b) { b.addEventListener("click", function () { document.documentElement.lang = b.dataset.l; try { localStorage.setItem("lang", b.dataset.l); } catch (e) {} document.dispatchEvent(new Event("langchange")); }); });
     bar.querySelector(".cx-pdf").addEventListener("click", function () {
       var old = document.title; document.title = t.report + " - " + tab.name + " - " + new Date().toISOString().slice(0, 10);
       document.body.classList.add("cx-printing"); window.print();
@@ -107,6 +110,7 @@
     tabs.appendChild(h("span", "cx-plus", "+"));
     app.appendChild(tabs);
 
+    if (state.view !== 0) { app.appendChild(VIEWS[state.view](tab, ind, t)); app.appendChild(h("p", "cx-note", ind ? t.indNote : t.aggNote)); return; }
     var body = h("div", "cx-body");
     // tool rail
     var rail = h("div", "cx-rail");
@@ -236,6 +240,71 @@
     app.appendChild(insights(tab, ind));
     app.appendChild(h("p", "cx-note", ind ? t.indNote : t.aggNote));
   }
+
+  // ---------- other views: trends, units, reports, settings ----------
+  function linechart(vals, avg, events, w, hgt, cls) {
+    var sv = el("svg", { viewBox: "0 0 " + w + " " + hgt, class: cls || "cx-big" }), m = { l: 36, r: 12, t: 14, b: 26 }, iw = w - m.l - m.r, ih = hgt - m.t - m.b, n = vals.length;
+    var x = function (i) { return m.l + i * iw / (n - 1); }, y = function (v) { return m.t + ih - v / 100 * ih; };
+    [0, 25, 50, 75, 100].forEach(function (g) { el("line", { x1: m.l, x2: w - m.r, y1: y(g), y2: y(g), class: "cx-gl" }, sv); var tx = el("text", { x: m.l - 6, y: y(g) + 4, "text-anchor": "end", class: "cx-ax" }, sv); tx.textContent = g; });
+    (events || []).forEach(function (e) { var xx = x(e[0] - 1); el("line", { x1: xx, x2: xx, y1: m.t, y2: m.t + ih, class: "cx-evl" }, sv); var tx = el("text", { x: xx + 4, y: m.t + 10, class: "cx-evt" }, sv); tx.textContent = nm(e[1]); });
+    var path = function (a) { return a.map(function (v, i) { return (i ? "L" : "M") + x(i).toFixed(1) + " " + y(v).toFixed(1); }).join(""); };
+    el("path", { d: path(vals) + "L" + x(n - 1) + " " + y(0) + "L" + x(0) + " " + y(0) + "Z", class: "cx-area" }, sv);
+    if (avg) el("path", { d: path(avg), class: "cx-l2" }, sv);
+    el("path", { d: path(vals), class: "cx-l1" }, sv);
+    for (var i = 0; i < n; i += 5) { var tx = el("text", { x: x(i), y: hgt - 6, "text-anchor": "middle", class: "cx-ax" }, sv); tx.textContent = i + 1; }
+    return sv;
+  }
+  function viewTrend(tab, ind, t) {
+    var en = lang() === "en", wrap = h("div", "cx-view"), loads = data.days.map(function (d) { return d.load; });
+    var avg = loads.map(function (v, i) { var a = loads.slice(Math.max(0, i - 6), i + 1); return a.reduce(function (s, x) { return s + x; }, 0) / a.length; });
+    var c = h("section", "cx-card", "<header><b>" + (en ? "Daily emotional load" : "Beban emosional harian") + "</b><span>" + (en ? "0 = light, 100 = heavy · grey line = 7-day average · dashed = calendar events" : "0 = ringan, 100 = berat · garis abu = rata-rata 7 hari · garis putus = acara kalender") + "</span></header>");
+    c.appendChild(linechart(loads, avg, tab.events, 1000, 300)); wrap.appendChild(c);
+    var grid = h("div", "cx-sm");
+    TOPICS.forEach(function (tp, ti) {
+      var f = data.feats.filter(function (q) { return q.t === ti; })[0]; if (!f) return;
+      var vals = data.days.map(function (d) { var inside = d.d >= f.a && d.d <= f.b; return Math.max(5, Math.min(95, (inside ? 55 + (d.load - 50) * .6 : 18 + (d.load - 50) * .2))); });
+      var card = h("section", "cx-card", "<header><b><i class='cx-dot' style='background:" + tp.c + "'></i>" + nm(tp) + "</b><span>" + (en ? "high on days " : "tinggi pada hari ") + f.a + "–" + f.b + "</span></header>");
+      card.appendChild(linechart(vals, null, null, 320, 130, "cx-small")); grid.appendChild(card);
+    });
+    wrap.appendChild(grid); return wrap;
+  }
+  function viewUnit(tab, ind, t) {
+    var en = lang() === "en", wrap = h("div", "cx-view");
+    if (ind) { wrap.appendChild(h("section", "cx-card", "<p>" + (en ? "Units are only shown for aggregate views." : "Unit hanya ditampilkan pada tampilan agregat.") + "</p>")); return wrap; }
+    var r = rng(91 + tab.seed), rows = tab.units.map(function (u) { var load = Math.round(40 + r() * 35); return { u: u, users: Math.round(tab.n / tab.units.length * (.6 + r() * .8)), load: load, high: (1.5 + r() * 4).toFixed(1).replace(".", ","), top: TOPICS[Math.floor(r() * 5)] }; });
+    var c = h("section", "cx-card", "<header><b>" + (en ? "Units" : "Unit") + "</b><span>" + (en ? "Only units with at least 10 people are shown" : "Hanya unit dengan minimal 10 orang yang ditampilkan") + "</span></header><table class='cx-tbl'><thead><tr><th>" + (en ? "Unit" : "Unit") + "</th><th>" + (en ? "Active users" : "Pengguna aktif") + "</th><th>" + (en ? "Average load" : "Beban rata-rata") + "</th><th>" + (en ? "High-need signals" : "Sinyal kebutuhan tinggi") + "</th><th>" + (en ? "Top topic" : "Topik teratas") + "</th></tr></thead><tbody>" +
+      rows.map(function (x) { var lv = x.load >= 65 ? 3 : x.load >= 40 ? 2 : 1; return "<tr><td><b>" + x.u + "</b></td><td>" + x.users.toLocaleString("id-ID") + "</td><td><span class='cx-lbar'><i class='cx-lv" + lv + "' style='width:" + x.load + "%'></i></span>" + x.load + "</td><td>" + x.high + "%</td><td><span class='cx-chip on' style='--c:" + x.top.c + "'>" + nm(x.top) + "</span></td></tr>"; }).join("") + "</tbody></table>");
+    wrap.appendChild(c); wrap.appendChild(insights(tab, ind)); return wrap;
+  }
+  function viewReport(tab, ind, t) {
+    var en = lang() === "en", wrap = h("div", "cx-view cx-rep"), loads = data.days.map(function (d) { return d.load; }), avg = Math.round(loads.reduce(function (s, x) { return s + x; }, 0) / 30), pk = loads.indexOf(Math.max.apply(0, loads)) + 1, ci = data.days.reduce(function (s, d) { return s + d.ci; }, 0);
+    var top = data.feats.slice().sort(function (a, b) { return (b.share || 0) - (a.share || 0); })[0];
+    var doc = h("section", "cx-card cx-doc", "<header><b>" + t.report + " · " + tab.name + "</b><span>" + (en ? "1–30 Nov 2026 · sample data" : "1–30 Nov 2026 · data contoh") + "</span></header>" +
+      "<div class='cx-kpis'><div><small>" + (en ? "Check-ins" : "Check-in") + "</small><b>" + ci.toLocaleString("id-ID") + "</b></div><div><small>" + (en ? "Average load" : "Beban rata-rata") + "</small><b>" + avg + "</b></div><div><small>" + (en ? "Peak day" : "Hari puncak") + "</small><b>" + pk + "</b></div><div><small>" + (en ? "Main topic" : "Topik utama") + "</small><b>" + nm(TOPICS[top.t]) + "</b></div></div>" +
+      "<h4>" + (en ? "Highlights" : "Sorotan") + "</h4><ul><li>" + (en ? "Load peaked on day " + pk + ", around " + nm(tab.events[2][1]).toLowerCase() + "." : "Beban memuncak pada hari " + pk + ", sekitar " + nm(tab.events[2][1]).toLowerCase() + ".") + "</li><li>" + (en ? nm(TOPICS[top.t]) + " was the most common topic." : nm(TOPICS[top.t]) + " menjadi topik paling sering.") + "</li><li>" + (en ? "Most check-ins happen between 21:00 and 01:00." : "Check-in paling banyak terjadi pukul 21.00–01.00.") + "</li></ul>" +
+      "<h4>" + (en ? "Recommended actions" : "Saran tindakan") + "</h4><ol><li>" + (en ? "Add counsellor slots in the two weeks before exams." : "Tambah slot konselor dua minggu sebelum ujian.") + "</li><li>" + (en ? "Offer an evening session once a week." : "Buka satu sesi malam setiap minggu.") + "</li><li>" + (en ? "Run a short campaign on sleep and stress." : "Kampanye singkat tentang tidur dan stres.") + "</li></ol>");
+    doc.appendChild(linechart(loads, null, tab.events, 1000, 220));
+    var dl = h("button", "pbtn pbtn-light cx-dl", "<span class='pbtn-t'>" + t.pdf + "</span>"); dl.type = "button"; dl.addEventListener("click", function () { app.querySelector(".cx-pdf").click(); }); doc.appendChild(dl);
+    var past = h("section", "cx-card cx-past", "<header><b>" + (en ? "Earlier reports" : "Laporan sebelumnya") + "</b></header><ul>" + ["Okt 2026", "Sep 2026", "Agu 2026", "Jul 2026"].map(function (m) { return "<li><span>" + t.report + " · " + (en ? m.replace("Okt", "Oct").replace("Agu", "Aug") : m) + "</span><button type='button'>PDF</button></li>"; }).join("") + "</ul>");
+    past.querySelectorAll("button").forEach(function (b) { b.addEventListener("click", function () { app.querySelector(".cx-pdf").click(); }); });
+    wrap.appendChild(doc); wrap.appendChild(past); return wrap;
+  }
+  function viewSettings(tab, ind, t) {
+    var en = lang() === "en", wrap = h("div", "cx-view");
+    function row(lab, sub, ctl) { return "<div class='cx-set'><div><b>" + lab + "</b><span>" + sub + "</span></div>" + ctl + "</div>"; }
+    function tog(on, lock) { return "<label class='cx-tog'><input type='checkbox'" + (on ? " checked" : "") + (lock ? " disabled" : "") + "><i></i></label>"; }
+    var c = h("section", "cx-card cx-settings", "<header><b>" + (en ? "Settings · " : "Pengaturan · ") + tab.name + "</b><span>" + (en ? "Demo: changes are not saved" : "Demo: perubahan tidak disimpan") + "</span></header>" +
+      row(en ? "Privacy threshold" : "Ambang privasi", en ? "Hide any group smaller than this" : "Sembunyikan kelompok yang lebih kecil dari ini", "<select><option>5</option><option selected>10</option><option>20</option></select>") +
+      row(en ? "Consent before a profile opens" : "Izin sebelum profil dibuka", en ? "Always required, except life-threatening emergencies" : "Selalu wajib, kecuali darurat yang mengancam nyawa", tog(true, true)) +
+      row(en ? "Clinical attention list" : "Daftar perhatian klinis", en ? "Visible to the assigned clinical team only" : "Hanya terlihat oleh tim klinis yang ditunjuk", "<select><option>" + (en ? "Clinical team" : "Tim klinis") + "</option><option>" + (en ? "Off" : "Nonaktif") + "</option></select>") +
+      row(en ? "Weekly summary email" : "Ringkasan mingguan via email", en ? "Every Monday, aggregate numbers only" : "Setiap Senin, hanya angka agregat", tog(true)) +
+      row(en ? "Alert on urgent signals" : "Notifikasi sinyal mendesak", en ? "Sent to the on-call psychologist" : "Dikirim ke psikolog jaga", tog(true)) +
+      row(en ? "Data retention" : "Penyimpanan data", en ? "Aggregates kept, raw conversations deleted after" : "Agregat disimpan, percakapan mentah dihapus setelah", "<select><option>30 " + (en ? "days" : "hari") + "</option><option selected>90 " + (en ? "days" : "hari") + "</option></select>") +
+      "<p class='cx-saved' hidden>" + (en ? "Saved (demo)" : "Tersimpan (demo)") + "</p><button type='button' class='pbtn pbtn-light cx-save'><span class='pbtn-t'>" + (en ? "Save" : "Simpan") + "</span></button>");
+    c.querySelector(".cx-save").addEventListener("click", function () { var m = c.querySelector(".cx-saved"); m.hidden = false; setTimeout(function () { m.hidden = true; }, 1800); });
+    wrap.appendChild(c); return wrap;
+  }
+  var VIEWS = [null, viewTrend, viewUnit, viewReport, viewSettings];
   // ---------- clinical attention list: masked people whose conversations show serious risk signals ----------
   function attention(tab) {
     var en = lang() === "en", r = rng(500 + tab.seed * 17);

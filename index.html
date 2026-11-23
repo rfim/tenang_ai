@@ -15,7 +15,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Marcellus&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css?v=15ec3b86">
+<link rel="stylesheet" href="styles.css?v=dbede0f2">
 <script>
   // Set light/dark before the page paints: saved choice first, then the system setting.
   (function () {
@@ -350,6 +350,8 @@
         <p class="ed-p" data-i18n="dash.lead">Pola pemakaian dan kesehatan mental yang anonim dan agregat, untuk perencanaan program, pencegahan, dan alokasi dukungan.</p>
       </div>
     </div>
+    <div class="dash-style" role="group" aria-label="Gaya dashboard"><span data-i18n="ds.lab">Gaya tampilan</span><button type="button" data-ds="dv" aria-pressed="true" data-i18n="ds.a">Analitik</button><button type="button" data-ds="cx" aria-pressed="false" data-i18n="ds.b">Peta</button></div>
+    <div class="cx cx-embed" id="cx" hidden></div>
     <div class="dash dv-dash note reveal">
       <div class="dash-head">
         <strong data-i18n="dash.name">Dashboard institusi N2CIAS</strong>
@@ -624,9 +626,11 @@
 <a href="#top" class="to-top" aria-label="Kembali ke atas"><img src="assets/nesya/back-1.png" alt=""></a>
 <a href="#demo" class="m-cta" aria-hidden="true" tabindex="-1"><span data-i18n="cta.demo">Jadwalkan demo</span><svg width="18" height="12"><use href="#arrow"/></svg></a>
 
-<script src="i18n.js?v=3de16c18"></script>
+<script src="i18n.js?v=6a290521"></script>
 <script src="app.js?v=bd4a6255"></script>
 <script src="dash.js?v=4c3b4a3c"></script>
+<script src="console.js?v=4dd8db52"></script>
+<script>(function(){var bs=document.querySelectorAll("[data-ds]"),dv=document.querySelector(".dv-dash"),cx=document.getElementById("cx");function set(k){bs.forEach(function(b){b.setAttribute("aria-pressed",String(b.dataset.ds===k));});dv.hidden=k!=="dv";cx.hidden=k!=="cx";try{localStorage.setItem("dash-style",k);}catch(e){}}bs.forEach(function(b){b.addEventListener("click",function(){set(b.dataset.ds);});});var s=null;try{s=localStorage.getItem("dash-style");}catch(e){}if(s)set(s);})();</script>
 <script src="data.js?v=d16d1927"></script>
 <script src="research.js?v=8eac0e99"></script>
 </body>

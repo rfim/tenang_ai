@@ -3,9 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Dashboard institusi · N2CIAS oleh TenangAI</title>
-<meta name="description" content="Pratinjau konsol institusi N2CIAS dengan data contoh: tren, waktu bercerita, topik, dan saran tindakan.">
-<meta property="og:title" content="Dashboard institusi · N2CIAS oleh TenangAI">
+<title>Konsol institusi · N2CIAS</title>
+<meta name="description" content="Dibuat di Indonesia. N2CIAS memberi karyawan, mahasiswa, dan tenaga kesehatan dukungan kesehatan mental 24/7 lewat Nesya, dan memberi institusi insight agregat tanpa membuka percakapan pribadi.">
+<meta property="og:title" content="N2CIAS oleh TenangAI · Dukungan kesehatan mental 24/7">
 <meta property="og:description" content="Tempat aman untuk bercerita, kapan saja. Insight anonim untuk institusi.">
 <meta property="og:type" content="website">
 <meta name="theme-color" content="#1d4a45">
@@ -15,7 +15,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Marcellus&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css?v=15ec3b86">
+<link rel="stylesheet" href="styles.css?v=dbede0f2">
 <script>
   // Set light/dark before the page paints: saved choice first, then the system setting.
   (function () {
@@ -25,136 +25,9 @@
     document.documentElement.setAttribute("data-mode", m);
   })();
 </script>
-</head>
-<body>
-
-<!-- Icon sprite -->
-<svg width="0" height="0" style="position:absolute" aria-hidden="true">
-  <symbol id="spark" viewBox="0 0 20 20"><path d="M10 0C11 7 13 9 20 10C13 11 11 13 10 20C9 13 7 11 0 10C7 9 9 7 10 0Z"/></symbol>
-  <symbol id="i-company" viewBox="0 0 64 64"><g fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 56V14l22-6v48M34 22h18v34M6 56h52"/><path d="M19 20h6M19 29h6M19 38h6M41 30h4M41 39h4M24 56v-8h4v8"/></g></symbol>
-  <symbol id="i-hospital" viewBox="0 0 64 64"><g fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M10 56V26L32 10l22 16v30M6 56h52"/><path d="M32 24v16M24 32h16"/><path d="M27 56v-8h10v8"/></g></symbol>
-  <symbol id="i-university" viewBox="0 0 64 64"><g fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 24l28-12 28 12-28 12z"/><path d="M16 30v12c0 5 8 9 16 9s16-4 16-9V30"/><path d="M60 24v14"/><circle cx="60" cy="41" r="2.5"/></g></symbol>
-  <symbol id="i-public" viewBox="0 0 64 64"><g fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="32" cy="20" r="7"/><circle cx="13" cy="27" r="5.5"/><circle cx="51" cy="27" r="5.5"/><path d="M20 52c0-9 5-16 12-16s12 7 12 16M4 50c0-7 4-12 9-12 3 0 5 1 7 3M60 50c0-7-4-12-9-12-3 0-5 1-7 3"/></g></symbol>
-  <symbol id="i-moon" viewBox="0 0 24 24"><path d="M15 3a9 9 0 1 0 6 13A8 8 0 0 1 15 3z" fill="currentColor"/></symbol>
-  <symbol id="i-lock" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></g></symbol>
-  <symbol id="i-people" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="9" cy="8" r="3.5"/><path d="M2 20c0-4 3-7 7-7s7 3 7 7"/><path d="M16 4.5a3.5 3.5 0 0 1 0 7M18 13c2.5 1 4 3.5 4 7"/></g></symbol>
-  <symbol id="i-chat" viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M8 10h8M8 13h5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
-  <symbol id="i-check" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 3v3h6V3M9 12l2 2 4-4M9 17h6"/></g></symbol>
-  <symbol id="i-leaf" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 19C5 10 10 5 20 4c0 10-5 15-14 15z"/><path d="M5 19l8-8"/></g></symbol>
-  <symbol id="i-doc" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h9l4 4v14H6z"/><path d="M14 3v5h5M9 13h7M9 17h5"/></g></symbol>
-  <symbol id="i-chart" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 20h16M7 16v-4M12 16V7M17 16v-6"/></g></symbol>
-  <symbol id="arrow" viewBox="0 0 20 12"><path d="M1 6h17M13 1l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
-</svg>
-
-<a class="skip" href="#main" data-i18n="skip">Langsung ke isi</a>
-
-<header class="nav2" id="nav">
-  <div class="bar">
-    <span data-i18n="bar.text">Program pilot 8–12 minggu untuk institusi di Indonesia.</span>
-    <a href="index.html#demo" data-i18n="bar.link">Jadwalkan demo</a>
-  </div>
-  <div class="wrap nav2-inner">
-    <div class="nav2-side nav2-l">
-      <button class="menu-btn" type="button" aria-label="Menu" aria-expanded="false"><span></span><span></span></button>
-      <div class="util-pill">
-        <button type="button" class="mode-btn" aria-label="Mode gelap / dark mode" aria-pressed="false">
-          <svg class="i-moon2" viewBox="0 0 24 24"><path d="M15 3a9 9 0 1 0 6 13A8 8 0 0 1 15 3z" fill="currentColor"/></svg>
-          <svg class="i-sun" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8"/></g></svg>
-        </button>
-        <div class="lang" role="group" aria-label="Bahasa / Language">
-          <button type="button" data-lang="id" aria-pressed="true">ID</button>
-          <button type="button" data-lang="en" aria-pressed="false">EN</button>
-        </div>
-      </div>
-    </div>
-    <a href="index.html" class="brand brand-m wm" aria-label="TenangAI"><span class="wm-t"><i class="wm-by">by</i><span class="wm-word">Tenang</span><sup>AI</sup></span><span class="wm-n2" aria-hidden="true">N2CIAS</span></a>
-    <div class="nav2-pill">
-      <nav class="nav-links nav-links-l" aria-label="Utama">
-        <div class="dd"><button type="button" class="dd-btn dd-n2" aria-expanded="false"><span>N2CIAS</span></button><div class="dd-menu mega"><div class="mm-headbox"><div class="mm-head" data-i18n="mm.n2.h">Kenali N2CIAS</div><button type="button" class="n2-what" aria-expanded="false" aria-controls="n2-mean-mm"><span data-i18n="n2.what">Apa arti N2CIAS?</span><svg class="n2-chev" viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button><p class="n2-mean n2-mean-mm" id="n2-mean-mm"><b>N</b>esya &amp; <b>N</b>avigation<br><b>C</b>are · <b>I</b>nsight · <b>A</b>ccess · <b>S</b>afety<br><a class="n2-more" href="index.html#n2-name" data-i18n="n2.more">Selengkapnya</a></p></div><div class="mm-body"><div class="mm-col"><img src="assets/film/platform.jpg" alt="" loading="lazy"><span class="mm-eyebrow" data-i18n="mm.plat">Platform</span><b class="mm-title" data-i18n="mm.plat.t">Untuk setiap orang</b><div class="mm-links"><a href="index.html#platform" data-i18n="n2.about">Tentang N2CIAS</a><a href="index.html#toolkit" data-i18n="tool.eyebrow">Fitur</a><a href="index.html#how-it-works" data-i18n="nav.how2">Cara kerja</a><a href="index.html#dashboard">Dashboard</a><a href="dashboard.html" data-i18n="nav.console">Konsol institusi (demo)</a><a href="index.html#safety" data-i18n="nav.safety">Keamanan</a></div></div><div class="mm-col"><img src="assets/film/safety.jpg" alt="" loading="lazy"><span class="mm-eyebrow" data-i18n="mm.cr">Clinical Research</span><b class="mm-title" data-i18n="mm.cr.t">Riset & bukti</b><div class="mm-links"><a href="research.html" data-i18n="rp.kicker">Riset & publikasi</a><a href="galeri.html" data-i18n="n2.story">Dari ELIZA ke N2CIAS</a><a href="research.html#team" data-i18n="rp.t.title">Tim klinis</a></div></div><div class="mm-col"><img src="assets/film/tea.jpg" alt="" loading="lazy"><span class="mm-eyebrow" data-i18n="mm.prog">Program</span><b class="mm-title" data-i18n="mm.prog.t">Mulai dengan pilot</b><div class="mm-links"><a href="index.html#pilot" data-i18n="mm.pilot">Pilot 8–12 minggu</a><a href="index.html#coverage" data-i18n="plan.kicker">Perencana kapasitas</a><a href="index.html#faq">FAQ</a></div></div></div><div class="mm-foot"><a href="index.html#demo" data-i18n="cta.demo">Jadwalkan demo</a><a href="mailto:hai@tenangaja.co.id">hai@tenangaja.co.id</a></div></div></div>
-        <div class="dd"><button type="button" class="dd-btn" aria-expanded="false"><span data-i18n="nav.org">Organisasi</span></button><div class="dd-menu mega"><div class="mm-head" data-i18n="mm.org.h">Untuk institusi Anda</div><div class="mm-body"><a class="mm-card" href="universitas.html"><img src="assets/film/uni.jpg" alt="" loading="lazy"><span class="mm-eyebrow" data-i18n="mm.u.e">Kampus</span><b class="mm-title" data-i18n="type.university">Universitas</b></a><a class="mm-card" href="rumah-sakit.html"><img src="assets/film/rain.jpg" alt="" loading="lazy"><span class="mm-eyebrow" data-i18n="mm.h.e">Shift malam</span><b class="mm-title" data-i18n="type.hospital">Rumah sakit</b></a><a class="mm-card" href="perusahaan.html"><img src="assets/film/company.jpg" alt="" loading="lazy"><span class="mm-eyebrow" data-i18n="mm.c.e">Tempat kerja</span><b class="mm-title" data-i18n="type.company">Perusahaan</b></a><a class="mm-card" href="kesehatan-masyarakat.html"><img src="assets/film/public.jpg" alt="" loading="lazy"><span class="mm-eyebrow" data-i18n="mm.p.e">Puskesmas & Dinkes</span><b class="mm-title" data-i18n="type.public">Kesehatan masyarakat</b></a></div><div class="mm-foot"><a href="index.html#use-cases" data-i18n="mm.org.all">Semua institusi</a><a href="index.html#coverage" data-i18n="plan.kicker">Perencana kapasitas</a></div></div></div>
-      </nav>
-      <a href="index.html" class="brand wm" aria-label="TenangAI"><span class="wm-t"><i class="wm-by">by</i><span class="wm-word">Tenang</span><sup>AI</sup></span><span class="wm-n2" aria-hidden="true">N2CIAS</span></a>
-      <nav class="nav-links nav-links-r" aria-label="Lainnya">
-        <div class="dd"><button type="button" class="dd-btn" aria-expanded="false"><span data-i18n="nav.story">Cerita</span></button><div class="dd-menu mega"><div class="mm-head" data-i18n="mm.st.h">Cerita kami</div><div class="mm-body"><a class="mm-card" href="index.html#story"><img src="assets/film/leaves.jpg" alt="" loading="lazy"><span class="mm-eyebrow" data-i18n="mm.s1.e">Filosofi</span><b class="mm-title" data-i18n="mm.s1.t">Dari riset, menjadi ruang yang tenang</b></a><a class="mm-card" href="galeri.html"><img src="assets/film/rain.jpg" alt="" loading="lazy"><span class="mm-eyebrow" data-i18n="mm.s2.e">Galeri</span><b class="mm-title" data-i18n="n2.story">Dari ELIZA ke N2CIAS</b></a><a class="mm-card" href="research.html"><img src="assets/film/night.jpg" alt="" loading="lazy"><span class="mm-eyebrow" data-i18n="mm.s3.e">Bukti</span><b class="mm-title" data-i18n="rp.kicker">Riset & publikasi</b></a></div><div class="mm-foot"><a href="index.html#why" data-i18n="id.kicker">Dari Indonesia, untuk Indonesia</a></div></div></div>
-        <div class="dd"><button type="button" class="dd-btn" aria-expanded="false"><span data-i18n="nav.contact">Kontak</span></button><div class="dd-menu mega"><div class="mm-head" data-i18n="mm.ct.h">Mari bicara</div><div class="mm-body"><a class="mm-card" href="index.html#demo"><img src="assets/film/night.jpg" alt="" loading="lazy"><span class="mm-eyebrow" data-i18n="mm.ct1.e">30 menit</span><b class="mm-title" data-i18n="cta.demo">Jadwalkan demo</b></a><a class="mm-card" href="index.html#pilot"><img src="assets/film/tea.jpg" alt="" loading="lazy"><span class="mm-eyebrow" data-i18n="mm.ct2.e">8–12 minggu</span><b class="mm-title" data-i18n="cta.pilot">Diskusikan pilot</b></a><a class="mm-card" href="index.html#faq"><img src="assets/film/safety.jpg" alt="" loading="lazy"><span class="mm-eyebrow" data-i18n="mm.ct3.e">Jawaban cepat</span><b class="mm-title">FAQ</b></a></div><div class="mm-foot"><a href="mailto:hai@tenangaja.co.id">hai@tenangaja.co.id</a></div></div></div>
-      </nav>
-      <div class="drawer-foot">
-        <button type="button" class="mode-btn" aria-label="Mode gelap / dark mode" aria-pressed="false">
-          <svg class="i-moon2" viewBox="0 0 24 24"><path d="M15 3a9 9 0 1 0 6 13A8 8 0 0 1 15 3z" fill="currentColor"/></svg>
-          <svg class="i-sun" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8"/></g></svg>
-        </button>
-        <a href="index.html#platform" class="pbtn pbtn-light meet-btn"><span class="pbtn-t" data-i18n="hb.cat">Kenali Nesya</span><span class="pbtn-i meet-i"><img src="assets/nesya/tilt-4.png" alt=""></span></a>
-        <a href="index.html#demo" class="pbtn pbtn-light"><span class="pbtn-t" data-i18n="cta.demo">Jadwalkan demo</span><span class="pbtn-i"><svg width="14" height="10"><use href="index.html#arrow"/></svg></span></a>
-      </div>
-    </div>
-    <div class="nav2-side nav2-r">
-      
-      <a href="index.html#platform" class="pbtn pbtn-sm pbtn-light demo-btn meet-btn"><span class="pbtn-t" data-i18n="hb.cat">Kenali Nesya</span><span class="pbtn-i meet-i"><img src="assets/nesya/tilt-4.png" alt="" class="bob"></span></a>
-      <div class="lang lang-m" role="group" aria-label="Bahasa / Language">
-        <button type="button" data-lang="id" aria-pressed="true">ID</button>
-        <button type="button" data-lang="en" aria-pressed="false">EN</button>
-      </div>
-    </div>
-  </div>
-</header>
-
-<main id="main" class="subpage">
-
-<div class="cx-page"><div class="cx" id="cx"></div></div>
-
-</main>
-
-<footer class="footer foot2">
-  <div class="walker" aria-hidden="true"><span class="nesya walk" aria-hidden="true"><img src="assets/nesya/walk-1.png" alt=""></span></div>
-  <span class="nesya sleeper breathe" aria-hidden="true"><img src="assets/nesya/curl.png" alt=""></span>
-  <div class="foot2-film" aria-hidden="true"><video class="film" data-film muted loop playsinline preload="none" poster="assets/film/night.jpg"><source src="assets/film/night.mp4" type="video/mp4"></video><div class="foot2-shade"></div></div>
-  <div class="wrap foot2-grid">
-    <div class="foot2-big reveal">
-      <h2 class="h2" data-i18n="final.title">Dukung orang-orang Anda sebelum bebannya tak terlihat</h2>
-      <p class="made-with foot-mw"><span data-i18n="mw.a">Dibuat dengan</span> <span class="mw-hearts" aria-hidden="true"><svg class="mw-heart h-green" viewBox="0 0 24 22"><path d="M12 21C5 15.5 1 11.7 1 7.2 1 3.7 3.7 1 7 1c2 0 3.8 1 5 2.6C13.2 2 15 1 17 1c3.3 0 6 2.7 6 6.2 0 4.5-4 8.3-11 13.8z"/></svg><svg class="mw-heart h-white" viewBox="0 0 24 22"><path d="M12 21C5 15.5 1 11.7 1 7.2 1 3.7 3.7 1 7 1c2 0 3.8 1 5 2.6C13.2 2 15 1 17 1c3.3 0 6 2.7 6 6.2 0 4.5-4 8.3-11 13.8z"/></svg><i></i><i></i><i></i></span> <span data-i18n="mw.b">oleh tim Indonesia dan Britania Raya &amp; Irlandia Utara, untuk Indonesia</span> <span class="mw-flags"><svg class="flag" viewBox="0 0 30 20" role="img" aria-label="Indonesia"><rect width="30" height="10" fill="#ce1126"/><rect y="10" width="30" height="10" fill="#fff"/></svg></span></p>
-      <p data-i18n="foot.about">Layanan kesehatan mental preventif untuk institusi Indonesia. Dibuat di Jakarta, Indonesia.</p>
-      <a href="index.html#demo" class="pbtn pbtn-light"><span class="pbtn-t" data-i18n="cta.demo">Jadwalkan demo</span><span class="pbtn-i"><svg width="14" height="10"><use href="index.html#arrow"/></svg></span></a>
-    </div>
-    <nav aria-label="Footer">
-      <h4 data-i18n="foot.explore">Jelajahi</h4>
-      <a href="index.html#platform">Platform</a>
-      <a href="index.html#story" data-i18n="nav.story">Cerita</a>
-      <a href="index.html#how-it-works" data-i18n="nav.how2">Cara kerja</a>
-      <a href="index.html#dashboard">Dashboard</a>
-      <a href="index.html#safety" data-i18n="nav.safety">Keamanan</a>
-      <a href="index.html#pilot">Pilot</a>
-      <a href="index.html#faq">FAQ</a>
-    </nav>
-    <nav aria-label="Organisasi">
-      <h4 data-i18n="nav.org">Organisasi</h4>
-      <a href="universitas.html" data-i18n="type.university">Universitas</a>
-      <a href="perusahaan.html" data-i18n="type.company">Perusahaan</a>
-      <a href="rumah-sakit.html" data-i18n="type.hospital">Rumah sakit</a>
-      <a href="kesehatan-masyarakat.html" data-i18n="type.public">Kesehatan masyarakat</a>
-    </nav>
-    <nav aria-label="Riset">
-      <h4 data-i18n="nav.research">Riset</h4>
-      <a href="research.html" data-i18n="rp.kicker">Riset & publikasi</a>
-      <a href="research.html#team" data-i18n="rp.t.title">Tim klinis</a>
-      <a href="galeri.html" data-i18n="ga.kicker">Galeri</a>
-      <h4 data-i18n="foot.contact">Kontak</h4>
-      <a href="mailto:hai@tenangaja.co.id">hai@tenangaja.co.id</a>
-    </nav>
-  </div>
-  <div class="wrap foot-legal">
-    <p data-i18n="foot.disc">N2CIAS dirancang untuk dukungan kesehatan mental dan navigasi perawatan. N2CIAS bukan alat diagnosis, bukan layanan krisis, dan bukan pengganti perawatan profesional. Dalam keadaan darurat hubungi 112 atau 119 ext. 8.</p>
-    <p>© <span id="year">2026</span> TenangAI</p>
-  </div>
-</footer>
-
-<a href="index.html" class="to-top" aria-label="Kembali ke atas"><img src="assets/nesya/back-1.png" alt=""></a>
-<a href="index.html#demo" class="m-cta" aria-hidden="true" tabindex="-1"><span data-i18n="cta.demo">Jadwalkan demo</span><svg width="18" height="12"><use href="index.html#arrow"/></svg></a>
-
-<script src="i18n.js?v=3de16c18"></script>
-<script src="i18n-pages.js?v=d0707b22"></script>
-<script src="app.js?v=bd4a6255"></script>
-<script src="data.js?v=d16d1927"></script>
-<script src="research.js?v=8eac0e99"></script>
-<script src="console.js?v=3bdc4b65"></script>
+<body class="cx-full">
+<script>try{var l=localStorage.getItem("lang");if(l)document.documentElement.lang=l;}catch(e){}</script>
+<div class="cx" id="cx"></div>
+<script src="console.js?v=4dd8db52"></script>
 </body>
 </html>
