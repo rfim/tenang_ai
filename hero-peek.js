@@ -107,5 +107,6 @@
   card.addEventListener("focus", stop); card.addEventListener("blur", start);
   document.addEventListener("visibilitychange", function () { if (document.hidden) stop(); else start(); });
   document.addEventListener("langchange", function () { render(idx); });
+  window.N2Peek = { show: function (v) { stop(); idx = v; render(v); body.classList.remove("pk-out"); days.classList.remove("pk-out"); } }; // used by the video capture
   render(0); start();
 })();
