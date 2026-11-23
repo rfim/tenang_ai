@@ -113,6 +113,21 @@ ROOMS = [
      "AI generatif bisa membantu, selama manusia tetap terlibat.",
      "Generative AI can help, as long as people stay involved.",
      '<div class="ga-duo"><span class="ga-person"></span><span class="ga-plus">+</span><img src="assets/nesya.svg" alt=""></div>'),
+    ("r11", "Kini", "Nesya", "Nesya",
+     "Teman cerita berbasis AI · TenangAI, Jakarta", "AI companion · TenangAI, Jakarta",
+     "Semua pelajaran itu kami bawa pulang ke Jakarta, dengan satu pertanyaan: bagaimana jika orang Indonesia punya tempat bercerita yang jujur bahwa ia AI, mengerti bahasa sehari-hari, tetap ada jam dua pagi, dan tahu kapan harus memanggil manusia? Jawabannya adalah Nesya, teman cerita yang dirancang bersama psikolog klinis.",
+     "We brought all of those lessons home to Jakarta, with one question: what if people in Indonesia had a place to talk that is honest about being an AI, understands everyday language, is still there at two in the morning, and knows when to call a person? The answer is Nesya, an AI companion designed with clinical psychologists.",
+     "Satu teman cerita untuk setiap orang, dengan batas yang jelas.",
+     "A companion for every person, with clear limits.",
+     '<div class="ga-nesya"><img src="assets/nesya.svg" alt=""><span class="b u">Aku lagi capek banget\u2026</span><span class="b">Aku dengerin. Mau cerita pelan-pelan?</span></div>'),
+
+    ("r12", "Kini", "Lalu menjadi N2CIAS", "Then it became N2CIAS",
+     "Layanan untuk institusi · Nesya, jalur dukungan, dashboard anonim", "A service for institutions · Nesya, care pathway, anonymous dashboard",
+     "Satu orang yang merasa lebih baik belum cukup bagi sebuah kampus, rumah sakit, atau perusahaan. Institusi perlu tahu kapan dan di mana dukungan dibutuhkan, tanpa membaca percakapan siapa pun. Maka Nesya menjadi bagian dari sesuatu yang lebih besar: N2CIAS. Nesya untuk setiap orang, jalur dukungan sampai ke psikolog, dan dashboard anonim untuk institusi. Setiap institusi mulai lewat pilot, dan hasilnya kembali menjadi riset.",
+     "One person feeling better isn't enough for a university, a hospital or a company. Institutions need to know when and where support is needed, without reading anyone's conversations. So Nesya became part of something bigger: N2CIAS. Nesya for every person, a care pathway that reaches psychologists, and an anonymous dashboard for the institution. Every institution starts with a pilot, and the results flow back into research.",
+     "Dari riset, menjadi sistem dukungan untuk seluruh institusi.",
+     "From research to a support system for a whole institution.",
+     '<div class="ga-sys"><span class="ga-s1"><img src="assets/nesya.svg" alt="">Nesya</span><i></i><span class="ga-s2">Psikolog</span><i></i><span class="ga-s3"><b class="bars"><em style="--h:45%"></em><em style="--h:75%"></em><em style="--h:55%"></em></b>Dashboard</span><small>N2CIAS</small></div>')
 ]
 
 SOURCES = [
@@ -136,14 +151,14 @@ def build(t, page, page_hero_unused=None):
         key, year, tid, ten, oid, oen, bid, ben, lid, len_, art = r
         side = "left" if i % 2 == 0 else "right"
         rooms.append(f'''
-    <article class="ga-room ga-{side}" id="{key}" data-year="{year}">
+    <article class="ga-room ga-{side}{' ga-ours' if key in ('r11', 'r12') else ''}" id="{key}" data-year="{year}">
       <div class="ga-frame"><div class="ga-light"></div><div class="ga-art">{art}</div></div>
       <div class="ga-plaque">
         <p class="ga-no">{t("ga.room", "Ruang", "Room")} {i:02d} · <span class="ga-year">{year}</span></p>
         {t(f"ga.{key}.t", tid, ten, tag="h2", cls="ga-title")}
         {t(f"ga.{key}.o", oid, oen, tag="p", cls="ga-obj")}
         {t(f"ga.{key}.b", bid, ben, tag="p", cls="ga-body")}
-        <div class="ga-lesson"><span>{t("ga.lesson", "Pelajaran untuk Nesya", "Lesson for Nesya")}</span>{t(f"ga.{key}.l", lid, len_, tag="p")}</div>
+        <div class="ga-lesson"><span>{t("ga.built", "Yang kami bangun", "What we built") if key in ("r11", "r12") else t("ga.lesson", "Pelajaran untuk Nesya", "Lesson for Nesya")}</span>{t(f"ga.{key}.l", lid, len_, tag="p")}</div>
       </div>
     </article>''')
 
@@ -164,8 +179,8 @@ def build(t, page, page_hero_unused=None):
   <div class="ga-hero-light" aria-hidden="true"></div>
   <div class="wrap ga-hero-in">
     <p class="eyebrow2"><a href="index.html">N2CIAS</a> · {t("ga.kicker", "Galeri", "Gallery")}</p>
-    {t("ga.title", "Dari ELIZA ke Nesya.", "From ELIZA to Nesya.", tag="h1", cls="h1")}
-    {t("ga.lead", "Sebuah galeri tentang enam puluh tahun percakapan antara manusia dan mesin, dan pelajaran yang kami bawa ke dalam Nesya. Berjalanlah perlahan; setiap ruang menyala saat Anda tiba.", "A gallery of sixty years of conversations between people and machines, and the lessons we carried into Nesya. Walk slowly; each room lights up as you arrive.", tag="p", cls="ga-lead")}
+    {t("ga.title", "Dari ELIZA ke N2CIAS.", "From ELIZA to N2CIAS.", tag="h1", cls="h1")}
+    {t("ga.lead", "Sebuah galeri tentang enam puluh tahun percakapan antara manusia dan mesin, dan bagaimana pelajarannya menjadi Nesya, lalu N2CIAS. Berjalanlah perlahan; setiap ruang menyala saat Anda tiba.", "A gallery of sixty years of conversations between people and machines, and how their lessons became Nesya, then N2CIAS. Walk slowly; each room lights up as you arrive.", tag="p", cls="ga-lead")}
     <a href="#r0" class="ga-enter">{t("ga.enter", "Masuk galeri", "Enter the gallery")} <span aria-hidden="true">↓</span></a>
   </div>
 </section>
@@ -181,9 +196,9 @@ def build(t, page, page_hero_unused=None):
   <div class="wrap">
     <div class="ga-final-head">
       <img src="assets/nesya.svg" alt="" class="ga-final-nesya">
-      <p class="ga-no">{t("ga.room", "Ruang", "Room")} 11 · <span class="ga-year">{t("ga.nowlbl", "Kini", "Now")}</span></p>
-      {t("ga.final.t", "Nesya: semua pelajaran itu, dalam satu percakapan.", "Nesya: all of those lessons, in one conversation.", tag="h2", cls="h2 center")}
-      {t("ga.final.b", "Kami tidak menciptakan percakapan antara manusia dan mesin. Kami belajar dari enam puluh tahun percobaannya, termasuk kesalahannya, lalu membangun Nesya untuk orang Indonesia.", "We didn't invent conversations between people and machines. We learned from sixty years of attempts, mistakes included, and built Nesya for people in Indonesia.", tag="p", cls="ed-p center")}
+      <p class="ga-no">{t("ga.exit", "Pintu keluar", "Exit")}</p>
+      {t("ga.final.t", "N2CIAS: enam puluh tahun pelajaran, untuk institusi Indonesia.", "N2CIAS: sixty years of lessons, for Indonesian institutions.", tag="h2", cls="h2 center")}
+      {t("ga.final.b", "Kami tidak menciptakan percakapan antara manusia dan mesin. Kami belajar dari enam puluh tahun percobaannya, termasuk kesalahannya, lalu membangun Nesya untuk setiap orang dan N2CIAS untuk institusinya.", "We didn't invent conversations between people and machines. We learned from sixty years of attempts, mistakes included, and built Nesya for each person and N2CIAS for their institution.", tag="p", cls="ed-p center")}
     </div>
     <ol class="ga-lessons">{lesson_html}</ol>
     <div class="pbtn-row center">
@@ -201,7 +216,7 @@ def build(t, page, page_hero_unused=None):
     </details>
   </div>
 </section>'''
-    page("galeri.html", "Galeri: dari ELIZA ke Nesya · N2CIAS oleh TenangAI",
-         "Sejarah percakapan antara manusia dan mesin di kesehatan mental, dari ELIZA (1966) sampai Nesya.",
+    page("galeri.html", "Galeri: dari ELIZA ke N2CIAS · N2CIAS oleh TenangAI",
+         "Sejarah percakapan antara manusia dan mesin di kesehatan mental, dari ELIZA (1966) sampai Nesya dan N2CIAS.",
          main, active="galeri.html")
     return {"ga.cta1": "See the research references"}

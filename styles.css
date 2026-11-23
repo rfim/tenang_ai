@@ -1366,3 +1366,26 @@ h1, h2, h3, h4, .h1, .h2, .h3, .display, .script, .script-sm, .c4-t, .tcard h3, 
 .ga-now { top: 108px; }
 .ga-now-year { left: 50%; transform: translateX(-50%); top: 0; padding: 6px 16px; border-radius: 999px; background: #0b1519; border: 1px solid rgba(226,184,102,.55); color: var(--mustard-l); -webkit-text-stroke: 0; font: 400 1.05rem/1 var(--display); letter-spacing: .08em; box-shadow: 0 0 0 6px #0b1519; }
 .ga-crt-screen { height: auto; min-height: 236px; }
+/* N2CIAS dropdown in the centre (Bija's "Bija ▾") and Clinical Research pill at the far left (Bija's "Help") */
+.nav2 .dd-n2 { font-family: var(--display) !important; font-size: 1.12rem !important; letter-spacing: .06em !important; opacity: 1 !important; }
+.cr-pill { display: inline-flex; align-items: center; height: 44px; padding: 0 18px; border-radius: 999px; background: rgba(8,28,26,.5); border: 1px solid rgba(245,236,217,.18); color: var(--cream); text-decoration: none; font: 500 11.5px var(--sans); letter-spacing: .18em; text-transform: uppercase; white-space: nowrap; -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); transition: border-color .3s; }
+.cr-pill:hover { border-color: var(--mustard-l); }
+@media (max-width: 920px) { .nav2 .cr-pill { display: none; } .nav2.menu-open .dd-n2 { font-size: 1.7rem !important; } }
+/* gallery: our own rooms get a warmer, brighter light */
+.ga-ours .ga-frame { border-color: rgba(226,184,102,.55); background: linear-gradient(#18352f, #11261f); }
+.ga-ours.lit .ga-light { background: conic-gradient(from 160deg at 50% -18%, transparent 0deg, rgba(255,226,160,.26) 18deg, rgba(255,226,160,.32) 20deg, rgba(255,226,160,.26) 22deg, transparent 40deg); }
+.ga-ours .ga-year { color: #8fd0c0; }
+.ga-nesya { display: grid; justify-items: center; gap: 10px; width: 100%; max-width: 300px; }
+.ga-nesya img { width: 110px; animation: bob 6s ease-in-out infinite; }
+.ga-nesya .b { padding: 10px 14px; border-radius: 16px; font-size: 13.5px; background: #e6ddc4; color: #2b2a24; justify-self: start; border-bottom-left-radius: 4px; }
+.ga-nesya .b.u { justify-self: end; background: #2c6a65; color: #f5ecd9; border-radius: 16px 16px 4px 16px; }
+.ga-sys { position: relative; display: grid; grid-template-columns: auto 1fr auto 1fr auto; align-items: center; width: 100%; max-width: 420px; padding-bottom: 40px; }
+.ga-sys > span { display: grid; justify-items: center; gap: 8px; font: 600 11px var(--sans); letter-spacing: .12em; text-transform: uppercase; color: var(--cream); }
+.ga-sys > span img, .ga-s2::before, .ga-s3 .bars { width: 64px; height: 64px; }
+.ga-s2::before { content: ""; border-radius: 50%; background: radial-gradient(circle at 50% 34%, #e2b866 0 22%, transparent 23%), radial-gradient(ellipse at 50% 100%, #2c6a65 0 46%, transparent 47%), #1d3a35; }
+.ga-s3 .bars { display: flex; align-items: flex-end; gap: 6px; padding: 12px; border-radius: 14px; background: #f5ecd9; }
+.ga-s3 .bars em { flex: 1; height: var(--h); background: #b5532f; border-radius: 2px; }
+.ga-sys > i { height: 2px; margin: 0 6px 22px; background: repeating-linear-gradient(90deg, var(--mustard-l) 0 6px, transparent 6px 11px); background-size: 22px 2px; animation: ga-flow 1.2s linear infinite; }
+@keyframes ga-flow { to { background-position: 22px 0; } }
+.ga-sys small { position: absolute; left: 0; right: 0; bottom: 0; text-align: center; font: 400 1.4rem var(--display); letter-spacing: .1em; color: var(--mustard-l); text-shadow: 0 0 18px rgba(226,184,102,.4); }
+@media (max-width: 600px) { .ga-sys > span img, .ga-s2::before, .ga-s3 .bars { width: 50px; height: 50px; } }
