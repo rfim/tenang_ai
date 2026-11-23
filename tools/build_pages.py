@@ -14,7 +14,7 @@ index = (ROOT / "index.html").read_text(encoding="utf-8")
 
 head = index[: index.index("</head>")]
 body_start = index[index.index("</head>") : index.index('<main id="main">')]
-footer = index[index.index('<footer class="footer') : index.index('<script src="i18n.js">')]
+footer = index[index.index('<footer class="footer') : index.index('<script src="i18n.js')]
 
 CAROUSEL = index[index.index("<!-- PARTNERS: moving logo carousel -->") : index.index("<!-- /PARTNERS -->")].replace('<div class="logos partners-home partners-pin"', '<section class="logos ed-partners"').rstrip()[:-6] + "</section>"
 ID_TEXT = dict(re.findall(r'data-i18n="([^"]+)"[^>]*>([^<]+)<', index))
@@ -298,3 +298,18 @@ EN.update(gallery.build(t, page))
     "Object.assign(window.I18N_EN, " + json.dumps(EN, ensure_ascii=False, indent=1) + ");\n",
     encoding="utf-8")
 print("built", 1 + len(ORGS), "pages,", len(EN), "strings")
+
+# Cache busting: every local .css/.js link carries a hash of the file, so browsers fetch a new copy after each change.
+import hashlib, re
+def _stamp(m):
+    attr, name = m.group(1), m.group(2)
+    f = ROOT / name
+    if not f.exists():
+        return m.group(0)
+    return '%s="%s?v=%s"' % (attr, name, hashlib.md5(f.read_bytes()).hexdigest()[:8])
+for page in sorted(ROOT.glob("*.html")):
+    html = page.read_text(encoding="utf-8")
+    new = re.sub(r'(src|href)="([a-z0-9-]+\.(?:css|js))(?:\?v=[^"]*)?"', _stamp, html)
+    if new != html:
+        page.write_text(new, encoding="utf-8")
+print("stamped css/js links")
