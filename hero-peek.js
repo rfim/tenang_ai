@@ -11,14 +11,14 @@
   };
   // sample data only: arcs are [topic, lane, first day, last day]
   var INST = [
-    { name: "ITB", logo: "assets/logos/itb.svg", sel: 12, loads: [67, 46, 73, 70, 66, 53, 65],
+    { name: "ITB", fac: "FTI", sel: 12, loads: [67, 46, 73, 70, 66, 53, 65],
       arcs: [["stress", 0, 10, 24], ["burnout", 0, 25, 30], ["lonely", 1, 3, 13], ["anx", 1, 16, 25], ["rel", 2, 6, 11], ["sleep", 2, 13, 22], ["ref", 3, 14, 19]] },
-    { name: "UGM", logo: "assets/logos/ugm.png", sel: 5, loads: [38, 44, 52, 61, 47, 36, 41],
+    { name: "UGM", fac: "Psikologi", sel: 5, loads: [38, 44, 52, 61, 47, 36, 41],
       arcs: [["lonely", 0, 2, 14], ["sleep", 0, 18, 27], ["rel", 1, 4, 10], ["stress", 1, 13, 22], ["anx", 2, 6, 12], ["burnout", 2, 21, 28], ["ref", 3, 8, 11]] },
-    { name: "UI", logo: "assets/logos/ui.svg", sel: 20, loads: [55, 68, 72, 49, 43, 39, 58],
+    { name: "UI", fac: "FIB", sel: 20, loads: [55, 68, 72, 49, 43, 39, 58],
       arcs: [["anx", 0, 15, 29], ["stress", 0, 2, 9], ["burnout", 1, 18, 26], ["sleep", 1, 5, 14], ["lonely", 2, 9, 17], ["rel", 2, 21, 27], ["ref", 3, 20, 24]] }
   ];
-  var C = 70, R = 62, LANE0 = 54, LW = 6, GAP = 2, idx = 0, timer = null;
+  var C = 70, R = 62, LANE0 = 55, LW = 5, GAP = 2, idx = 0, timer = null;
   function en() { return document.documentElement.lang === "en"; }
   function ang(d) { return ((d - 1) / 30 * 360 - 90) * Math.PI / 180; }
   function pt(a, r) { return [C + r * Math.cos(a), C + r * Math.sin(a)]; }
@@ -34,7 +34,7 @@
     var inner = LANE0 - 4 * (LW + GAP) + GAP - 3;
     o.push('<path d="' + arc(ang(it.sel), ang(it.sel + 6.999), inner, R) + '" class="mw-wedge"/>');
     [it.sel, it.sel + 7].forEach(function (d) { var p = pt(ang(d), R); o.push('<circle cx="' + f(p[0]) + '" cy="' + f(p[1]) + '" r="2.6" class="mw-wdot"/>'); });
-    o.push('<circle cx="70" cy="64" r="11" class="mw-logo"/><image href="' + it.logo + '" x="61" y="55" width="18" height="18"/><text x="70" y="85" text-anchor="middle" class="mw-n">' + it.name + "</text>");
+    o.push('<text x="70" y="70" text-anchor="middle" class="mw-f' + (it.fac.length > 4 ? " sm" : "") + '">' + it.fac + '</text><text x="70" y="82" text-anchor="middle" class="mw-n">' + it.name + "</text>");
     return '<svg class="pk-map" viewBox="-4 -4 148 148" aria-hidden="true">' + o.join("") + "</svg>";
   }
   function render(it) {
@@ -50,10 +50,10 @@
   function next() {
     idx = (idx + 1) % INST.length;
     body.classList.add("pk-out");
-    setTimeout(function () { render(INST[idx]); body.classList.remove("pk-out"); }, 420);
+    setTimeout(function () { render(INST[idx]); body.classList.remove("pk-out"); }, 900);
   }
   var still = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
-  function start() { if (!still && !timer) timer = setInterval(next, 5200); }
+  function start() { if (!still && !timer) timer = setInterval(next, 8500); }
   function stop() { clearInterval(timer); timer = null; }
   card.addEventListener("mouseenter", stop); card.addEventListener("mouseleave", start);
   card.addEventListener("focus", stop); card.addEventListener("blur", start);
