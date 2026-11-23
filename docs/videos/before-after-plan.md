@@ -1,4 +1,4 @@
-# tenang.ai before and after (90 s, 1920×1080, 30 fps, two versions)
+# tenang.ai before and after (2 min 26 s, 1920×1080, 30 fps, two versions)
 
 - `tenang-before-after-en.mp4`: English
 - `tenang-before-after-id.mp4`: Bahasa Indonesia
@@ -43,3 +43,5 @@ The film below then starts at 16 s (add 16 s to every time in the table). Opener
 `ffmpeg -framerate 30 -i frames/f%04d.jpg -i jazz.wav -c:v libx264 -crf 20 -pix_fmt yuv420p -c:a aac -b:a 160k -movflags +faststart -shortest tenang-before-after-en.mp4`.
 
 **Indonesian version:** written the way people talk in Indonesian tech, keeping common English terms where the Indonesian word sounds stiff (template, icon, research, partner, story, feedback, safety rules, mental wellbeing).
+
+**Reading pauses:** every scene holds still for 1–3.5 s once all its text is on screen (`source/holds.json`), so the film is 146 s instead of 90 s. Animations run at normal speed. Render with `source/render-with-pauses.js`; the jazz is rebuilt for the longer timeline by `source/jazz_hold.py`, so scene chimes still land on the cuts.
