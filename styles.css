@@ -2242,3 +2242,24 @@ html[data-mode="dark"] .sleeper { display: block; }
   .ga-plaque .ga-obj { align-self: stretch; }
   .ga-lesson { align-self: stretch; border-left: 0; border-top: 2px solid var(--mustard-l); border-radius: 0 0 12px 12px; padding: 16px 18px; }
 }
+
+/* organisation and research pages on phones: words centred in the first screen, buttons near the bottom */
+@media (max-width: 920px) {
+  .hero-sub { display: flex !important; flex-direction: column !important; min-height: 100svh !important; padding-bottom: 44px !important; box-sizing: border-box; }
+  .hero-sub .hero2-grid.hero2-center { flex: 1 1 auto; display: flex !important; flex-direction: column; width: 100%; }
+  .hero-sub .hero2-center .hero2-copy { flex: 1 1 auto; display: flex; flex-direction: column; align-items: center; margin-bottom: 0 !important; }
+  .hero-sub .hero2-copy > .eyebrow2 { margin-top: auto; }
+  .hero-sub .hero2-copy > .pbtn-row { margin-top: auto !important; padding-top: 26px; }
+}
+@media (max-width: 920px) {
+  .hero-sub .hero2-copy > .pbtn-row { align-self: center; justify-content: center; width: auto; }
+  .hero-sub .hero2-copy > .pbtn-row .pbtn { flex: 0 0 auto; }
+  .hero-sub::after { height: 56px !important; }
+}
+@media (max-width: 600px) {
+  .hero-sub .h1 { font-size: clamp(2.1rem, 9vw, 2.7rem) !important; }
+  .hero-sub .hero2-lead { font-size: .98rem; line-height: 1.6; }
+}
+@media (max-width: 600px) and (max-height: 620px) {
+  .hero-sub .hero2-lead { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+}
