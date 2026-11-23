@@ -4,7 +4,7 @@ import wave
 import json as _j
 _H = sorted(_j.load(open("holds.json"))["film"])
 def RT(t):  # scene time (original 74 s film) -> output time, with the 7 s dashboard scene inserted at 39 s and reading pauses
-    t = t + (10 if t >= 39 else 0)
+    t = t + (17 if t >= 39 else 0)
     return t + sum(d for h, d in _H if h < t)
 import numpy as np
 
