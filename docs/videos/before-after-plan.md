@@ -5,7 +5,7 @@
 
 **What it is:** a film that shows what the old tenang.ai was missing and how the new N2CIAS site solves it. Not side by side: for each gap the old site comes first with the problem spotlighted in coral, then the new site with the fix spotlighted in green.
 **How the problem is explained:** four gaps, mutually exclusive and collectively exhaustive (MECE). Each answers one question a visitor has: how it feels (look & feel), who you talk to (character), why trust it (credibility), why it exists (story).
-**Mascot:** Nesya, a little elephant in a teal polka-dot scarf, is introduced right after the character gap; 24/7, the main selling point, follows her.
+**Mascot:** Nesya, a little Sumatran elephant in a teal polka-dot scarf, is introduced right after the character gap; 24/7, the main selling point, follows her.
 **Mission line:** wellbeing is not one person's burden; Nesya keeps people company and shows the way, people and institutions stay responsible. The theme of responsibility comes from Oktifani Winarti's PhD research, a working draft: the film does not quote or cite it.
 **Call to action:** Book a pilot demo · rfim.github.io/tenang_ai.
 **Credits:** the supporters are shown at the start, in the opener; the end card says only "A film by Rembug Rasa Projects".
@@ -29,7 +29,7 @@ The film below then starts at 16 s (add 16 s to every time in the table). Opener
 | 3 Gaps | 8–13 s | Four cards land on the beat | Four gaps. No overlaps, nothing left out. |
 | 4 Look & feel | 13–17 s problem, 17–21 s solved | Old heading spotlighted, then the new heading over film | A generic blue template → A calm film, its own art and type |
 | 5 Character | 21–25 s, 25–29 s | Old Nesya icon card, then the new Nesya chat | Nesya was just an icon → Nesya has a face and a voice |
-| 6 Meet Nesya | 29–34 s | Nesya waves; three other poses float in | This is Nesya. A little elephant in a teal polka-dot scarf. Elephants never forget, and she listens without judging. |
+| 6 Meet Nesya | 29–34 s | Nesya waves; three other poses float in | This is Nesya. A little Sumatran elephant in a teal polka-dot scarf. Elephants never forget, and she listens without judging. |
 | 7 24/7 | 34–39 s | A dial turns a full day; Nesya wakes up | 24/7 · Any hour, any day. No queue, no appointment. Nesya is there at 3 a.m. too. |
 | 8 Credibility | 39–44 s, 44–50 s | Partner fine print, then the menu with no research; the partner strip, then the reading list | Partners in fine print, no research → Partners up front, research to read |
 | 9 Story | 50–54 s, 54–60 s | The unexplained N2CIAS logo; the ELIZA room, then the meaning of the name | No story, a name never explained → A story from ELIZA, and a name that means something |

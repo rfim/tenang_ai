@@ -8,11 +8,11 @@ html, body { width: 1920px; height: 1080px; overflow: hidden; background: #000; 
 .scene { position: absolute; inset: 0; opacity: 0; }
 .grid { background-image: linear-gradient(rgba(255,255,255,.045) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.045) 1px, transparent 1px); background-size: 48px 48px; }
 .scan::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: repeating-linear-gradient(0deg, rgba(0,0,0,.18) 0 2px, transparent 2px 4px); }
-#spons { position: absolute; left: 0; right: 0; top: 820px; text-align: center; opacity: 0; }
+#spons { position: absolute; left: 0; right: 0; top: 800px; text-align: center; opacity: 0; }
 #spons small { display: block; font: 500 18px "IBM Plex Mono"; letter-spacing: .3em; text-transform: uppercase; color: rgba(245,236,217,.6); }
-#spons .sl { margin-top: 26px; display: flex; justify-content: center; align-items: center; gap: 70px; }
-#spons img { filter: brightness(0) invert(1); opacity: .88; }
-#spons .cl { display: grid; justify-items: center; gap: 4px; } #spons .cl em { font: 500 15px "IBM Plex Mono"; font-style: normal; color: rgba(245,236,217,.7); letter-spacing: .08em; }
+#spons .sl { margin: 22px auto 0; width: max-content; padding: 22px 48px; border-radius: 18px; background: #f5ecd9; box-shadow: 0 0 0 1px rgba(43,228,199,.35), 0 0 40px rgba(43,228,199,.15); display: flex; justify-content: center; align-items: center; gap: 64px; }
+#spons img { display: block; }
+#spons .cl { display: grid; justify-items: center; gap: 4px; } #spons .cl em { font: 500 15px "IBM Plex Mono"; font-style: normal; color: #3d3a33; letter-spacing: .08em; }
 /* part 0: the pioneers */
 #pq { position: absolute; left: 0; right: 0; top: 96px; text-align: center; font: 500 30px "IBM Plex Mono"; color: var(--ph); text-shadow: 0 0 10px rgba(43,228,199,.5); white-space: pre; }
 .pf { position: absolute; top: 190px; width: 540px; margin: 0; opacity: 0; }
@@ -88,7 +88,7 @@ html, body { width: 1920px; height: 1080px; overflow: hidden; background: #000; 
   <div id="title"></div>
   <div id="sub"></div>
   <div id="meta"></div>
-  <div id="spons"><small></small><div class="sl"><img src="logos/creadv.svg" style="height:34px; filter:none; opacity:1"><span class="cl"><img src="logos/claude.svg" style="height:40px"><em>for Startups</em></span><img src="logos/lpdp.png" style="height:74px"><img src="logos/goldsmiths.png" style="height:60px"></div></div>
+  <div id="spons"><small></small><div class="sl"><img src="logos/creadv-light.svg" style="height:34px"><span class="cl"><img src="logos/claude.svg" style="height:40px"><em>for Startups</em></span><img src="logos/lpdp.png" style="height:74px"><img src="logos/goldsmiths.png" style="height:60px"></div></div>
 </section>
 <section class="scene grid scan" id="collab">
   <div id="shards"></div>
