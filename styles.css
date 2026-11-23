@@ -2461,3 +2461,5 @@ html[lang="en"] .hero2 [data-i18n="hero.pre"] { display: none; }
   .st-name-cat { order: -1; margin: 0 auto 10px; }
   .st-name-cat .name-cat { width: 96px; }
 }
+.st-name-cat .name-cap { margin-top: 8px; font: 500 .82rem var(--sans); letter-spacing: .02em; opacity: .7; text-align: center; }
+.st-name-cat .name-cap { white-space: nowrap; }
