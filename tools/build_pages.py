@@ -38,7 +38,7 @@ ID_TEXT.update({
  "use.pub.3": "Rujukan ke layanan setempat"
 })
 
-HOME_ANCHORS = ["platform", "use-cases", "dashboard", "safety", "pilot", "demo", "coverage", "how-it-works", "faq"]
+HOME_ANCHORS = ["story", "toolkit", "platform", "use-cases", "dashboard", "safety", "pilot", "demo", "coverage", "how-it-works", "faq"]
 
 
 def relink(html):

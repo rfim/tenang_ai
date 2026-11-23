@@ -2,13 +2,18 @@
   "use strict";
 
   // Light / dark toggle (the initial mode is set by a small script in <head>)
-  var modeBtn = document.querySelector(".mode-btn");
-  function syncModeBtn() { if (modeBtn) modeBtn.setAttribute("aria-pressed", String(document.documentElement.getAttribute("data-mode") === "dark")); }
-  if (modeBtn) modeBtn.addEventListener("click", function () {
-    var next = document.documentElement.getAttribute("data-mode") === "dark" ? "light" : "dark";
-    document.documentElement.setAttribute("data-mode", next);
-    try { localStorage.setItem("mode", next); } catch (e) {}
-    syncModeBtn();
+  var modeBtns = document.querySelectorAll(".mode-btn");
+  function syncModeBtn() {
+    var dark = document.documentElement.getAttribute("data-mode") === "dark";
+    modeBtns.forEach(function (b) { b.setAttribute("aria-pressed", String(dark)); });
+  }
+  modeBtns.forEach(function (b) {
+    b.addEventListener("click", function () {
+      var next = document.documentElement.getAttribute("data-mode") === "dark" ? "light" : "dark";
+      document.documentElement.setAttribute("data-mode", next);
+      try { localStorage.setItem("mode", next); } catch (e) {}
+      syncModeBtn();
+    });
   });
   syncModeBtn();
 
@@ -87,6 +92,9 @@
   menuBtn.addEventListener("click", function () { setMenu(!header.classList.contains("menu-open")); });
   document.querySelectorAll(".nav-links").forEach(function (l) {
     l.addEventListener("click", function (e) { if (e.target.closest("a")) setMenu(false); });
+  });
+  document.querySelectorAll(".drawer-foot a").forEach(function (a) {
+    a.addEventListener("click", function () { setMenu(false); });
   });
   // Solid header once the page scrolls past the hero's top
   function onScrollHeader() { header.classList.toggle("scrolled", window.scrollY > 40); }

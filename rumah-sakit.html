@@ -54,24 +54,32 @@
   </div>
   <div class="wrap nav2-inner">
     <div class="nav2-side nav2-l">
-      <button type="button" class="mode-btn" aria-label="Mode gelap / dark mode" aria-pressed="false">
-        <svg class="i-moon2" viewBox="0 0 24 24"><path d="M15 3a9 9 0 1 0 6 13A8 8 0 0 1 15 3z" fill="currentColor"/></svg>
-        <svg class="i-sun" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8"/></g></svg>
-      </button>
-      <div class="lang" role="group" aria-label="Bahasa / Language">
-        <button type="button" data-lang="id" aria-pressed="true">ID</button>
-        <button type="button" data-lang="en" aria-pressed="false">EN</button>
+      <button class="menu-btn" type="button" aria-label="Menu" aria-expanded="false"><span></span><span></span></button>
+      <div class="util-pill">
+        <button type="button" class="mode-btn" aria-label="Mode gelap / dark mode" aria-pressed="false">
+          <svg class="i-moon2" viewBox="0 0 24 24"><path d="M15 3a9 9 0 1 0 6 13A8 8 0 0 1 15 3z" fill="currentColor"/></svg>
+          <svg class="i-sun" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8"/></g></svg>
+        </button>
+        <div class="lang" role="group" aria-label="Bahasa / Language">
+          <button type="button" data-lang="id" aria-pressed="true">ID</button>
+          <button type="button" data-lang="en" aria-pressed="false">EN</button>
+        </div>
       </div>
     </div>
+    <a href="index.html" class="brand brand-m" aria-label="N2CIAS oleh TenangAI">
+      <img src="assets/favicon.svg" alt="" width="34" height="34">
+      <span><b>N2CIAS</b><small data-i18n="brand.by">oleh TenangAI</small></span>
+    </a>
     <div class="nav2-pill">
       <nav class="nav-links nav-links-l" aria-label="Utama">
         <div class="dd">
           <button type="button" class="dd-btn" aria-expanded="false"><span>Platform</span></button>
           <div class="dd-menu">
-            <a href="#toolkit" data-i18n="tool.eyebrow">Fitur</a>
+            <a href="index.html#toolkit" data-i18n="tool.eyebrow">Fitur</a>
             <a href="index.html#how-it-works" data-i18n="nav.how2">Cara kerja</a>
             <a href="index.html#dashboard">Dashboard</a>
             <a href="index.html#safety" data-i18n="nav.safety">Keamanan</a>
+            <a href="index.html#pilot">Pilot</a>
           </div>
         </div>
         <div class="dd">
@@ -89,13 +97,24 @@
         <span><b>N2CIAS</b><small data-i18n="brand.by">oleh TenangAI</small></span>
       </a>
       <nav class="nav-links nav-links-r" aria-label="Lainnya">
+        <a href="index.html#story" data-i18n="nav.story">Cerita</a>
         <a href="research.html" data-i18n="nav.research">Riset</a>
-        <a href="index.html#pilot">Pilot</a>
+        <a href="index.html#demo" data-i18n="nav.contact">Kontak</a>
       </nav>
+      <div class="drawer-foot">
+        <button type="button" class="mode-btn" aria-label="Mode gelap / dark mode" aria-pressed="false">
+          <svg class="i-moon2" viewBox="0 0 24 24"><path d="M15 3a9 9 0 1 0 6 13A8 8 0 0 1 15 3z" fill="currentColor"/></svg>
+          <svg class="i-sun" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8"/></g></svg>
+        </button>
+        <a href="index.html#demo" class="pbtn pbtn-light"><span class="pbtn-t" data-i18n="cta.demo">Jadwalkan demo</span><span class="pbtn-i"><svg width="14" height="10"><use href="#arrow"/></svg></span></a>
+      </div>
     </div>
     <div class="nav2-side nav2-r">
-      <a href="index.html#demo" class="pbtn pbtn-sm pbtn-light"><span class="pbtn-t" data-i18n="cta.demo">Jadwalkan demo</span><span class="pbtn-i"><svg width="14" height="10"><use href="#arrow"/></svg></span></a>
-      <button class="menu-btn" type="button" aria-label="Menu" aria-expanded="false"><span></span><span></span></button>
+      <a href="index.html#demo" class="pbtn pbtn-sm pbtn-light demo-btn"><span class="pbtn-t" data-i18n="cta.demo">Jadwalkan demo</span><span class="pbtn-i"><svg width="14" height="10"><use href="#arrow"/></svg></span></a>
+      <div class="lang lang-m" role="group" aria-label="Bahasa / Language">
+        <button type="button" data-lang="id" aria-pressed="true">ID</button>
+        <button type="button" data-lang="en" aria-pressed="false">EN</button>
+      </div>
     </div>
   </div>
 </header>
@@ -190,6 +209,7 @@
     <nav aria-label="Footer">
       <h4 data-i18n="foot.explore">Jelajahi</h4>
       <a href="index.html#platform">Platform</a>
+      <a href="index.html#story" data-i18n="nav.story">Cerita</a>
       <a href="index.html#how-it-works" data-i18n="nav.how2">Cara kerja</a>
       <a href="index.html#dashboard">Dashboard</a>
       <a href="index.html#safety" data-i18n="nav.safety">Keamanan</a>
