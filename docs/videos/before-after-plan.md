@@ -1,4 +1,4 @@
-# tenang.ai before and after (74 s, 1920×1080, 30 fps, two versions)
+# tenang.ai before and after (88.5 s, 1920×1080, 30 fps, two versions)
 
 - `tenang-before-after-en.mp4`: English
 - `tenang-before-after-id.mp4`: Bahasa Indonesia
@@ -11,6 +11,16 @@
 **Credits:** a film by Rembug Rasa Projects; supported by CREA Digital Ventures, Claude for Startups, LPDP and Goldsmiths, University of London.
 **Music:** a soft jazz trio at 120 BPM in swing, D major (Dmaj9 – Bm9 – Em9 – A13): electric piano comping, walking upright bass, ride cymbal and brushes, lighter under Nesya and the mission; a vibraphone note on every scene change, a little vibraphone phrase when Nesya appears and another over the outro, where a Dmaj9 holds to the end. Made in `source/jazz.py`, no samples.
 **Real screens:** the old site captured from tenang.ai (in each language) on 23 Nov 2026; the new site from this repo.
+
+**Opener (Rembug Rasa Projects, 0–14.5 s, computer theme):**
+
+| Time | On screen |
+|---|---|
+| 0–4.5 s | "> it began with two questions". Ada Lovelace (1843, "wrote the first program for a machine") and Alan Turing (1950, "asked: can machines think?") scan in like CRT screens, tinted teal. "Both born in London." Portraits: A. E. Chalon (c. 1840) and Elliott & Fry (1951), both public domain (Wikimedia Commons). |
+| 4.5–9.5 s | A boot log types; a dot-matrix mark lights up: two speech bubbles (London and Jogja) with a heart between them, for *rembug rasa*, talking feelings through together. "REMBUG RASA PROJECTS" types in an aqua digital font. "Talking feelings through, together. Research between London and Yogyakarta." No apps: research first. |
+| 9.5–14.5 s | Two 80s CRT computers, London and Yogyakarta, ping each other; each reply prints a piece of the research (papers, interview notes, conversation drafts, safety rules, Bahasa Indonesia, feedback). "London × Jogja. / Researching AI that listens." A shared log ends with "next: N2CIAS". |
+
+The film below then starts at 14.5 s (add 14.5 s to every time in the table). Opener sound: `source/intro_audio.py` (CRT hum, scan sweeps, typing, pixel blips, pings), followed by the jazz.
 
 | # | Time | On screen | English words |
 |---|---|---|---|
@@ -26,6 +36,8 @@
 | 10 Mission | 60–65 s | Cream page | Wellbeing is not one person's burden. Nesya keeps people company and shows the way. People and institutions stay responsible. |
 | 11 Outro | 65–69 s | by Tenang AI, N2CIAS and its meaning, the button, the link, Nesya | Book a pilot demo · rfim.github.io/tenang_ai |
 | 12 Credits | 69–74 s | Cream page, logos | A film by Rembug Rasa Projects · Supported by CREA Digital Ventures, Claude for Startups, LPDP, Goldsmiths, University of London |
+
+**Opener:** `source/intro.html?lang=en|id`, frames 0 … 434 at 30 fps (portraits in `source/pioneers/`), joined before the film frames.
 
 **To render again:** `source/stage.html` reads the screenshots from `en/` and `id/`, the spotlight boxes from `rects.json` (put in place of `__RECTS__`), the stickers from `nesya/` and the logos from `logos/`. Open it with `?lang=en` or `?lang=id`, call `render(t)` for t = 0 … 73.97 in steps of 1/30 and save each frame, run `python3 source/jazz.py` (writes `jazz.wav`), then
 `ffmpeg -framerate 30 -i frames/f%04d.jpg -i jazz.wav -c:v libx264 -crf 20 -pix_fmt yuv420p -c:a aac -b:a 160k -movflags +faststart -shortest tenang-before-after-en.mp4`.
