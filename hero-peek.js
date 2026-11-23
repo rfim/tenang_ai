@@ -1,8 +1,8 @@
 // Hero preview of the institution console: a small Peta wheel that rotates through sample institutions.
 (function () {
   "use strict";
-  var card = document.querySelector(".hero-dash"); if (!card) return;
-  var body = card.querySelector(".pk-body"); if (!body) return;
+  var card = document.querySelector(".hb"); if (!card) return;
+  var body = card.querySelector(".hb-wheel"), days = card.querySelector(".hb-days"); if (!body || !days) return;
   var NS = "http://www.w3.org/2000/svg";
   var TOP = {
     stress: ["#c9ec4a", "Stres akademik", "Study stress"], burnout: ["#f6b3d9", "Burnout", "Burnout"], anx: ["#a9dbf5", "Kecemasan", "Anxiety"],
@@ -39,18 +39,18 @@
   }
   function render(it) {
     var E = en(), seen = {}, top = [];
-    it.arcs.forEach(function (q) { if (!seen[q[0]] && top.length < 5) { seen[q[0]] = 1; top.push(q[0]); } });
+    it.arcs.forEach(function (q) { if (!seen[q[0]] && top.length < 4) { seen[q[0]] = 1; top.push(q[0]); } });
     var lv = function (v) { return v < 40 ? "lv1" : v < 65 ? "lv2" : "lv3"; };
-    body.innerHTML = '<span class="pk-mapbox">' + wheel(it) + '<span class="pk-legend"><b>' + (E ? "Topics running high" : "Topik yang tinggi") + "</b>" +
-      top.map(function (k, i) { return '<span style="--i:' + i + '"><i style="background:' + TOP[k][0] + '"></i>' + TOP[k][E ? 2 : 1] + "</span>"; }).join("") + "</span></span>" +
-      '<span class="pk-days"><small><span>' + (E ? "Days " : "Hari ") + it.sel + "–" + (it.sel + 6) + (E ? " · load" : " · beban") + '</span><span class="pk-dots">' +
-      INST.map(function (x, i) { return '<i class="' + (x === it ? "on" : "") + '"></i>'; }).join("") + '</span></small><span class="pk-chips">' +
-      it.loads.map(function (v, i) { return '<span class="' + lv(v) + '" style="--i:' + i + '"><b>' + v + "</b><i>" + (it.sel + i) + "</i></span>"; }).join("") + "</span></span>";
+    var dots = '<span class="pk-dots">' + INST.map(function (x) { return '<i class="' + (x === it ? "on" : "") + '"></i>'; }).join("") + "</span>";
+    body.innerHTML = wheel(it) + '<span class="hb-cap"><span>' + (E ? "30-day map" : "Peta 30 hari") + "</span>" + dots + "</span>";
+    days.innerHTML = '<span class="pk-days"><small><span>' + (E ? "Daily load · days " : "Beban harian · hari ") + it.sel + "–" + (it.sel + 6) + '</span><span>' + it.fac + " · " + it.name + '</span></small><span class="pk-chips">' +
+      it.loads.map(function (v, i) { return '<span class="' + lv(v) + '" style="--i:' + i + '"><b>' + v + "</b><i>" + (it.sel + i) + "</i></span>"; }).join("") + '</span><span class="pk-tops">' +
+      top.map(function (k) { return '<span><i style="background:' + TOP[k][0] + '"></i>' + TOP[k][E ? 2 : 1] + "</span>"; }).join("") + "</span></span>";
   }
   function next() {
     idx = (idx + 1) % INST.length;
-    body.classList.add("pk-out");
-    setTimeout(function () { render(INST[idx]); body.classList.remove("pk-out"); }, 900);
+    body.classList.add("pk-out"); days.classList.add("pk-out");
+    setTimeout(function () { render(INST[idx]); body.classList.remove("pk-out"); days.classList.remove("pk-out"); }, 900);
   }
   var still = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
   function start() { if (!still && !timer) timer = setInterval(next, 8500); }
