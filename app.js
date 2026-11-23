@@ -398,6 +398,17 @@
     var t = null;
     b.addEventListener("click", function () { b.classList.add("show-n2"); clearTimeout(t); t = setTimeout(function () { b.classList.remove("show-n2"); }, 2400); });
   });
+  // N2CIAS meaning: hidden until someone taps the chip (phone hero) or "Apa arti N2CIAS?" (menu)
+  [].forEach.call(document.querySelectorAll(".he-n2[aria-controls], .n2-what"), function (btn) {
+    var box = document.getElementById(btn.getAttribute("aria-controls"));
+    if (!box) return;
+    btn.addEventListener("click", function (e) {
+      e.preventDefault(); e.stopPropagation();
+      var open = btn.getAttribute("aria-expanded") !== "true";
+      btn.setAttribute("aria-expanded", String(open));
+      box.classList.toggle("open", open);
+    });
+  });
   // back to top: appears after the first screen
   var toTop = document.querySelector(".to-top");
   if (toTop) window.addEventListener("scroll", function () { toTop.classList.toggle("show", window.scrollY > window.innerHeight * 1.2); }, { passive: true });

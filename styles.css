@@ -2289,3 +2289,40 @@ html[data-mode="dark"] .sleeper { display: block; }
   .hero2:not(.hero-sub) .hero-eyebrow .n2-mean-hero { font-size: 9.5px; letter-spacing: .02em; white-space: nowrap; }
   .hero2:not(.hero-sub) .hs-txt b { font-size: .98rem; white-space: nowrap; }
 }
+
+/* N2CIAS meaning, revealed on tap: the chip in the phone hero and "Apa arti N2CIAS?" in the desktop menu */
+.he-n2 { -webkit-appearance: none; appearance: none; border: 0; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; }
+.he-chev, .n2-chev { width: 9px; height: 6px; flex: none; transition: transform .3s var(--ease-out); }
+.he-n2[aria-expanded="true"] .he-chev, .n2-what[aria-expanded="true"] .n2-chev { transform: rotate(180deg); }
+@media (min-width: 921px) { .he-n2 { background: none; padding: 0; color: inherit; font: inherit; letter-spacing: inherit; cursor: default; } .he-chev { display: none; } }
+.n2-mean-hero, .n2-mean-mm { display: none !important; }
+.n2-mean.open { display: block !important; animation: n2-in .35s ease-out; }
+@keyframes n2-in { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: none; } }
+.n2-more { color: var(--cream); text-decoration: underline; text-underline-offset: 3px; text-transform: none; letter-spacing: .02em; font-weight: 600; white-space: nowrap; }
+.n2-what { margin-top: 12px; align-self: flex-start; display: inline-flex; align-items: center; gap: 6px; padding: 0; border: 0; background: none; cursor: pointer;
+  font: 500 12.5px var(--sans); letter-spacing: .02em; color: rgba(245,236,217,.75); text-decoration: underline dotted; text-underline-offset: 4px; }
+.n2-what:hover { color: #e2b866; }
+.n2-what + .n2-mean-mm { margin-top: 8px; }
+.n2-mean-mm .n2-more { display: inline-block; margin-top: 6px; }
+@media (max-width: 920px) { .nav2.menu-open .n2-what { display: none; } }
+
+/* story: the name, letter by letter */
+.st-name { margin-top: 72px; }
+.st-name-head { max-width: 760px; }
+.st-name-lead { margin-top: 12px; font-size: 1.05rem; line-height: 1.7; opacity: .85; }
+.st-letters { list-style: none; margin: 30px 0 0; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 26px 30px; }
+.st-letters li { display: grid; grid-template-columns: 52px 1fr; gap: 14px; align-items: start; padding-top: 18px; border-top: 1px solid color-mix(in srgb, currentColor 16%, transparent); }
+.sl-l { font: 400 2.6rem/1 "Marcellus", var(--display); color: var(--mustard); text-align: center; }
+.st-letters h4 { margin: 2px 0 6px; font: 500 1.15rem var(--display); }
+.sl-gl { margin-left: 6px; font: 500 11px var(--sans); letter-spacing: .12em; text-transform: uppercase; opacity: .6; }
+html[lang="en"] .sl-gl { display: none; }
+.st-letters p { margin: 0; font-size: .95rem; line-height: 1.6; opacity: .85; }
+@media (max-width: 920px) { .st-letters { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 600px) {
+  .st-name { margin-top: 52px; text-align: center; }
+  .st-name-head { margin: 0 auto; }
+  .st-letters { grid-template-columns: 1fr; gap: 18px; }
+  .st-letters li { grid-template-columns: 1fr; justify-items: center; gap: 6px; }
+}
+.n2-mean-mm .n2-more { color: #e2b866; opacity: 1; font-size: 12px; }
+@media (min-width: 921px) { .he-n2 { display: inline; line-height: inherit; vertical-align: baseline; margin: 0; text-transform: inherit; } }
