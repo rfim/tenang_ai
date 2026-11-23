@@ -12,6 +12,22 @@
   });
   syncModeBtn();
 
+  // Font preview: ?font=jakarta|editorial|friendly|grotesk (default: storybook)
+  var FONT_SETS = {
+    jakarta: "Plus+Jakarta+Sans:wght@400;500;600;800&family=Kalam:wght@700",
+    editorial: "DM+Serif+Display&family=DM+Sans:wght@400;500;600&family=Nanum+Pen+Script",
+    friendly: "Young+Serif&family=Nunito:wght@400;600;700&family=Patrick+Hand",
+    grotesk: "Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Manrope:wght@400;500;600&family=Caveat+Brush"
+  };
+  var fontParam = new URLSearchParams(location.search).get("font");
+  if (fontParam && FONT_SETS[fontParam]) {
+    var fl = document.createElement("link");
+    fl.rel = "stylesheet";
+    fl.href = "https://fonts.googleapis.com/css2?family=" + FONT_SETS[fontParam] + "&display=swap";
+    document.head.appendChild(fl);
+    document.documentElement.setAttribute("data-font", fontParam);
+  }
+
   var EN = window.I18N_EN || {};
   var ID_JS = window.I18N_ID_JS || {};
   var original = {};

@@ -724,3 +724,19 @@ html[data-mode="dark"] .mm-night { display: block; }
   .marquee-track img[src*="mayapada"] { height: 34px; }
 }
 @media (max-width: 600px) and (prefers-reduced-motion: reduce) { .marquee-track { gap: 18px 30px; } }
+
+/* ---------- font options (preview with ?font=...) ---------- */
+html[data-font="jakarta"] { --display: "Plus Jakarta Sans", system-ui, sans-serif; --sans: "Plus Jakarta Sans", system-ui, sans-serif; --script: "Kalam", cursive; }
+html[data-font="jakarta"] .display, html[data-font="jakarta"] .h1-big { letter-spacing: -.02em; }
+html[data-font="editorial"] { --display: "DM Serif Display", Georgia, serif; --sans: "DM Sans", system-ui, sans-serif; --script: "Nanum Pen Script", cursive; }
+html[data-font="editorial"] .h1-big, html[data-font="editorial"] .display { font-weight: 400; }
+html[data-font="editorial"] .script, html[data-font="editorial"] .h1-script, html[data-font="editorial"] .script-sm { font-weight: 400; }
+html[data-font="editorial"] .h1-script { font-size: clamp(2.9rem, 6.2vw, 4.7rem); }
+html[data-font="editorial"] .script { font-size: clamp(2.7rem, 5.6vw, 4.1rem); }
+html[data-font="editorial"] .script-sm { font-size: 2.5rem; }
+html[data-font="friendly"] { --display: "Young Serif", Georgia, serif; --sans: "Nunito", system-ui, sans-serif; --script: "Patrick Hand", cursive; }
+html[data-font="friendly"] .h1-big, html[data-font="friendly"] .display { font-weight: 400; }
+html[data-font="friendly"] .script, html[data-font="friendly"] .h1-script { font-weight: 400; }
+html[data-font="grotesk"] { --display: "Bricolage Grotesque", system-ui, sans-serif; --sans: "Manrope", system-ui, sans-serif; --script: "Caveat Brush", cursive; }
+html[data-font="grotesk"] .h1-big { font-weight: 800; letter-spacing: -.03em; }
+html[data-font="grotesk"] .script, html[data-font="grotesk"] .h1-script { font-weight: 400; }
