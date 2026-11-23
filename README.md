@@ -26,3 +26,7 @@ Deploy: GitHub Pages, Settings → Pages → Deploy from a branch → `main` / r
 ## Gallery
 
 `galeri.html` ("Dari ELIZA ke Nesya") is generated from `tools/gallery.py`: eleven rooms from Turing (1950) and ELIZA (1966) to Therabot (2025), each with an artefact, a placard and a lesson for Nesya. Sources are listed at the bottom of the page. Edit the `ROOMS` list, then run `python3 tools/build_pages.py`.
+
+## Painted hero scene
+
+Put the illustration (watermark-free) at `assets/art/hero-scene.webp` (square, at least 1600 px). When the file exists, the home hero switches to text on the left and the painting on the right; without it the film hero stays. Preview locally with `?scene=preview` using `assets/art/_preview/hero-scene.webp` (ignored by git).
