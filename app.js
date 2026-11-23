@@ -114,9 +114,57 @@
 
   // ---------- Hero chat ----------
   var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  document.querySelectorAll("#chat .msg, #chat .quick").forEach(function (el, i) {
-    if (reduce) { el.classList.add("show"); return; }
-    setTimeout(function () { el.classList.add("show"); }, 500 + i * 1100);
+  // ---------- Live chat: messages arrive, Nesya types her replies, then it loops ----------
+  // The original .msg elements stay as the (translated) source; a live copy is played beside them.
+  document.querySelectorAll(".chat").forEach(function (chat) {
+    var src = [].slice.call(chat.querySelectorAll(".msg"));
+    var quick = chat.querySelector(".quick");
+    if (reduce || !src.length) { src.forEach(function (m) { m.classList.add("show"); }); if (quick) quick.classList.add("show"); return; }
+    chat.classList.add("is-live");
+    var live = document.createElement("div");
+    live.className = "chat-live";
+    chat.appendChild(live);
+    var running = false, visible = false, timer = null;
+    function wait(ms) { return new Promise(function (r) { timer = setTimeout(r, ms); }); }
+    function bubble(cls, text) {
+      var b = document.createElement("p");
+      b.className = "msg show " + cls;
+      b.textContent = text || "";
+      live.appendChild(b);
+      while (live.children.length > 6) live.removeChild(live.firstChild);
+      return b;
+    }
+    async function play() {
+      if (running) return; running = true;
+      while (visible) {
+        live.innerHTML = "";
+        await wait(500);
+        for (var i = 0; i < src.length && visible; i++) {
+          var m = src[i], text = m.textContent, isUser = m.classList.contains("user");
+          if (isUser) {
+            bubble("user", text);
+            await wait(900 + text.length * 12);
+          } else {
+            var dots = bubble("bot typing", "");
+            dots.innerHTML = "<i></i><i></i><i></i>";
+            await wait(1100);
+            dots.classList.remove("typing"); dots.textContent = "";
+            var words = text.split(" ");
+            for (var w = 0; w < words.length && visible; w++) { dots.textContent += (w ? " " : "") + words[w]; await wait(70); }
+            await wait(1200);
+          }
+        }
+        if (quick && visible) { var q = quick.cloneNode(true); q.classList.add("show"); live.appendChild(q); }
+        await wait(5000);
+      }
+      running = false;
+    }
+    if ("IntersectionObserver" in window) {
+      new IntersectionObserver(function (es) {
+        visible = es[0].isIntersecting;
+        if (visible) play(); else clearTimeout(timer);
+      }, { threshold: 0.4 }).observe(chat);
+    }
   });
 
   // ---------- Parallax: elements with data-parallax move a little as the page scrolls ----------
@@ -241,6 +289,18 @@
     }, { rootMargin: "120px 0px" });
     films.forEach(function (v) { fio.observe(v); });
   }
+
+  // ---------- Nesya: a small heart when tapped ----------
+  document.querySelectorAll(".nesya").forEach(function (cat) {
+    cat.addEventListener("click", function () {
+      if (reduce) return;
+      var h = document.createElement("span");
+      h.className = "nesya-heart";
+      h.innerHTML = '<svg viewBox="0 0 24 22"><path d="M12 21C5 15.5 1 11.7 1 7.2 1 3.7 3.7 1 7 1c2 0 3.8 1 5 2.6C13.2 2 15 1 17 1c3.3 0 6 2.7 6 6.2 0 4.5-4 8.3-11 13.8z"/></svg>';
+      cat.appendChild(h);
+      setTimeout(function () { if (h.parentNode) h.parentNode.removeChild(h); }, 1200);
+    });
+  });
 
   // Hero entrance: copy rises in, scene settles (Bija's 14s "film")
   var hero = document.querySelector(".hero2");

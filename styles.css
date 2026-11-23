@@ -1606,3 +1606,75 @@ html[data-mode="dark"] .nav2.scrolled, html[data-mode="dark"] .nav2.solid { back
 .wm-by { font: italic 400 13px/1 var(--display); letter-spacing: .02em; color: rgba(245,236,217,.7); margin-right: 7px; }
 .wm-t sup { align-self: flex-start; }
 .nav2 .brand-m.wm .wm-by { font-size: 12px; margin-right: 6px; }
+
+/* =================== Nesya the cat (artwork by the owner): simple, gentle motion =================== */
+.nesya { position: relative; display: inline-block; line-height: 0; transform-origin: 50% 85%; animation: nesya-breathe 4.8s ease-in-out infinite; cursor: pointer; }
+.nesya img { display: block; width: 100%; height: auto; }
+.nesya .lid { position: absolute; top: 33.6%; width: 4.4%; height: 7.4%; border-radius: 50%; background: #d29657; transform: scaleY(0); transform-origin: 50% 0; animation: nesya-blink 5.2s infinite; }
+.nesya .lid.l { left: 35.8%; }
+.nesya .lid.r { left: 53.2%; }
+.nesya:hover { animation: nesya-wiggle .9s ease-in-out 1, nesya-breathe 4.8s ease-in-out .9s infinite; }
+@keyframes nesya-breathe { 0%, 100% { transform: translateY(0) scale(1); } 50% { transform: translateY(-3%) scale(1.015); } }
+@keyframes nesya-blink { 0%, 92%, 100% { transform: scaleY(0); } 95% { transform: scaleY(1); } }
+@keyframes nesya-wiggle { 0%, 100% { transform: rotate(0); } 20% { transform: rotate(-7deg); } 45% { transform: rotate(6deg); } 70% { transform: rotate(-3deg); } }
+.nesya-heart { position: absolute; left: 50%; top: 8%; width: 22%; pointer-events: none; animation: nesya-heart 1.1s ease-out forwards; }
+.nesya-heart svg { display: block; width: 100%; fill: #d4683f; }
+@keyframes nesya-heart { from { transform: translate(-50%, 0) scale(.4); opacity: 0; } 25% { opacity: 1; } to { transform: translate(-50%, -120%) scale(1); opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .nesya, .nesya .lid { animation: none !important; } }
+
+.phone-top .nesya.av { width: 40px; flex: none; }
+.stamp .nesya { width: 100%; }
+.nesya-peek { position: absolute; left: 6%; bottom: 7%; z-index: 3; width: 150px; display: grid; justify-items: center; }
+.nesya-peek .nesya { width: 150px; filter: drop-shadow(0 10px 18px rgba(0,0,0,.35)); }
+.nesya-peek .tag { position: static; margin-top: -6px; transform: rotate(-4deg); }
+.media-nesya .phone-on-film { right: 8% !important; transform: translateY(-50%) rotate(-1.5deg) !important; }
+.ga-final-nesya { width: 150px !important; display: block; margin: 0 auto 18px; }
+.ga-nesya .nesya { width: 120px; }
+.ga-duo .nesya { width: 110px; }
+.ga-sys .ga-s1 .nesya { width: 64px; }
+@media (max-width: 920px) { .nesya-peek { left: 50%; transform: translateX(-50%); bottom: 6%; width: 120px; } .nesya-peek .nesya { width: 120px; } }
+
+/* =================== Neat menu buttons: even padding, aligned chevrons =================== */
+.nav2-pill { padding: 4px 16px; }
+.nav2 .dd-btn { gap: 7px; }
+.nav2 .dd-btn::after { content: ""; flex: none; width: 7px; height: 7px; margin: 0 0 3px 2px; border-right: 1.5px solid currentColor; border-bottom: 1.5px solid currentColor; transform: rotate(45deg); opacity: .8; }
+.nav2 .dd:hover > .dd-btn::after, .nav2 .dd:focus-within > .dd-btn::after, .nav2 .dd.open > .dd-btn::after { transform: translateY(3px) rotate(-135deg); }
+.nav2 .dd-n2 { font-size: 1.02rem !important; letter-spacing: .1em !important; line-height: 1 !important; padding: 0 16px 0 18px !important; }
+.nav2 .dd-n2 span { padding-top: 2px; }
+
+/* =================== Chat card: proportional, upright, live =================== */
+.phone-on-film { transform: translateY(-50%) !important; right: 7% !important; width: 46% !important; min-width: 270px; max-width: 340px; height: 84%; max-height: none; padding: 18px 18px 0; border-radius: 24px; border: 1px solid rgba(245,236,217,.18) !important; display: flex; flex-direction: column; overflow: hidden; }
+html:not([data-mode="dark"]) .phone-on-film { border-color: rgba(29,74,69,.18) !important; }
+.phone-on-film .phone-top { flex: none; gap: 12px; padding-bottom: 12px; }
+.phone-on-film .phone-top strong { font-size: 15px; }
+.phone-on-film .chat { flex: 1; min-height: 0 !important; position: relative; display: flex; flex-direction: column; justify-content: flex-end; padding: 10px 0 18px; overflow: hidden;
+  -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 14%); mask-image: linear-gradient(180deg, transparent 0, #000 14%); }
+.chat.is-live > .msg, .chat.is-live > .quick { display: none !important; }
+.chat-live { display: flex; flex-direction: column; justify-content: flex-end; gap: 8px; }
+.chat-live .msg { max-width: 80%; font-size: 13.5px; line-height: 1.45; animation: msg-in .35s var(--ease-out) both; }
+.chat-live .quick { animation: msg-in .35s var(--ease-out) both; margin-top: 2px; }
+@keyframes msg-in { from { opacity: 0; transform: translateY(8px) scale(.98); } }
+.msg.typing { display: inline-flex; gap: 4px; align-items: center; padding: 12px 14px; }
+.msg.typing i { width: 6px; height: 6px; border-radius: 50%; background: currentColor; opacity: .35; animation: dot 1.1s infinite; }
+.msg.typing i:nth-child(2) { animation-delay: .18s; } .msg.typing i:nth-child(3) { animation-delay: .36s; }
+@keyframes dot { 30% { opacity: 1; transform: translateY(-2px); } }
+.phone-on-film .phone-top small::before { content: ""; display: inline-block; width: 7px; height: 7px; margin-right: 6px; border-radius: 50%; background: #6fcf97; vertical-align: 1px; }
+.media-nesya .nesya-peek { left: 8%; bottom: 8%; }
+
+/* hero legibility: deeper shade behind the words, soft text shadow, brighter lead */
+.hero2:not(.hero-sub) .hero2-shade, .hero-sub .hero2-shade {
+  background: radial-gradient(ellipse 62% 58% at 50% 52%, rgba(5,12,14,.78), rgba(5,12,14,.45) 65%, rgba(5,12,14,.3)),
+              linear-gradient(0deg, rgba(5,12,14,.55), transparent 50%) !important; }
+.hero2 .h1, .hero2 .h1 em { text-shadow: 0 2px 24px rgba(0,0,0,.45); }
+.hero2-lead { color: rgba(250,245,235,.96) !important; font-size: 1.14rem; line-height: 1.7; text-shadow: 0 1px 12px rgba(0,0,0,.55); }
+.hero2 .eyebrow2 { color: rgba(250,245,235,.88) !important; text-shadow: 0 1px 8px rgba(0,0,0,.5); }
+.proof-light span { color: rgba(250,245,235,.9) !important; text-shadow: 0 1px 8px rgba(0,0,0,.5); }
+.hero2 .h1 em { color: #f0c77a; }
+@media (max-width: 920px) {
+  .media-nesya { aspect-ratio: 4 / 3.4 !important; }
+  .media-nesya .phone-on-film { display: flex !important; right: 5% !important; width: 66% !important; min-width: 0; height: 86%; padding: 14px 14px 0; }
+  .media-nesya .nesya-peek { left: 5% !important; bottom: 6% !important; transform: none !important; width: 92px !important; }
+  .media-nesya .nesya-peek .nesya { width: 92px !important; }
+  .media-nesya .nesya-peek .tag { display: none; }
+  .phone-on-film .chat-live .msg { font-size: 12.5px; }
+}
