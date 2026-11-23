@@ -2047,3 +2047,18 @@ html[data-mode="dark"] .partners-pin { background: color-mix(in srgb, var(--pape
 .partners-pin .marquee-track li img[src*="mayapada"] { padding: 10px 12px !important; }
 .partners-pin .marquee-track li { width: 156px; }
 @media (max-width: 600px) { .partners-pin .marquee-track li { width: 112px; } .partners-pin .marquee-track li img, .partners-pin .marquee-track li img[src] { width: 86px !important; height: 30px !important; padding: 6px 10px !important; } }
+/* glass chips */
+.partners-pin .marquee-track li img, .partners-pin .marquee-track li img[src] {
+  background: linear-gradient(180deg, rgba(255,255,255,.72), rgba(255,255,255,.52)) !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.75), inset 0 0 0 1px rgba(255,255,255,.35), 0 8px 20px -12px rgba(0,0,0,.55) !important; }
+/* whole strip is light frosted glass; logos sit directly on it */
+.partners-pin, html[data-mode="dark"] .partners-pin {
+  background: linear-gradient(180deg, rgba(250,246,238,.58), rgba(250,246,238,.46)) !important;
+  -webkit-backdrop-filter: blur(22px) saturate(1.25) !important; backdrop-filter: blur(22px) saturate(1.25) !important;
+  border-top: 1px solid rgba(255,255,255,.55) !important; box-shadow: inset 0 1px 0 rgba(255,255,255,.35) !important; }
+.partners-pin .h2 { color: #2b2a24 !important; }
+.partners-pin .marquee-track li img, .partners-pin .marquee-track li img[src] { background: none !important; box-shadow: none !important; padding: 0 !important; width: 120px !important; height: 40px !important; }
+.partners-pin .marquee-track li img[src*="mayapada"] { height: 32px !important; }
+@media (max-width: 600px) { .partners-pin .marquee-track li img, .partners-pin .marquee-track li img[src] { width: 88px !important; height: 30px !important; } }
+.partners-pin .marquee-track li img[src*="ui.svg"], .partners-pin .marquee-track li img[src*="itb"], .partners-pin .marquee-track li img[src*="ugm"] { height: 46px !important; }
+@media (max-width: 600px) { .partners-pin .marquee-track li img[src*="ui.svg"], .partners-pin .marquee-track li img[src*="itb"], .partners-pin .marquee-track li img[src*="ugm"] { height: 34px !important; } }
