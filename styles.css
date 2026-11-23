@@ -2188,13 +2188,13 @@ html[data-mode="dark"] .sleeper { display: block; }
 .meet-egg.up.out { animation-name: meet-out; }
 @keyframes meet-pop-up { 0% { opacity: 0; transform: translateY(26px) scale(.35); } 100% { opacity: 1; transform: none; } }
 
-/* phone hero: copy centred in the space above, the ELIZA card sits at the bottom, no made-with line */
+/* phone hero: copy centred in the space above; the ELIZA card and the made-with line sit together at the bottom */
 @media (max-width: 920px) {
   .hero2:not(.hero-sub) { display: flex !important; flex-direction: column !important; }
   .hero2:not(.hero-sub) .hero2-grid.hero2-center { flex: 1 1 auto; display: flex !important; flex-direction: column; width: 100%; }
   .hero2:not(.hero-sub) .hero2-center .hero2-copy { flex: 1 1 auto; margin-bottom: 0 !important; }
   .hero2:not(.hero-sub) .hero2-copy > .eyebrow2 { margin-top: auto; }
-  .hero2:not(.hero-sub) .hero2-copy > .hero-story { margin-top: auto !important; margin-bottom: 18px; }
+  .hero2:not(.hero-sub) .hero2-copy > .hero-story { margin-top: auto !important; margin-bottom: 0; }
   .hero2:not(.hero-sub) .hero2-copy > .pbtn-row { margin-bottom: 24px; }
-  .hero2:not(.hero-sub) .made-with { display: none !important; }
+  .hero2:not(.hero-sub) .hero2-copy > .made-with { display: block !important; margin: 26px auto 4px !important; max-width: 300px; font-size: .78rem; line-height: 1.55; text-wrap: balance; opacity: .85; }
 }
