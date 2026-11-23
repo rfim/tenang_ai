@@ -88,6 +88,8 @@
     document.querySelectorAll(".nav-links").forEach(function (l) { l.classList.toggle("open", open); });
     menuBtn.setAttribute("aria-expanded", String(open));
     document.body.style.overflow = open ? "hidden" : "";
+    document.body.classList.toggle("menu-lock", open);
+    if (!open) document.querySelectorAll(".dd.open").forEach(function (d) { d.classList.remove("open"); });
   }
   menuBtn.addEventListener("click", function () { setMenu(!header.classList.contains("menu-open")); });
   document.querySelectorAll(".nav-links").forEach(function (l) {
@@ -104,6 +106,7 @@
 
   document.querySelectorAll(".dd-btn").forEach(function (b) {
     b.addEventListener("click", function () {
+      if (header.classList.contains("menu-open")) return; // in the phone drawer the headings are just labels
       var open = b.parentNode.classList.toggle("open");
       b.setAttribute("aria-expanded", String(open));
     });

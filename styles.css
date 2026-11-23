@@ -1389,3 +1389,10 @@ h1, h2, h3, h4, .h1, .h2, .h3, .display, .script, .script-sm, .c4-t, .tcard h3, 
 @keyframes ga-flow { to { background-position: 22px 0; } }
 .ga-sys small { position: absolute; left: 0; right: 0; bottom: 0; text-align: center; font: 400 1.4rem var(--display); letter-spacing: .1em; color: var(--mustard-l); text-shadow: 0 0 18px rgba(226,184,102,.4); }
 @media (max-width: 600px) { .ga-sys > span img, .ga-s2::before, .ga-s3 .bars { width: 50px; height: 50px; } }
+/* phone drawer: dropdowns never inherit desktop centring, even when marked open */
+@media (max-width: 920px) {
+  .nav2.menu-open .dd .dd-menu, .nav2.menu-open .dd.open .dd-menu, .nav2.menu-open .dd:hover .dd-menu, .nav2.menu-open .dd:focus-within .dd-menu {
+    position: static !important; left: auto !important; transform: none !important; width: auto !important; min-width: 0 !important; margin: 0 !important; }
+  .nav2.menu-open .dd-menu a { text-align: center; }
+  body.menu-lock .m-cta { display: none !important; }
+}
