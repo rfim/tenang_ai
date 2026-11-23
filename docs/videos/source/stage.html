@@ -1,176 +1,281 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8">
-<link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Caveat:wght@700&display=swap" rel="stylesheet">
+<html><head><meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Marcellus&display=swap" rel="stylesheet">
 <style>
-:root { --ink: #0f1d1c; --cream: #f5ecd9; --gold: #e2b866; --teal: #2c6a65; --mint: #6fcf97; }
+:root { --ink: #0f1d1c; --cream: #f5ecd9; --gold: #e2b866; --teal: #2c6a65; --mint: #6fcf97; --coral: #ff8a65; }
 * { box-sizing: border-box; margin: 0; }
 html, body { width: 1920px; height: 1080px; overflow: hidden; background: var(--ink); font-family: Inter, system-ui, sans-serif; color: var(--cream); }
 .scene { position: absolute; inset: 0; opacity: 0; }
+.dark { background: radial-gradient(ellipse at 50% 55%, #17312e, var(--ink) 72%); }
 .serif { font-family: Marcellus, Georgia, serif; font-weight: 400; }
 .eyebrow { font: 600 22px Inter; letter-spacing: .26em; text-transform: uppercase; color: var(--gold); }
+.c { display: grid; place-items: center; text-align: center; }
 /* hook */
-#hook { display: grid; place-items: center; text-align: center; background: radial-gradient(ellipse at 50% 60%, #17312e, var(--ink) 70%); }
-#hook h1 { font-size: 190px; line-height: 1; letter-spacing: .01em; }
+#hook h1 { font-size: 190px; line-height: 1; }
 #hook h1 span { display: inline-block; opacity: 0; }
-#hook p { margin-top: 34px; font-size: 38px; color: rgba(245,236,217,.8); opacity: 0; }
-/* frames */
-.frame { position: absolute; border-radius: 18px; overflow: hidden; background: #fff; box-shadow: 0 40px 90px -30px rgba(0,0,0,.65), 0 0 0 1px rgba(255,255,255,.08); }
-.bar { position: relative; z-index: 2; height: 44px; display: flex; align-items: center; gap: 9px; padding: 0 18px; background: #e9e6df; }
+#hook p { margin-top: 34px; font-size: 38px; color: rgba(245,236,217,.82); opacity: 0; }
+/* browser frame + camera */
+.frame { position: absolute; border-radius: 18px; overflow: hidden; background: #0b1416; box-shadow: 0 40px 90px -30px rgba(0,0,0,.7), 0 0 0 1px rgba(255,255,255,.08); }
+.bar { position: relative; z-index: 3; height: 44px; display: flex; align-items: center; gap: 9px; padding: 0 18px; background: #e9e6df; }
 .bar i { width: 13px; height: 13px; border-radius: 50%; background: #c9c3b8; }
 .bar b { margin-left: 18px; padding: 6px 18px; border-radius: 999px; background: #fff; font: 500 17px Inter; color: #6b6b6b; }
-.dark .bar { background: #1d2b2a; } .dark .bar i { background: #3c4b49; } .dark .bar b { background: #0f1d1c; color: #c8c0ad; }
-.shot { position: absolute; left: 0; right: 0; top: 44px; bottom: 0; background-size: cover; background-position: center top; }
-.tag { position: absolute; display: inline-flex; align-items: center; gap: 12px; padding: 12px 22px 12px 14px; border-radius: 999px; font: 600 25px Inter; white-space: nowrap; }
-.tag svg { width: 30px; height: 30px; flex: none; }
-.tag.miss { background: rgba(245,236,217,.08); color: rgba(245,236,217,.85); border: 1px solid rgba(245,236,217,.18); }
-.tag.miss svg { color: #e58a6a; }
-.tag.got { background: var(--cream); color: var(--ink); }
-.tag.got svg { color: var(--teal); }
-.lab { position: absolute; font: 600 19px Inter; letter-spacing: .24em; text-transform: uppercase; }
-/* before */
-#before .title { position: absolute; left: 120px; top: 150px; width: 560px; }
-#before h2 { font-size: 84px; line-height: 1.05; margin-top: 22px; }
-#before p { margin-top: 28px; font-size: 32px; line-height: 1.45; color: rgba(245,236,217,.78); }
-/* pairs */
-.pair .head { position: absolute; left: 0; right: 0; top: 70px; text-align: center; }
-.pair .head .num { font: 400 30px Marcellus; color: var(--gold); letter-spacing: .1em; }
-.pair .head h2 { font-size: 76px; margin-top: 6px; }
-.empty { position: absolute; left: 0; right: 0; top: 44px; bottom: 0; display: grid; place-items: center; background: repeating-linear-gradient(135deg, #f6f4ef 0 22px, #efece5 22px 44px); color: #8a857b; font: 500 30px Inter; text-align: center; }
-/* mission */
-#mission { background: var(--cream); color: var(--ink); display: grid; place-items: center; text-align: center; }
-#mission .eyebrow { color: #a36d1d; }
-#mission h2 { font-size: 92px; line-height: 1.1; margin-top: 26px; max-width: 1500px; }
-#mission p { margin-top: 34px; font-size: 44px; line-height: 1.35; color: #2c4a46; max-width: 1400px; }
-#mission .l { display: block; opacity: 0; }
-/* outro */
-#outro { display: grid; place-items: center; padding-bottom: 120px; text-align: center; background: radial-gradient(ellipse at 50% 45%, #17312e, var(--ink) 70%); }
-.wm { font: 400 150px Marcellus; letter-spacing: .06em; position: relative; display: inline-block; }
-.wm i { font: italic 400 54px Georgia, serif; color: rgba(245,236,217,.7); letter-spacing: 0; margin-right: 18px; }
-.wm sup { font: 700 30px Inter; color: var(--gold); letter-spacing: .2em; vertical-align: top; position: relative; top: 26px; margin-left: 8px; }
-.n2 { margin-top: 20px; font: 400 40px Marcellus; letter-spacing: .38em; color: var(--gold); }
-.mean { margin-top: 26px; font: 500 28px Inter; letter-spacing: .08em; color: rgba(245,236,217,.85); text-transform: uppercase; }
-.mean b { color: var(--gold); }
-.url { margin-top: 54px; display: inline-block; padding: 16px 34px; border-radius: 999px; border: 1px solid rgba(245,236,217,.3); font: 500 32px Inter; }
-.cat { position: absolute; width: 230px; filter: drop-shadow(0 18px 26px rgba(0,0,0,.4)); }
-#gaps .gh { position: absolute; left: 0; right: 0; top: 120px; text-align: center; }
-#gaps h2 { font-size: 72px; margin-top: 18px; }
-#gaps .grid { position: absolute; left: 110px; right: 110px; top: 380px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 28px; }
+.frame.new .bar { background: #1d2b2a; } .frame.new .bar i { background: #3c4b49; } .frame.new .bar b { background: #0f1d1c; color: #c8c0ad; }
+.view { position: absolute; left: 0; right: 0; top: 44px; bottom: 0; overflow: hidden; }
+.layer { position: absolute; left: 0; top: 0; transform-origin: 0 0; opacity: 0; }
+.layer img { display: block; width: 100%; height: 100%; }
+.hl { position: absolute; border-radius: 12px; border: 5px solid var(--coral); box-shadow: 0 0 0 5000px rgba(4,10,12,.0), 0 0 40px rgba(255,138,101,.55); opacity: 0; }
+.solved .hl { border-color: var(--mint); box-shadow: 0 0 0 5000px rgba(4,10,12,.0), 0 0 40px rgba(111,207,151,.55); }
+/* side panel */
+.gh { position: absolute; left: 80px; top: 70px; display: flex; align-items: baseline; gap: 22px; }
+.gh .num { font: 400 34px Marcellus; color: var(--gold); }
+.gh h2 { font-size: 64px; }
+.gh .q { font: 600 20px Inter; letter-spacing: .22em; text-transform: uppercase; color: rgba(245,236,217,.6); margin-left: 8px; }
+.panel { position: absolute; left: 1360px; top: 300px; width: 480px; }
+.pill { display: inline-flex; align-items: center; gap: 10px; padding: 10px 20px 10px 12px; border-radius: 999px; font: 700 20px Inter; letter-spacing: .18em; text-transform: uppercase; }
+.pill svg { width: 28px; height: 28px; }
+.problem .pill { background: rgba(255,138,101,.14); color: var(--coral); border: 1px solid rgba(255,138,101,.45); }
+.solved .pill { background: var(--mint); color: #0f2a22; }
+.panel h3 { margin-top: 28px; font: 400 54px/1.1 Marcellus; }
+.panel p { margin-top: 24px; font: 400 28px/1.5 Inter; color: rgba(245,236,217,.82); }
+.panel .fix { margin-top: 26px; padding-top: 20px; border-top: 1px solid rgba(245,236,217,.18); font: 500 21px/1.45 Inter; color: rgba(245,236,217,.6); }
+.panel .fix b { color: var(--coral); font-weight: 600; }
+/* gaps */
+#gaps .gh2 { position: absolute; left: 0; right: 0; top: 140px; text-align: center; }
+#gaps .gh2 h2 { font-size: 72px; margin-top: 18px; }
+#gaps .grid { position: absolute; left: 110px; right: 110px; top: 400px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 28px; }
 .gap { padding: 34px 30px 36px; border-radius: 22px; background: rgba(245,236,217,.06); border: 1px solid rgba(226,184,102,.28); opacity: 0; }
 .gap .n { font: 400 64px/1 Marcellus; color: var(--gold); }
 .gap h3 { font: 400 40px/1.15 Marcellus; margin-top: 18px; }
 .gap .q { font: 600 18px Inter; letter-spacing: .2em; text-transform: uppercase; color: rgba(226,184,102,.85); margin-top: 10px; }
 .gap p { margin-top: 22px; font: 400 25px/1.45 Inter; color: rgba(245,236,217,.8); }
-.pair .head .q { font: 600 20px Inter; letter-spacing: .22em; text-transform: uppercase; color: rgba(245,236,217,.6); margin-top: 10px; }
-.inset { position: absolute; border-radius: 14px; overflow: hidden; box-shadow: 0 24px 60px -18px rgba(0,0,0,.7), 0 0 0 1px rgba(255,255,255,.1); background: #fff; }
-.sponsor { position: absolute; left: 0; right: 0; bottom: 70px; text-align: center; opacity: 0; }
-.sponsor small { display: block; font: 600 18px Inter; letter-spacing: .3em; text-transform: uppercase; color: rgba(245,236,217,.55); }
-.sponsor b { display: block; margin-top: 10px; font: 400 40px Marcellus; letter-spacing: .08em; color: var(--cream); }
+/* before */
+#before .t { position: absolute; left: 110px; top: 300px; width: 560px; }
+#before h2 { font-size: 84px; line-height: 1.05; margin-top: 22px; }
+#before p { margin-top: 28px; font-size: 34px; line-height: 1.45; color: rgba(245,236,217,.8); }
+/* mascot */
+#meet .stage { position: absolute; left: 150px; top: 150px; width: 760px; height: 780px; }
+#meet .hero { position: absolute; left: 90px; top: 60px; width: 600px; filter: drop-shadow(0 30px 40px rgba(0,0,0,.45)); }
+#meet .mini { position: absolute; width: 170px; filter: drop-shadow(0 14px 20px rgba(0,0,0,.4)); opacity: 0; }
+#meet .t { position: absolute; left: 1000px; top: 330px; width: 780px; }
+#meet h2 { font-size: 110px; margin-top: 18px; }
+#meet p { margin-top: 28px; font-size: 36px; line-height: 1.5; color: rgba(245,236,217,.85); }
+#meet .scarf { display: inline-block; margin-top: 30px; padding: 12px 22px; border-radius: 999px; background: rgba(44,106,101,.5); border: 1px solid rgba(111,207,151,.4); font: 600 22px Inter; letter-spacing: .08em; color: var(--cream); opacity: 0; }
+/* 24/7 */
+#always .dial { position: absolute; left: 50%; top: 150px; width: 560px; height: 560px; margin-left: -280px; }
+#always .big { position: absolute; left: 0; right: 0; top: 330px; text-align: center; font: 400 210px/1 Marcellus; color: var(--gold); text-shadow: 0 0 60px rgba(226,184,102,.35); }
+#always .sub { position: absolute; left: 0; right: 0; top: 770px; text-align: center; }
+#always .sub b { display: block; font: 400 56px Marcellus; }
+#always .sub span { display: block; margin-top: 16px; font: 400 32px Inter; color: rgba(245,236,217,.8); }
+#always .eyebrow { position: absolute; left: 0; right: 0; top: 80px; text-align: center; }
+#always .cat { position: absolute; width: 230px; right: 330px; top: 320px; filter: drop-shadow(0 18px 26px rgba(0,0,0,.4)); }
+#always .ic { position: absolute; width: 70px; height: 70px; color: var(--gold); }
+/* mission */
+#mission { background: var(--cream); color: var(--ink); }
+#mission .eyebrow { color: #a36d1d; }
+#mission h2 { font-size: 96px; line-height: 1.1; margin-top: 26px; }
+#mission p { margin-top: 34px; font-size: 44px; line-height: 1.35; color: #2c4a46; }
+#mission .l { display: block; opacity: 0; }
+/* outro */
+.wm { font: 400 150px Marcellus; letter-spacing: .06em; display: inline-block; }
+.wm i { font: italic 400 54px Georgia, serif; color: rgba(245,236,217,.7); margin-right: 18px; }
+.wm sup { font: 700 30px Inter; color: var(--gold); letter-spacing: .2em; position: relative; top: 26px; margin-left: 8px; }
+.n2 { margin-top: 18px; font: 400 40px Marcellus; letter-spacing: .38em; color: var(--gold); }
+.mean { margin-top: 24px; font: 500 28px Inter; letter-spacing: .08em; color: rgba(245,236,217,.85); text-transform: uppercase; }
+.mean b { color: var(--gold); }
+.cta { margin-top: 56px; display: inline-flex; align-items: center; gap: 18px; padding: 24px 44px; border-radius: 999px; background: var(--gold); color: #1d1608; font: 700 38px Inter; }
+.cta svg { width: 34px; height: 22px; }
+.url { margin-top: 22px; font: 500 32px Inter; color: rgba(245,236,217,.85); }
+#outro .cat { position: absolute; width: 230px; right: 160px; bottom: 120px; filter: drop-shadow(0 18px 26px rgba(0,0,0,.4)); }
+/* credits */
+#credits { background: var(--cream); color: var(--ink); }
+#credits .film { font: 600 22px Inter; letter-spacing: .3em; text-transform: uppercase; color: #6b5a3a; }
+#credits .rr { margin-top: 18px; font: 400 76px Marcellus; letter-spacing: .04em; }
+#credits .sup { margin-top: 90px; font: 600 20px Inter; letter-spacing: .3em; text-transform: uppercase; color: #6b5a3a; }
+#credits .logos { margin-top: 40px; display: flex; align-items: center; justify-content: center; gap: 86px; }
+#credits .logos > * { opacity: 0; }
+#credits .cl { display: grid; justify-items: center; gap: 8px; }
+#credits .cl small { font: 600 20px Inter; letter-spacing: .08em; color: #3d3a33; }
 </style></head>
 <body>
 <svg width="0" height="0" style="position:absolute"><defs>
   <symbol id="x" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8.5 8.5l7 7M15.5 8.5l-7 7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></symbol>
-  <symbol id="ok" viewBox="0 0 24 24"><circle cx="12" cy="12" r="11" fill="currentColor"/><path d="M7 12.5l3.2 3.2L17.2 8.7" fill="none" stroke="#f5ecd9" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="ok" viewBox="0 0 24 24"><circle cx="12" cy="12" r="11" fill="#0f2a22"/><path d="M7 12.5l3.2 3.2L17.2 8.7" fill="none" stroke="#6fcf97" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="arrow" viewBox="0 0 34 22"><path d="M2 11h28M21 2l9 9-9 9" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="moon" viewBox="0 0 24 24"><path d="M15 3a9 9 0 1 0 6 13A8 8 0 0 1 15 3z" fill="currentColor"/></symbol>
+  <symbol id="sun" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8"/></g></symbol>
 </defs></svg>
-
-<section class="scene" id="hook">
-  <div><h1 class="serif"><span>Before.</span> <span>After.</span></h1>
-  <p>What tenang.ai was missing, and what N2CIAS has now.</p></div>
-</section>
-
-<section class="scene" id="before">
-  <div class="title"><p class="eyebrow">Before</p><h2 class="serif">tenang.ai, as it was.</h2><p>The information was there. The feeling wasn't.</p></div>
-  <div class="frame" id="bf" style="left:760px; top:150px; width:1040px; height:690px"><div class="bar"><i></i><i></i><i></i><b>tenang.ai</b></div><div class="shot" style="background-image:url(old_en/hero2x.png)"></div></div>
-</section>
-
-<section class="scene" id="gaps">
-  <div class="gh"><p class="eyebrow">What was missing</p><h2 class="serif">Four gaps. No overlaps, nothing left out.</h2></div>
-  <div class="grid"></div>
-</section>
-<!-- pairs: filled by script -->
-<div id="pairs"></div>
-
-<section class="scene" id="mission">
-  <div><p class="eyebrow">Our mission</p>
-  <h2 class="serif"><span class="l">Wellbeing is not</span><span class="l">one person's burden.</span></h2>
-  <p><span class="l">Nesya keeps people company and shows the way.</span><span class="l">People and institutions stay responsible.</span></p></div>
-</section>
-
-<section class="scene" id="outro">
-  <div>
-    <div class="wm"><i>by</i>Tenang<sup>AI</sup></div>
-    <div class="n2">N2CIAS</div>
-    <div class="mean"><b>N</b>esya &amp; <b>N</b>avigation · <b>C</b>are · <b>I</b>nsight · <b>A</b>ccess · <b>S</b>afety</div>
-    <div class="url">rfim.github.io/tenang_ai</div>
-  </div>
-  <div class="sponsor"><small>Supported by</small><b>Rembug Rasa Projects</b></div>
-  <img class="cat" id="ocat" src="nesya.png" style="right:150px; bottom:110px" alt="">
-</section>
-
+<div id="root"></div>
 <script>
-const PAIRS = [
-  { num: '01', title: 'Look & feel', q: 'How it feels', old: 'old_en/hero2x.png', oldPos: 'center top', neu: 'new_en/hero2x.png', neuPos: 'center top', miss: 'A blue template, text only', got: 'Calm film, its own art and type' },
-  { num: '02', title: 'Character', q: 'Who you talk to', old: 'old_en/nesya2x.png', oldPos: '4% 52%', oldSize: '175%', neu: 'new_en/nesya2x.png', neuPos: 'center top', miss: 'Nesya was just an icon', got: 'Nesya has a face and a voice' },
-  { num: '03', title: 'Credibility', q: 'Why trust it', old: 'old_en/partners2x.png', oldPos: '14% 30%', oldSize: '230%', neu: 'new_en/hero2x.png', neuPos: 'center 100%', neuSize: '150%', inset: 'new_en/research2x.png', miss: 'Partners in fine print, no research', got: 'Partner logos up front, a reading list' },
-  { num: '04', title: 'Story', q: 'Why it exists', old: 'old_en/d1.png', oldPos: 'center top', neu: 'new_en/gallery2x.png', neuPos: 'center top', miss: 'No story, no meaning in the name', got: 'From ELIZA to N2CIAS, and the name explained' },
+const LANG = (location.search.match(/lang=(id|en)/) || [, 'en'])[1];
+const T = {
+  en: {
+    hook1: 'Before.', hook2: 'After.', hookSub: 'What tenang.ai was missing, and how N2CIAS solves it.',
+    beforeEye: 'Before', beforeH: 'tenang.ai, as it was.', beforeP: "The information was there. The feeling wasn't.",
+    gapsEye: 'What was missing', gapsH: 'Four gaps. No overlaps, nothing left out.',
+    problem: 'The problem', solved: 'Solved', fixes: 'Fixes:',
+    gaps: [['Look & feel', 'How it feels', 'A generic blue template. Text only, no images.'], ['Character', 'Who you talk to', 'Nesya was just an icon.'], ['Credibility', 'Why trust it', 'Partners in fine print. No research page.'], ['Story', 'Why it exists', 'No story, and a name never explained.']],
+    p1: ['A generic blue template', 'Text and icons only. Nothing on the page feels calm, nothing feels like Tenang.'],
+    s1: ['A calm film, its own art and type', 'Slow footage, a warm palette and the Marcellus wordmark. It feels safe before you read a word.'],
+    p2: ['Nesya was just an icon', 'The AI companion people talk to had no face: a blue chat bubble on a card.'],
+    s2: ['Nesya has a face and a voice', 'A real character, chatting in everyday Bahasa Indonesia, right where the product is explained.'],
+    p3: ['Partners in fine print, no research', 'Universities appeared in one small line, and the menu had no research page.'],
+    s3: ['Partners up front, research to read', 'Partner logos sit on the first screen, and a reading list shows the studies behind Nesya.'],
+    p4: ['No story, a name never explained', 'Nothing said why N2CIAS exists or what its name means.'],
+    s4: ['A story from ELIZA, and a name that means something', 'A gallery walks from ELIZA (1966) to N2CIAS, and the name is spelled out letter by letter.'],
+    meetEye: 'Meet the mascot', meetH: 'This is Nesya.', meetP: 'A Scottish ginger cat in a teal polka-dot scarf. She listens without judging.', meetTag: 'Ginger · Scottish · teal scarf',
+    alwaysEye: 'The promise', alwaysB: 'Any hour, any day.', alwaysS: 'No queue, no appointment. Nesya is there at 3 a.m. too.',
+    misEye: 'Our mission', mis1: 'Wellbeing is not', mis2: "one person's burden.", mis3: 'Nesya keeps people company and shows the way.', mis4: 'People and institutions stay responsible.',
+    cta: 'Book a pilot demo', film: 'A film by', sup: 'Supported by', forStartups: 'for Startups',
+  },
+  id: {
+    hook1: 'Sebelum.', hook2: 'Sesudah.', hookSub: 'Apa yang kurang dari tenang.ai, dan bagaimana N2CIAS menjawabnya.',
+    beforeEye: 'Sebelum', beforeH: 'tenang.ai, dulu.', beforeP: 'Informasinya ada. Rasanya belum.',
+    gapsEye: 'Apa yang kurang', gapsH: 'Empat celah. Tidak tumpang tindih, tidak ada yang terlewat.',
+    problem: 'Masalahnya', solved: 'Solusinya', fixes: 'Menjawab:',
+    gaps: [['Tampilan', 'Bagaimana rasanya', 'Templat biru generik. Hanya teks, tanpa gambar.'], ['Karakter', 'Dengan siapa bercerita', 'Nesya hanya sebuah ikon.'], ['Kredibilitas', 'Mengapa percaya', 'Mitra di teks kecil. Tidak ada halaman riset.'], ['Cerita', 'Mengapa ada', 'Tanpa cerita, dan nama yang tak pernah dijelaskan.']],
+    p1: ['Templat biru yang generik', 'Hanya teks dan ikon. Tidak ada yang terasa tenang, tidak ada yang terasa seperti Tenang.'],
+    s1: ['Film yang tenang, seni dan huruf sendiri', 'Rekaman pelan, warna hangat, dan wordmark Marcellus. Terasa aman bahkan sebelum membaca.'],
+    p2: ['Nesya hanya sebuah ikon', 'Teman cerita AI-nya tidak punya wajah: hanya gelembung chat biru di sebuah kartu.'],
+    s2: ['Nesya punya wajah dan suara', 'Karakter yang nyata, mengobrol dalam Bahasa Indonesia sehari-hari, tepat di tempat produk dijelaskan.'],
+    p3: ['Mitra di teks kecil, tanpa riset', 'Universitas hanya disebut di satu baris kecil, dan menu tidak punya halaman riset.'],
+    s3: ['Mitra di depan, riset bisa dibaca', 'Logo mitra ada di layar pertama, dan daftar bacaan menunjukkan studi di balik Nesya.'],
+    p4: ['Tanpa cerita, nama tak pernah dijelaskan', 'Tidak ada yang menjelaskan mengapa N2CIAS ada atau apa arti namanya.'],
+    s4: ['Cerita dari ELIZA, dan nama yang bermakna', 'Galeri berjalan dari ELIZA (1966) ke N2CIAS, dan namanya dijelaskan huruf demi huruf.'],
+    meetEye: 'Kenalan dengan maskot', meetH: 'Ini Nesya.', meetP: 'Kucing oranye Skotlandia dengan syal teal berbintik. Ia mendengarkan tanpa menghakimi.', meetTag: 'Oranye · Skotlandia · syal teal',
+    alwaysEye: 'Janji kami', alwaysB: 'Jam berapa pun, hari apa pun.', alwaysS: 'Tanpa antre, tanpa janji temu. Nesya ada, bahkan jam 3 pagi.',
+    misEye: 'Misi kami', mis1: 'Kesejahteraan bukan', mis2: 'beban satu orang saja.', mis3: 'Nesya menemani dan menunjukkan jalan.', mis4: 'Manusia dan institusi tetap bertanggung jawab.',
+    cta: 'Jadwalkan demo pilot', film: 'Sebuah film dari', sup: 'Didukung oleh', forStartups: 'for Startups',
+  },
+}[LANG];
+document.documentElement.lang = LANG;
+const RECTS = __RECTS__;
+const R = (img, key) => RECTS[LANG + '/' + img][key];
+
+// --- the timeline ---
+const SCENES = [
+  { id: 'p1', a: 13, b: 17, kind: 'problem', g: 0, txt: T.p1, shots: [{ img: 'old-hero', box: 'h1', at: 13 }] },
+  { id: 's1', a: 17, b: 21, kind: 'solved', g: 0, txt: T.s1, fix: T.p1[0], shots: [{ img: 'new-hero', box: 'h1', at: 17 }] },
+  { id: 'p2', a: 21, b: 25, kind: 'problem', g: 1, txt: T.p2, shots: [{ img: 'old-nesya', box: 'card', at: 21 }] },
+  { id: 's2', a: 25, b: 29, kind: 'solved', g: 1, txt: T.s2, fix: T.p2[0], shots: [{ img: 'new-nesya', box: 'media', at: 25 }] },
+  { id: 'p3', a: 39, b: 44, kind: 'problem', g: 2, txt: T.p3, shots: [{ img: 'old-partners', box: 'line', at: 39 }, { img: 'old-partners', box: 'nav', at: 41.5 }] },
+  { id: 's3', a: 44, b: 50, kind: 'solved', g: 2, txt: T.s3, fix: T.p3[0], shots: [{ img: 'new-hero', box: 'strip', at: 44 }, { img: 'new-research', box: 'card', at: 47 }] },
+  { id: 'p4', a: 50, b: 54, kind: 'problem', g: 3, txt: T.p4, shots: [{ img: 'old-hero', box: 'logo', at: 50 }] },
+  { id: 's4', a: 54, b: 60, kind: 'solved', g: 3, txt: T.s4, fix: T.p4[0], shots: [{ img: 'new-gallery', box: 'room', at: 54 }, { img: 'new-name', box: 'letters', at: 57 }] },
 ];
-const GAPS = [
-  ['1', 'Look & feel', 'How it feels', 'A generic blue template. Text only, no images.'],
-  ['2', 'Character', 'Who you talk to', 'Nesya was just an icon.'],
-  ['3', 'Credibility', 'Why trust it', 'Partners in fine print. No research page.'],
-  ['4', 'Story', 'Why it exists', 'No story, and no meaning behind the name.'],
-];
-document.querySelector('#gaps .grid').innerHTML = GAPS.map(g => `<div class="gap"><div class="n">${g[0]}</div><h3>${g[1]}</h3><div class="q">${g[2]}</div><p>${g[3]}</p></div>`).join('');
-const host = document.getElementById('pairs');
-PAIRS.forEach((p, i) => {
-  const s = document.createElement('section'); s.className = 'scene pair'; s.id = 'p' + i;
-  const oldShot = p.old ? `<div class="shot" style="background-image:url(${p.old});background-position:${p.oldPos};background-size:${p.oldSize || 'cover'}"></div>` : `<div class="empty">No research page</div>`;
-  s.innerHTML = `<div class="head"><div class="num">${p.num}</div><h2 class="serif">${p.title}</h2><div class="q">${p.q}</div></div>
-    <div class="lab" style="left:110px; top:262px; color:rgba(245,236,217,.6)">Before</div>
-    <div class="lab" style="left:990px; top:262px; color:var(--gold)">After</div>
-    <div class="frame fo" style="left:110px; top:300px; width:820px; height:550px; filter:saturate(.55) brightness(.92)"><div class="bar"><i></i><i></i><i></i><b>tenang.ai</b></div>${oldShot}</div>
-    <div class="frame dark fn" style="left:990px; top:300px; width:820px; height:550px"><div class="bar"><i></i><i></i><i></i><b>rfim.github.io/tenang_ai</b></div><div class="shot" style="background-image:url(${p.neu});background-position:${p.neuPos};background-size:${p.neuSize || 'cover'}"></div></div>
-    <div class="tag miss" style="left:110px; top:885px"><svg><use href="#x"/></svg>${p.miss}</div>
-    <div class="tag got" style="left:990px; top:885px"><svg><use href="#ok"/></svg>${p.got}</div>${p.inset ? `<div class="inset" style="left:1500px; top:356px; width:330px; height:250px"><div class="shot" style="top:0;background-image:url(${p.inset});background-position:center 30%"></div></div>` : ''}`;
-  host.appendChild(s);
+
+const root = document.getElementById('root');
+const add = (html) => { root.insertAdjacentHTML('beforeend', html); };
+add(`<section class="scene dark c" id="hook"><div><h1 class="serif"><span>${T.hook1}</span> <span>${T.hook2}</span></h1><p>${T.hookSub}</p></div></section>`);
+add(`<section class="scene dark" id="before"><div class="t"><p class="eyebrow">${T.beforeEye}</p><h2 class="serif">${T.beforeH}</h2><p>${T.beforeP}</p></div>
+  <div class="frame" id="bf" style="left:760px; top:170px; width:1060px; height:720px"><div class="bar"><i></i><i></i><i></i><b>tenang.ai</b></div><div class="view"><div class="layer" style="opacity:1; width:1060px; height:662px"><img src="${LANG}/old-hero.png"></div></div></div></section>`);
+add(`<section class="scene dark" id="gaps"><div class="gh2"><p class="eyebrow">${T.gapsEye}</p><h2 class="serif">${T.gapsH}</h2></div><div class="grid">${T.gaps.map((g, i) => `<div class="gap"><div class="n">${i + 1}</div><h3>${g[0]}</h3><div class="q">${g[1]}</div><p>${g[2]}</p></div>`).join('')}</div></section>`);
+const FW = 1230, FH = 800, VW = FW, VH = FH - 44;
+SCENES.forEach(s => {
+  const g = T.gaps[s.g], isNew = s.kind === 'solved';
+  add(`<section class="scene dark ${s.kind}" id="${s.id}">
+    <div class="gh"><span class="num">0${s.g + 1}</span><h2 class="serif">${g[0]}</h2><span class="q">${g[1]}</span></div>
+    <div class="frame ${isNew ? 'new' : ''}" style="left:80px; top:190px; width:${FW}px; height:${FH}px"><div class="bar"><i></i><i></i><i></i><b>${isNew ? 'rfim.github.io/tenang_ai' : 'tenang.ai'}</b></div>
+      <div class="view">${s.shots.map((sh, k) => `<div class="layer" data-k="${k}"><img src="${LANG}/${sh.img}.png"><div class="hl"></div></div>`).join('')}</div></div>
+    <div class="panel"><span class="pill"><svg><use href="#${isNew ? 'ok' : 'x'}"/></svg>${isNew ? T.solved : T.problem}</span><h3>${s.txt[0]}</h3><p>${s.txt[1]}</p>${s.fix ? `<div class="fix">${T.fixes} <b>${s.fix}</b></div>` : ''}</div>
+  </section>`);
 });
+add(`<section class="scene dark" id="meet"><div class="stage">
+    <img class="hero" id="wave" src="nesya/wave-1.png">
+    <img class="mini" src="nesya/heart.png" style="left:-40px; top:520px">
+    <img class="mini" src="nesya/wink.png" style="left:600px; top:-10px">
+    <img class="mini" src="nesya/sit-1.png" style="left:620px; top:560px">
+  </div><div class="t"><p class="eyebrow">${T.meetEye}</p><h2 class="serif">${T.meetH}</h2><p>${T.meetP}</p><span class="scarf">${T.meetTag}</span></div></section>`);
+add(`<section class="scene dark" id="always"><p class="eyebrow">${T.alwaysEye}</p>
+  <svg class="dial" viewBox="0 0 760 760"><circle cx="380" cy="380" r="350" fill="none" stroke="rgba(226,184,102,.18)" stroke-width="2"/>
+    ${Array.from({ length: 24 }, (_, i) => { const a = i / 24 * Math.PI * 2, r1 = i % 6 ? 334 : 318; return `<line x1="${380 + Math.sin(a) * r1}" y1="${380 - Math.cos(a) * r1}" x2="${380 + Math.sin(a) * 350}" y2="${380 - Math.cos(a) * 350}" stroke="rgba(226,184,102,${i % 6 ? .35 : .8})" stroke-width="${i % 6 ? 2 : 4}"/>`; }).join('')}
+    <circle id="dot" cx="380" cy="30" r="12" fill="#e2b866"/><path id="arc" fill="none" stroke="#e2b866" stroke-width="4" stroke-linecap="round" opacity=".7"/></svg>
+  <div class="big">24/7</div>
+  <svg class="ic" id="moon" style="left:420px; top:395px"><use href="#moon"/></svg><svg class="ic" id="sun" style="left:420px; top:395px"><use href="#sun"/></svg>
+  <img class="cat" id="acat" src="nesya/sleepy.png">
+  <div class="sub"><b>${T.alwaysB}</b><span>${T.alwaysS}</span></div></section>`);
+add(`<section class="scene c" id="mission"><div><p class="eyebrow">${T.misEye}</p><h2 class="serif"><span class="l">${T.mis1}</span><span class="l">${T.mis2}</span></h2><p><span class="l">${T.mis3}</span><span class="l">${T.mis4}</span></p></div></section>`);
+add(`<section class="scene dark c" id="outro"><div>
+  <div class="wm"><i>by</i>Tenang<sup>AI</sup></div><div class="n2">N2CIAS</div>
+  <div class="mean"><b>N</b>esya &amp; <b>N</b>avigation · <b>C</b>are · <b>I</b>nsight · <b>A</b>ccess · <b>S</b>afety</div>
+  <div><span class="cta">${T.cta}<svg><use href="#arrow"/></svg></span></div><div class="url">rfim.github.io/tenang_ai</div></div>
+  <img class="cat" id="ocat" src="nesya/tilt-4.png"></section>`);
+add(`<section class="scene c" id="credits"><div><p class="film">${T.film}</p><div class="rr">Rembug Rasa Projects</div><p class="sup">${T.sup}</p>
+  <div class="logos"><img src="logos/creadv-light.svg" style="height:46px"><span class="cl"><img src="logos/claude.svg" style="height:54px"><small>${T.forStartups}</small></span><img src="logos/lpdp.png" style="height:104px"><img src="logos/goldsmiths.png" style="height:84px"></div></div></section>`);
 
 const ease = x => x <= 0 ? 0 : x >= 1 ? 1 : 1 - Math.pow(1 - x, 3);
+const inout = x => x <= 0 ? 0 : x >= 1 ? 1 : x < .5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
 const clamp = (x, a = 0, b = 1) => Math.max(a, Math.min(b, x));
-const fadeIO = (t, a, b, f = .3) => clamp(Math.min((t - a) / f, (b - t) / f));
-function rise(el, t, at, dur = .55, dy = 40) { const k = ease((t - at) / dur); el.style.opacity = k; el.style.transform = `translateY(${(1 - k) * dy}px)`; }
+const fadeIO = (t, a, b, f = .35) => clamp(Math.min((t - a) / f, (b - t) / f));
+const $ = (s, el = document) => el.querySelector(s);
+function rise(el, t, at, dur = .6, dy = 40) { const k = ease((t - at) / dur); el.style.opacity = k; el.style.transform = `translateY(${(1 - k) * dy}px)`; }
+
+// camera: show the whole page, then push in slowly so the box fills about two thirds of the view
+function camera(layer, box, t, at, end) {
+  const bw = box[2] - box[0], bh = box[3] - box[1];
+  const zt = clamp(Math.min(.66 / bw, (.62 * VH) / (bh * VW / 1.6)), 1, 2.1);
+  const k = inout((t - at - .3) / 1.6);
+  const z = 1 + (zt - 1) * k + .015 * clamp((t - at) / (end - at));
+  const iw = VW * z, ih = iw / 1.6;
+  const fx = .5 + ((box[0] + box[2]) / 2 - .5) * k, fy = .3 + ((box[1] + box[3]) / 2 - .3) * k;
+  const x = clamp(VW / 2 - fx * iw, VW - iw, 0), y = clamp(VH / 2 - fy * ih, Math.min(0, VH - ih), 0);
+  layer.style.width = iw + 'px'; layer.style.height = ih + 'px'; layer.style.transform = `translate(${x}px, ${y}px)`;
+  const hl = $('.hl', layer), pad = 10;
+  hl.style.left = (box[0] * iw - pad) + 'px'; hl.style.top = (box[1] * ih - pad) + 'px';
+  hl.style.width = (bw * iw + pad * 2) + 'px'; hl.style.height = (bh * ih + pad * 2) + 'px';
+  const h = ease((t - at - 1.5) / .5); hl.style.opacity = h;
+  const dim = .5 * h; const col = hl.closest('.solved') ? '111,207,151' : '255,138,101';
+  hl.style.boxShadow = `0 0 0 5000px rgba(4,10,12,${dim}), 0 0 ${30 + 20 * Math.sin(t * 4) ** 2}px rgba(${col},.6)`;
+}
 
 window.render = function (t) {
-  // hook 0–3
-  const hook = document.getElementById('hook'); hook.style.opacity = fadeIO(t, -1, 3, .35);
-  const hs = hook.querySelectorAll('h1 span'); rise(hs[0], t, .5, .5, 60); rise(hs[1], t, 1.0, .5, 60); rise(hook.querySelector('p'), t, 1.7, .6, 24);
-  // before 3–7
-  const bf = document.getElementById('before'); bf.style.opacity = fadeIO(t, 3, 7, .3);
-  rise(bf.querySelector('.title'), t, 3.1, .7, 30);
-  const fr = document.getElementById('bf'); const k = ease((t - 3) / 1); fr.style.opacity = k;
-  fr.style.transform = `translateY(${(1 - k) * 60}px) scale(${1.04 - .04 * clamp((t - 3) / 4)})`;
-  fr.querySelector('.shot').style.backgroundPosition = `center ${clamp((t - 4.2) / 2.6) * 55}%`;
-  // gaps overview 7–11
-  const g = document.getElementById('gaps'); g.style.opacity = fadeIO(t, 7, 11, .3);
-  rise(g.querySelector('.gh'), t, 7.05, .5, 20);
-  g.querySelectorAll('.gap').forEach((c, i) => rise(c, t, 7.5 + i * .5, .5, 40));
-  // pairs 11–27, 4 s each
-  PAIRS.forEach((p, i) => {
-    const a = 11 + i * 4, s = document.getElementById('p' + i); s.style.opacity = fadeIO(t, a, a + 4, .25);
-    rise(s.querySelector('.head'), t, a, .5, 24);
-    rise(s.querySelector('.fo'), t, a + .25, .6, 50); rise(s.querySelector('.fn'), t, a + .75, .6, 50);
-    rise(s.querySelector('.tag.miss'), t, a + 1.25, .45, 16); rise(s.querySelector('.tag.got'), t, a + 1.75, .45, 16);
-    const ins = s.querySelector('.inset'); if (ins) rise(ins, t, a + 2.25, .5, 30);
-    const sh = s.querySelector('.fn .shot'); const z = 1 + .05 * clamp((t - a - .75) / 3.2); sh.style.transform = `scale(${z})`; sh.style.transformOrigin = p.neuSize ? 'center bottom' : 'center top';
+  const hook = $('#hook'); hook.style.opacity = fadeIO(t, -1, 3, .35);
+  const hs = hook.querySelectorAll('h1 span'); rise(hs[0], t, .5, .5, 60); rise(hs[1], t, 1.0, .5, 60); rise($('p', hook), t, 1.7, .6, 24);
+  const bf = $('#before'); bf.style.opacity = fadeIO(t, 3, 8);
+  rise($('.t', bf), t, 3.1, .7, 30);
+  const fr = $('#bf'); const k = ease((t - 3) / 1); fr.style.opacity = k; fr.style.transform = `translateY(${(1 - k) * 60}px)`;
+  const ly = $('.layer', fr); const sc = clamp((t - 4.5) / 3.3); ly.style.transform = `translateY(${-sc * 0}px) scale(${1 + .04 * sc})`;
+  const g = $('#gaps'); g.style.opacity = fadeIO(t, 8, 13);
+  rise($('.gh2', g), t, 8.05, .5, 20); g.querySelectorAll('.gap').forEach((c, i) => rise(c, t, 8.5 + i * .5, .5, 40));
+  SCENES.forEach(s => {
+    const el = $('#' + s.id); el.style.opacity = fadeIO(t, s.a, s.b);
+    rise($('.gh', el), t, s.a, .5, 20);
+    rise($('.pill', el), t, s.a + 1.6, .45, 14); rise($('h3', el), t, s.a + 1.9, .5, 18); rise($('p', el), t, s.a + 2.2, .5, 18);
+    const fx = $('.fix', el); if (fx) rise(fx, t, s.a + 2.6, .5, 12);
+    const layers = el.querySelectorAll('.layer');
+    s.shots.forEach((sh, i) => {
+      const end = i + 1 < s.shots.length ? s.shots[i + 1].at : s.b;
+      const L = layers[i]; L.style.opacity = i === 0 ? clamp((end + .3 - t) / .35) : clamp(Math.min((t - sh.at) / .35, (end + .3 - t) / .35));
+      camera(L, R(sh.img, sh.box), t, sh.at, end);
+    });
   });
-  // mission 27–31
-  const m = document.getElementById('mission'); m.style.opacity = fadeIO(t, 27, 31, .3);
-  m.querySelectorAll('.l').forEach((l, i) => rise(l, t, 27.25 + [0, .5, 1.5, 2.0][i], .55, 26));
-  rise(m.querySelector('.eyebrow'), t, 27.1, .4, 12);
-  // outro 31–36, sponsor from 32.5
-  const o = document.getElementById('outro'); o.style.opacity = clamp((t - 31) / .3) * clamp((36 - t) / .6);
-  rise(o.querySelector('.wm'), t, 31.1, .6, 30); rise(o.querySelector('.n2'), t, 31.5, .5, 16); rise(o.querySelector('.mean'), t, 31.9, .5, 14); rise(o.querySelector('.url'), t, 32.3, .5, 12);
-  rise(o.querySelector('.sponsor'), t, 33.0, .6, 14);
-  const c = document.getElementById('ocat'); const ck = ease((t - 32) / .6); c.style.opacity = ck; c.style.transform = `translateY(${(1 - ck) * 50 + Math.sin(t * 3) * 4}px) rotate(${Math.sin(t * 2) * 2}deg)`;
+  // meet Nesya 29–34
+  const m = $('#meet'); m.style.opacity = fadeIO(t, 29, 34);
+  const w = $('#wave'); const wk = ease((t - 29.1) / .7); w.style.opacity = wk; w.style.transform = `translateY(${(1 - wk) * 80 + Math.sin(t * 2.2) * 8}px) rotate(${Math.sin(t * 1.6) * 1.5}deg)`;
+  const fr8 = Math.floor((t - 29) / .25); w.src = 'nesya/wave-' + [1, 1, 2, 3, 2, 3, 2, 1][((fr8 % 8) + 8) % 8] + '.png';
+  m.querySelectorAll('.mini').forEach((mi, i) => { const k2 = ease((t - 30.2 - i * .5) / .5); mi.style.opacity = k2; mi.style.transform = `translateY(${(1 - k2) * 30 + Math.sin(t * 2 + i) * 10}px) rotate(${(i - 1) * 6}deg)`; });
+  rise($('.t .eyebrow', m), t, 29.3, .5, 16); rise($('.t h2', m), t, 29.6, .6, 30); rise($('.t p', m), t, 30.3, .6, 20); rise($('.scarf', m), t, 31.2, .5, 12);
+  // 24/7 34–39
+  const al = $('#always'); al.style.opacity = fadeIO(t, 34, 39);
+  rise($('.eyebrow', al), t, 34.1, .5, 14);
+  const bk = ease((t - 34.4) / .8); const big = $('.big', al); big.style.opacity = bk; big.style.transform = `scale(${.85 + .15 * bk})`;
+  const turn = clamp((t - 34.3) / 4.2); const ang = turn * Math.PI * 2;
+  $('#dot').setAttribute('cx', 380 + Math.sin(ang) * 350); $('#dot').setAttribute('cy', 380 - Math.cos(ang) * 350);
+  const large = ang > Math.PI ? 1 : 0; $('#arc').setAttribute('d', turn < .001 ? '' : turn > .999 ? 'M380 30 A350 350 0 1 1 379.9 30' : `M380 30 A350 350 0 ${large} 1 ${380 + Math.sin(ang) * 350} ${380 - Math.cos(ang) * 350}`);
+  const night = Math.cos(ang) > 0 ? 1 : 0; const mk = clamp((t - 34.6) / .4);
+  $('#moon').style.opacity = mk * (Math.cos(ang) > 0 ? 1 : .0) ; $('#sun').style.opacity = mk * (Math.cos(ang) > 0 ? 0 : 1);
+  const ac = $('#acat'); ac.src = t < 36.4 ? 'nesya/sleepy.png' : 'nesya/happy.png'; const ak = ease((t - 34.8) / .6); ac.style.opacity = ak; ac.style.transform = `translateY(${(1 - ak) * 40 + Math.sin(t * 2.5) * 6}px)`;
+  rise($('.sub b', al), t, 35.3, .6, 20); rise($('.sub span', al), t, 35.9, .6, 16);
+  // mission 60–65
+  const mi = $('#mission'); mi.style.opacity = fadeIO(t, 60, 65);
+  rise($('.eyebrow', mi), t, 60.1, .4, 12); mi.querySelectorAll('.l').forEach((l, i) => rise(l, t, 60.3 + [0, .5, 1.6, 2.2][i], .6, 26));
+  // outro 65–69
+  const o = $('#outro'); o.style.opacity = fadeIO(t, 65, 69);
+  rise($('.wm', o), t, 65.1, .6, 30); rise($('.n2', o), t, 65.5, .5, 16); rise($('.mean', o), t, 65.9, .5, 14); rise($('.cta', o), t, 66.4, .6, 20); rise($('.url', o), t, 66.8, .5, 12);
+  const oc = $('#ocat'); const ok = ease((t - 66) / .6); oc.style.opacity = ok; oc.style.transform = `translateY(${(1 - ok) * 50 + Math.sin(t * 3) * 4}px) rotate(${Math.sin(t * 2) * 2}deg)`;
+  // credits 69–74
+  const cr = $('#credits'); cr.style.opacity = clamp((t - 69) / .35) * clamp((74 - t) / .8);
+  rise($('.film', cr), t, 69.1, .5, 12); rise($('.rr', cr), t, 69.4, .6, 20); rise($('.sup', cr), t, 70.2, .5, 12);
+  cr.querySelectorAll('.logos > *').forEach((l, i) => rise(l, t, 70.5 + i * .3, .5, 16));
 };
 render(0);
 </script>

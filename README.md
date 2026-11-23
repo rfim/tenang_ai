@@ -29,4 +29,4 @@ Deploy: GitHub Pages, Settings → Pages → Deploy from a branch → `main` / r
 
 ## Video
 
-`docs/videos/tenang-before-after.mp4` (36 s, 1920×1080, English, with sound): the old tenang.ai next to the new site, the four gaps it had (look & feel, character, credibility, story), the mission, and the sponsor credit (Rembug Rasa Projects). Poster: `docs/videos/poster.jpg`; storyboard, music and how to render it again: `docs/videos/before-after-plan.md`; caption: `docs/videos/share-copy.txt`.
+`docs/videos/tenang-before-after-en.mp4` and `docs/videos/tenang-before-after-id.mp4` (74 s, 1920×1080, English and Bahasa Indonesia, soft jazz soundtrack): for each of four gaps (look & feel, character, credibility, story) the old tenang.ai with the problem spotlighted, then the new site with the fix; Nesya the mascot, 24/7, the mission, "Book a pilot demo", and the credits (a film by Rembug Rasa Projects, supported by CREA Digital Ventures, Claude for Startups, LPDP and Goldsmiths, University of London). Poster: `docs/videos/poster.jpg`; storyboard and how to render it again: `docs/videos/before-after-plan.md`; captions: `docs/videos/share-copy.txt`.
