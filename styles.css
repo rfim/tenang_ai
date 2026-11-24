@@ -2928,16 +2928,3 @@ html[data-mode="dark"] body.cx-full { background: #0b1214; }
 .cx-dv .dv-card p, .cx-dv .dv-card h4, .cx-dv .dv-actions li, .cx-dv .dv-bars li { font-family: var(--sans); }
 .dash-demo b span { padding: 0; color: inherit; letter-spacing: 0; text-transform: none; font-size: 13px; }
 .dash-after { max-width: 1180px; margin: 14px auto 0; text-align: center; } .dash-after .dash-foot { justify-content: center; } .dash-after .dash-more { margin-top: 12px; }
-
-/* page transition between the website and the demo console (vt.js) */
-@view-transition { navigation: auto; }
-::view-transition-group(n2-console) { animation-duration: .75s; animation-timing-function: cubic-bezier(.2,.8,.2,1); }
-::view-transition-old(n2-console), ::view-transition-new(n2-console) { animation-duration: .75s; }
-::view-transition-old(root) { animation: n2-root-out .5s cubic-bezier(.4,0,.2,1) both; }
-::view-transition-new(root) { animation: n2-root-in .65s cubic-bezier(.2,.8,.2,1) .08s both; }
-@keyframes n2-root-out { to { opacity: 0; transform: scale(.975); filter: blur(4px); } }
-@keyframes n2-root-in { from { opacity: 0; transform: translateY(14px) scale(1.01); } }
-html.n2-leave body { opacity: 0; transform: scale(.985); filter: blur(4px); transition: opacity .34s ease, transform .34s ease, filter .34s ease; }
-html.n2-enter body { animation: n2-root-in .6s cubic-bezier(.2,.8,.2,1) both; }
-@media (prefers-reduced-motion: reduce) { ::view-transition-group(*), ::view-transition-old(*), ::view-transition-new(*) { animation: none !important; } }
-html.n2-back .hb > a, html.n2-back .hb .mw-arc, html.n2-back .hb .pk-chips > span { animation: none !important; }
