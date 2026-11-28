@@ -85,8 +85,12 @@
   }
 
   // ---------- render ----------
-  function render() {
+  var C = window.N2C, quiet = false;
+  function ech(cls, ratio, opt, ready) { var d = h("div", "cx-ec " + cls); d.style.aspectRatio = ratio; if (C) C.chart(d, function () { var o = opt(); o.animation = !quiet && !C.still; return o; }, { ready: ready }); return d; }
+  function render(q) {
+    quiet = !!q;
     var t = L(), tab = TABS[state.tab], ind = tab.kind === "ind";
+    if (C) C.sweep(app);
     app.innerHTML = "";
     app.classList.toggle("is-ind", ind);
     // app bar + tabs
@@ -121,64 +125,84 @@
       b.addEventListener("click", function () {
         if (i === 2) state.zoom = Math.min(1.5, state.zoom + .15); if (i === 3) state.zoom = Math.max(.8, state.zoom - .15);
         if (i === 4) state.labels = !state.labels; if (i === 5) { state.sel = [12, 18]; state.feat = null; state.zoom = 1; } if (i === 6) { app.querySelector('.cx-pdf').click(); return; }
-        render();
+        render(true);
       });
       rail.appendChild(b);
     });
     body.appendChild(rail);
 
-    // ---------- the wheel ----------
+    // ---------- the wheel (Apache ECharts custom series) ----------
     var mapBox = h("div", "cx-map");
-    var svg = el("svg", { viewBox: "0 0 " + W + " " + H, class: "cx-svg", role: "img", "aria-label": t.map });
-    var g = el("g", { transform: "translate(" + CX + " " + CY + ") scale(" + state.zoom + ") translate(" + -CX + " " + -CY + ")" }, svg);
-    el("circle", { cx: CX, cy: CY, r: R, class: "cx-ring" }, g);
-    for (var d = 1; d <= 30; d++) {
-      var a = ang(d), p1 = pt(a, R), p2 = pt(a, R + (d % 5 === 1 ? 10 : 5));
-      el("line", { x1: p1[0], y1: p1[1], x2: p2[0], y2: p2[1], class: "cx-tick" }, g);
-      if (d % 5 === 1 || d === 30) { var lp = pt(a, R - 16), tx = el("text", { x: lp[0], y: lp[1] + 4, class: "cx-num", "text-anchor": "middle" }, g); tx.textContent = d; }
-    }
-    // events around the outside
-    if (state.labels) tab.events.forEach(function (e, i) {
-      var a = ang(e[0]), p1 = pt(a, R + 4), p2 = pt(a, R + 40 + (i % 2) * 26), right = Math.cos(a) >= 0;
-      el("polyline", { points: p1 + " " + p2 + " " + (p2[0] + (right ? 14 : -14)) + "," + p2[1], class: "cx-lead" }, g);
-      var lb = el("text", { x: p2[0] + (right ? 18 : -18), y: p2[1] + 4, class: "cx-ev", "text-anchor": right ? "start" : "end" }, g); lb.textContent = nm(e[1]);
+    var lane0 = R - 30, lw = 15, gap = 3, inner = lane0 - data.lanes * (lw + gap) + gap - 4, en0 = lang() === "en";
+    function fit(api, zoom) { var w = api.getWidth(), hh = api.getHeight(), k = Math.min(w / W, hh / H), ox = (w - W * k) / 2, oy = (hh - H * k) / 2, z = zoom ? state.zoom : 1;
+      return { k: k * z, P: function (x, y) { return [ox + (CX + (x - CX) * z) * k, oy + (CY + (y - CY) * z) * k]; }, c: [ox + CX * k, oy + CY * k], ox: ox, oy: oy, k0: k }; }
+    function arcPts(g, a1, a2, r1, r2, arrow) { var o = [], n = Math.max(6, Math.ceil((a2 - a1) * 18)), j;
+      for (j = 0; j <= n; j++) { var a = a1 + (a2 - a1) * j / n; o.push([g.c[0] + Math.cos(a) * r2 * g.k, g.c[1] + Math.sin(a) * r2 * g.k]); }
+      if (arrow) { var m = (r1 + r2) / 2, at = a2 + .045; o.push([g.c[0] + Math.cos(at) * m * g.k, g.c[1] + Math.sin(at) * m * g.k]); }
+      for (j = n; j >= 0; j--) { var b2 = a1 + (a2 - a1) * j / n; o.push([g.c[0] + Math.cos(b2) * r1 * g.k, g.c[1] + Math.sin(b2) * r1 * g.k]); }
+      return o; }
+    var wheelEl = ech("cx-svg", W + " / " + H, function () {
+      var ink = C.ink(), ink2 = C.ink2(), ink3 = C.ink3(), mxh = Math.max.apply(0, data.hours);
+      return {
+        tooltip: C.tooltip({ trigger: "item" }),
+        series: [
+          { id: "base", type: "custom", coordinateSystem: "none", silent: true, data: [0], z: 1, renderItem: function (p, api) {
+            var g = fit(api, true), kids = [], c = g.c, R2 = R * g.k;
+            kids.push({ type: "circle", shape: { cx: c[0], cy: c[1], r: R2 }, style: { fill: "none", stroke: ink, lineWidth: 1.4 } });
+            for (var d = 1; d <= 30; d++) { var a = ang(d), l = (d % 5 === 1 ? 10 : 5) * g.k;
+              kids.push({ type: "line", shape: { x1: c[0] + Math.cos(a) * R2, y1: c[1] + Math.sin(a) * R2, x2: c[0] + Math.cos(a) * (R2 + l), y2: c[1] + Math.sin(a) * (R2 + l) }, style: { stroke: ink, lineWidth: 1.2 } });
+              if (d % 5 === 1 || d === 30) kids.push({ type: "text", style: { text: String(d), x: c[0] + Math.cos(a) * (R2 - 16 * g.k), y: c[1] + Math.sin(a) * (R2 - 16 * g.k), align: "center", verticalAlign: "middle", fill: ink2, font: "500 " + Math.max(9, 12 * g.k) + "px " + C.font } }); }
+            if (state.labels) tab.events.forEach(function (e, i) { var a = ang(e[0]), p1 = [c[0] + Math.cos(a) * (R2 + 4 * g.k), c[1] + Math.sin(a) * (R2 + 4 * g.k)], rr = (R + 40 + (i % 2) * 26) * g.k, p2 = [c[0] + Math.cos(a) * rr, c[1] + Math.sin(a) * rr], right = Math.cos(a) >= 0, p3 = [p2[0] + (right ? 14 : -14) * g.k, p2[1]];
+              kids.push({ type: "polyline", shape: { points: [p1, p2, p3] }, style: { fill: "none", stroke: ink3, lineWidth: 1 } });
+              kids.push({ type: "text", style: { text: nm(e[1]), x: p3[0] + (right ? 4 : -4) * g.k, y: p3[1], align: right ? "left" : "right", verticalAlign: "middle", fill: ink2, font: "500 " + Math.max(9.5, 12 * g.k) + "px " + C.font } }); });
+            kids.push({ type: "circle", shape: { cx: c[0], cy: c[1] - 34 * g.k, r: 25 * g.k }, style: { fill: C.surface(), stroke: C.line(), lineWidth: 1 } });
+            kids.push({ type: "image", style: { image: tab.logo, x: c[0] - 20 * g.k, y: c[1] - 54 * g.k, width: 40 * g.k, height: 40 * g.k } });
+            kids.push({ type: "text", style: { text: ind ? tab.name : tab.title, x: c[0], y: c[1] + 12 * g.k, align: "center", verticalAlign: "middle", fill: ink, font: "400 " + 26 * g.k + "px Marcellus, serif" } });
+            kids.push({ type: "text", style: { text: ind ? nm(tab.sub) : tab.n.toLocaleString("id-ID") + " " + (en0 ? "users · 30 days" : "pengguna · 30 hari"), x: c[0], y: c[1] + 34 * g.k, align: "center", verticalAlign: "middle", fill: ink3, font: "500 " + Math.max(9, 12 * g.k) + "px " + C.font } });
+            // 24-hour pattern, top right (not zoomed)
+            var g0 = fit(api, false), mc = g0.P(W - 86, 78);
+            data.hours.forEach(function (v, hh) { var a1 = (-90 + hh * 15) * Math.PI / 180, a2 = (-90 + (hh + 1) * 15 - 2) * Math.PI / 180;
+              kids.push({ type: "sector", shape: { cx: mc[0], cy: mc[1], r0: 26 * g0.k0, r: (30 + v / mxh * 22) * g0.k0, startAngle: a1, endAngle: a2 }, style: { fill: C.mint, opacity: .35 + .65 * v / mxh } }); });
+            kids.push({ type: "text", style: { text: "24h", x: mc[0], y: mc[1], align: "center", verticalAlign: "middle", fill: ink, font: "600 " + 11 * g0.k0 + "px " + C.font } });
+            kids.push({ type: "text", style: { text: t.h24, x: mc[0], y: mc[1] + 70 * g0.k0, align: "center", verticalAlign: "middle", fill: ink3, font: "500 " + Math.max(9, 11 * g0.k0) + "px " + C.font } });
+            return { type: "group", children: kids };
+          } },
+          { id: "arcs", type: "custom", coordinateSystem: "none", z: 2, cursor: "pointer",
+            data: data.feats.map(function (f, i) { var tp = TOPICS[f.t]; return { value: [f.lane, f.a, f.b, i], name: nm(tp), itemStyle: { color: tp.c } }; }),
+            tooltip: { formatter: function (p) { var f = data.feats[p.dataIndex]; return "<b>" + p.name + "</b><br>" + t.day + " " + f.a + "–" + f.b + (f.share ? "<br>" + (en0 ? "Share of check-ins " : "Porsi check-in ") + f.share + "%" : ""); } },
+            renderItem: function (p, api) {
+              var g = fit(api, true), f = data.feats[p.dataIndex], tp = TOPICS[f.t], r2 = lane0 - f.lane * (lw + gap), r1 = r2 - lw, a1 = ang(f.a), a2 = ang(f.b), on = state.feat === p.dataIndex, dim = state.feat !== null && !on;
+              var kids = [{ type: "polygon", shape: { points: arcPts(g, a1, a2, r1, r2, true) }, style: { fill: tp.c, opacity: dim ? .35 : 1, stroke: on ? C.ink() : "none", lineWidth: 1.5 },
+                enterFrom: { style: { opacity: 0 }, scaleX: .9, scaleY: .9, originX: g.c[0], originY: g.c[1] }, enterAnimation: { delay: 120 + p.dataIndex * 90, duration: 900, easing: "cubicOut" } }];
+              var mid = (r1 + r2) / 2, label = nm(tp);
+              if ((a2 - a1) * mid > 9 * label.length) { var am = (a1 + a2) / 2, th = am + Math.PI / 2; if (Math.cos(th) < 0) th += Math.PI;
+                kids.push({ type: "text", silent: true, x: g.c[0] + Math.cos(am) * mid * g.k, y: g.c[1] + Math.sin(am) * mid * g.k, rotation: -th, style: { text: label, align: "center", verticalAlign: "middle", fill: "#1d2626", font: "600 " + Math.max(8, 11 * g.k) + "px " + C.font, opacity: dim ? .5 : 1 } }); }
+              return { type: "group", children: kids };
+            } },
+          { id: "sel", type: "custom", coordinateSystem: "none", silent: true, z: 3, data: [[state.sel[0], state.sel[1]]], renderItem: function (p, api) {
+            var g = fit(api, true), s1 = ang(api.value(0)), s2 = ang(api.value(1) + .999), kids = [];
+            kids.push({ type: "sector", shape: { cx: g.c[0], cy: g.c[1], r0: inner * g.k, r: R * g.k, startAngle: s1, endAngle: s2 }, style: { fill: "rgba(42,157,143,.12)", stroke: "#2a9d8f", lineWidth: 1.6 } });
+            [[api.value(0), s1], [api.value(1), s2]].forEach(function (q) { kids.push({ type: "circle", shape: { cx: g.c[0] + Math.cos(q[1]) * (R + 2) * g.k, cy: g.c[1] + Math.sin(q[1]) * (R + 2) * g.k, r: 4 * g.k + 1 }, style: { fill: "#2a9d8f" } });
+              kids.push({ type: "text", style: { text: String(q[0]), x: g.c[0] + Math.cos(q[1]) * (R - 34) * g.k, y: g.c[1] + Math.sin(q[1]) * (R - 34) * g.k, align: "center", verticalAlign: "middle", fill: "#2a9d8f", font: "700 " + Math.max(9, 12 * g.k) + "px " + C.font } }); });
+            return { type: "group", children: kids };
+          } }
+        ]
+      };
+    }, function (chart) {
+      chart.on("click", { seriesId: "arcs" }, function (p) { state.feat = state.feat === p.dataIndex ? null : p.dataIndex; render(true); });
+      // drag round the ring to choose days (not when starting on a topic arc)
+      var zr = chart.getZr(), dragging = null;
+      function polar(e) { var w = chart.getWidth(), hh = chart.getHeight(), k = Math.min(w / W, hh / H), ox = (w - W * k) / 2, oy = (hh - H * k) / 2;
+        var x = CX + ((e.offsetX - ox) / k - CX) / state.zoom, y = CY + ((e.offsetY - oy) / k - CY) / state.zoom, a = Math.atan2(y - CY, x - CX) * 180 / Math.PI + 90; if (a < 0) a += 360;
+        return { r: Math.hypot(x - CX, y - CY), day: Math.min(30, 1 + Math.floor(a / 12)) }; }
+      function onArc(q) { return data.feats.some(function (f) { var r2 = lane0 - f.lane * (lw + gap); return q.r >= r2 - lw && q.r <= r2 && q.day >= f.a && q.day <= f.b; }); }
+      function setSel() { chart.setOption({ series: [{ id: "sel", data: [[state.sel[0], state.sel[1]]] }] }, { lazyUpdate: true }); }
+      zr.on("mousedown", function (e) { var q = polar(e); if (q.r > R + 12 || onArc(q)) return; dragging = q.day; state.sel = [q.day, q.day]; setSel(); });
+      zr.on("mousemove", function (e) { if (dragging === null) return; var d2 = polar(e).day; state.sel = [Math.min(dragging, d2), Math.max(dragging, d2)]; setSel(); });
+      zr.on("mouseup", function () { if (dragging !== null) { dragging = null; render(true); } });
+      zr.on("globalout", function () { if (dragging !== null) { dragging = null; render(true); } });
     });
-    // feature arcs
-    var lane0 = R - 30, lw = 15, gap = 3;
-    data.feats.forEach(function (f, i) {
-      var r2 = lane0 - f.lane * (lw + gap), r1 = r2 - lw, a1 = ang(f.a), a2 = ang(f.b), tp = TOPICS[f.t];
-      var path = el("path", { d: arcPath(a1, a2, r1, r2, true), fill: tp.c, class: "cx-arc" + (state.feat === i ? " on" : "") + (state.feat !== null && state.feat !== i ? " dim" : "") }, g);
-      path.addEventListener("click", function (ev) { ev.stopPropagation(); state.feat = state.feat === i ? null : i; render(); });
-      var id = "cxp" + i, mid = (r1 + r2) / 2, s = pt(a1 + .03, mid), e2 = pt(a2 - .03, mid);
-      el("path", { id: id, d: "M" + s + "A" + mid + " " + mid + " 0 " + (a2 - a1 > Math.PI ? 1 : 0) + " 1 " + e2, fill: "none" }, g);
-      if ((a2 - a1) * mid > 9 * nm(tp).length) { var lab = el("text", { class: "cx-arclab" }, g); var tpth = el("textPath", { href: "#" + id, startOffset: "50%", "text-anchor": "middle" }, lab); tpth.textContent = nm(tp); }
-    });
-    // selection wedge
-    var s1 = ang(state.sel[0]), s2 = ang(state.sel[1] + .999), inner = lane0 - data.lanes * (lw + gap) + gap - 4;
-    el("path", { d: arcPath(s1, s2, inner, R, false), class: "cx-wedge" }, g);
-    [[state.sel[0], s1], [state.sel[1], s2]].forEach(function (q) { var p = pt(q[1], R + 2); el("circle", { cx: p[0], cy: p[1], r: 4, class: "cx-wdot" }, g); var tp2 = pt(q[1], R - 34); var tt = el("text", { x: tp2[0], y: tp2[1] + 4, "text-anchor": "middle", class: "cx-wnum" }, g); tt.textContent = q[0]; });
-    // centre
-    el("circle", { cx: CX, cy: CY - 34, r: 25, class: "cx-clogo-bg" }, g);
-    el("image", { href: tab.logo, x: CX - 20, y: CY - 54, width: 40, height: 40, preserveAspectRatio: "xMidYMid meet" }, g);
-    var c1 = el("text", { x: CX, y: CY + 12, "text-anchor": "middle", class: "cx-cname" }, g); c1.textContent = ind ? tab.name : tab.title;
-    var c2 = el("text", { x: CX, y: CY + 32, "text-anchor": "middle", class: "cx-csub" }, g); c2.textContent = ind ? nm(tab.sub) : tab.n.toLocaleString("id-ID") + " " + (lang() === "en" ? "users · 30 days" : "pengguna · 30 hari");
-    // drag to select days
-    var hit = el("circle", { cx: CX, cy: CY, r: R + 12, class: "cx-hit" }, g);
-    g.insertBefore(hit, g.firstChild);
-    var dragging = null;
-    function dayAt(ev) { var b = svg.getBoundingClientRect(), x = (ev.clientX - b.left) / b.width * W, y = (ev.clientY - b.top) / b.height * H;
-      var a = Math.atan2(y - CY, x - CX) * 180 / Math.PI + 90; if (a < 0) a += 360; return Math.min(30, 1 + Math.floor(a / 12)); }
-    svg.addEventListener("pointerdown", function (ev) { if (ev.target.classList.contains("cx-arc")) return; dragging = dayAt(ev); state.sel = [dragging, dragging]; svg.setPointerCapture(ev.pointerId); render2(); });
-    svg.addEventListener("pointermove", function (ev) { if (dragging === null) return; var d2 = dayAt(ev); state.sel = [Math.min(dragging, d2), Math.max(dragging, d2)]; render2(); });
-    svg.addEventListener("pointerup", function () { if (dragging !== null) { dragging = null; render(); } });
-    function render2() { var w = svg.querySelector(".cx-wedge"); if (w) w.setAttribute("d", arcPath(ang(state.sel[0]), ang(state.sel[1] + .999), inner, R, false)); }
-    // 24h mini donut (top right, like the overview thumbnail)
-    var mg = el("g", { transform: "translate(" + (W - 86) + " 78)" }, svg), mx = Math.max.apply(0, data.hours);
-    data.hours.forEach(function (v, hh) { var a1 = (-90 + hh * 15) * Math.PI / 180, a2 = (-90 + (hh + 1) * 15 - 2) * Math.PI / 180, r2 = 30 + v / mx * 22;
-      el("path", { d: "M" + Math.cos(a1) * 26 + " " + Math.sin(a1) * 26 + "L" + Math.cos(a1) * r2 + " " + Math.sin(a1) * r2 + "A" + r2 + " " + r2 + " 0 0 1 " + Math.cos(a2) * r2 + " " + Math.sin(a2) * r2 + "L" + Math.cos(a2) * 26 + " " + Math.sin(a2) * 26 + "Z", class: "cx-hr", opacity: .35 + .65 * v / mx }, mg); });
-    var m1 = el("text", { y: 4, "text-anchor": "middle", class: "cx-minit" }, mg); m1.textContent = "24h";
-    var m2 = el("text", { y: 74, "text-anchor": "middle", class: "cx-minis" }, mg); m2.textContent = t.h24;
-    mapBox.appendChild(svg);
+    mapBox.appendChild(wheelEl);
 
     // ---------- bottom panels ----------
     var sd = data.days.slice(state.sel[0] - 1, state.sel[1]), avg = Math.round(sd.reduce(function (s, x) { return s + x.load; }, 0) / sd.length), sum = sd.reduce(function (s, x) { return s + x.ci; }, 0);
@@ -188,7 +212,7 @@
     var bot = h("div", "cx-bottom");
     var p1el = h("div", "cx-panel cx-desc", '<div class="cx-chips">' + inSel.map(function (f) { var i = data.feats.indexOf(f); return '<button type="button" class="cx-chip' + (f === focus ? " on" : "") + '" data-f="' + i + '" style="--c:' + TOPICS[f.t].c + '">' + nm(TOPICS[f.t]) + "</button>"; }).join("") + "</div>" +
       "<p><b>" + nm(ftp) + "</b> – " + (lang() === "en" ? ftp.dEn : ftp.dId) + "</p>");
-    p1el.querySelectorAll(".cx-chip").forEach(function (b) { b.addEventListener("click", function () { state.feat = +b.dataset.f; render(); }); });
+    p1el.querySelectorAll(".cx-chip").forEach(function (b) { b.addEventListener("click", function () { state.feat = +b.dataset.f; render(true); }); });
     var p2el = h("div", "cx-panel cx-props", "<header><b>" + nm(ftp) + "</b><span>" + t.day + " " + focus.a + "–" + focus.b + "</span></header><dl>" +
       "<dt>" + t.source + "</dt><dd>" + (ind ? t.ind : t.agg) + "</dd>" +
       (ind ? "<dt>" + t.consent + "</dt><dd>" + t.cv + "</dd>" : "<dt>" + t.kmin + "</dt><dd>" + t.kv + "</dd>") +
@@ -201,37 +225,58 @@
     mapBox.appendChild(bot);
     body.appendChild(mapBox);
 
-    // ---------- right: linear tracks in blocks of 10 days ----------
+    // ---------- right: linear tracks in blocks of 10 days (ECharts custom series) ----------
     var side = h("div", "cx-side");
     [[1, 10], [11, 20], [21, 30]].forEach(function (blk) {
-      var ML = 104, BW = 704, cw = (BW - ML) / 10, inBlk = data.feats.filter(function (f) { return !(f.b < blk[0] || f.a > blk[1]); }), rows = Math.max(1, inBlk.length), BH = 64 + rows * 26 + 30;
-      var s2v = el("svg", { viewBox: "0 0 " + BW + " " + BH, class: "cx-lin" });
-      for (var dd = blk[0]; dd <= blk[1]; dd++) {
-        var x = ML + (dd - blk[0]) * cw + cw / 2, dy = data.days[dd - 1];
-        var lv = dy.load >= 65 ? 3 : dy.load >= 40 ? 2 : 1;
-        el("rect", { x: x - cw / 2 + 4, y: 2, width: cw - 8, height: 22, rx: 5, class: "cx-lv" + lv }, s2v);
-        var tl = el("text", { x: x, y: 18, "text-anchor": "middle", class: "cx-seq lv" + lv }, s2v); tl.textContent = dy.load;
-        var tc = el("text", { x: x, y: 40, "text-anchor": "middle", class: "cx-seq2" }, s2v); tc.textContent = ind ? (dy.ci ? "●".repeat(dy.ci) : "–") : dy.ci;
-        var ttl = el("title", {}, tl); ttl.textContent = t.day + " " + dd + ": " + t.load + " " + dy.load + " (" + t.lvN[lv] + "), " + dy.ci + " " + t.ci.toLowerCase();
-      }
-      data.feats.forEach(function (f) {
-        var row = inBlk.indexOf(f); if (row < 0) return;
-        var a = Math.max(f.a, blk[0]), b = Math.min(f.b, blk[1]), x1 = ML + (a - blk[0]) * cw + 2, x2 = ML + (b - blk[0] + 1) * cw - 2, y = 50 + row * 26, end = f.b <= blk[1];
-        el("path", { d: "M" + x1 + " " + y + "H" + (x2 - (end ? 10 : 0)) + (end ? "L" + x2 + " " + (y + 10) + "L" + (x2 - 10) + " " + (y + 20) : "V" + (y + 20)) + "H" + x1 + "Z", fill: TOPICS[f.t].c, opacity: .9 }, s2v);
-        if (x2 - x1 > 70) { var tt = el("text", { x: (x1 + x2) / 2, y: y + 14, "text-anchor": "middle", class: "cx-barlab" }, s2v); tt.textContent = nm(TOPICS[f.t]); }
+      var ML = 104, BW = 704, cw = (BW - ML) / 10, inBlk = data.feats.filter(function (f) { return !(f.b < blk[0] || f.a > blk[1]); }), rows = Math.max(1, inBlk.length), BH = 64 + rows * 26 + 30, ay = 50 + rows * 26 + 6, TOPY = 20;
+      var lvC = { 1: ["#d8efe4", "#2b6b56"], 2: ["#f8e2b5", "#8a5a12"], 3: ["#f5c0b0", "#9a3b26"] };
+      function S(api) { var k = api.getWidth() / BW; return { k: k, X: function (x) { return x * k; }, Y: function (y) { return (y + TOPY) * k; } }; }
+      var blkEl = ech("cx-lin", BW + " / " + (BH + TOPY), function () {
+        var ink2 = C.ink2(), ink3 = C.ink3(), line = C.line();
+        return {
+          tooltip: C.tooltip({ trigger: "item" }),
+          series: [
+            { id: "frame", type: "custom", coordinateSystem: "none", silent: true, data: [0], renderItem: function (p, api) {
+              var g = S(api), kids = [], fs = Math.max(9, 12 * g.k) + "px " + C.font;
+              [[18, t.load, 600, ink2], [40, t.ci, 500, ink3], [ay + 20, t.day, 500, ink3]].forEach(function (q) { kids.push({ type: "text", style: { text: q[1], x: 0, y: g.Y(q[0]), verticalAlign: "bottom", fill: q[3], font: q[2] + " " + fs } }); });
+              kids.push({ type: "line", shape: { x1: g.X(ML), x2: g.X(BW), y1: g.Y(ay), y2: g.Y(ay) }, style: { stroke: line, lineWidth: 1 } });
+              for (var de = blk[0]; de <= blk[1]; de += 2) { var xx = g.X(ML + (de - blk[0]) * cw + cw / 2);
+                kids.push({ type: "line", shape: { x1: xx, x2: xx, y1: g.Y(ay), y2: g.Y(ay + 5) }, style: { stroke: line } });
+                kids.push({ type: "text", style: { text: String(de), x: xx, y: g.Y(ay + 20), align: "center", verticalAlign: "bottom", fill: ink3, font: fs } }); }
+              var o1 = Math.max(state.sel[0], blk[0]), o2 = Math.min(state.sel[1], blk[1]);
+              if (o1 <= o2) { var rx1 = g.X(ML + (o1 - blk[0]) * cw), rx2 = g.X(ML + (o2 - blk[0] + 1) * cw);
+                kids.push({ type: "rect", shape: { x: rx1, y: g.Y(2), width: rx2 - rx1, height: g.Y(ay) - g.Y(2) }, style: { fill: "rgba(42,157,143,.08)", stroke: "#2a9d8f", lineWidth: 1.2 } });
+                if (o1 === state.sel[0]) kids.push({ type: "rect", shape: { x: rx1, y: g.Y(-16), width: 26 * g.k, height: 16 * g.k, r: 3 }, style: { fill: "#2a9d8f" }, textContent: { style: { text: String(state.sel[0]), fill: "#fff", font: "700 " + Math.max(8, 11 * g.k) + "px " + C.font } }, textConfig: { position: "inside" } });
+                if (o2 === state.sel[1]) kids.push({ type: "rect", shape: { x: rx2 - 26 * g.k, y: g.Y(-16), width: 26 * g.k, height: 16 * g.k, r: 3 }, style: { fill: "#2a9d8f" }, textContent: { style: { text: String(state.sel[1]), fill: "#fff", font: "700 " + Math.max(8, 11 * g.k) + "px " + C.font } }, textConfig: { position: "inside" } }); }
+              return { type: "group", children: kids };
+            } },
+            { id: "days", type: "custom", coordinateSystem: "none",
+              data: data.days.slice(blk[0] - 1, blk[1]).map(function (dy) { return { value: [dy.d, dy.load, dy.ci] }; }),
+              tooltip: { formatter: function (p) { var lv = p.value[1] >= 65 ? 3 : p.value[1] >= 40 ? 2 : 1; return "<b>" + t.day + " " + p.value[0] + "</b><br>" + t.load + " " + p.value[1] + " (" + t.lvN[lv] + ")<br>" + p.value[2] + " " + t.ci.toLowerCase(); } },
+              renderItem: function (p, api) {
+                var g = S(api), dd = api.value(0), load = api.value(1), ci = api.value(2), lv = load >= 65 ? 3 : load >= 40 ? 2 : 1, x = ML + (dd - blk[0]) * cw + cw / 2;
+                return { type: "group", children: [
+                  { type: "rect", shape: { x: g.X(x - cw / 2 + 4), y: g.Y(2), width: (cw - 8) * g.k, height: 22 * g.k, r: 5 * g.k }, style: { fill: lvC[lv][0] },
+                    enterFrom: { style: { opacity: 0 } }, enterAnimation: { delay: (dd - blk[0]) * 40, duration: 500 } },
+                  { type: "text", silent: true, style: { text: String(load), x: g.X(x), y: g.Y(13), align: "center", verticalAlign: "middle", fill: lvC[lv][1], font: "700 " + Math.max(9, 12 * g.k) + "px " + C.font } },
+                  { type: "text", silent: true, style: { text: ind ? (ci ? "●".repeat(ci) : "–") : String(ci), x: g.X(x), y: g.Y(36), align: "center", verticalAlign: "middle", fill: C.ink3(), font: "500 " + Math.max(8.5, 11 * g.k) + "px " + C.font } }
+                ] };
+              } },
+            { id: "bars", type: "custom", coordinateSystem: "none",
+              data: inBlk.map(function (f) { return { value: [f.a, f.b], name: nm(TOPICS[f.t]), itemStyle: { color: TOPICS[f.t].c } }; }),
+              tooltip: { formatter: function (p) { return "<b>" + p.name + "</b><br>" + t.day + " " + p.value[0] + "–" + p.value[1]; } },
+              renderItem: function (p, api) {
+                var g = S(api), f = inBlk[p.dataIndex], a = Math.max(f.a, blk[0]), b2 = Math.min(f.b, blk[1]), x1 = ML + (a - blk[0]) * cw + 2, x2 = ML + (b2 - blk[0] + 1) * cw - 2, y = 50 + p.dataIndex * 26, end = f.b <= blk[1];
+                var pts = end ? [[x1, y], [x2 - 10, y], [x2, y + 10], [x2 - 10, y + 20], [x1, y + 20]] : [[x1, y], [x2, y], [x2, y + 20], [x1, y + 20]];
+                var kids = [{ type: "polygon", shape: { points: pts.map(function (q) { return [g.X(q[0]), g.Y(q[1])]; }) }, style: { fill: api.visual("color"), opacity: .9 },
+                  enterFrom: { scaleX: 0, originX: g.X(x1) }, enterAnimation: { delay: 200 + p.dataIndex * 80, duration: 700, easing: "cubicOut" } }];
+                if (x2 - x1 > 70) kids.push({ type: "text", silent: true, style: { text: p.name || nm(TOPICS[f.t]), x: g.X((x1 + x2) / 2), y: g.Y(y + 10), align: "center", verticalAlign: "middle", fill: "#1d2626", font: "600 " + Math.max(8.5, 11 * g.k) + "px " + C.font } });
+                return { type: "group", children: kids };
+              } }
+          ]
+        };
       });
-      var ay = 50 + rows * 26 + 6;
-      el("line", { x1: ML, x2: BW, y1: ay, y2: ay, class: "cx-axis" }, s2v); [[18, t.load, "cx-rl"], [40, t.ci, "cx-rl2"], [ay + 20, t.day, "cx-rl2"]].forEach(function (q) { var tl = el("text", { x: 0, y: q[0], class: q[2] }, s2v); tl.textContent = q[1]; });
-      for (var de = blk[0]; de <= blk[1]; de += 2) { var xx = ML + (de - blk[0]) * cw + cw / 2; el("line", { x1: xx, x2: xx, y1: ay, y2: ay + 5, class: "cx-axis" }, s2v); var at = el("text", { x: xx, y: ay + 20, "text-anchor": "middle", class: "cx-ax" }, s2v); at.textContent = de; }
-      var o1 = Math.max(state.sel[0], blk[0]), o2 = Math.min(state.sel[1], blk[1]);
-      if (o1 <= o2) {
-        var rx1 = ML + (o1 - blk[0]) * cw, rx2 = ML + (o2 - blk[0] + 1) * cw;
-        el("rect", { x: rx1, y: 2, width: rx2 - rx1, height: ay - 2, class: "cx-linsel" }, s2v);
-        if (o1 === state.sel[0]) { el("rect", { x: rx1, y: -16, width: 26, height: 16, class: "cx-tag" }, s2v); var tg = el("text", { x: rx1 + 13, y: -4, "text-anchor": "middle", class: "cx-tagt" }, s2v); tg.textContent = state.sel[0]; }
-        if (o2 === state.sel[1]) { el("rect", { x: rx2 - 26, y: -16, width: 26, height: 16, class: "cx-tag" }, s2v); var tg2 = el("text", { x: rx2 - 13, y: -4, "text-anchor": "middle", class: "cx-tagt" }, s2v); tg2.textContent = state.sel[1]; }
-      }
-      s2v.setAttribute("viewBox", "0 -20 " + BW + " " + (BH + 20));
-      var wrap = h("div", "cx-blk"); wrap.appendChild(s2v); side.appendChild(wrap);
+      var wrap = h("div", "cx-blk"); wrap.appendChild(blkEl); side.appendChild(wrap);
     });
     side.insertBefore(h("div", "cx-sidehead", "<b>" + t.sideTitle + "</b><span>" + t.keyNote + "</span><ul><li><i class='cx-lv1'></i>" + t.lvN[1] + " &lt; 40</li><li><i class='cx-lv2'></i>" + t.lvN[2] + " 40–64</li><li><i class='cx-lv3'></i>" + t.lvN[3] + " ≥ 65</li></ul>"), side.firstChild);
     body.appendChild(side);
@@ -253,16 +298,26 @@
   }
   // ---------- other views: trends, units, reports, settings ----------
   function linechart(vals, avg, events, w, hgt, cls) {
-    var sv = el("svg", { viewBox: "0 0 " + w + " " + hgt, class: cls || "cx-big" }), m = { l: 36, r: 12, t: 14, b: 26 }, iw = w - m.l - m.r, ih = hgt - m.t - m.b, n = vals.length;
-    var x = function (i) { return m.l + i * iw / (n - 1); }, y = function (v) { return m.t + ih - v / 100 * ih; };
-    [0, 25, 50, 75, 100].forEach(function (g) { el("line", { x1: m.l, x2: w - m.r, y1: y(g), y2: y(g), class: "cx-gl" }, sv); var tx = el("text", { x: m.l - 6, y: y(g) + 4, "text-anchor": "end", class: "cx-ax" }, sv); tx.textContent = g; });
-    (events || []).forEach(function (e) { var xx = x(e[0] - 1); el("line", { x1: xx, x2: xx, y1: m.t, y2: m.t + ih, class: "cx-evl" }, sv); var tx = el("text", { x: xx + 4, y: m.t + 10, class: "cx-evt" }, sv); tx.textContent = nm(e[1]); });
-    var path = function (a) { return a.map(function (v, i) { return (i ? "L" : "M") + x(i).toFixed(1) + " " + y(v).toFixed(1); }).join(""); };
-    el("path", { d: path(vals) + "L" + x(n - 1) + " " + y(0) + "L" + x(0) + " " + y(0) + "Z", class: "cx-area" }, sv);
-    if (avg) el("path", { d: path(avg), class: "cx-l2" }, sv);
-    el("path", { d: path(vals), class: "cx-l1" }, sv);
-    for (var i = 0; i < n; i += 5) { var tx = el("text", { x: x(i), y: hgt - 6, "text-anchor": "middle", class: "cx-ax" }, sv); tx.textContent = i + 1; }
-    return sv;
+    var small = cls === "cx-small", n = vals.length, pk = vals.indexOf(Math.max.apply(0, vals)), en = lang() === "en";
+    return ech(cls || "cx-big", w + " / " + hgt, function () {
+      var ink3 = C.ink3(), line = C.line();
+      return {
+        grid: small ? { left: 26, right: 8, top: 10, bottom: 20 } : { left: 36, right: 18, top: events ? 52 : 26, bottom: 26 },
+        tooltip: C.tooltip({ trigger: "axis", axisPointer: { type: "line", lineStyle: { color: ink3, type: [3, 3] } },
+          formatter: function (ps) { var i = ps[0].dataIndex; return "<b>" + L().day + " " + (i + 1) + "</b><br>" + (en ? "Load " : "Beban ") + Math.round(vals[i]) + (avg ? "<br>" + (en ? "7-day average " : "Rata-rata 7 hari ") + Math.round(avg[i]) : ""); } }),
+        xAxis: { type: "category", boundaryGap: false, data: vals.map(function (v, i) { return i + 1; }), axisLine: { lineStyle: { color: line } }, axisTick: { show: false }, axisLabel: { color: ink3, fontSize: small ? 9 : 11, interval: 4 } },
+        yAxis: { type: "value", min: 0, max: 100, interval: small ? 50 : 25, axisLabel: { color: ink3, fontSize: small ? 9 : 11 }, splitLine: { lineStyle: { color: line } } },
+        series: [
+          { type: "line", data: vals.map(function (v) { return Math.round(v * 10) / 10; }), smooth: .25, symbol: "none", lineStyle: { color: "#2a9d8f", width: small ? 1.6 : 2.2 },
+            areaStyle: { color: { type: "linear", x: 0, y: 0, x2: 0, y2: 1, colorStops: [{ offset: 0, color: "rgba(42,157,143,.22)" }, { offset: 1, color: "rgba(42,157,143,0)" }] } },
+            // story: calendar events as labelled lines, and the peak marked, so the cause sits next to the effect
+            markLine: events ? { silent: true, symbol: "none", lineStyle: { color: ink3, type: [4, 4], width: 1 }, label: { formatter: "{b}", position: "end", color: C.ink2(), fontSize: 10.5, fontWeight: 600 },
+              data: events.map(function (e, i) { return { xAxis: e[0] - 1, name: nm(e[1]), label: { distance: i % 2 ? 18 : 4 } }; }) } : undefined,
+            markPoint: small ? undefined : { symbol: "circle", symbolSize: 9, itemStyle: { color: "#2a9d8f", borderColor: C.surface(), borderWidth: 2 }, label: { show: true, position: "top", distance: 8, color: C.ink(), fontWeight: 600, fontSize: 11, formatter: (en ? "peak " : "puncak ") + Math.round(vals[pk]) }, data: [{ coord: [pk, vals[pk]] }] },
+            animationDuration: 1500, animationEasing: "cubicInOut" }
+        ].concat(avg ? [{ type: "line", data: avg.map(function (v) { return Math.round(v * 10) / 10; }), smooth: .3, symbol: "none", lineStyle: { color: ink3, width: 1.6 }, animationDuration: 1500, animationDelay: 250 }] : [])
+      };
+    });
   }
   function viewTrend(tab, ind, t) {
     var en = lang() === "en", wrap = h("div", "cx-view"), loads = data.days.map(function (d) { return d.load; });
@@ -353,53 +408,72 @@
       ["Energi", "Energy", "#c32ee6", "M9 1L4 9h4l-1 6 5-8H8z"], ["Fokus", "Focus", "#0a84ff", "M8 3a5 5 0 1 0 .01 0M8 6a2 2 0 1 0 .01 0"], ["Dukungan sosial", "Social support", "#00b8a9", "M5 6a2 2 0 1 0 .01 0M11 6a2 2 0 1 0 .01 0M2 13c0-2 2-3 3-3s3 1 3 3M8 13c0-2 2-3 3-3s3 1 3 3"]];
     var vals = dims.map(function (d, i) { return ind ? [.35, .7, .5, .4, .55, .8][i] : .3 + r() * .6; });
     var c1 = h("section", "cx-card", "<header><b>" + (en ? "Wellbeing profile" : "Profil kesejahteraan") + "</b><span>" + (en ? "share reporting things are okay, per area" : "porsi yang melaporkan baik-baik saja, per area") + "</span></header>");
-    var sv = el("svg", { viewBox: "-160 -160 320 320", class: "cx-petals" }), n = dims.length;
-    dims.forEach(function (d, i) {
-      var a0 = (-90 + i * 360 / n) * Math.PI / 180, half = (360 / n / 2 - 4) * Math.PI / 180;
-      function petal(rad) { var r0 = 34, p = function (a, rr) { return (Math.cos(a) * rr).toFixed(1) + " " + (Math.sin(a) * rr).toFixed(1); };
-        return "M" + p(a0 - half * .55, r0) + "Q" + p(a0 - half, r0 + (rad - r0) * .6) + " " + p(a0 - half * .8, rad) + "Q" + p(a0, rad + 18) + " " + p(a0 + half * .8, rad) + "Q" + p(a0 + half, r0 + (rad - r0) * .6) + " " + p(a0 + half * .55, r0) + "Q" + p(a0, r0 - 8) + " " + p(a0 - half * .55, r0) + "Z"; }
-      el("path", { d: petal(140), fill: "none", stroke: d[2], "stroke-width": 1.5, opacity: .7 }, sv);
-      var f = el("path", { d: petal(40 + 100 * vals[i]), fill: d[2] }, sv);
-      var ic = el("g", { transform: "translate(" + (Math.cos(a0) * 56 - 8) + " " + (Math.sin(a0) * 56 - 8) + ")" }, sv);
-      el("path", { d: d[3], fill: "none", stroke: "#fff", "stroke-width": 1.6, "stroke-linecap": "round", "stroke-linejoin": "round" }, ic);
-      var tl = el("title", {}, f); tl.textContent = d[en ? 1 : 0] + ": " + Math.round(vals[i] * 100) + "%";
-    });
-    c1.appendChild(sv);
+    // story: the wellbeing profile as a rose; the weakest area is pulled out so it reads first
+    var low = vals.indexOf(Math.min.apply(0, vals));
+    c1.appendChild(ech("cx-petals", "1 / 1", function () {
+      return {
+        tooltip: C.tooltip({ trigger: "item", formatter: function (p) { return "<b>" + p.name + "</b><br>" + p.value + "%"; } }),
+        series: [
+          { type: "pie", roseType: false, radius: ["14%", "94%"], silent: true, startAngle: 90 + 360 / dims.length / 2, label: { show: false }, data: dims.map(function (d) { return { value: 1, itemStyle: { color: "rgba(0,0,0,0)", borderColor: d[2], borderWidth: 1.2, opacity: .55 } }; }) },
+          { type: "pie", roseType: "radius", radius: ["14%", "86%"], startAngle: 90 + 360 / dims.length / 2, itemStyle: { borderRadius: 8, borderColor: C.surface(), borderWidth: 3 },
+            label: { show: true, position: "inside", formatter: "{c}%", color: "#fff", fontWeight: 700, fontSize: 11 },
+            data: dims.map(function (d, i) { return { name: d[en ? 1 : 0], value: Math.round(vals[i] * 100), selected: i === low, itemStyle: { color: d[2] } }; }), selectedOffset: 8,
+            animationType: "scale", animationEasing: "elasticOut", animationDuration: 1400, animationDelay: function (i) { return i * 120; } }
+        ]
+      };
+    }));
     c1.appendChild(h("ul", "cx-plg", dims.map(function (d, i) { return '<li><i style="background:' + d[2] + '"></i>' + d[en ? 1 : 0] + " <b>" + Math.round(vals[i] * 100) + "%</b></li>"; }).join("")));
     row.appendChild(c1);
     // 2. support journey (lifecycle)
     var steps = ind ? [[en ? "First check-in" : "Check-in pertama", 1], [en ? "Self-guided" : "Latihan mandiri", 1], [en ? "With Nesya" : "Bersama Nesya", 1], [en ? "Referral" : "Rujukan", 1], [en ? "Psychologist" : "Psikolog", 1], [en ? "Steady" : "Stabil", 0]].map(function (x) { return [x[0], x[1] ? .45 : .15]; })
       : [[en ? "First check-in" : "Check-in pertama", 1], [en ? "Self-guided" : "Latihan mandiri", .54], [en ? "With Nesya" : "Bersama Nesya", .31], [en ? "Referral" : "Rujukan", .12], [en ? "Psychologist" : "Psikolog", .09], [en ? "Steady" : "Stabil", .71]];
     var c2 = h("section", "cx-card cx-wide", "<header><b>" + (en ? "Support journey" : "Perjalanan dukungan") + "</b><span>" + (ind ? (en ? "this person's path, with consent" : "jalur orang ini, atas izin") : (en ? "share of users reaching each step" : "porsi pengguna yang mencapai tiap tahap")) + "</span></header>");
-    var js = el("svg", { viewBox: "0 0 640 260", class: "cx-journey" });
     var pos = [[70, 150], [210, 70], [210, 200], [360, 200], [480, 130], [585, 70]], cols = ["#f5b44a", "#9bd36a", "#a9dbf5", "#f5e15a", "#7fd1c7", "#2a9d8f"];
     var links = [[0, 1], [0, 2], [1, 5], [2, 3], [3, 4], [4, 5], [2, 5]];
-    var defs = el("defs", {}, js), mk = el("marker", { id: "cxar", viewBox: "0 0 10 10", refX: 9, refY: 5, markerWidth: 7, markerHeight: 7, orient: "auto" }, defs); el("path", { d: "M0 0L10 5L0 10z", fill: "#7fb9c9" }, mk);
-    links.forEach(function (l, i) { var a = pos[l[0]], b = pos[l[1]], ra = 18 + 30 * steps[l[0]][1], rb = 18 + 30 * steps[l[1]][1], dx = b[0] - a[0], dy = b[1] - a[1], d = Math.hypot(dx, dy);
-      el("path", { d: "M" + (a[0] + dx / d * ra) + " " + (a[1] + dy / d * ra) + "L" + (b[0] - dx / d * (rb + 4)) + " " + (b[1] - dy / d * (rb + 4)), stroke: "#7fb9c9", "stroke-width": 2, fill: "none", "marker-end": "url(#cxar)", "stroke-dasharray": i === 6 ? "5 5" : "none" }, js); });
-    steps.forEach(function (st, i) { var rr = 18 + 30 * st[1], p = pos[i]; el("circle", { cx: p[0], cy: p[1], r: rr, fill: cols[i], opacity: .92 }, js); el("circle", { cx: p[0], cy: p[1], r: rr * .62, fill: "#fff", opacity: .18 }, js);
-      var tt = el("text", { x: p[0], y: p[1] + rr + 16, "text-anchor": "middle", class: "cx-jl" }, js); tt.textContent = st[0];
-      if (!ind) { var tv = el("text", { x: p[0], y: p[1] + 5, "text-anchor": "middle", class: "cx-jv" }, js); tv.textContent = Math.round(st[1] * 100) + "%"; } });
-    var tg1 = el("text", { x: 16, y: 26, class: "cx-jstage" }, js); tg1.textContent = en ? "Newcomer" : "Baru";
-    var tg2 = el("text", { x: 624, y: 250, "text-anchor": "end", class: "cx-jstage" }, js); tg2.textContent = en ? "Steady" : "Stabil";
+    // story: one path from first check-in to steady, circle size = share of people who get there
+    var js = ech("cx-journey", "640 / 260", function () {
+      var box = { left: 70, right: 70, top: 46, bottom: 52 }, nodes = function (lab) { return steps.map(function (st, i) { return Object.assign({ name: st[0], x: pos[i][0], y: pos[i][1], symbolSize: (18 + 30 * st[1]) * 2 }, lab(st, i)); }); };
+      return {
+        tooltip: C.tooltip({ trigger: "item", formatter: function (p) { return p.dataType === "node" ? "<b>" + p.name + "</b>" + (ind ? "" : "<br>" + Math.round(steps[p.dataIndex][1] * 100) + "%") : ""; } }),
+        series: [
+          Object.assign({ type: "graph", layout: "none", roam: false, edgeSymbol: ["none", "arrow"], edgeSymbolSize: 8, z: 2,
+            data: nodes(function (st, i) { return { itemStyle: { color: cols[i], opacity: .92 }, label: { show: !ind, position: "inside", formatter: Math.round(st[1] * 100) + "%", color: "#1d2626", fontSize: 12, fontWeight: 700 } }; }),
+            links: links.map(function (l, i) { return { source: l[0], target: l[1], lineStyle: { color: "#7fb9c9", width: 2, opacity: .9, type: i === 6 ? [5, 5] : "solid" } }; }),
+            animationDuration: 1100, animationEasing: "cubicOut", animationDelay: function (i) { return i * 140; } }, box),
+          Object.assign({ type: "graph", layout: "none", roam: false, silent: true, z: 1,
+            data: nodes(function () { return { itemStyle: { color: "rgba(0,0,0,0)" }, label: { show: true, position: "bottom", distance: 6, formatter: "{b}", color: C.ink(), fontSize: 11.5, fontWeight: 600 } }; }), links: [] }, box)
+        ],
+        graphic: [{ type: "text", left: 12, top: 8, style: { text: en ? "Newcomer → steady" : "Baru → stabil", fill: C.ink3(), font: "600 11px " + C.font } }]
+      };
+    });
     c2.appendChild(js); row.appendChild(c2);
     // 3. unit domes (geosocial)
     if (!ind) {
       var c3 = h("section", "cx-card", "<header><b>" + (en ? "Units at a glance" : "Unit sekilas") + "</b><span>" + (en ? "dome size = active users · colour = load" : "besar kubah = pengguna aktif · warna = beban") + "</span></header>");
-      var ds = el("svg", { viewBox: "0 0 360 250", class: "cx-domes" });
-      el("ellipse", { cx: 180, cy: 150, rx: 118, ry: 58, fill: "none", stroke: "#8a96a8", "stroke-width": 1 }, ds);
       var dc = ["#f26b4f", "#1fb6e8", "#e2559d", "#c7d93b", "#f0a33a", "#7fd1c7"];
-      tab.units.map(function (u, i) { var a = (-200 + i * 360 / tab.units.length) * Math.PI / 180; return { u: u, i: i, x: 180 + Math.cos(a) * 118, y: 150 + Math.sin(a) * 58, w: 22 + Math.round(r() * 30), load: Math.round(40 + r() * 40) }; })
-        .sort(function (a, b) { return a.y - b.y; }).forEach(function (d) {
-          el("path", { d: "M" + (d.x - d.w) + " " + d.y + "A" + d.w + " " + d.w * .82 + " 0 0 1 " + (d.x + d.w) + " " + d.y + "A" + d.w + " " + d.w * .22 + " 0 0 1 " + (d.x - d.w) + " " + d.y + "Z", fill: dc[d.i % dc.length], opacity: .82 }, ds);
-          el("ellipse", { cx: d.x, cy: d.y, rx: d.w, ry: d.w * .22, fill: dc[d.i % dc.length] }, ds);
-          var lb = el("text", { x: d.x, y: d.y - d.w * .82 - 8, "text-anchor": "middle", class: "cx-dl" }, ds); lb.textContent = d.u;
-          el("rect", { x: d.x - 22, y: d.y + d.w * .22 + 4, width: 44, height: 16, rx: 8, fill: "#fff", stroke: dc[d.i % dc.length] }, ds);
-          var lv = el("text", { x: d.x, y: d.y + d.w * .22 + 16, "text-anchor": "middle", class: "cx-dv" }, ds); lv.textContent = d.load; });
+      var units = tab.units.map(function (u, i) { var a = (-200 + i * 360 / tab.units.length) * Math.PI / 180; return { u: u, i: i, x: 180 + Math.cos(a) * 118, y: 150 + Math.sin(a) * 58, w: 22 + Math.round(r() * 30), load: Math.round(40 + r() * 40) }; })
+        .sort(function (a, b) { return a.y - b.y; });
+      var ds = ech("cx-domes", "360 / 250", function () {
+        return {
+          tooltip: C.tooltip({ trigger: "item", formatter: function (p) { var d = units[p.dataIndex]; return "<b>" + d.u + "</b><br>" + (en ? "Average load " : "Beban rata-rata ") + d.load; } }),
+          series: [{ type: "custom", coordinateSystem: "none", data: units.map(function (d) { return d.load; }), renderItem: function (p, api) {
+            var k = Math.min(api.getWidth() / 360, api.getHeight() / 250), ox = (api.getWidth() - 360 * k) / 2, oy = (api.getHeight() - 250 * k) / 2, d = units[p.dataIndex], col = dc[d.i % dc.length], kids = [];
+            var X = function (x) { return ox + x * k; }, Y = function (y) { return oy + y * k; }, pts = [];
+            if (p.dataIndex === 0) kids.push({ type: "ellipse", silent: true, shape: { cx: X(180), cy: Y(150), rx: 118 * k, ry: 58 * k }, style: { fill: "none", stroke: "#8a96a8", lineWidth: 1 } });
+            for (var j = 0; j <= 24; j++) { var a = Math.PI + Math.PI * j / 24; pts.push([X(d.x + Math.cos(a) * d.w), Y(d.y + Math.sin(a) * d.w * .82)]); }
+            for (j = 24; j >= 0; j--) { var b2 = Math.PI * j / 24; pts.push([X(d.x + Math.cos(b2) * d.w), Y(d.y + Math.sin(b2) * d.w * .22)]); }
+            kids.push({ type: "polygon", shape: { points: pts }, style: { fill: col, opacity: .85 }, enterFrom: { scaleY: 0, originY: Y(d.y) }, enterAnimation: { delay: 150 + p.dataIndex * 120, duration: 900, easing: "backOut" } });
+            kids.push({ type: "text", silent: true, style: { text: d.u, x: X(d.x), y: Y(d.y - d.w * .82 - 8), align: "center", verticalAlign: "bottom", fill: C.ink(), font: "600 " + Math.max(9, 11 * k) + "px " + C.font } });
+            kids.push({ type: "rect", silent: true, shape: { x: X(d.x - 22), y: Y(d.y + d.w * .22 + 4), width: 44 * k, height: 16 * k, r: 8 * k }, style: { fill: "#fff", stroke: col },
+              textContent: { style: { text: String(d.load), fill: "#1d2626", font: "700 " + Math.max(9, 11 * k) + "px " + C.font } }, textConfig: { position: "inside" } });
+            return { type: "group", children: kids };
+          } }]
+        };
+      });
       c3.appendChild(ds); row.appendChild(c3);
     }
     return row;
   }
   render();
-  document.addEventListener("langchange", render);
+  document.addEventListener("langchange", function () { render(); });
 })();

@@ -33,6 +33,7 @@
       var c = echarts.getInstanceByDom(el) || echarts.init(el, null, { renderer: "svg" });
       var base = { backgroundColor: "transparent", textStyle: { fontFamily: FONT }, animation: !still };
       c.setOption(Object.assign(base, option), opts && opts.merge ? false : true);
+      if (opts && opts.ready && !el.__n2ready) { el.__n2ready = true; opts.ready(c); }
       if (!el.__n2ro && window.ResizeObserver) { el.__n2ro = new ResizeObserver(function () { if (!c.isDisposed()) c.resize(); }); el.__n2ro.observe(el); }
       return c;
     },
