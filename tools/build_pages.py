@@ -306,6 +306,8 @@ _h = re.sub(r"<title>.*?</title>", "<title>Demo Konsol Institusi · N2CIAS</titl
 (ROOT / "dashboard.html").write_text(_h + """<body class="cx-full">
 <script>try{var l=localStorage.getItem("lang");if(l)document.documentElement.lang=l;}catch(e){}</script>
 <div class="cx" id="cx"></div>
+<script src="assets/vendor/echarts/echarts.min.js"></script>
+<script src="charts.js"></script>
 <script src="dash.js"></script>
 <script src="console.js"></script>
 </body>
