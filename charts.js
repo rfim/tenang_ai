@@ -24,6 +24,12 @@
     // one chart in one box; re-using the box re-uses the chart so updates animate
     chart: function (el, option, opts) {
       if (!el) return null;
+      // boxes built off-page are drawn once they are on the page and have a size, so the build-up animation plays
+      if (!el.isConnected || !el.clientWidth || !el.clientHeight) {
+        var tries = (opts && opts.tries) || 0; if (tries > 120 || (tries && !document.contains(el) && tries > 4)) return null;
+        requestAnimationFrame(function () { N.chart(el, option, Object.assign({}, opts, { tries: tries + 1 })); }); return null;
+      }
+      if (typeof option === "function") option = option();
       var c = echarts.getInstanceByDom(el) || echarts.init(el, null, { renderer: "svg" });
       var base = { backgroundColor: "transparent", textStyle: { fontFamily: FONT }, animation: !still };
       c.setOption(Object.assign(base, option), opts && opts.merge ? false : true);

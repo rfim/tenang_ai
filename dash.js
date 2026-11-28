@@ -121,76 +121,87 @@
   document.addEventListener("keydown", function (e) { if (e.key === "Escape") { var c = document.querySelector(".dv-card.is-max"); if (c) toggleMax(c, false); } });
   function table(rows) { return "<table><tbody>" + rows.map(function (r, i) { return "<tr>" + r.map(function (c) { return (i ? "<td>" : "<th>") + c + (i ? "</td>" : "</th>"); }).join("") + "</tr>"; }).join("") + "</tbody></table>"; }
 
-  // ---------- charts ----------
-  function sparkline(svg, vals) {
-    var w = 96, h = 28, mn = Math.min.apply(0, vals), mx = Math.max.apply(0, vals);
-    var pts = vals.map(function (v, i) { return [i * w / (vals.length - 1), h - 3 - (v - mn) / (mx - mn || 1) * (h - 6)]; });
-    el("polyline", { points: pts.map(function (p) { return p.join(","); }).join(" "), class: "dv-spark" }, svg);
-    var p = pts[pts.length - 1]; el("circle", { cx: p[0], cy: p[1], r: 3, class: "dv-spark-end" }, svg);
+  // ---------- charts (Apache ECharts, see charts.js) ----------
+  var C = window.N2C;
+  function cv(n) { return getComputedStyle(root).getPropertyValue(n).trim(); }
+  function box(parent, cls) { var d = document.createElement("div"); d.className = "dv-ec " + (cls || ""); parent.appendChild(d); return d; }
+  function axisBase() { return { axisLine: { show: false }, axisTick: { show: false }, axisLabel: { color: cv("--dv-ink3"), fontSize: 11 }, splitLine: { lineStyle: { color: cv("--dv-line") } } }; }
+  function sparkline(host, vals) {
+    var n = vals.length;
+    C.chart(host, function () { return { grid: { left: 2, right: 6, top: 4, bottom: 4 }, xAxis: { type: "category", show: false, boundaryGap: false, data: vals.map(function (v, i) { return i; }) },
+      yAxis: { type: "value", show: false, scale: true }, series: [{ type: "line", data: vals, silent: true, smooth: .3, symbol: function (v, p) { return p.dataIndex === n - 1 ? "circle" : "none"; }, symbolSize: 6,
+        itemStyle: { color: cv("--dv-s1"), borderColor: cv("--dv-surface"), borderWidth: 2 }, lineStyle: { color: cv("--dv-s2"), width: 1.5 }, animationDuration: 1200 }] }; });
   }
-  function lineChart(box, d, t) {
-    var W = 640, H = 165, m = { l: 34, r: 12, t: 16, b: 24 }, iw = W - m.l - m.r, ih = H - m.t - m.b, n = d.series.length;
-    var svg = el("svg", { viewBox: "0 0 " + W + " " + H, class: "dv-svg", role: "img", "aria-label": t.trend }, box);
-    var x = function (i) { return m.l + i * iw / (n - 1); }, y = function (v) { return m.t + ih - v / 100 * ih; };
-    [0, 25, 50, 75, 100].forEach(function (g) { el("line", { x1: m.l, x2: W - m.r, y1: y(g), y2: y(g), class: "dv-grid" }, svg); var tx = el("text", { x: m.l - 6, y: y(g) + 4, class: "dv-ax", "text-anchor": "end" }, svg); tx.textContent = g; });
-    var step = n > 40 ? 15 : 5; for (var i = 0; i < n; i += step) { var tx = el("text", { x: x(i), y: H - 6, class: "dv-ax", "text-anchor": "middle" }, svg); tx.textContent = i + 1; }
-    var path = function (arr) { return arr.map(function (v, i) { return (i ? "L" : "M") + x(i).toFixed(1) + " " + y(v).toFixed(1); }).join(""); };
-    el("path", { d: path(d.series) + "L" + x(n - 1) + " " + y(0) + "L" + x(0) + " " + y(0) + "Z", class: "dv-area" }, svg);
-    el("path", { d: path(d.avg), class: "dv-line2" }, svg);
-    el("path", { d: path(d.series), class: "dv-line1" }, svg);
-    var pk = d.series.indexOf(Math.max.apply(0, d.series));
-    el("circle", { cx: x(pk), cy: y(d.series[pk]), r: 4.5, class: "dv-dot" }, svg);
-    var pl = el("text", { x: x(pk), y: y(d.series[pk]) - 10, class: "dv-lab", "text-anchor": "middle" }, svg); pl.textContent = t.peak + " " + Math.round(d.series[pk]);
-    var cross = el("line", { y1: m.t, y2: m.t + ih, class: "dv-cross", opacity: 0 }, svg), hd = el("circle", { r: 4.5, class: "dv-dot", opacity: 0 }, svg);
-    var hit = el("rect", { x: m.l, y: m.t, width: iw, height: ih, fill: "transparent" }, svg);
-    hit.addEventListener("pointermove", function (e) { var b = svg.getBoundingClientRect(), px = (e.clientX - b.left) / b.width * W, i = Math.max(0, Math.min(n - 1, Math.round((px - m.l) / iw * (n - 1))));
-      cross.setAttribute("x1", x(i)); cross.setAttribute("x2", x(i)); cross.setAttribute("opacity", 1); hd.setAttribute("cx", x(i)); hd.setAttribute("cy", y(d.series[i])); hd.setAttribute("opacity", 1);
-      showTip("<b>" + t.day + " " + (i + 1) + "</b><span><i class='k1'></i>" + t.daily + " " + Math.round(d.series[i]) + "</span><span><i class='k2'></i>" + t.avg7 + " " + Math.round(d.avg[i]) + "</span>", b.left + x(i) / W * b.width, b.top + y(d.series[i]) / H * b.height); });
-    hit.addEventListener("pointerleave", function () { cross.setAttribute("opacity", 0); hd.setAttribute("opacity", 0); hideTip(); });
-    var lg = document.createElement("div"); lg.className = "dv-legend"; lg.innerHTML = '<span><i class="k1"></i>' + t.daily + '</span><span><i class="k2"></i>' + t.avg7 + "</span>"; box.appendChild(lg);
+  function lineChart(host, d, t) {
+    var n = d.series.length, pk = d.series.indexOf(Math.max.apply(0, d.series)), hi = [];
+    // story: shade the stretch where load stays high around the peak, so the eye lands there first
+    var a = pk, b = pk; while (a > 0 && d.series[a - 1] >= 55) a--; while (b < n - 1 && d.series[b + 1] >= 55) b++;
+    if (b > a) hi = [[{ xAxis: a, name: t.peak + " " + Math.round(d.series[pk]) }, { xAxis: b }]];
+    C.chart(box(host, "dv-trendec"), function () { return {
+      grid: { left: 36, right: 14, top: 26, bottom: 26 },
+      tooltip: C.tooltip({ trigger: "axis", axisPointer: { type: "line", lineStyle: { color: cv("--dv-ink3"), type: [3, 3] } },
+        formatter: function (ps) { var i = ps[0].dataIndex; return "<b>" + t.day + " " + (i + 1) + "</b><br>" + t.daily + " " + Math.round(d.series[i]) + "<br>" + t.avg7 + " " + Math.round(d.avg[i]); } }),
+      xAxis: Object.assign(axisBase(), { type: "category", boundaryGap: false, data: d.series.map(function (v, i) { return i + 1; }), axisLabel: { color: cv("--dv-ink3"), fontSize: 11, interval: n > 40 ? 14 : 4 } }),
+      yAxis: Object.assign(axisBase(), { type: "value", min: 0, max: 100, interval: 25 }),
+      series: [
+        { name: t.daily, type: "line", data: d.series.map(function (v) { return Math.round(v * 10) / 10; }), smooth: .25, symbol: "none", lineStyle: { color: cv("--dv-s1"), width: 2.2 },
+          areaStyle: { color: { type: "linear", x: 0, y: 0, x2: 0, y2: 1, colorStops: [{ offset: 0, color: cv("--dv-s1") + "33" }, { offset: 1, color: cv("--dv-s1") + "00" }] } },
+          markArea: { silent: true, itemStyle: { color: cv("--dv-s1") + "12" }, label: { color: cv("--dv-ink2"), fontSize: 11, fontWeight: 600, position: "insideTop", distance: 4 }, data: hi },
+          markPoint: { symbol: "circle", symbolSize: 9, itemStyle: { color: cv("--dv-s1"), borderColor: cv("--dv-surface"), borderWidth: 2 }, label: { show: false }, data: [{ coord: [pk, d.series[pk]] }] },
+          animationDuration: 1600, animationEasing: "cubicInOut" },
+        { name: t.avg7, type: "line", data: d.avg.map(function (v) { return Math.round(v * 10) / 10; }), smooth: .3, symbol: "none", lineStyle: { color: cv("--dv-s2"), width: 2 }, animationDuration: 1600, animationDelay: 300 }
+      ]
+    }; });
+    var lg = document.createElement("div"); lg.className = "dv-legend"; lg.innerHTML = '<span><i class="k1"></i>' + t.daily + '</span><span><i class="k2"></i>' + t.avg7 + "</span>"; host.appendChild(lg);
   }
-  function heatmap(box, d, t) {
-    var cw = 16, ch = 26, ml = 34, mt = 4, W = ml + 24 * cw + 4, H = mt + 7 * ch + 20, mx = Math.max.apply(0, d.heat.map(function (r) { return Math.max.apply(0, r); }));
-    var svg = el("svg", { viewBox: "0 0 " + W + " " + H, class: "dv-svg", role: "img", "aria-label": t.heat }, box);
-    d.heat.forEach(function (row, di) {
-      var lab = el("text", { x: ml - 6, y: mt + di * ch + ch / 2 + 4, class: "dv-ax", "text-anchor": "end" }, svg); lab.textContent = t.days[di];
-      row.forEach(function (v, h) {
-        var k = Math.min(5, Math.floor(v / mx * 6)), c = el("rect", { x: ml + h * cw + 1, y: mt + di * ch + 1, width: cw - 2, height: ch - 2, rx: 2, class: "dv-h" + k }, svg);
-        c.addEventListener("pointerenter", function () { var b = c.getBoundingClientRect(); showTip("<b>" + t.days[di] + " · " + String(h).padStart(2, "0") + ":00</b><span>" + fmt(v) + " " + t.count + "</span>", b.left + b.width / 2, b.top); });
-        c.addEventListener("pointerleave", hideTip);
-      });
-    });
-    [0, 6, 12, 18, 23].forEach(function (h) { var tx = el("text", { x: ml + h * cw + cw / 2, y: H - 4, class: "dv-ax", "text-anchor": "middle" }, svg); tx.textContent = String(h).padStart(2, "0"); });
-    var lg = document.createElement("div"); lg.className = "dv-scale"; lg.innerHTML = "<span>0</span>" + [0, 1, 2, 3, 4, 5].map(function (k) { return '<i class="dv-h' + k + '"></i>'; }).join("") + "<span>" + fmt(mx) + "</span>"; box.appendChild(lg);
+  function heatmap(host, d, t) {
+    var mx = Math.max.apply(0, d.heat.map(function (r) { return Math.max.apply(0, r); })), data = [];
+    d.heat.forEach(function (row, di) { row.forEach(function (v, h) { data.push([h, di, v]); }); });
+    C.chart(box(host, "dv-heatec"), function () { return {
+      grid: { left: 34, right: 4, top: 4, bottom: 22 },
+      tooltip: C.tooltip({ formatter: function (p) { return "<b>" + t.days[p.value[1]] + " · " + String(p.value[0]).padStart(2, "0") + ":00</b><br>" + fmt(p.value[2]) + " " + t.count; } }),
+      xAxis: { type: "category", data: Array.from({ length: 24 }, function (v, i) { return String(i).padStart(2, "0"); }), axisLine: { show: false }, axisTick: { show: false }, splitArea: { show: false },
+        axisLabel: { color: cv("--dv-ink3"), fontSize: 11, interval: 5 } },
+      yAxis: { type: "category", data: t.days, inverse: true, axisLine: { show: false }, axisTick: { show: false }, axisLabel: { color: cv("--dv-ink3"), fontSize: 11 } },
+      visualMap: { show: false, min: 0, max: mx, dimension: 2, inRange: { color: [0, 1, 2, 3, 4, 5].map(function (k) { return cv("--dv-h" + k); }) } },
+      series: [{ type: "heatmap", data: data, itemStyle: { borderRadius: 3, borderColor: cv("--dv-surface"), borderWidth: 2 }, emphasis: { itemStyle: { borderColor: cv("--dv-ink"), borderWidth: 1.5 } },
+        animationDuration: 900, animationDelay: function (i) { return (i % 24) * 18 + Math.floor(i / 24) * 30; } }]
+    }; });
+    var lg = document.createElement("div"); lg.className = "dv-scale"; lg.innerHTML = "<span>0</span>" + [0, 1, 2, 3, 4, 5].map(function (k) { return '<i class="dv-h' + k + '"></i>'; }).join("") + "<span>" + fmt(mx) + "</span>"; host.appendChild(lg);
   }
-  function hbars(box, labels, vals, t, unit) {
-    var ul = document.createElement("ul"); ul.className = "dv-bars";
-    labels.forEach(function (lab, i) {
-      var li = document.createElement("li"); li.innerHTML = "<span>" + lab + "</span><div><i style='width:" + vals[i] + "%'></i></div><b>" + vals[i] + "%</b>";
-      li.addEventListener("pointerenter", function () { var b = li.querySelector("i").getBoundingClientRect(); showTip("<b>" + lab + "</b><span>" + vals[i] + "% " + unit + "</span>", b.right, b.top); });
-      li.addEventListener("pointerleave", hideTip); ul.appendChild(li);
-    });
-    box.appendChild(ul);
+  function hbars(host, labels, vals, t, unit) {
+    var top = vals.indexOf(Math.max.apply(0, vals)), el2 = box(host, "dv-barsec"); el2.style.height = (labels.length * 34 + 8) + "px";
+    C.chart(el2, function () { return {
+      grid: { left: 122, right: 42, top: 4, bottom: 4 },
+      tooltip: C.tooltip({ formatter: function (p) { return "<b>" + p.name + "</b><br>" + p.value + "% " + unit; } }),
+      xAxis: { type: "value", max: 100, show: false },
+      yAxis: { type: "category", data: labels, inverse: true, axisLine: { show: false }, axisTick: { show: false }, axisLabel: { color: cv("--dv-ink"), fontSize: 12.5, align: "left", margin: 118, width: 112, overflow: "truncate" } },
+      series: [{ type: "bar", data: vals.map(function (v, i) { return { value: v, itemStyle: { color: cv("--dv-s1"), opacity: i === top ? 1 : .72 } }; }), barWidth: 13, showBackground: true,
+        backgroundStyle: { color: cv("--dv-line"), borderRadius: [0, 4, 4, 0] }, itemStyle: { borderRadius: [0, 4, 4, 0] },
+        label: { show: true, position: "right", formatter: "{c}%", color: cv("--dv-ink"), fontWeight: 600, fontSize: 13 }, animationDuration: 1000, animationDelay: function (i) { return i * 90; } }]
+    }; });
   }
-  function stacked(box, d, t) {
-    var wrap = document.createElement("div"); wrap.className = "dv-stack";
-    CITIES.forEach(function (c, ci) {
-      var row = document.createElement("div"); row.className = "dv-srow"; row.innerHTML = "<span>" + c + "</span><div></div>";
-      d.risk[ci].forEach(function (v, k) {
-        var seg = document.createElement("i"); seg.className = "dv-r" + k; seg.style.width = v + "%";
-        if (v >= 12) seg.textContent = Math.round(v) + "%";
-        seg.addEventListener("pointerenter", function () { var b = seg.getBoundingClientRect(); showTip("<b>" + c + "</b><span><i class='dv-r" + k + "'></i>" + t.r[k] + " " + String(v).replace(".", ",") + "%</span>", b.left + b.width / 2, b.top); });
-        seg.addEventListener("pointerleave", hideTip); row.querySelector("div").appendChild(seg);
-      });
-      wrap.appendChild(row);
-    });
-    box.appendChild(wrap);
-    var lg = document.createElement("div"); lg.className = "dv-legend"; lg.innerHTML = t.r.map(function (r, k) { return '<span><i class="sw dv-r' + k + '"></i>' + r + "</span>"; }).join(""); box.appendChild(lg);
+  function stacked(host, d, t) {
+    var el2 = box(host, "dv-stackec"); el2.style.height = (CITIES.length * 38 + 8) + "px";
+    C.chart(el2, function () { return {
+      grid: { left: 4, right: 8, top: 4, bottom: 4, containLabel: true },
+      tooltip: C.tooltip({ trigger: "axis", axisPointer: { type: "shadow", shadowStyle: { color: cv("--dv-line") + "80" } },
+        formatter: function (ps) { return "<b>" + ps[0].name + "</b>" + ps.map(function (p) { return "<br>" + p.marker + p.seriesName + " " + String(p.value).replace(".", ",") + "%"; }).join(""); } }),
+      xAxis: { type: "value", max: 100, show: false },
+      yAxis: { type: "category", data: CITIES, inverse: true, axisLine: { show: false }, axisTick: { show: false }, axisLabel: { color: cv("--dv-ink"), fontSize: 13 } },
+      series: [0, 1, 2, 3].map(function (k) {
+        return { name: t.r[k], type: "bar", stack: "r", barWidth: 20, data: d.risk.map(function (r) { return Math.round(r[k] * 10) / 10; }),
+          itemStyle: { color: cv("--dv-r" + k), borderColor: cv("--dv-surface"), borderWidth: 1, borderRadius: k === 0 ? [4, 0, 0, 4] : k === 3 ? [0, 4, 4, 0] : 0 },
+          label: { show: true, formatter: function (p) { return p.value >= 12 ? Math.round(p.value) + "%" : ""; }, color: k === 0 ? "#1c1410" : "#fff", fontSize: 11.5, fontWeight: 600 },
+          animationDuration: 900, animationDelay: function (i) { return i * 100 + k * 160; } };
+      })
+    }; });
+    var lg = document.createElement("div"); lg.className = "dv-legend"; lg.innerHTML = t.r.map(function (r, k) { return '<span><i class="sw dv-r' + k + '"></i>' + r + "</span>"; }).join(""); host.appendChild(lg);
   }
-
   // ---------- render ----------
   function render() {
     var t = L(), d = data();
+    if (C) C.sweep(root);
     root.innerHTML = "";
     var bar = document.createElement("div"); bar.className = "dv-filters";
     bar.innerHTML = '<div class="dv-f"><span>' + t.period + '</span><div class="dv-seg" role="group">' +
@@ -208,7 +219,7 @@
       var good = (q.d > 0) === q.good, s = document.createElement("div"); s.className = "dv-kpi";
       s.innerHTML = "<small>" + t["k" + (i + 1)] + "</small><b>" + q.f + "</b><span class='dv-delta " + (good ? "good" : "bad") + "'><svg viewBox='0 0 10 10' aria-hidden='true'><path d='" + (q.d > 0 ? "M5 1 L9 7 H1Z" : "M5 9 L9 3 H1Z") + "'/></svg>" +
         (q.d > 0 ? "+" : "−") + String(Math.abs(q.d)).replace(".", ",") + (q.pp ? " pp" : "%") + " <em>" + t.vs + "</em></span>";
-      var sv = el("svg", { viewBox: "0 0 96 28", class: "dv-sparksvg", "aria-hidden": "true" }); s.appendChild(sv); sparkline(sv, q.s); k.appendChild(s);
+      var sv = document.createElement("div"); sv.className = "dv-sparksvg"; sv.setAttribute("aria-hidden", "true"); s.appendChild(sv); sparkline(sv, q.s); k.appendChild(s);
     });
     root.appendChild(k);
 
